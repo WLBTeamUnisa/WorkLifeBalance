@@ -2,11 +2,5 @@ language: java
   
 sudo: false
 
-before_install:
-  - mvn checkstyle:check
-  
-after_success:
-  - mvn cobertura:cobertura
-  - bash <(curl -s https://codecov.io/bash)
 
 notifications: never
