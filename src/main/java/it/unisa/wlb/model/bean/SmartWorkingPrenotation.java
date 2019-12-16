@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 
@@ -17,12 +16,11 @@ public class SmartWorkingPrenotation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private SmartWorkingPrenotation id;
+	private SmartWorkingPrenotationPK id;
 
 	@Column(name="CALENDAR_WEEK")
 	private int calendarWeek;
 
-	@Temporal(TemporalType.DATE)
 	private Date year;
 
 	//bi-directional many-to-one association to Date
@@ -36,11 +34,11 @@ public class SmartWorkingPrenotation implements Serializable {
 	public SmartWorkingPrenotation() {
 	}
 
-	public SmartWorkingPrenotation getId() {
+	public SmartWorkingPrenotationPK getId() {
 		return this.id;
 	}
 
-	public void setId(SmartWorkingPrenotation id) {
+	public void setId(SmartWorkingPrenotationPK id) {
 		this.id = id;
 	}
 
@@ -52,7 +50,7 @@ public class SmartWorkingPrenotation implements Serializable {
 		this.calendarWeek = calendarWeek;
 	}
 
-	public Date getYear() {
+	public Object getYear() {
 		return this.year;
 	}
 
