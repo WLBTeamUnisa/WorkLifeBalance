@@ -1,8 +1,5 @@
 language: java
   
 sudo: false
-
-before_install:
-  - mvn checkstyle:check
   
 notifications: never
