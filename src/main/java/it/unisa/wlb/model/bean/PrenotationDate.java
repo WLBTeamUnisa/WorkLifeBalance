@@ -5,16 +5,17 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the DATE database table.
+ * The persistent class for the PRENOTATION_DATE database table.
  * 
  */
 @Entity
-@NamedQuery(name="Date.findAll", query="SELECT d FROM Date d")
-public class Date implements Serializable {
+@Table(name="PRENOTATION_DATE")
+@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p")
+public class PrenotationDate implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private DatePK id;
+	private PrenotationDatePK id;
 
 	//bi-directional many-to-one association to SmartWorkingPrenotation
 	@ManyToOne
@@ -24,14 +25,14 @@ public class Date implements Serializable {
 		})
 	private SmartWorkingPrenotation smartWorkingPrenotation;
 
-	public Date() {
+	public PrenotationDate() {
 	}
 
-	public DatePK getId() {
+	public PrenotationDatePK getId() {
 		return this.id;
 	}
 
-	public void setId(DatePK id) {
+	public void setId(PrenotationDatePK id) {
 		this.id = id;
 	}
 

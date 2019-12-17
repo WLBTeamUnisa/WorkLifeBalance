@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,11 +22,12 @@ public class SmartWorkingPrenotation implements Serializable {
 	@Column(name="CALENDAR_WEEK")
 	private int calendarWeek;
 
+	@Temporal(TemporalType.DATE)
 	private Date year;
 
-	//bi-directional many-to-one association to Date
+	//bi-directional many-to-one association to PrenotationDate
 	@OneToMany(mappedBy="smartWorkingPrenotation")
-	private List<Date> dates;
+	private List<PrenotationDate> prenotationDates;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne
@@ -50,7 +52,7 @@ public class SmartWorkingPrenotation implements Serializable {
 		this.calendarWeek = calendarWeek;
 	}
 
-	public Object getYear() {
+	public Date getYear() {
 		return this.year;
 	}
 
@@ -58,26 +60,26 @@ public class SmartWorkingPrenotation implements Serializable {
 		this.year = year;
 	}
 
-	public List<Date> getDates() {
-		return this.dates;
+	public List<PrenotationDate> getPrenotationDates() {
+		return this.prenotationDates;
 	}
 
-	public void setDates(List<Date> dates) {
-		this.dates = dates;
+	public void setPrenotationDates(List<PrenotationDate> prenotationDates) {
+		this.prenotationDates = prenotationDates;
 	}
 
-	public Date addDate(Date date) {
-		getDates().add(date);
-		date.setSmartWorkingPrenotation(this);
+	public PrenotationDate addPrenotationDate(PrenotationDate prenotationDate) {
+		getPrenotationDates().add(prenotationDate);
+		prenotationDate.setSmartWorkingPrenotation(this);
 
-		return date;
+		return prenotationDate;
 	}
 
-	public Date removeDate(Date date) {
-		getDates().remove(date);
-		date.setSmartWorkingPrenotation(null);
+	public PrenotationDate removePrenotationDate(PrenotationDate prenotationDate) {
+		getPrenotationDates().remove(prenotationDate);
+		prenotationDate.setSmartWorkingPrenotation(null);
 
-		return date;
+		return prenotationDate;
 	}
 
 	public Employee getEmployee() {
