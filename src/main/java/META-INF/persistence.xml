@@ -18,5 +18,8 @@
 		<class>it.unisa.wlb.model.bean.Workstation</class>
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotation</class>
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotationPK</class>
+		<class>model.Date</class>
+		<class>model.DatePK</class>
+		<class>model.WorkstationPK</class>
 	</persistence-unit>
 </persistence>

@@ -33,13 +33,13 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy="employee")
 	private List<Project> projects1;
 
-	//bi-directional many-to-one association to SmartWorkingPrenotation
-	@OneToMany(mappedBy="employee")
-	private List<SmartWorkingPrenotation> smartWorkingPrenotations;
-
 	//bi-directional many-to-many association to Project
 	@ManyToMany(mappedBy="employees")
 	private List<Project> projects2;
+
+	//bi-directional many-to-one association to SmartWorkingPrenotation
+	@OneToMany(mappedBy="employee")
+	private List<SmartWorkingPrenotation> smartWorkingPrenotations;
 
 	//bi-directional many-to-one association to WorkstationPrenotation
 	@OneToMany(mappedBy="employee")
@@ -132,6 +132,14 @@ public class Employee implements Serializable {
 		return projects1;
 	}
 
+	public List<Project> getProjects2() {
+		return this.projects2;
+	}
+
+	public void setProjects2(List<Project> projects2) {
+		this.projects2 = projects2;
+	}
+
 	public List<SmartWorkingPrenotation> getSmartWorkingPrenotations() {
 		return this.smartWorkingPrenotations;
 	}
@@ -152,14 +160,6 @@ public class Employee implements Serializable {
 		smartWorkingPrenotation.setEmployee(null);
 
 		return smartWorkingPrenotation;
-	}
-
-	public List<Project> getProjects2() {
-		return this.projects2;
-	}
-
-	public void setProjects2(List<Project> projects2) {
-		this.projects2 = projects2;
 	}
 
 	public List<WorkstationPrenotation> getWorkstationPrenotations() {

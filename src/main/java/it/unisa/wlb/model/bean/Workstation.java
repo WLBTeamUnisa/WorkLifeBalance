@@ -16,15 +16,15 @@ public class Workstation implements Serializable {
 
 	@EmbeddedId
 	private WorkstationPK id;
-	
-	@ManyToOne
-	@JoinColumn(name="NUM_FLOOR")
-	private Floor floor;
 
+	//bi-directional many-to-one association to Room
 	@ManyToOne
-	@JoinColumn(name="NUM_FLOOR")
+	@JoinColumns({
+		@JoinColumn(name="NUM_FLOOR", referencedColumnName="NUM_FLOOR"),
+		@JoinColumn(name="NUM_ROOM", referencedColumnName="NUM_ROOM")
+		})
 	private Room room;
-	
+
 	//bi-directional many-to-one association to WorkstationPrenotation
 	@OneToMany(mappedBy="workstation")
 	private List<WorkstationPrenotation> workstationPrenotations;
@@ -39,20 +39,12 @@ public class Workstation implements Serializable {
 	public void setId(WorkstationPK id) {
 		this.id = id;
 	}
-	
-	public Floor getFloor() {
-		return this.floor;
-	}
 
-	public void setFloor(Floor floor) {
-		this.floor = floor;
-	}
-	
 	public Room getRoom() {
 		return this.room;
 	}
 
-	public void setFloor(Room room) {
+	public void setRoom(Room room) {
 		this.room = room;
 	}
 

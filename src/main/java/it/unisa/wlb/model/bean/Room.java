@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -21,6 +22,10 @@ public class Room implements Serializable {
 	@JoinColumn(name="NUM_FLOOR")
 	private Floor floor;
 
+	//bi-directional many-to-one association to Workstation
+	@OneToMany(mappedBy="room")
+	private List<Workstation> workstations;
+
 	public Room() {
 	}
 
@@ -38,6 +43,28 @@ public class Room implements Serializable {
 
 	public void setFloor(Floor floor) {
 		this.floor = floor;
+	}
+
+	public List<Workstation> getWorkstations() {
+		return this.workstations;
+	}
+
+	public void setWorkstations(List<Workstation> workstations) {
+		this.workstations = workstations;
+	}
+
+	public Workstation addWorkstation(Workstation workstation) {
+		getWorkstations().add(workstation);
+		workstation.setRoom(this);
+
+		return workstation;
+	}
+
+	public Workstation removeWorkstation(Workstation workstation) {
+		getWorkstations().remove(workstation);
+		workstation.setRoom(null);
+
+		return workstation;
 	}
 
 }
