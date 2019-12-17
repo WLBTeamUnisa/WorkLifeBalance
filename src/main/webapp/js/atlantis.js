@@ -150,7 +150,7 @@ $(document).ready(function(){
 		});
 
 		$('.wrapper').mouseup(function(e)
-		{
+				{
 			var subject = $('.quick-sidebar'); 
 
 			if(e.target.className != subject.attr('class') && !subject.has(e.target).length)
@@ -160,7 +160,7 @@ $(document).ready(function(){
 				$('.quick-sidebar-overlay').remove();
 				quick_sidebar_open = 0;
 			}
-		});
+				});
 
 		$(".close-quick-sidebar").on('click', function(){
 			$('html').removeClass('quick_sidebar_open');
@@ -236,7 +236,7 @@ $(document).ready(function(){
 			pageSidebarToggler.removeClass('toggled');
 			page_sidebar_open = 0;
 		});
-		
+
 		toggle_page_sidebar = true;
 	}
 
@@ -310,7 +310,7 @@ $(document).ready(function(){
 
 });
 
-// Input File Image
+//Input File Image
 
 function readURL(input) {
 	if (input.files && input.files[0]) {
@@ -328,7 +328,7 @@ $('.input-file-image input[type="file"').change(function () {
 	readURL(this);
 });
 
-// Show Password
+//Show Password
 
 function showPassword(button) {
 	var inputPassword = $(button).parent().find('input');
@@ -343,7 +343,7 @@ $('.show-password').on('click', function(){
 	showPassword(this);
 })
 
-// Sign In & Sign Up
+//Sign In & Sign Up
 var containerSignIn = $('.container-login'),
 containerSignUp = $('.container-signup'),
 showSignIn = true,

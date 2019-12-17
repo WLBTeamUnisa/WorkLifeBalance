@@ -128,7 +128,7 @@ $(document).ready(function(){
 		});
 
 		$('.wrapper').mouseup(function(e)
-		{
+				{
 			var subject = $('.nav-bottom'); 
 
 			if(e.target.className != subject.attr('class') && !subject.has(e.target).length)
@@ -138,7 +138,7 @@ $(document).ready(function(){
 				toggle.removeClass('toggled');
 				nav_open = 0;
 			}
-		});
+				});
 
 		$(".nav-bottom .close-menu").on('click', function(){
 			$('html').removeClass('nav_open');
@@ -168,7 +168,7 @@ $(document).ready(function(){
 		});
 
 		$('.wrapper').mouseup(function(e)
-		{
+				{
 			var subject = $('.navbar-header-left'); 
 
 			if(e.target.className != subject.attr('class') && !subject.has(e.target).length)
@@ -178,7 +178,7 @@ $(document).ready(function(){
 				toggle.removeClass('toggled');
 				nav_open = 0;
 			}
-		});
+				});
 
 		$(".page-navigation .close-menu").on('click', function(){
 			$('html').removeClass('nav_open');
@@ -208,7 +208,7 @@ $(document).ready(function(){
 		});
 
 		$('.wrapper').mouseup(function(e)
-		{
+				{
 			var subject = $('.quick-sidebar'); 
 
 			if(e.target.className != subject.attr('class') && !subject.has(e.target).length)
@@ -218,7 +218,7 @@ $(document).ready(function(){
 				$('.quick-sidebar-overlay').remove();
 				quick_sidebar_open = 0;
 			}
-		});
+				});
 
 		$(".close-quick-sidebar").on('click', function(){
 			$('html').removeClass('quick_sidebar_open');
@@ -294,7 +294,7 @@ $(document).ready(function(){
 			pageSidebarToggler.removeClass('toggled');
 			page_sidebar_open = 0;
 		});
-		
+
 		toggle_page_sidebar = true;
 	}
 
@@ -357,7 +357,7 @@ $(document).ready(function(){
 
 });
 
-// Navigation in mobile menu on click
+//Navigation in mobile menu on click
 var navItemClicked = $('.page-navigation > .nav-item');
 navItemClicked.on("click", function(e) {
 	if(window.matchMedia('(max-width: 991px)').matches) {
@@ -370,7 +370,7 @@ navItemClicked.on("click", function(e) {
 	}        
 });
 
-// Input File Image
+//Input File Image
 
 function readURL(input) {
 	if (input.files && input.files[0]) {
@@ -388,7 +388,7 @@ $('.input-file-image input[type="file"').change(function () {
 	readURL(this);
 });
 
-// Show Password
+//Show Password
 
 function showPassword(button) {
 	var inputPassword = $(button).parent().find('input');
@@ -403,7 +403,7 @@ $('.show-password').on('click', function(){
 	showPassword(this);
 })
 
-// Sign In & Sign Up
+//Sign In & Sign Up
 var containerSignIn = $('.container-login'),
 containerSignUp = $('.container-signup'),
 showSignIn = true,
