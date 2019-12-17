@@ -1,11 +1,11 @@
 language: java
 
 jdk:
-  - oraclejdk9
   - openjdk8
-  
+
 sudo: false
 
-
+before_install:
+  - mvn checkstyle:check
 
 notifications: never
