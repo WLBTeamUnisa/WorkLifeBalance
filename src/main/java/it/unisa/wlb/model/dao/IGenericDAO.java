@@ -11,5 +11,5 @@ public interface IGenericDAO<E> {
 	public E update(E entityClass);
 
 	public List<E> retrieveAll(E entityClass);
-
+	
 }
