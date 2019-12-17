@@ -1,7 +1,6 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,32 +19,32 @@ public class WorkstationPK implements Serializable {
 
   @Column(name="NUM_FLOOR", insertable=false, updatable=false)
   private int floor;
-  
+
   @Column(name="NUM_ROOM", insertable=false, updatable=false)
   private int room;
-  
+
 
   public WorkstationPK() {}
-  
-	public int getWorkstation() {
-		return this.workstation;
-	}
-	public void setNWorkstation(int workstation) {
-		this.workstation = workstation;
-	}
-  
-  	public int getRoom() {
-		return this.room;
-	}
-	public void setRoom(int room) {
-		this.room = room;
-	}
-	public int getFloor() {
-		return this.floor;
-	}
-	public void setFloor(int floor) {
-		this.floor = floor;
-	}
+
+  public int getWorkstation() {
+    return this.workstation;
+  }
+  public void setNWorkstation(int workstation) {
+    this.workstation = workstation;
+  }
+
+  public int getRoom() {
+    return this.room;
+  }
+  public void setRoom(int room) {
+    this.room = room;
+  }
+  public int getFloor() {
+    return this.floor;
+  }
+  public void setFloor(int floor) {
+    this.floor = floor;
+  }
 
   /** Override.
    *
