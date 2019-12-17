@@ -13,7 +13,6 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/atlantis.css">
-
 <!-- Fonts and icons -->
 <script src="js/plugin/webfont/webfont.min.js"></script>
 <script>
@@ -83,5 +82,6 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+
 </body>
 </html>
