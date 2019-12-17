@@ -7,7 +7,7 @@
 		<!-- Logo Header -->
 		<div class="logo-header" data-background-color="orange">
 
-			<a href="." class="logo"><img src="assets/img/logo.svg"
+			<a href="." class="logo"><img src="img/logo.svg"
 				alt="navbar brand" class="navbar-brand"></a>
 			<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
 				data-toggle="collapse" data-target="collapse" aria-expanded="false"
@@ -39,7 +39,7 @@
 						class="dropdown-toggle profile-pic" data-toggle="dropdown"
 						href="#" aria-expanded="false">
 							<div class="avatar-sm">
-								<img src="../assets/img/profile.jpg" alt="..."
+								<img src="img/profile.jpg" alt="..."
 									class="avatar-img rounded-circle">
 							</div>
 					</a>
@@ -48,7 +48,7 @@
 								<li>
 									<div class="user-box">
 										<div class="avatar-lg">
-											<img src="../assets/img/profile.jpg" alt="image profile"
+											<img src=img/profile.jpg " alt="image profile"
 												class="avatar-img rounded">
 										</div>
 										<div class="u-text">
@@ -123,13 +123,6 @@
 							<p class="b">Smart Working</p></a></li>
 				</ul>
 			</div>
-		</div>
-	</div>
-
-	<div class="main-panel">
-		<!-- CORPO PAGINA-->
-		<div class="content" style="display: flex; align-items: center;">
-			<div class="container mt-4 text-center"></div>
 		</div>
 	</div>
 </div>
