@@ -34,24 +34,22 @@
 </script>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
-
-	<div class="main-panel">
-		<!-- CORPO PAGINA-->
-		<div class="content" style="display: flex; align-items: center;">
-			<div class="container mt-4 text-center">
-				<div class="col-lg-6 mx-auto">
-					<div class="card">
-						<h1>WORK LIFE BALANCE</h1>
+	<div class="wrapper">
+		<jsp:include page="header.jsp" />
+		<div class="main-panel">
+			<!-- CORPO PAGINA-->
+			<div class="content" style="display: flex; align-items: center;">
+				<div class="container mt-4 text-center">
+					<div class="col-lg-6 mx-auto">
+						<div class="card">
+							<h1>WORK LIFE BALANCE</h1>
+						</div>
 					</div>
 				</div>
 			</div>
+			<jsp:include page="footer.jsp" />
 		</div>
 	</div>
-
-
-	<jsp:include page="footer.jsp" />
-
 	<!--   Core JS Files   -->
 	<script src="js/core/jquery.3.2.1.min.js"></script>
 	<script src="js/core/popper.min.js"></script>
