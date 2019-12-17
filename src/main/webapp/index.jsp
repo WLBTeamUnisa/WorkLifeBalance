@@ -46,7 +46,7 @@
 								<h3>INDEX HEAD</h3>
 							</div>
 							<div class="card-body">
-									<h3>INDEX BODY</h3>
+								<h3>INDEX BODY</h3>
 							</div>
 						</div>
 					</div>
