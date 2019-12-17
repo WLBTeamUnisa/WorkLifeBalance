@@ -12,36 +12,36 @@ import javax.persistence.*;
 @Table(name="PRENOTATION_DATE")
 @NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p")
 public class PrenotationDate implements Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PrenotationDatePK id;
+  @EmbeddedId
+  private PrenotationDatePK id;
 
-	//bi-directional many-to-one association to SmartWorkingPrenotation
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="EMPLOYEE_EMAIL", referencedColumnName="EMPLOYEE_EMAIL"),
-		@JoinColumn(name="ID_PRENOTATION_SW", referencedColumnName="ID")
-		})
-	private SmartWorkingPrenotation smartWorkingPrenotation;
+  //bi-directional many-to-one association to SmartWorkingPrenotation
+  @ManyToOne
+  @JoinColumns({
+    @JoinColumn(name="EMPLOYEE_EMAIL", referencedColumnName="EMPLOYEE_EMAIL"),
+    @JoinColumn(name="ID_PRENOTATION_SW", referencedColumnName="ID")
+  })
+  private SmartWorkingPrenotation smartWorkingPrenotation;
 
-	public PrenotationDate() {
-	}
+  public PrenotationDate() {
+  }
 
-	public PrenotationDatePK getId() {
-		return this.id;
-	}
+  public PrenotationDatePK getId() {
+    return this.id;
+  }
 
-	public void setId(PrenotationDatePK id) {
-		this.id = id;
-	}
+  public void setId(PrenotationDatePK id) {
+    this.id = id;
+  }
 
-	public SmartWorkingPrenotation getSmartWorkingPrenotation() {
-		return this.smartWorkingPrenotation;
-	}
+  public SmartWorkingPrenotation getSmartWorkingPrenotation() {
+    return this.smartWorkingPrenotation;
+  }
 
-	public void setSmartWorkingPrenotation(SmartWorkingPrenotation smartWorkingPrenotation) {
-		this.smartWorkingPrenotation = smartWorkingPrenotation;
-	}
+  public void setSmartWorkingPrenotation(SmartWorkingPrenotation smartWorkingPrenotation) {
+    this.smartWorkingPrenotation = smartWorkingPrenotation;
+  }
 
 }

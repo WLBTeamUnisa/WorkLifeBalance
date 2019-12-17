@@ -12,59 +12,59 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
 public class Room implements Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private RoomPK id;
+  @EmbeddedId
+  private RoomPK id;
 
-	//bi-directional many-to-one association to Floor
-	@ManyToOne
-	@JoinColumn(name="NUM_FLOOR")
-	private Floor floor;
+  //bi-directional many-to-one association to Floor
+  @ManyToOne
+  @JoinColumn(name="NUM_FLOOR")
+  private Floor floor;
 
-	//bi-directional many-to-one association to Workstation
-	@OneToMany(mappedBy="room")
-	private List<Workstation> workstations;
+  //bi-directional many-to-one association to Workstation
+  @OneToMany(mappedBy="room")
+  private List<Workstation> workstations;
 
-	public Room() {
-	}
+  public Room() {
+  }
 
-	public RoomPK getId() {
-		return this.id;
-	}
+  public RoomPK getId() {
+    return this.id;
+  }
 
-	public void setId(RoomPK id) {
-		this.id = id;
-	}
+  public void setId(RoomPK id) {
+    this.id = id;
+  }
 
-	public Floor getFloor() {
-		return this.floor;
-	}
+  public Floor getFloor() {
+    return this.floor;
+  }
 
-	public void setFloor(Floor floor) {
-		this.floor = floor;
-	}
+  public void setFloor(Floor floor) {
+    this.floor = floor;
+  }
 
-	public List<Workstation> getWorkstations() {
-		return this.workstations;
-	}
+  public List<Workstation> getWorkstations() {
+    return this.workstations;
+  }
 
-	public void setWorkstations(List<Workstation> workstations) {
-		this.workstations = workstations;
-	}
+  public void setWorkstations(List<Workstation> workstations) {
+    this.workstations = workstations;
+  }
 
-	public Workstation addWorkstation(Workstation workstation) {
-		getWorkstations().add(workstation);
-		workstation.setRoom(this);
+  public Workstation addWorkstation(Workstation workstation) {
+    getWorkstations().add(workstation);
+    workstation.setRoom(this);
 
-		return workstation;
-	}
+    return workstation;
+  }
 
-	public Workstation removeWorkstation(Workstation workstation) {
-		getWorkstations().remove(workstation);
-		workstation.setRoom(null);
+  public Workstation removeWorkstation(Workstation workstation) {
+    getWorkstations().remove(workstation);
+    workstation.setRoom(null);
 
-		return workstation;
-	}
+    return workstation;
+  }
 
 }
