@@ -1,15 +1,14 @@
 package it.unisa.wlb.model.bean;
 
-
 import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * The primary key class for the DATE database table.
+ * The primary key class for the PRENOTATION_DATE database table.
  * 
  */
 @Embeddable
-public class DatePK implements Serializable {
+public class PrenotationDatePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +21,7 @@ public class DatePK implements Serializable {
 	@Column(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
 	private String employeeEmail;
 
-	public DatePK() {
+	public PrenotationDatePK() {
 	}
 	public java.util.Date getDate() {
 		return this.date;
@@ -47,10 +46,10 @@ public class DatePK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof DatePK)) {
+		if (!(other instanceof PrenotationDatePK)) {
 			return false;
 		}
-		DatePK castOther = (DatePK)other;
+		PrenotationDatePK castOther = (PrenotationDatePK)other;
 		return 
 			this.date.equals(castOther.date)
 			&& (this.idPrenotationSw == castOther.idPrenotationSw)
