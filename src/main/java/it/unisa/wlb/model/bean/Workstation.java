@@ -16,7 +16,7 @@ public class Workstation implements Serializable {
 
   @EmbeddedId
   private WorkstationPK id;
-
+ 
   //bi-directional many-to-one association to Room
   @ManyToOne
   @JoinColumns({
