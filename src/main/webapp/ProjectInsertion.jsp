@@ -57,10 +57,10 @@
 								<form action="">
 
 									<div class="form-group row pb-4">
-										<label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+										<label for="name" class="col-sm-2 col-form-label">Name:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="nome" id="nome" value="Marco">
+												name="name" id="name">
 										</div>
 									</div>
 
@@ -68,25 +68,23 @@
 										<label for="scope" class="col-sm-2 col-form-label">Scope:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="scope" id="scope" value="Red">
+												name="scope" id="scope">
 										</div>
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="dataInizio" class="col-sm-2 col-form-label">Data
-											inizio:</label>
+										<label for="startDate" class="col-sm-2 col-form-label">Start date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
-												name="dataInizio" id="dataInizio">
+												name="startDate" id="startDate">
 										</div>
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="dataFine" class="col-sm-2 col-form-label">Data
-											fine:</label>
+										<label for="endDate" class="col-sm-2 col-form-label">End date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
-												name="dataFine" id="dataFine">
+												name=endDate id="endDate">
 										</div>
 									</div>
 
@@ -102,7 +100,7 @@
 										<label for="manager" class="col-sm-2 col-form-label">Manager:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="manager" id="manager" value="m.manager1@wlb.it">
+												name="manager" id="manager">
 										</div>
 									</div>
 
@@ -115,10 +113,11 @@
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
 														<ul class="list-group list-group-bordered">
-															<li class="list-group-item"><i
+															<li class="list-group-item" id="employee1"><i
 																class="fas fa-user my-auto"></i>
 															<p class="my-auto ml-3">m.red10@wlb.it</p></li>
-															<li class="list-group-item"><i
+															
+															<li class="list-group-item" id="employee2"><i
 																class="fas fa-user my-auto"></i>
 															<p class="my-auto ml-3">m.green10@wlb.it</p></li>
 														</ul>
