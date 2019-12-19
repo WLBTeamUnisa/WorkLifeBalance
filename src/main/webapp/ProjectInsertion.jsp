@@ -2,39 +2,39 @@
 <html lang="it">
 
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
-		name='viewport' />
-		
-	<!-- Title -->
-	<title>WLB - Project Insertion</title>
-	
-	<!-- Icon -->
-	<link rel="icon" href="img/icon.ico" type="image/x-icon" />
-	
-	<!-- CSS Files -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/atlantis.css">
-	
-	<!-- Fonts and icons -->
-	<script src="js/plugin/webfont/webfont.min.js"></script>
-	<script>
-		WebFont.load({
-			google : {
-				"families" : [ "Lato:300,400,700,900" ]
-			},
-			custom : {
-				"families" : [ "Flaticon", "Font Awesome 5 Solid",
-						"Font Awesome 5 Regular", "Font Awesome 5 Brands",
-						"simple-line-icons" ],
-				urls : [ 'css/fonts.min.css' ]
-			},
-			active : function() {
-				sessionStorage.fonts = true;
-			}
-		});
-	</script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
+	name='viewport' />
+
+<!-- Title -->
+<title>WLB - Project Insertion</title>
+
+<!-- Icon -->
+<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+
+<!-- CSS Files -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/atlantis.css">
+
+<!-- Fonts and icons -->
+<script src="js/plugin/webfont/webfont.min.js"></script>
+<script>
+	WebFont.load({
+		google : {
+			"families" : [ "Lato:300,400,700,900" ]
+		},
+		custom : {
+			"families" : [ "Flaticon", "Font Awesome 5 Solid",
+					"Font Awesome 5 Regular", "Font Awesome 5 Brands",
+					"simple-line-icons" ],
+			urls : [ 'css/fonts.min.css' ]
+		},
+		active : function() {
+			sessionStorage.fonts = true;
+		}
+	});
+</script>
 </head>
 
 <body>
@@ -73,7 +73,8 @@
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="startDate" class="col-sm-2 col-form-label">Start date:</label>
+										<label for="startDate" class="col-sm-2 col-form-label">Start
+											date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate">
@@ -81,7 +82,8 @@
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="endDate" class="col-sm-2 col-form-label">End date:</label>
+										<label for="endDate" class="col-sm-2 col-form-label">End
+											date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
 												name=endDate id="endDate">
@@ -115,11 +117,11 @@
 														<ul class="list-group list-group-bordered">
 															<li class="list-group-item" id="employee1"><i
 																class="fas fa-user my-auto"></i>
-															<p class="my-auto ml-3">m.red10@wlb.it</p></li>
-															
+																<p class="my-auto ml-3">m.red10@wlb.it</p></li>
+
 															<li class="list-group-item" id="employee2"><i
 																class="fas fa-user my-auto"></i>
-															<p class="my-auto ml-3">m.green10@wlb.it</p></li>
+																<p class="my-auto ml-3">m.green10@wlb.it</p></li>
 														</ul>
 													</div>
 												</div>
@@ -206,7 +208,7 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 	<!--   Core JS Files   -->
 	<script src="js/core/jquery.3.2.1.min.js"></script>
 	<script src="js/core/popper.min.js"></script>
@@ -235,6 +237,6 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
-	
-	</body>
+
+</body>
 </html>
