@@ -23,6 +23,7 @@ public class SmartWorkingPrenotation implements Serializable {
   private int calendarWeek;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="YEAR")
   private Date year;
 
   //bi-directional many-to-one association to PrenotationDate
@@ -31,6 +32,8 @@ public class SmartWorkingPrenotation implements Serializable {
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
+  @JoinColumn(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
+  @MapsId("employeeEmail")
   private Employee employee;
 
   public SmartWorkingPrenotation() {

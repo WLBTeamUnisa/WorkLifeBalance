@@ -16,16 +16,20 @@ public class Project implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name="ID")
   private int id;
 
+  @Column(name="DESCRIPTION")
   private String description;
 
   @Temporal(TemporalType.DATE)
   @Column(name="END_DATE")
   private Date endDate;
 
+  @Column(name="NAME")
   private String name;
 
+  @Column(name="SCOPE")
   private String scope;
 
   @Temporal(TemporalType.DATE)

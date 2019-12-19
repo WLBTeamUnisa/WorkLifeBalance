@@ -7,19 +7,22 @@ import javax.persistence.*;
  * The primary key class for the PRENOTATION_DATE database table.
  * 
  */
+
 @Embeddable
 public class PrenotationDatePK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="DATE")
   private java.util.Date date;
 
-  @Column(name="ID_PRENOTATION_SW", insertable=false, updatable=false)
+  @Column(name="EMPLOYEE_EMAIL")
+  private String employeeEmail;
+  
+  @Column(name="ID_PRENOTATION_SW")
   private int idPrenotationSw;
 
-  @Column(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
-  private String employeeEmail;
 
   public PrenotationDatePK() {
   }

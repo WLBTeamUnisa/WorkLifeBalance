@@ -1,0 +1,50 @@
+package it.unisa.wlb.model.jpa;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import it.unisa.wlb.model.bean.Admin;
+import it.unisa.wlb.model.dao.IAdminDAO;
+
+public class AdminJpa implements IAdminDAO
+{
+    private static final EntityManagerFactory factor=Persistence.createEntityManagerFactory("WorkLifeBalance");
+    private EntityManager entitymanager;
+	
+	public Admin create(Admin entity) 
+	{
+	    entitymanager=factor.createEntityManager();
+	    entitymanager.getTransaction().begin();
+	    entitymanager.persist(entity);
+	    entitymanager.getTransaction().commit();
+		return entity;
+	}
+
+	@Override
+	public void remove(Admin entityClass) 
+	{
+	    entitymanager.remove(entityClass);
+	}
+
+	@Override
+	public Admin update(Admin entityClass) 
+	{
+	    entitymanager.merge(entityClass);
+		return entityClass;
+	}
+
+	@Override
+	public List<Admin> retrieveAll() 
+	{
+		Query q=entitymanager.createQuery("SELECT email FROM Admin");
+		return (List<Admin>) q.getResultList();
+	}
+
+	
+}

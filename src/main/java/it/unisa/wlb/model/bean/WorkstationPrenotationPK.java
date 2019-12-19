@@ -12,9 +12,10 @@ public class WorkstationPrenotationPK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
+  @Column(name="ID")
   private int id;
-
-  @Column(name="EMAIL_EMPLOYEE", insertable=false, updatable=false)
+  
+  @Column(name="EMPLOYEE_EMAIL")
   private String emailEmployee;
 
   public WorkstationPrenotationPK() {
