@@ -26,9 +26,10 @@ public class WorkstationPrenotation implements Serializable {
   private Date prenotationDate;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="YEAR")
   private Date year;
 
-	//bi-directional many-to-one association to Employee
+  //bi-directional many-to-one association to Employee
 	@ManyToOne
 	@JoinColumn(name="EMAIL_EMPLOYEE", insertable=false, updatable=false)
 	private Employee employee;
@@ -36,9 +37,7 @@ public class WorkstationPrenotation implements Serializable {
   //bi-directional many-to-one association to Workstation
   @ManyToOne
   @JoinColumns({
-    @JoinColumn(name="NUM_FLOOR", referencedColumnName="NUM_FLOOR"),
-    @JoinColumn(name="NUM_ROOM", referencedColumnName="NUM_ROOM"),
-    @JoinColumn(name="NUM_WORKSTATION", referencedColumnName="NUM_WORKSTATION")
+    @JoinColumn(name="NUM_FLOOR"), @JoinColumn(name="NUM_ROOM"), @JoinColumn(name="NUM_WORKSTATION")
   })
   private Workstation workstation;
 

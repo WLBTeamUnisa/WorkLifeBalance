@@ -15,12 +15,16 @@ public class Admin implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name="EMAIL")
   private String email;
 
+  @Column(name="NAME")
   private String name;
 
+  @Column(name="PASSWORD")
   private String password;
 
+  @Column(name="SURNAME")
   private String surname;
 
   //bi-directional many-to-one association to Floor

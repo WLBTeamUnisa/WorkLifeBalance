@@ -16,15 +16,15 @@ public class Workstation implements Serializable {
 
   @EmbeddedId
   private WorkstationPK id;
-
+ 
   //bi-directional many-to-one association to Room
   @ManyToOne
-  @JoinColumns({
-    @JoinColumn(name="NUM_FLOOR", referencedColumnName="NUM_FLOOR"),
-    @JoinColumn(name="NUM_ROOM", referencedColumnName="NUM_ROOM")
+  @JoinColumns(value={
+    @JoinColumn(name="NUM_FLOOR"), @JoinColumn(name="NUM_ROOM")
   })
+  @MapsId(value="WorkstationPK")
   private Room room;
-
+  
   //bi-directional many-to-one association to WorkstationPrenotation
   @OneToMany(mappedBy="workstation")
   private List<WorkstationPrenotation> workstationPrenotations;

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
 @Embeddable
 public class WorkstationPK implements Serializable{
@@ -12,11 +13,11 @@ public class WorkstationPK implements Serializable{
 
   @Column(name="NUM_WORKSTATION")
   private int workstation;
-
-  @Column(name="NUM_FLOOR", insertable=false, updatable=false)
+  
+  @Column(name="NUM_FLOOR")
   private int floor;
 
-  @Column(name="NUM_ROOM", insertable=false, updatable=false)
+  @Column(name="NUM_ROOM")
   private int room;
 
   public WorkstationPK() {}

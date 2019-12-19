@@ -15,7 +15,7 @@ public class RoomPK implements Serializable {
   @Column(name="NUM_ROOM")
   private int numRoom;
 
-  @Column(name="NUM_FLOOR", insertable=false, updatable=false)
+  @Column(name="NUM_FLOOR")
   private int numFloor;
 
   public RoomPK() {

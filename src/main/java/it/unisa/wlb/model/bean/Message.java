@@ -15,15 +15,19 @@ public class Message implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @Column(name="ID")
   private int id;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="DATE")
   private Date date;
 
+  @Column(name="TEXT")
   private String text;
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
+  @JoinColumn(name="EMPLOYEE_EMAIL")
   private Employee employee;
 
   //bi-directional many-to-one association to Project
