@@ -1,6 +1,7 @@
-package it.unisa.wlb.model.jpa;
+package it.unisa.wlb.model.test;
 
 import it.unisa.wlb.model.bean.Admin;
+import it.unisa.wlb.model.jpa.AdminJpa;
 
 public class TestAdmin {
 
