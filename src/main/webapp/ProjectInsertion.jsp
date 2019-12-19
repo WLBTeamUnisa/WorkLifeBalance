@@ -109,8 +109,8 @@
 									<div class="form-group row pb-4">
 										<div class="col-lg-8">
 											<div class="card">
-												<div class="card-header">
-													<h3>Employee list:</h3>
+												<div class="card-header p-2">
+													<h3 class="my-auto">Employee list:</h3>
 												</div>
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
@@ -153,7 +153,7 @@
 												</div>
 
 												<div class="modal-body">
-													<h1>Search employee</h1>
+													<h3>Search employee</h3>
 													<form class="navbar-form" role="search">
 														<div class="form-group">
 															<div class="input-group mb-3">

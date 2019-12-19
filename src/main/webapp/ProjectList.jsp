@@ -74,12 +74,12 @@
 									</form>
 								</div>
 
-									<ul class="list-group">
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link">Progetto 1</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link">Progetto 2</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link">Progetto 3</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link">Progetto 4</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link">Progetto 5</a></li>
+									<ul class="list-group list-group-bordered">
+										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
+										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
+										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
+										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
+										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
 									</ul>
 								
 									<a class="btn btn-success mt-3" href="ProjectInsertion.jsp" role="button">Insert project</a>
