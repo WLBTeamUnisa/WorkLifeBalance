@@ -1,26 +1,26 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
  * The primary key class for the PRENOTATION_DATE database table.
  * 
  */
-
 @Embeddable
 public class PrenotationDatePK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
-  @Column(name="DATE")
-  private Date date;
+  @Temporal(TemporalType.DATE)
+  @Column(name="DATE", nullable=false)
+  private java.util.Date date;
 
-  @Column(name="EMPLOYEE_EMAIL")
+  @Column(name="EMPLOYEE_EMAIL",columnDefinition="varchar(37)", nullable=false)
   private String employeeEmail;
   
-  @Column(name="ID_PRENOTATION_SW")
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
   private int idPrenotationSw;
 
 

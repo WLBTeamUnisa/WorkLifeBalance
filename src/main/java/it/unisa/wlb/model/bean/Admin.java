@@ -2,6 +2,8 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -15,16 +17,16 @@ public class Admin implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name="EMAIL")
+  @Column(name="EMAIL", length=37, nullable=false)
   private String email;
 
-  @Column(name="NAME")
+  @Column(name="NAME", length=20, nullable=false)
   private String name;
 
-  @Column(name="PASSWORD")
+  @Column(name="PASSWORD", length=40, nullable=false)
   private String password;
 
-  @Column(name="SURNAME")
+  @Column(name="SURNAME", length=20, nullable=false)
   private String surname;
 
   //bi-directional many-to-one association to Floor

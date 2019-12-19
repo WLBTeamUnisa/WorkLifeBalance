@@ -4,20 +4,22 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 
 @Embeddable
 public class WorkstationPK implements Serializable{
 
   private static final long serialVersionUID = 1L;
-
-  @Column(name="NUM_WORKSTATION")
+  
+  @Column(name="NUM_WORKSTATION", columnDefinition="int(3)", nullable=false)
   private int workstation;
   
-  @Column(name="NUM_FLOOR")
+  @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   private int floor;
 
-  @Column(name="NUM_ROOM")
+  @Column(name="NUM_ROOM", columnDefinition="int(2)", nullable=false)
   private int room;
 
   public WorkstationPK() {}

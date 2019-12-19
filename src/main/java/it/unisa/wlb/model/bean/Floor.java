@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -15,12 +16,12 @@ public class Floor implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name="NUM_FLOOR")
+  @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   private int numFloor;
 
   //bi-directional many-to-one association to Admin
   @ManyToOne
-  @JoinColumn(name="EMAIL_ADMIN")
+  @JoinColumn(name="EMAIL_ADMIN",columnDefinition="varchar(37)", nullable=false)
   private Admin admin;
 
   //bi-directional many-to-one association to Room

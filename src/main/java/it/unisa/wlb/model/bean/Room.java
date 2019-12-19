@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -18,8 +19,9 @@ public class Room implements Serializable {
   private RoomPK id;
 
   //bi-directional many-to-one association to Floor
+  @GeneratedValue(strategy=GenerationType.AUTO)
   @ManyToOne
-  @JoinColumn(name="NUM_FLOOR")
+  @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   @MapsId("numFloor")
   private Floor floor;
 

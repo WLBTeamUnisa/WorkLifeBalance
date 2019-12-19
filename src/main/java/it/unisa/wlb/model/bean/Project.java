@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.Date;
 import java.util.List;
 
@@ -16,24 +17,25 @@ public class Project implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name="ID")
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="ID", columnDefinition="int(20)", nullable=false)
   private int id;
 
-  @Column(name="DESCRIPTION")
+  @Column(name="DESCRIPTION", length=250, nullable=false)
   private String description;
 
   @Temporal(TemporalType.DATE)
-  @Column(name="END_DATE")
+  @Column(name="END_DATE", nullable=false)
   private Date endDate;
 
-  @Column(name="NAME")
+  @Column(name="NAME", length=15, nullable=false)
   private String name;
 
-  @Column(name="SCOPE")
+  @Column(name="SCOPE", length=50, nullable=false)
   private String scope;
 
   @Temporal(TemporalType.DATE)
-  @Column(name="START_DATE")
+  @Column(name="START_DATE", nullable=false)
   private Date startDate;
 
   //bi-directional many-to-one association to Message
@@ -42,12 +44,12 @@ public class Project implements Serializable {
 
   //bi-directional many-to-one association to Admin
   @ManyToOne
-  @JoinColumn(name="EMAIL_ADMIN")
+  @JoinColumn(name="EMAIL_ADMIN", columnDefinition="varchar(37)", nullable=false)
   private Admin admin;
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
-  @JoinColumn(name="EMAIL_MANAGER")
+  @JoinColumn(name="EMAIL_MANAGER", columnDefinition="varchar(37)", nullable=false)
   private Employee employee;
 
   //bi-directional many-to-many association to Employee
@@ -55,10 +57,10 @@ public class Project implements Serializable {
   @JoinTable(
       name="WORKS"
       , joinColumns={
-          @JoinColumn(name="ID_PROJECT")
+          @JoinColumn(name="ID_PROJECT", columnDefinition="int(20)", nullable=false)
       }
       , inverseJoinColumns={
-          @JoinColumn(name="EMAIL_EMPLOYEE")
+          @JoinColumn(name="EMAIL_EMPLOYEE", columnDefinition="varchar(37)", nullable=false)
       }
       )
   private List<Employee> employees;

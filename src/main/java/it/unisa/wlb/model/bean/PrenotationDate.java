@@ -21,8 +21,8 @@ public class PrenotationDate implements Serializable {
   //bi-directional many-to-one association to SmartWorkingPrenotation
   @ManyToOne
   @JoinColumns(value={
-      @JoinColumn(name="EMPLOYEE_EMAIL",insertable=false,updatable=false), 
-      @JoinColumn(name="ID_PRENOTATION_SW",insertable=false,updatable=false)
+      @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false),
+      @JoinColumn(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
     })
   @MapsId(value="PrenotationDatePK")
   private SmartWorkingPrenotation smartWorkingPrenotation;

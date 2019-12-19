@@ -20,7 +20,7 @@ public class Workstation implements Serializable {
   //bi-directional many-to-one association to Room
   @ManyToOne
   @JoinColumns(value={
-    @JoinColumn(name="NUM_FLOOR"), @JoinColumn(name="NUM_ROOM")
+    @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM",columnDefinition="int(2)", nullable=false)
   })
   @MapsId(value="WorkstationPK")
   private Room room;

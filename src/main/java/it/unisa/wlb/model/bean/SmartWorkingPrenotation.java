@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +20,10 @@ public class SmartWorkingPrenotation implements Serializable {
   @EmbeddedId
   private SmartWorkingPrenotationPK id;
 
-  @Column(name="CALENDAR_WEEK")
+  @Column(name="CALENDAR_WEEK",columnDefinition="int(2)", nullable=false)
   private int calendarWeek;
 
-  @Column(name="YEAR")
+  @Column(name="YEAR", columnDefinition="int(4)", nullable=false)
   private int year;
 
   //bi-directional many-to-one association to PrenotationDate
@@ -31,7 +32,7 @@ public class SmartWorkingPrenotation implements Serializable {
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
-  @JoinColumn(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
+  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false)
   @MapsId("employeeEmail")
   private Employee employee;
 

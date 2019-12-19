@@ -18,25 +18,25 @@ public class WorkstationPrenotation implements Serializable {
   @EmbeddedId
   private WorkstationPrenotationPK id;
 
-  @Column(name="CALENDAR_WEEK")
+  @Column(name="CALENDAR_WEEK", columnDefinition="int(2)", nullable=false)
   private int calendarWeek;
 
   @Temporal(TemporalType.DATE)
-  @Column(name="PRENOTATION_DATE")
+  @Column(name="PRENOTATION_DATE", nullable=false)
   private Date prenotationDate;
 
-  @Column(name="YEAR")
+  @Column(name="YEAR", columnDefinition="int(4)", nullable=false)
   private int year;
 
   //bi-directional many-to-one association to Employee
 	@ManyToOne
-	@JoinColumn(name="EMAIL_EMPLOYEE", insertable=false, updatable=false)
+	@JoinColumn(name="EMPLOYEE_EMAIL", insertable=false, updatable=false,nullable=false,columnDefinition="varchar(37)")
 	private Employee employee;
 
   //bi-directional many-to-one association to Workstation
   @ManyToOne
   @JoinColumns({
-    @JoinColumn(name="NUM_FLOOR"), @JoinColumn(name="NUM_ROOM"), @JoinColumn(name="NUM_WORKSTATION")
+    @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM", columnDefinition="int(2)", nullable=false), @JoinColumn(name="NUM_WORKSTATION", columnDefinition="int(3)", nullable=false)
   })
   private Workstation workstation;
 

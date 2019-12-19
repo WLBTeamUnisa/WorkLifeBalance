@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * The primary key class for the WORKSTATION_PRENOTATION database table.
@@ -13,10 +14,11 @@ public class WorkstationPrenotationPK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
-  @Column(name="ID")
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="ID", columnDefinition="int(20)", nullable=false)
   private int id;
   
-  @Column(name="EMPLOYEE_EMAIL")
+  @Column(name="EMPLOYEE_EMAIL", length=37, nullable=false)
   private String emailEmployee;
 
   public WorkstationPrenotationPK() {
