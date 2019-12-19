@@ -47,11 +47,17 @@
 							<div class="card-body">
 								<h3>INDEX BODY</h3>
 							</div>
+						<!-- FINE CARD -->
 						</div>
+					<!-- FINE COLONNA -->
 					</div>
+				<!-- FINE CONTAINER -->
 				</div>
+			<!-- FINE CONTENT -->
 			</div>
 			<jsp:include page="footer.jsp" />
+			
+		<!-- FINE MAIN-PANEL -->
 		</div>
 	</div>
 	<!--   Core JS Files   -->

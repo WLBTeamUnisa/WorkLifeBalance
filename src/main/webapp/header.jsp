@@ -124,3 +124,4 @@
 		</div>
 	</div>
 </div>
+<!-- End Sidebar -->

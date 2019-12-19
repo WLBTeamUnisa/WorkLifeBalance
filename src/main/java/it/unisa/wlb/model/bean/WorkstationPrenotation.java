@@ -28,10 +28,10 @@ public class WorkstationPrenotation implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date year;
 
-  //bi-directional many-to-one association to Employee
-  @ManyToOne
-  @JoinColumn(name="EMAIL_EMPLOYEE")
-  private Employee employee;
+	//bi-directional many-to-one association to Employee
+	@ManyToOne
+	@JoinColumn(name="EMAIL_EMPLOYEE", insertable=false, updatable=false)
+	private Employee employee;
 
   //bi-directional many-to-one association to Workstation
   @ManyToOne
