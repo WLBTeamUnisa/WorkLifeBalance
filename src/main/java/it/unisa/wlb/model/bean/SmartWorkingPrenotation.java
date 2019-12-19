@@ -22,9 +22,8 @@ public class SmartWorkingPrenotation implements Serializable {
   @Column(name="CALENDAR_WEEK")
   private int calendarWeek;
 
-  @Temporal(TemporalType.DATE)
   @Column(name="YEAR")
-  private Date year;
+  private int year;
 
   //bi-directional many-to-one association to PrenotationDate
   @OneToMany(mappedBy="smartWorkingPrenotation")
@@ -55,11 +54,11 @@ public class SmartWorkingPrenotation implements Serializable {
     this.calendarWeek = calendarWeek;
   }
 
-  public Date getYear() {
+  public int getYear() {
     return this.year;
   }
 
-  public void setYear(Date year) {
+  public void setYear(int year) {
     this.year = year;
   }
 

@@ -28,7 +28,7 @@ public class Employee implements Serializable {
   private String password;
 
   @Column(name="STATUS")
-  private byte status;
+  private int status;
 
   @Column(name="SURNAME")
   private String surname;
@@ -80,11 +80,11 @@ public class Employee implements Serializable {
     this.password = password;
   }
 
-  public byte getStatus() {
+  public int getStatus() {
     return this.status;
   }
 
-  public void setStatus(byte status) {
+  public void setStatus(int status) {
     this.status = status;
   }
 

@@ -1,6 +1,7 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -13,9 +14,8 @@ public class PrenotationDatePK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
-  @Temporal(TemporalType.DATE)
   @Column(name="DATE")
-  private java.util.Date date;
+  private Date date;
 
   @Column(name="EMPLOYEE_EMAIL")
   private String employeeEmail;

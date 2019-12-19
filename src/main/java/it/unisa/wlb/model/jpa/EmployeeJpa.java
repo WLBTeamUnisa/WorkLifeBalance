@@ -42,7 +42,7 @@ public class EmployeeJpa implements IEmployeeDAO{
   @Override
   public List<Employee> retrieveAll() {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee");
+    Query q = entitymanager.createQuery("SELECT employee FROM Employee employee");
     entitymanager.getTransaction().commit();
     return (List<Employee>) q.getResultList();
   }
@@ -50,7 +50,7 @@ public class EmployeeJpa implements IEmployeeDAO{
   @Override
   public Employee retrieveByEmail(String email) {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL=?1");
+    Query q = entitymanager.createQuery("SELECT employee FROM Employee employee WHERE employee.EMAIL=?1");
     q.setParameter(1, email);
     entitymanager.getTransaction().commit();
     return (Employee) q.getSingleResult();
@@ -59,7 +59,7 @@ public class EmployeeJpa implements IEmployeeDAO{
   @Override
   public List<Employee> searchByEmail(String email) {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL LIKE :custEmail%");
+    Query q = entitymanager.createQuery("SELECT employee FROM Employee employee WHERE employee.EMAIL LIKE :custEmail%");
     q.setParameter("custEmail", email);
     entitymanager.getTransaction().commit();
     return (List<Employee>) q.getResultList();
@@ -68,7 +68,7 @@ public class EmployeeJpa implements IEmployeeDAO{
   @Override
   public List<Employee> retrieveByProjectId(String ProjectId) {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM WORKS works WHERE works.ID_PROJECT=?1");
+    Query q = entitymanager.createQuery("SELECT works FROM WORKS works WHERE works.ID_PROJECT=?1");
     q.setParameter(1,ProjectId);
     entitymanager.getTransaction().commit();
     return (List<Employee>) q.getResultList();

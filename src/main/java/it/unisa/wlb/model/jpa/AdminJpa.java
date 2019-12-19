@@ -41,7 +41,7 @@ public class AdminJpa implements IAdminDAO {
   @Override
   public List<Admin> retrieveAll() {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Admin");
+    Query q = entitymanager.createQuery("SELECT admin FROM Admin admin");
     entitymanager.getTransaction().commit();
 
     return (List<Admin>) q.getResultList();

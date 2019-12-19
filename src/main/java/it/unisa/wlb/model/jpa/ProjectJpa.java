@@ -44,35 +44,35 @@ public class ProjectJpa implements IProjectDAO {
   @Override
   public List<Project> retrieveAll() {
     entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Project");
+    Query q = entitymanager.createQuery("SELECT project FROM Project project");
     entitymanager.getTransaction().commit();
     return (List<Project>) q.getResultList();
   }
 
   @Override
   public List<Project> retrieveByManager(String email) {
-    Query query=entitymanager.createQuery("SELECT * FROM Project project WHERE project.EMAIL_MANAGER=?1");
+    Query query=entitymanager.createQuery("SELECT project FROM Project project WHERE project.EMAIL_MANAGER=?1");
     query.setParameter(1, email);
     return (List<Project>) query.getResultList();
   }
 
   @Override
   public List<Project> searchByName(String name) {
-    Query query=entitymanager.createQuery("SELECT * FROM project WHERE LIKE :custName%");
+    Query query=entitymanager.createQuery("SELECT project FROM Project project WHERE LIKE :custName%");
     query.setParameter("custName", name);
     return (List<Project>) query.getResultList();
   }
 
   @Override
   public Project retrieveById(int id) {
-    Query query=entitymanager.createQuery("SELECT * FROM project WHERE project.id=?1");
+    Query query=entitymanager.createQuery("SELECT project FROM Project project WHERE project.id=?1");
     query.setParameter(1, id);
     return (Project) query.getSingleResult();
   }
 
   @Override
   public List<Project> retrieveByEmployee(String email) {
-    Query query=entitymanager.createQuery("SELECT * FROM works WHERE works.email_employee=?1");
+    Query query=entitymanager.createQuery("SELECT works FROM Works works WHERE works.email_employee=?1");
     query.setParameter(1, email);
     return (List<Project>) query.getResultList();
   }

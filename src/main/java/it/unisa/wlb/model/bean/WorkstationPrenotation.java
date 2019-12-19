@@ -25,9 +25,8 @@ public class WorkstationPrenotation implements Serializable {
   @Column(name="PRENOTATION_DATE")
   private Date prenotationDate;
 
-  @Temporal(TemporalType.DATE)
   @Column(name="YEAR")
-  private Date year;
+  private int year;
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
@@ -69,11 +68,11 @@ public class WorkstationPrenotation implements Serializable {
     this.prenotationDate = prenotationDate;
   }
 
-  public Date getYear() {
+  public int getYear() {
     return this.year;
   }
 
-  public void setYear(Date year) {
+  public void setYear(int year) {
     this.year = year;
   }
 
