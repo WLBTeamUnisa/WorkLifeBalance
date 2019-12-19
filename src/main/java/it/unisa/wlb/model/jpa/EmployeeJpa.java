@@ -12,7 +12,7 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 /**
- * Session Bean implementation class EmployeeJpa, used to perform operations on the entity "Employee" of the database.
+ * Session Bean implementation class EmployeeJpa. It is used to perform operations on the entity "Employee".
  * @author Sabato
  *
  */
