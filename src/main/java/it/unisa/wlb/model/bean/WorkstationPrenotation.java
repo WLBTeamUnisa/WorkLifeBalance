@@ -29,10 +29,9 @@ public class WorkstationPrenotation implements Serializable {
   private int year;
 
   //bi-directional many-to-one association to Employee
-  @ManyToOne
-  @JoinColumn(name="EMAIL_EMPLOYEE")
-  @MapsId("emailEmployee")
-  private Employee employee;
+	@ManyToOne
+	@JoinColumn(name="EMAIL_EMPLOYEE", insertable=false, updatable=false)
+	private Employee employee;
 
   //bi-directional many-to-one association to Workstation
   @ManyToOne
