@@ -18,7 +18,7 @@
 <script>
 	WebFont.load({
 		google : {
-			"families" : [ "Lato:300,400,700,900" ]
+			"families" : [ "Lato:300,400,700,900" ] 
 		},
 		custom : {
 			"families" : [ "Flaticon", "Font Awesome 5 Solid",
