@@ -15,11 +15,10 @@ public class ProjectJpa implements IProjectDAO {
   
   private static final EntityManagerFactory factor =
       Persistence.createEntityManagerFactory("WorkLifeBalance");
-      private EntityManager entitymanager;
+      private EntityManager entitymanager = factor.createEntityManager();;
 
   @Override
   public Project create(Project entity) {
-    entitymanager = factor.createEntityManager();
     entitymanager.getTransaction().begin();
     entitymanager.persist(entity);
     entitymanager.getTransaction().commit();

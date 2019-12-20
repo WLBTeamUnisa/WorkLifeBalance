@@ -16,7 +16,6 @@ public class AdminJpa implements IAdminDAO {
   private EntityManager entitymanager = factor.createEntityManager();
 
   public Admin create(Admin entity) {
-    entitymanager = factor.createEntityManager();
     entitymanager.getTransaction().begin();
     entitymanager.persist(entity);
     entitymanager.getTransaction().commit();
