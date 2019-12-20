@@ -60,7 +60,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="Name" id="Name" oninput="validName()" class="form-control" placeholder="First name*" type="text" required>
+										<input name="Name" id="Name" oninput="validName()" class="form-control" placeholder="Nome*" type="text" required>
 									</div>
 									<!-- form-group// Name -->
 									<span id="errorName"> 
@@ -73,7 +73,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="Surname" id="Surname" oninput="validSurname()" class="form-control" placeholder="Last name*" type="text" required>
+										<input name="Surname" id="Surname" oninput="validSurname()" class="form-control" placeholder="Cognome*" type="text" required>
 									</div>
 									<!-- form-group// Last name -->
 									<span id="errorSurname"></span>
@@ -85,7 +85,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="email" id="Email" oninput="validEmail()" class="form-control" placeholder="Email address*" type="email" required>
+										<input name="email" id="Email" oninput="validEmail()" class="form-control" placeholder="Email*" type="email" required>
 									</div>
 									<!-- form-group//  Email -->
 									<span id="errorEmail"></span>
@@ -109,7 +109,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="verifyPassword" id="VerifyPassword" oninput="validPassword()" class="form-control" placeholder="Verify password*" type="password" required>
+										<input name="verifyPassword" id="VerifyPassword" oninput="validPassword()" class="form-control" placeholder="Conferma password*" type="password" required>
 									</div>
 									<!-- form-group// Verify Password  -->
 									<span id="errorPassword"></span>
@@ -231,15 +231,30 @@
 	}
 	function validEmail() {
 
+		var ok = "<ok/>";
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
 		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
-			if (input.classList.contains("is-invalid"))
-				input.classList.remove("is-invalid");
-			input.classList.add("is-valid");
-			document.getElementById("errorEmail").innerHTML = "";
-			emailOk = true;
+			var xmlHttpReq = new XMLHttpRequest();
+			xmlHttpReq.onreadystatechange = function() {
+				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
+					if (input.classList.contains("is-invalid"))
+						input.classList.remove("is-invalid");
+					input.classList.add("is-valid");
+					document.getElementById("errorEmail").innerHTML = "";
+					emailOk = true;
+				} else if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText != ok) {
+					if (input.classList.contains("is-valid"))
+						input.classList.remove("is-valid");
+					input.classList.add("is-invalid");
+					document.getElementById("errorEmail").innerHTML = "Attenzione! Questo Username esiste già.";
+					emailOk = false;
+				}
+				checkForm();
+			}
+			xmlHttpReq.open("GET", "/NYTRO/SearchEmployeeServlet?email=" + encodeURIComponent(input.value), true);
+			xmlHttpReq.send();
 		} else {
 			if (input.classList.contains("is-valid"))
 				input.classList.remove("is-valid");
