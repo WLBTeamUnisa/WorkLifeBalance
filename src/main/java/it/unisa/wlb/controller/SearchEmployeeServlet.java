@@ -1,6 +1,8 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * The aim of this Servlet is checking the presence of an Employee by searching him using his email. 
@@ -22,9 +23,9 @@ import it.unisa.wlb.model.dao.IEmployeeDao;
 public class SearchEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private IEmployeeDao employeeDao;
-       
+//	@Inject
+//	private IEmployeeDao employeeDao;
+//       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,15 +43,15 @@ public class SearchEmployeeServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		response.setContentType("text/xml");
 		
-		Employee employee;
-		
-		if( (email!=null) && (email.length()>=6) && email.matches("/^[0-9a-zA-Z]+$/") ){
-			employee = employeeDao.retrieveByEmail(email);
-			if(employee.getEmail()==null)
+		if( (email!=null) && (email.length()>=6) && email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") ){
+			//Da cambiare
+			List<Employee> list = new ArrayList<Employee>();
+			//List<Employee> list = employeeDao.searchByEmail(email);
+			if(list==null || list.size()<=0) {
 				response.getWriter().append("<ok/>");
-			else
+			} else {
 				response.getWriter().append("<no/>");
-						
+			}		
 		} else {
 			response.getWriter().append("<no/>");
 		}

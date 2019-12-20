@@ -52,7 +52,7 @@
 
 
 							<div class="registration-fields">
-								<form name="registration" method="post" action="<%=response.encodeURL("/WorkLifeBalance/EmployeeRegistrationServlet")%>">
+								<form name="registration" method="post" action="/WorkLifeBalance/EmployeeRegistrationServlet">
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text">
@@ -238,6 +238,7 @@
 		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
+				window.alert(xmlHttpReq.responseText);
 				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
 					if (input.classList.contains("is-invalid"))
 						input.classList.remove("is-invalid");
@@ -248,12 +249,12 @@
 					if (input.classList.contains("is-valid"))
 						input.classList.remove("is-valid");
 					input.classList.add("is-invalid");
-					document.getElementById("errorEmail").innerHTML = "Attenzione! Questo Username esiste già.";
+					document.getElementById("errorEmail").innerHTML = "Attenzione! Questa email esiste già.";
 					emailOk = false;
 				}
 				checkForm();
 			}
-			xmlHttpReq.open("GET", "/NYTRO/SearchEmployeeServlet?email=" + encodeURIComponent(input.value), true);
+			xmlHttpReq.open("GET", "/WorkLifeBalance/SearchEmployeeServlet?email=" + encodeURIComponent(input.value), true);
 			xmlHttpReq.send();
 		} else {
 			if (input.classList.contains("is-valid"))
