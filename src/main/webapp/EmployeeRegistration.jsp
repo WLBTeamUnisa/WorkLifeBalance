@@ -46,13 +46,13 @@
 						<div class="card">
 							<div class="card-header">
 								<h3>
-									<bold>Registration</bold>
+									<bold>Registrazione</bold>
 								</h3>
 							</div>
 
 
 							<div class="registration-fields">
-								<form name="registration" method="post">
+								<form name="registration" method="post" action="<%=response.encodeURL("/WorkLifeBalance/EmployeeRegistrationServlet")%>">
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text">
@@ -122,18 +122,18 @@
 												</i>
 											</span>
 										</div>
-										<select class="custom-select" id="inputGroupSelect03">
-											<option value="1">Employee</option>
+										<select class="custom-select" id="inputGroupSelect03" required>
+											<option value="1">Dipendente</option>
 											<option value="2">Manager</option>
 										</select>
 									</div>
 									<!-- form-group// Status choose -->
 
-
+									<span id="errorRegistrationForm"></span>
 									<div class="form-group">
 										<span class="rounded-icon">
-											<button type="submit" class="btn btn btn-success btn-block">
-												Register
+											<button type="submit" id="registrationButton" class="btn btn btn-success btn-block" disabled>
+												Registra
 											</button>
 										</span>
 									</div>
@@ -180,8 +180,8 @@
 </body>
 
 <script type="text/javascript">
-	var NameOk = false;
-	var SurnameOk = false;
+	var nameOk = false;
+	var surnameOk = false;
 	var emailOk = false;
 	var passwordOk = false;
 
@@ -189,65 +189,65 @@
 
 		var input = document.querySelector("#Name");
 
-		var msgError = "The syntax of this name isn't correct"
-		var nameValue = input.value
-		if (nameValue.length >= 2 && nameValue.length <= 20
-				&& input.value.match(/^[A-Za-z]+$/)) {
+		var msgError = "La sintassi del nome non è corretta";
+		var nameValue = input.value;
+		if (nameValue.length >= 2 && nameValue.length <= 20 && input.value.match(/^[A-Za-z]+$/)) {
 			if (input.classList.contains("is-invalid"))
-				input.classList.remove("is-invalid")
-			input.classList.add("is-valid")
-			document.getElementById("errorName").innerHTML = ""
-			NameOk = true
+				input.classList.remove("is-invalid");
+			input.classList.add("is-valid");
+			document.getElementById("errorName").innerHTML = "";
+			nameOk = true;
 		} else {
 			if (input.classList.contains("is-valid"))
-				input.classList.remove("is-valid")
-			input.classList.add("is-invalid")
-			document.getElementById("errorName").innerHTML = msgError
-			NameOk = false
+				input.classList.remove("is-valid");
+			input.classList.add("is-invalid");
+			document.getElementById("errorName").innerHTML = msgError;
+			nameOk = false;
 		}
+		checkForm();
 
 	}
 	function validSurname(form) {
 
 		var input = document.querySelector("#Surname");
 
-		var msgError = "The syntax of this surname isn't correct"
-		var surnameValue = input.value
-		if (surnameValue.length >= 2 && surnameValue.length <= 20
-				&& input.value.match(/^[A-Za-z\s]+$/)) {
+		var msgError = "La sintassi del cognome non è corretta";
+		var surnameValue = input.value;
+		if (surnameValue.length >= 2 && surnameValue.length <= 20 && input.value.match(/^[A-Za-z\s]+$/)) {
 			if (input.classList.contains("is-invalid"))
-				input.classList.remove("is-invalid")
-			input.classList.add("is-valid")
-			document.getElementById("errorSurname").innerHTML = ""
-			emailOk = true
+				input.classList.remove("is-invalid");
+			input.classList.add("is-valid");
+			document.getElementById("errorSurname").innerHTML = "";
+			surnameOk = true;
 		} else {
 			if (input.classList.contains("is-valid"))
-				input.classList.remove("is-valid")
-			input.classList.add("is-invalid")
-			document.getElementById("errorSurname").innerHTML = msgError
-			emailOk = false
+				input.classList.remove("is-valid");
+			input.classList.add("is-invalid");
+			document.getElementById("errorSurname").innerHTML = msgError;
+			surnameOk = false;
 		}
+		checkForm();
 
 	}
 	function validEmail() {
 
 		var input = document.querySelector("#Email");
-		var msgError = "The syntax of this email isn't correct"
-		var emailValue = input.value
-		if (emailValue.length >= 5 && emailValue.length <= 30
-				&& input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
+		var msgError = "La sintassi dell'email non è corretta";
+		var emailValue = input.value;
+		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			if (input.classList.contains("is-invalid"))
-				input.classList.remove("is-invalid")
-			input.classList.add("is-valid")
-			document.getElementById("errorEmail").innerHTML = ""
-				emailOk = true
+				input.classList.remove("is-invalid");
+			input.classList.add("is-valid");
+			document.getElementById("errorEmail").innerHTML = "";
+			emailOk = true;
 		} else {
 			if (input.classList.contains("is-valid"))
-				input.classList.remove("is-valid")
-			input.classList.add("is-invalid")
-			document.getElementById("errorEmail").innerHTML = msgError
-			emailOk = false
+				input.classList.remove("is-valid");
+			input.classList.add("is-invalid");
+			document.getElementById("errorEmail").innerHTML = msgError;
+			emailOk = false;
 		}
+		checkForm();
 	}
 	function validPassword() {
 		var inputpw = document.querySelector("#Password");
@@ -280,9 +280,21 @@
 				inputpwconf.classList.remove("is-valid");
 			inputpwconf.classList.add("is-invalid");
 			
-			document.getElementById("errorPassword").innerHTML = "La password deve contenere almeno una maiuscola, un numero e almeno 8 caratteri";
+			document.getElementById("errorPassword").innerHTML = "La password deve contenere almeno una maiuscola, un numero, un carattere speciale valido ed almeno 8 caratteri";
 			passwordOk = false;
 		}
+		checkForm();
+	}
+	
+	function checkForm() {
+		if (nameOk && surnameOk && emailOk && passwordOk) {
+			document.getElementById("registrationButton").disabled = false;
+			document.getElementById("errorRegistrationForm").innerHTML = "";
+		} else {
+			document.getElementById("registrationButton").disabled = true;
+			document.getElementById("errorRegistrationForm").innerHTML = "Compila tutti i campi obbligatori";
+		}
+
 	}
 </script>
 
