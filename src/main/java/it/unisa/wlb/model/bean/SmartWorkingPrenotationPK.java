@@ -16,7 +16,7 @@ public class SmartWorkingPrenotationPK implements Serializable {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name="ID", columnDefinition="int(20)", nullable=false)
   private int id;
-
+  
   @Column(name="EMPLOYEE_EMAIL",length=37, nullable=false)
   private String employeeEmail;
 

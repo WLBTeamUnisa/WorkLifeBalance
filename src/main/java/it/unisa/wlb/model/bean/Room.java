@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="ROOM")
 @NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
 public class Room implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -19,7 +20,6 @@ public class Room implements Serializable {
   private RoomPK id;
 
   //bi-directional many-to-one association to Floor
-  @GeneratedValue(strategy=GenerationType.AUTO)
   @ManyToOne
   @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   @MapsId("numFloor")

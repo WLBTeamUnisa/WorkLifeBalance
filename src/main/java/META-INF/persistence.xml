@@ -28,10 +28,9 @@
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
 				value="root" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL57Dialect" />
+				value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.connection.autocommit"
 				value="true" />
 			<property name="hibernate.enable_lazy_load_no_trans"

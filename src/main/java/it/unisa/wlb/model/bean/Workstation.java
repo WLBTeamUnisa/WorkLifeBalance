@@ -10,6 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="WORKSTATION")
 @NamedQuery(name="Workstation.findAll", query="SELECT w FROM Workstation w")
 public class Workstation implements Serializable {
   private static final long serialVersionUID = 1L;

@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
+import javax.persistence.SequenceGenerator;
 
 @Embeddable
 public class WorkstationPK implements Serializable{
@@ -15,7 +16,7 @@ public class WorkstationPK implements Serializable{
   
   @Column(name="NUM_WORKSTATION", columnDefinition="int(3)", nullable=false)
   private int workstation;
-  
+
   @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   private int floor;
 

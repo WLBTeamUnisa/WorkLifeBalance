@@ -12,6 +12,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="PROJECT")
 @NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
 public class Project implements Serializable {
   private static final long serialVersionUID = 1L;

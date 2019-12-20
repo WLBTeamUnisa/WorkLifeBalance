@@ -21,10 +21,6 @@ public class WorkstationPrenotation implements Serializable {
   @Column(name="CALENDAR_WEEK", columnDefinition="int(2)", nullable=false)
   private int calendarWeek;
 
-  @Temporal(TemporalType.DATE)
-  @Column(name="PRENOTATION_DATE", nullable=false)
-  private Date prenotationDate;
-
   @Column(name="YEAR", columnDefinition="int(4)", nullable=false)
   private int year;
 
@@ -57,14 +53,6 @@ public class WorkstationPrenotation implements Serializable {
 
   public void setCalendarWeek(int calendarWeek) {
     this.calendarWeek = calendarWeek;
-  }
-
-  public Date getPrenotationDate() {
-    return this.prenotationDate;
-  }
-
-  public void setPrenotationDate(Date prenotationDate) {
-    this.prenotationDate = prenotationDate;
   }
 
   public int getYear() {

@@ -19,7 +19,6 @@ public class PrenotationDatePK implements Serializable {
   @Column(name="EMPLOYEE_EMAIL",columnDefinition="varchar(37)", nullable=false)
   private String employeeEmail;
   
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
   private int idPrenotationSw;
 

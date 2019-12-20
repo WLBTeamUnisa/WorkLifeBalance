@@ -13,7 +13,7 @@ import it.unisa.wlb.model.dao.IAdminDAO;
 public class AdminJpa implements IAdminDAO {
   private static final EntityManagerFactory factor =
       Persistence.createEntityManagerFactory("WorkLifeBalance");
-  private EntityManager entitymanager;
+  private EntityManager entitymanager = factor.createEntityManager();
 
   public Admin create(Admin entity) {
     entitymanager = factor.createEntityManager();

@@ -11,12 +11,10 @@ import javax.persistence.*;
 public class RoomPK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
-
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  
   @Column(name="NUM_ROOM", columnDefinition="int(2)", nullable=false)
   private int numRoom;
 
-  @GeneratedValue(strategy=GenerationType.AUTO)
   @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
   private int numFloor;
 
