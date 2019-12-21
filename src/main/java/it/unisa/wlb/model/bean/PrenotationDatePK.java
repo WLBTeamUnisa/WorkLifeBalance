@@ -13,13 +13,15 @@ public class PrenotationDatePK implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="DATE", nullable=false)
   private java.util.Date date;
 
-  @Column(name="ID_PRENOTATION_SW", insertable=false, updatable=false)
+  @Column(name="EMPLOYEE_EMAIL",columnDefinition="varchar(37)", nullable=false)
+  private String employeeEmail;
+  
+  @Column(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
   private int idPrenotationSw;
 
-  @Column(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
-  private String employeeEmail;
 
   public PrenotationDatePK() {
   }

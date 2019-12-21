@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * The primary key class for the SMART_WORKING_PRENOTATION database table.
@@ -12,9 +13,11 @@ public class SmartWorkingPrenotationPK implements Serializable {
   //default serial version id, required for serializable classes.
   private static final long serialVersionUID = 1L;
 
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="ID", columnDefinition="int(20)", nullable=false)
   private int id;
-
-  @Column(name="EMPLOYEE_EMAIL", insertable=false, updatable=false)
+  
+  @Column(name="EMPLOYEE_EMAIL",length=37, nullable=false)
   private String employeeEmail;
 
   public SmartWorkingPrenotationPK() {

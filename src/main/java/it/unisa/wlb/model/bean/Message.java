@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.Date;
 
 
@@ -10,25 +11,31 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="MESSAGE")
 @NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
 public class Message implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @Column(name="ID", columnDefinition="int(20)", nullable=false)
   private int id;
 
   @Temporal(TemporalType.DATE)
+  @Column(name="DATE", nullable=false)
   private Date date;
 
+  @Column(name="TEXT",length=250, nullable=false)
   private String text;
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
+  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false)
   private Employee employee;
 
   //bi-directional many-to-one association to Project
   @ManyToOne
-  @JoinColumn(name="ID_PROJECT")
+  @JoinColumn(name="ID_PROJECT", columnDefinition="int(20)", nullable=false)
   private Project project;
 
   public Message() {
