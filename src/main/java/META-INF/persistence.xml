@@ -27,7 +27,7 @@
 				value="jdbc:mysql://localhost:3306/worklifebalance" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="Nopassword" />
+				value="root" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5Dialect" />
