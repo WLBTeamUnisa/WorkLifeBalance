@@ -101,6 +101,11 @@
 			<artifactId>spring-core</artifactId>
 			<version>5.2.2.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.18</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>WorkLifeBalance</finalName>

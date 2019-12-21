@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name="EMPLOYEE")
 @NamedQueries({
 	@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e"),
-	@NamedQuery(name="Employee.findByEmail", query="SELECT e FROM Employee e WHERE e.email = :email")
+	@NamedQuery(name="Employee.findByEmail", query="SELECT e FROM Employee e WHERE e.email = :email"),
+	@NamedQuery(name="Employee.findByEmailPassword", query="SELECT e FROM Employee e WHERE e.email = :email and e.password = :password")
 })
 public class Employee implements Serializable {
   private static final long serialVersionUID = 1L;

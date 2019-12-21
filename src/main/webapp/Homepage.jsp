@@ -50,7 +50,7 @@
 					<div class="col-lg-7 mx-auto">
 
 						<div class="card">
-							
+
 							<div class="card-header">
 								<h3 class="my-auto">Admin Dashboard</h3>
 							</div>

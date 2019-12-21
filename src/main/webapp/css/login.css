@@ -188,7 +188,6 @@ iframe {
 .limiter {
 	width: 100%;
 	margin: auto;
-	
 }
 
 .container-login100 {
@@ -364,7 +363,7 @@ iframe {
 }
 
 .login100-form-btn:hover {
-	box-shadow: 10px 10px 5px ;
+	box-shadow: 10px 10px 5px;
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
 }

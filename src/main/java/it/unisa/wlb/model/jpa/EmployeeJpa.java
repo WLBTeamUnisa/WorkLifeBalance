@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
@@ -63,11 +65,11 @@ public class EmployeeJpa implements IEmployeeDAO{
 	@Override
 	public Employee retrieveByEmailPassword(String email, String password) {
 		entitymanager.getTransaction().begin();
-		Query q = entitymanager.createNamedQuery("SELECT e FROM Employee e WHERE email = :email AND password = :password");
-		q.setParameter("email", email);
-		q.setParameter("password", password);
+		TypedQuery<Employee> query = entitymanager.createNamedQuery("Employee.findByEmailPassword", Employee.class);
+		query.setParameter("email", email);
+		query.setParameter("password", password);
 		entitymanager.getTransaction().commit();
-		return (Employee) q.getSingleResult();
+		return (Employee) query.getSingleResult();
 	}
 
 }

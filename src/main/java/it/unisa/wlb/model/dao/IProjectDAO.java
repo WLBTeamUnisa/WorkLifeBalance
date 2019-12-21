@@ -2,11 +2,11 @@ package it.unisa.wlb.model.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
+import javax.ejb.Local;
 
 import it.unisa.wlb.model.bean.Project;
 
-@Stateless
+@Local
 public interface IProjectDAO extends IGenericDAO<Project> {
 
   public List<Project> retrieveByManager(String email);
