@@ -1,6 +1,8 @@
 package it.unisa.wlb.model.jpa;
 
 import java.util.List;
+
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -9,68 +11,69 @@ import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
+@Stateless
 public class EmployeeJpa implements IEmployeeDAO{
 
   private static final EntityManagerFactory factor =
   Persistence.createEntityManagerFactory("WorkLifeBalance");
-  private EntityManager entitymanager;
+  private EntityManager entityManager;
   
   @Override
   public Employee create(Employee entity) {
-    entitymanager = factor.createEntityManager();
-    entitymanager.getTransaction().begin();
-    entitymanager.persist(entity);
-    entitymanager.getTransaction().commit();
+    entityManager = factor.createEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(entity);
+    entityManager.getTransaction().commit();
     return entity;
   }
 
   @Override
   public void remove(Employee entityClass) {
-    entitymanager.getTransaction().begin();
-    entitymanager.remove(entityClass);
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().begin();
+    entityManager.remove(entityClass);
+    entityManager.getTransaction().commit();
   }
 
   @Override
   public Employee update(Employee entityClass) {
-    entitymanager.getTransaction().begin();
-    entitymanager.merge(entityClass);
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().begin();
+    entityManager.merge(entityClass);
+    entityManager.getTransaction().commit();
     return entityClass;
   }
 
   @Override
   public List<Employee> retrieveAll() {
-    entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee");
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().begin();
+    Query q = entityManager.createQuery("SELECT * FROM Employee");
+    entityManager.getTransaction().commit();
     return (List<Employee>) q.getResultList();
   }
 
   @Override
   public Employee retrieveByEmail(String email) {
-    entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL=?1");
+    entityManager.getTransaction().begin();
+    Query q = entityManager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL=?1");
     q.setParameter(1, email);
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().commit();
     return (Employee) q.getSingleResult();
   }
 
   @Override
   public List<Employee> searchByEmail(String email) {
-    entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL LIKE :custEmail%");
+    entityManager.getTransaction().begin();
+    Query q = entityManager.createQuery("SELECT * FROM Employee employee WHERE employee.EMAIL LIKE :custEmail%");
     q.setParameter("custEmail", email);
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().commit();
     return (List<Employee>) q.getResultList();
   }
 
   @Override
   public List<Employee> retrieveByProjectId(String ProjectId) {
-    entitymanager.getTransaction().begin();
-    Query q = entitymanager.createQuery("SELECT * FROM WORKS works WHERE works.ID_PROJECT=?1");
+    entityManager.getTransaction().begin();
+    Query q = entityManager.createQuery("SELECT * FROM WORKS works WHERE works.ID_PROJECT=?1");
     q.setParameter(1,ProjectId);
-    entitymanager.getTransaction().commit();
+    entityManager.getTransaction().commit();
     return (List<Employee>) q.getResultList();
   }
   
