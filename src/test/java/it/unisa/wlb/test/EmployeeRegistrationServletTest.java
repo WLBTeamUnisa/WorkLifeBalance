@@ -36,7 +36,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		response = new MockHttpServletResponse();
 	}
 	
-	// campo nome non rispetta la lunghezza specificata
+	// name field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_1() throws ServletException, IOException {
 		request.addParameter("name", "M");
@@ -50,7 +50,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo nome supera la lunghezza stabilita
+	// name field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_2() throws ServletException, IOException {
 		request.addParameter("name", "Marcooooooooooooooooo");
@@ -64,7 +64,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo nome non rispetta il formato stabilito
+	// name field doesn't respect the specified format
 	@Test 
 	public void TC_1_1_3() throws ServletException, IOException {
 		request.addParameter("name", "Marco90");
@@ -78,7 +78,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo cognome non rispetta la lunghezza specificata
+	// surname field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_4() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -92,7 +92,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo cognome supera la lunghezza stabilita
+	// surname field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_5() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -106,7 +106,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo cognome non rispetta il formato stabilito
+	// surname field doesn't respect the specified format
 	@Test 
 	public void TC_1_1_6() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -120,7 +120,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo E-mail non rispetta la lunghezza stabilita
+	// email field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_7() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -134,7 +134,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo E-mail supera la lunghezza specificata
+	// email field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_8() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -148,7 +148,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo E-mail non rispetta il formato stabilito
+	// email field doesn't respect the specified format
 	@Test 
 	public void TC_1_1_9() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -162,7 +162,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo E-mail già esistente nel database
+	// Email field doesn't exist into database
 	@Test 
 	public void TC_1_1_10() throws ServletException, IOException {
 		
@@ -189,7 +189,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		employeeDao.remove(employee);
 	}
 	
-	// campo password non rispetta la lunghezza specificata
+	// password field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_11() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -203,7 +203,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo password supera la lunghezza specificata
+	// password field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_12() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -217,7 +217,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo password non rispetta il formato spcificato
+	//  password field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_13() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -231,7 +231,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo verifica password non rispetta la lunghezza specificata
+	// password field doesn't respect the specified format
 	@Test 
 	public void TC_1_1_14() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -245,7 +245,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo verifica password supera la lunghezza specificata
+	// verify password field doesn't respect the specified lenght
 	@Test 
 	public void TC_1_1_15() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -259,7 +259,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo verifica password  non rispetta il formato stabilito
+	// verify password field doesn't respect the specified format
 	@Test 
 	public void TC_1_1_16() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -273,7 +273,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// i campi password e verifica password non corrispondono
+	// password field and verify password field doesn't correspond
 	@Test 
 	public void TC_1_1_17() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -287,7 +287,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// campo status non è stato inserito
+	// status field not inserted
 	@Test 
 	public void TC_1_1_18() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -301,7 +301,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// la registrazione dell'utente termina con successo
+	// User registration ended with success
 	@Test 
 	public void TC_1_1_19() throws ServletException, IOException {
 		
