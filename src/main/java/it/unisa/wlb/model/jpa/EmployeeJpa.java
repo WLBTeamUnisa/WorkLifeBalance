@@ -14,8 +14,8 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 @Stateless
 public class EmployeeJpa implements IEmployeeDAO{
 
-	@PersistenceContext
-	protected EntityManager em;
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private EntityManager em = factor.createEntityManager();;
 
 	@Override
 	public Employee create(Employee entity) {
