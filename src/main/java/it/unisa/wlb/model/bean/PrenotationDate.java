@@ -8,6 +8,7 @@ import javax.persistence.*;
  * The persistent class for the PRENOTATION_DATE database table.
  * 
  */
+
 @Entity
 @Table(name="PRENOTATION_DATE")
 @NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p")
@@ -19,10 +20,11 @@ public class PrenotationDate implements Serializable {
 
   //bi-directional many-to-one association to SmartWorkingPrenotation
   @ManyToOne
-  @JoinColumns({
-    @JoinColumn(name="EMPLOYEE_EMAIL", referencedColumnName="EMPLOYEE_EMAIL"),
-    @JoinColumn(name="ID_PRENOTATION_SW", referencedColumnName="ID")
-  })
+  @JoinColumns(value={
+      @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false),
+      @JoinColumn(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
+    })
+  @MapsId(value="PrenotationDatePK")
   private SmartWorkingPrenotation smartWorkingPrenotation;
 
   public PrenotationDate() {

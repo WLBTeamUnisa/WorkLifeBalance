@@ -18,27 +18,21 @@ public class WorkstationPrenotation implements Serializable {
   @EmbeddedId
   private WorkstationPrenotationPK id;
 
-  @Column(name="CALENDAR_WEEK")
+  @Column(name="CALENDAR_WEEK", columnDefinition="int(2)", nullable=false)
   private int calendarWeek;
 
-  @Temporal(TemporalType.DATE)
-  @Column(name="PRENOTATION_DATE")
-  private Date prenotationDate;
-
-  @Temporal(TemporalType.DATE)
-  private Date year;
+  @Column(name="YEAR", columnDefinition="int(4)", nullable=false)
+  private int year;
 
   //bi-directional many-to-one association to Employee
-  @ManyToOne
-  @JoinColumn(name="EMAIL_EMPLOYEE")
-  private Employee employee;
+	@ManyToOne
+	@JoinColumn(name="EMPLOYEE_EMAIL", insertable=false, updatable=false,nullable=false,columnDefinition="varchar(37)")
+	private Employee employee;
 
   //bi-directional many-to-one association to Workstation
   @ManyToOne
   @JoinColumns({
-    @JoinColumn(name="NUM_FLOOR", referencedColumnName="NUM_FLOOR"),
-    @JoinColumn(name="NUM_ROOM", referencedColumnName="NUM_ROOM"),
-    @JoinColumn(name="NUM_WORKSTATION", referencedColumnName="NUM_WORKSTATION")
+    @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM", columnDefinition="int(2)", nullable=false), @JoinColumn(name="NUM_WORKSTATION", columnDefinition="int(3)", nullable=false)
   })
   private Workstation workstation;
 
@@ -61,19 +55,11 @@ public class WorkstationPrenotation implements Serializable {
     this.calendarWeek = calendarWeek;
   }
 
-  public Date getPrenotationDate() {
-    return this.prenotationDate;
-  }
-
-  public void setPrenotationDate(Date prenotationDate) {
-    this.prenotationDate = prenotationDate;
-  }
-
-  public Date getYear() {
+  public int getYear() {
     return this.year;
   }
 
-  public void setYear(Date year) {
+  public void setYear(int year) {
     this.year = year;
   }
 

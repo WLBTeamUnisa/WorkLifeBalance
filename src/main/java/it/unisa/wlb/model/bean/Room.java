@@ -2,6 +2,7 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -10,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="ROOM")
 @NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
 public class Room implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -19,7 +21,8 @@ public class Room implements Serializable {
 
   //bi-directional many-to-one association to Floor
   @ManyToOne
-  @JoinColumn(name="NUM_FLOOR")
+  @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
+  @MapsId("numFloor")
   private Floor floor;
 
   //bi-directional many-to-one association to Workstation
