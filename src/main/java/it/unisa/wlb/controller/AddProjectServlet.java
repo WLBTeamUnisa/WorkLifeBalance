@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
+import it.unisa.wlb.model.dao.IAdminDAO;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.jpa.AdminJpa;
@@ -29,10 +33,22 @@ import it.unisa.wlb.model.jpa.ProjectJpa;
 @WebServlet(name = "AddProjectServlet", urlPatterns = "/AddProjectServlet")
 public class AddProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	private ProjectJpa projectJpa;
-	private EmployeeJpa employeeJpa;
-	private AdminJpa adminJpa;
+	
+	@EJB
+	private IProjectDAO projectDao;
+	@EJB
+	private IEmployeeDAO employeeDao;
+	@EJB
+	private IAdminDAO adminDao;
+	
+	private static final String PROJECT_NAME = "name"; 
+	private static final String PROJECT_SCOPE = "scope";
+	private static final String PROJECT_START_DATE = "startDate"; 
+	private static final String PROJECT_END_DATE = "endDate";
+	private static final String PROJECT_DESCRIPTION = "description";
+	private static final String PROJECT_MANAGER = "managerEmail"; 
+	private static final String ADMIN_EMAIL = "adminEmail";
+	private static final String EMPLOYEES_LIST = "employeesList";
 	
     public AddProjectServlet() {
         super();
@@ -78,8 +94,8 @@ public class AddProjectServlet extends HttpServlet {
 		adminEmail = request.getParameter(ADMIN_EMAIL);
 		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);	
 		
-		manager = employeeJpa.retrieveByEmail(managerEmail);
-		admin = adminJpa.retrieveAll().get(0);
+		manager = employeeDao.retrieveByEmail(managerEmail);
+		admin = adminDao.retrieveAll().get(0);
 		
 		project.setName(name);
 		project.setScope(scope);
@@ -89,11 +105,11 @@ public class AddProjectServlet extends HttpServlet {
 		project.setEmployee(manager);
 		project.setAdmin(admin);
 		project.setEmployees(employeesList);
-		projectJpa.create(project);
+		projectDao.create(project);
 		
 		//Aggiorno il manager inserendo il nuovo progetto che supervisiona
 		manager.addProjects1(project);
-		employeeJpa.update(manager);
+		employeeDao.update(manager);
 		
 		// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 		request.setAttribute("Project", project);
@@ -102,12 +118,4 @@ public class AddProjectServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	private static final String PROJECT_NAME = "name"; 
-	private static final String PROJECT_SCOPE = "scope";
-	private static final String PROJECT_START_DATE = "startDate"; 
-	private static final String PROJECT_END_DATE = "endDate";
-	private static final String PROJECT_DESCRIPTION = "description";
-	private static final String PROJECT_MANAGER = "managerEmail"; 
-	private static final String ADMIN_EMAIL = "adminEmail";
-	private static final String EMPLOYEES_LIST = "employeesList";
 }
