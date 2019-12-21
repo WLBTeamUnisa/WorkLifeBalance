@@ -2,6 +2,7 @@ package it.unisa.wlb.model.jpa;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +13,7 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 @Stateless
+@Local
 public class EmployeeJpa implements IEmployeeDAO{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");

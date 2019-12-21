@@ -2,6 +2,7 @@ package it.unisa.wlb.model.jpa;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
 
 @Stateless
+@Local
 public class ProjectJpa implements IProjectDAO {
   
   private static final EntityManagerFactory factor =

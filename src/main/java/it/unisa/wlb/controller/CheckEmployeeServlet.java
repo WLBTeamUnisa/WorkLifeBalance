@@ -21,8 +21,8 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
  * @author Sabato
  *
  */
-@WebServlet("/SearchEmployeeServlet")
-public class SearchEmployeeServlet extends HttpServlet {
+@WebServlet("/CheckEmployeeServlet")
+public class CheckEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
@@ -31,7 +31,7 @@ public class SearchEmployeeServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchEmployeeServlet() {
+    public CheckEmployeeServlet() {
         super();
     }
 
@@ -46,10 +46,8 @@ public class SearchEmployeeServlet extends HttpServlet {
 		response.setContentType("text/xml");
 		
 		if( (email!=null) && (email.length()>=6) && email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") ){
-			//Da cambiare
-//			List<Employee> list = new ArrayList<Employee>();
-			List<Employee> list = employeeDao.searchByEmail(email);
-			if(list==null || list.size()<=0) {
+			Employee employee = employeeDao.retrieveByEmail(email);
+			if(employee==null) {
 				response.getWriter().append("<ok/>");
 			} else {
 				response.getWriter().append("<no/>");

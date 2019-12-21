@@ -254,7 +254,7 @@
 				}
 				checkForm();
 			}
-			xmlHttpReq.open("GET", "/WorkLifeBalance/SearchEmployeeServlet?email=" + encodeURIComponent(input.value), true);
+			xmlHttpReq.open("GET", "/WorkLifeBalance/CheckEmployeeServlet?email=" + encodeURIComponent(input.value), true);
 			xmlHttpReq.send();
 		} else {
 			if (input.classList.contains("is-valid"))
