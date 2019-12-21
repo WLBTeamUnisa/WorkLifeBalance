@@ -4,6 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="WorkLifeBalance">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>it.unisa.wlb.model.bean.Admin</class>
 		<class>it.unisa.wlb.model.bean.PrenotationDate</class>
 		<class>it.unisa.wlb.model.bean.PrenotationDatePK</class>
@@ -18,17 +19,22 @@
 		<class>it.unisa.wlb.model.bean.Workstation</class>
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotation</class>
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotationPK</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/worklifebalance" />
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/worklifebalance" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="javax.persistence.jdbc.password"
+				value="root" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect" />
-			<property name="hibernate.connection.autocommit" value="true" />
-			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.autocommit"
+				value="true" />
+			<property name="hibernate.enable_lazy_load_no_trans"
+				value="true" />
 		</properties>
 	</persistence-unit>
-	
 </persistence>
