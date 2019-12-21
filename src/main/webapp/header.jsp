@@ -2,38 +2,45 @@
 	pageEncoding="UTF-8"%>
 
 <!-- Navbar -->
-		<div class="main-header">
+<div class="main-header">
 
-			<!-- Logo Header -->
-			<div class="logo-header" data-background-color="orange">
+	<!-- Logo Header -->
+	<div class="logo-header" data-background-color="orange">
 
-				<a href="index.jsp" class="logo"><img src="img/logo.svg" alt="navbar brand" class="navbar-brand"></a>
-				
-				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"><i class="icon-menu"></i></span>
-				</button>
+		<a href="index.jsp" class="logo"><img src="img/logo.svg"
+			alt="navbar brand" class="navbar-brand"></a>
 
-				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
-				
-				<div class="nav-toggle">
-					<button class="btn btn-toggle toggle-sidebar">
-						<i class="icon-menu"></i>
-					</button>
-				</div>
-			</div>
-			<!-- End Logo Header -->
+		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
+			data-toggle="collapse" data-target="collapse" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"><i class="icon-menu"></i></span>
+		</button>
 
-			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="orange">
+		<button class="topbar-toggler more">
+			<i class="icon-options-vertical"></i>
+		</button>
 
-				<div class="container-fluid">
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item"><h4 class="text-right my-auto mr-3" style="color: white;">Nome - Cognome</h4></li>
-					</ul>
-				</div>
-			</nav>
-			<!-- End Navbar -->
+		<div class="nav-toggle">
+			<button class="btn btn-toggle toggle-sidebar">
+				<i class="icon-menu"></i>
+			</button>
 		</div>
+	</div>
+	<!-- End Logo Header -->
+
+	<!-- Navbar Header -->
+	<nav class="navbar navbar-header navbar-expand-lg"
+		data-background-color="orange">
+
+		<div class="container-fluid">
+			<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+				<li class="nav-item"><h4 class="text-right my-auto mr-3"
+						style="color: white;">Nome - Cognome</h4></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- End Navbar -->
+</div>
 
 <!-- Sidebar -->
 <div class="sidebar sidebar-style-2" style="background-color: #2f3640">

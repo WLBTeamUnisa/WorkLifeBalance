@@ -50,15 +50,19 @@
 					<div class="col-lg-7 mx-auto">
 
 						<div class="card">
-							
+
 							<div class="card-header">
 								<h3 class="my-auto">Projects list</h3>
 							</div>
 
 							<div class="card-body">
 
-								<a class="nav-link nav-item toggle-nav-search hidden-caret mb-3" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
-									<button class="btn"><i class="fa fa-search"></i></button>
+								<a class="nav-link nav-item toggle-nav-search hidden-caret mb-3"
+									data-toggle="collapse" href="#search-nav" role="button"
+									aria-expanded="false" aria-controls="search-nav">
+									<button class="btn">
+										<i class="fa fa-search"></i>
+									</button>
 								</a>
 
 								<div class="collapse mx-auto mb-3" id="search-nav">
@@ -69,21 +73,28 @@
 													<i class="fa fa-search search-icon"></i>
 												</button>
 											</div>
-											<input type="text" placeholder="Search ..." class="form-control">
+											<input type="text" placeholder="Search ..."
+												class="form-control">
 										</div>
 									</form>
 								</div>
 
-									<ul class="list-group list-group-bordered">
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
-										<li class="list-group-item"><a href="#" class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
-									</ul>
-								
-									<a class="btn btn-success mt-3" href="ProjectInsertion.jsp" role="button">Insert project</a>
-							
+								<ul class="list-group list-group-bordered">
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
+								</ul>
+
+								<a class="btn btn-success mt-3" href="ProjectInsertion.jsp"
+									role="button">Insert project</a>
+
 								<!-- FINE CARD-BODY -->
 							</div>
 

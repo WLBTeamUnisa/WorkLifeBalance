@@ -60,7 +60,7 @@
 										<label for="name" class="col-sm-2 col-form-label">Name:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="name" id="name">
+												name="name" id="name" onkeyup="verificaNome()">
 										</div>
 									</div>
 
@@ -68,7 +68,7 @@
 										<label for="scope" class="col-sm-2 col-form-label">Scope:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="scope" id="scope">
+												name="scope" id="scope" onkeyup="verificaScope()">
 										</div>
 									</div>
 
@@ -237,6 +237,59 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+
+	<script>
+		var nomeOK = false;
+		var scopeOK = false;
+		var dataInizioOK = false;
+		var dataFineOK = false;
+		var descrizioneOK = false;
+		var managerOK = false;
+
+		//TEMPLATE
+		var borderOK = '1px solid #080';
+		var borderNO = '1px solid #f00';
+
+		function verificaNome(){
+			var input = $("#nome").val();
+
+			if(input.trim().length>=4 && input.trim().length<=15 && input.match(/^[A-Za-z0-9]+$/)){
+				$("#nome").css("border", borderOK);
+				nomeOK = true;
+			} else {
+				$("#nome").css("border", borderNO);
+				nomeOK = false;
+			}
+			changeInsertButtonState();
+		}
+
+		function verificaScope(){
+			var input = $("#scope").val();
+
+			if(input.trim().length>=3 && input.trim().length<=25 && input.match(/^[A-Za-z\s]+$/)){
+				$("#scope").css("border", borderOK);
+				scopeOK = true;
+			} else {
+				$("#scope").css("border", borderNO);
+				scopeOK = false;
+			}
+			changeInsertButtonState();
+		}
+
+		function changeInsertButtonState(){
+			var btn = $("#insertButton");
+
+			if(nomeOK && scopeOK && dataInizioOK && dataInizioOK && descrizioneOK && managerOK){
+				btn.prop("disabled", false);
+				btn.css("background-color", "#31CE36");
+				btn.css("color", "#ffffff");
+			} else {
+				btn.prop("disabled", true);
+				btn.css("background-color", "#d6d6d6");
+				btn.css("color", "#b8b8b8");
+			}
+		}
+	</script>
 
 </body>
 </html>
