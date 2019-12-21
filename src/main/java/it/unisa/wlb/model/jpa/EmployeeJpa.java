@@ -15,42 +15,48 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 public class EmployeeJpa implements IEmployeeDAO{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-	private EntityManager em = factor.createEntityManager();
+	private EntityManager entityManager = factor.createEntityManager();
 
 	@Override
 	public Employee create(Employee entity) {
-		em.persist(entity);
-		return entity;
+		entityManager.getTransaction().begin();
+	    entityManager.persist(entity);
+	    entityManager.getTransaction().commit();
+	    return entity;
 	}
 
 	@Override
 	public void remove(Employee entityClass) {
-		em.remove(em.merge(entityClass));
+		entityManager.getTransaction().begin();
+	    entityManager.remove(entityClass);
+	    entityManager.getTransaction().commit();
 	}
 
 	@Override
 	public Employee update(Employee entityClass) {
-		em.merge(entityClass);
-		return entityClass;
+		entityManager.getTransaction().begin();
+	    entityManager.merge(entityClass);
+	    entityManager.getTransaction().commit();
+	    return entityClass;
 	}
 
 	@Override
 	public List<Employee> retrieveAll() {
-		return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+		return entityManager.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
 	}
 
 	@Override
 	public Employee retrieveByEmail(String email) {
-		em.getTransaction().begin();
-		TypedQuery<Employee> query = em.createNamedQuery("Employee.findByEmail", Employee.class);
+		entityManager.getTransaction().begin();
+		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmail", Employee.class);
 		query.setParameter("email", email);
-		em.getTransaction().commit();
+		entityManager.getTransaction().commit();
 		return (Employee) query.getSingleResult();
 	}
 
 	@Override
 	public List<Employee> searchByEmail(String email) {
-		return em.createQuery("SELECT e FROM Employee e WHERE e.email LIKE ?1%", Employee.class).setParameter(1, email).getResultList();
+		return entityManager.createQuery("SELECT e FROM Employee e WHERE e.email LIKE ?1%", Employee.class).setParameter(1, email).getResultList();
 	}
 
 	@Override
@@ -61,11 +67,11 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public Employee retrieveByEmailPassword(String email, String password) {
-		em.getTransaction().begin();
-		TypedQuery<Employee> query = em.createNamedQuery("Employee.findByEmailPassword", Employee.class);
+		entityManager.getTransaction().begin();
+		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmailPassword", Employee.class);
 		query.setParameter("email", email);
 		query.setParameter("password", password);
-		em.getTransaction().commit();
+		entityManager.getTransaction().commit();
 		return (Employee) query.getSingleResult();
 	}
 

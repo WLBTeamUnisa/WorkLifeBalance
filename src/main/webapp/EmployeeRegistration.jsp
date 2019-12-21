@@ -52,7 +52,7 @@
 
 
 							<div class="registration-fields">
-								<form name="registration" method="post" action="/EmployeeRegistrationServlet">
+								<form name="registration" method="post" action="EmployeeRegistrationServlet">
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text">
@@ -60,7 +60,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="Name" id="Name" oninput="validName()" class="form-control" placeholder="Nome*" type="text" required>
+										<input name="name" id="Name" oninput="validName()" class="form-control" placeholder="Nome*" type="text" required>
 									</div>
 									<!-- form-group// Name -->
 									<span id="errorName"> 
@@ -73,7 +73,7 @@
 												</i>
 											</span>
 										</div>
-										<input name="Surname" id="Surname" oninput="validSurname()" class="form-control" placeholder="Cognome*" type="text" required>
+										<input name="surname" id="Surname" oninput="validSurname()" class="form-control" placeholder="Cognome*" type="text" required>
 									</div>
 									<!-- form-group// Last name -->
 									<span id="errorSurname"></span>

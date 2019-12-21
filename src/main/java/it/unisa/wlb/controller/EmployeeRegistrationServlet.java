@@ -37,20 +37,18 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter p = response.getWriter();
-		
-		
+				
 		/**
 	     * Employee Registration parameters
 	     */
-		String name= request.getParameter("Name");
-		String surname= request.getParameter("Surname");
+		String name= request.getParameter("name");
+		String surname= request.getParameter("surname");
 		String email= request.getParameter("email");
 		String password= request.getParameter("password");
 		String verifyPassword= request.getParameter("verifyPassword");
 		String status= request.getParameter("status");
-		byte statusByte=0;
+		int statusInt=0;
 		
-
 		System.out.println(name);
 		System.out.println(surname);
 		System.out.println(email);
@@ -58,7 +56,12 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		System.out.println(verifyPassword);
 		System.out.println(status);
 		
-		boolean nameOk,surnameOk,emailOk,passwordOk,verifyPasswordOk,statusOk=false;
+		boolean nameOk = false;
+		boolean surnameOk = false;
+		boolean emailOk = false;
+		boolean passwordOk = false; 
+		boolean verifyPasswordOk = false;
+		boolean statusOk = false;
 		
 		/**
 	     * Employee Registration parameters check
@@ -77,11 +80,13 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			emailOk=false;
 		else
 		{
-			Employee employeeExist = employeeDao.retrieveByEmail(email);
-			if(employeeExist == null)
-				emailOk=true;
-			else
+			Employee employeeExist;
+			try {
+				employeeExist = employeeDao.retrieveByEmail(email);
 				emailOk=false;
+			} catch (Exception e) {
+				emailOk=true;
+			}				
 		}
 			
 		if(password== null || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") || password.length()<8 || password.length()>20)
@@ -98,11 +103,11 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			{
 				if(status.equals("employee"))
 				statusOk=true;
-				statusByte=0;
+				statusInt=0;
 				if(status.equals("manager"))
 				{
 					statusOk=true;
-					statusByte=1;
+					statusInt=1;
 				}
 			}
 		else
@@ -113,20 +118,24 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			/**
 		     * Create new Employee with form parameters
 		     */
-			Employee Employee1= new Employee();
-			Employee1.setName(name);
-			Employee1.setSurname(surname);
-			Employee1.setEmail(email);
-			Employee1.setPassword(password);
-			Employee1.setStatus(statusByte);
+			Employee employee= new Employee();
+			employee.setName(name);
+			employee.setSurname(surname);
+			employee.setEmail(email);
+			employee.setPassword(password);
+			employee.setStatus(statusInt);
+			
+			System.out.println(employee.getName()+" "+employee.getStatus());
+			
 			/**
 		     * insert into Database
 		     */
-			employeeDao.create(Employee1);
+			employeeDao.create(employee);
 			
-			System.out.println("tutto ok");
+			System.out.println("Tutto ok");
+			
 			String url=response.encodeURL("/EmployeeRegistration.jsp");
-			RequestDispatcher dispatcher =request.getRequestDispatcher(url);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 			
 		}
