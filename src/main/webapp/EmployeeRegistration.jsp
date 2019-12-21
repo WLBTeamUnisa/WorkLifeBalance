@@ -230,7 +230,7 @@
 
 	}
 	function validEmail() {
-
+	
 		var ok = "<ok/>";
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
@@ -264,6 +264,7 @@
 			emailOk = false;
 		}
 		checkForm();
+		
 	}
 	function validPassword() {
 		var inputpw = document.querySelector("#Password");
