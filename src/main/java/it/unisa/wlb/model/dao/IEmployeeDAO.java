@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unisa.wlb.model.bean.Employee;
 
+
 public interface IEmployeeDAO extends IGenericDAO<Employee> {
 
 	public Employee retrieveByEmail(String email);
