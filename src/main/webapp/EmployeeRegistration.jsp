@@ -238,7 +238,6 @@
 		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
-				window.alert(xmlHttpReq.responseText);
 				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
 					if (input.classList.contains("is-invalid"))
 						input.classList.remove("is-invalid");

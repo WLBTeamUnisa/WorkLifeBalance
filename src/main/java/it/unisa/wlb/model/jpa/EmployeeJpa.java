@@ -3,62 +3,54 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
-import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 @Stateless
 public class EmployeeJpa implements IEmployeeDAO{
 
-	  private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-		 private EntityManager entitymanager = factor.createEntityManager();
-	
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private EntityManager em = factor.createEntityManager();
+
 	@Override
 	public Employee create(Employee entity) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(entity);
+		return entity;
 	}
 
 	@Override
 	public void remove(Employee entityClass) {
-
-		// TODO Auto-generated method stub
-		
+		em.remove(em.merge(entityClass));
 	}
 
 	@Override
 	public Employee update(Employee entityClass) {
-
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(entityClass);
+		return entityClass;
 	}
 
 	@Override
 	public List<Employee> retrieveAll() {
-
-		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
 	}
 
 	@Override
 	public Employee retrieveByEmail(String email) {
-
-		// TODO Auto-generated method stub
-		return null;
+		em.getTransaction().begin();
+		TypedQuery<Employee> query = em.createNamedQuery("Employee.findByEmail", Employee.class);
+		query.setParameter("email", email);
+		em.getTransaction().commit();
+		return (Employee) query.getSingleResult();
 	}
 
 	@Override
 	public List<Employee> searchByEmail(String email) {
-
-		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("SELECT e FROM Employee e WHERE e.email LIKE ?1%", Employee.class).setParameter(1, email).getResultList();
 	}
 
 	@Override
@@ -69,11 +61,11 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public Employee retrieveByEmailPassword(String email, String password) {
-		entitymanager.getTransaction().begin();
-		TypedQuery<Employee> query = entitymanager.createNamedQuery("Employee.findByEmailPassword", Employee.class);
+		em.getTransaction().begin();
+		TypedQuery<Employee> query = em.createNamedQuery("Employee.findByEmailPassword", Employee.class);
 		query.setParameter("email", email);
 		query.setParameter("password", password);
-		entitymanager.getTransaction().commit();
+		em.getTransaction().commit();
 		return (Employee) query.getSingleResult();
 	}
 
