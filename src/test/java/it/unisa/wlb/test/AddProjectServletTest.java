@@ -21,7 +21,7 @@ import javax.servlet.ServletException;
 
 public class AddProjectServletTest extends Mockito {
 
-/*
+
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
@@ -328,5 +328,5 @@ public class AddProjectServletTest extends Mockito {
 		assertEquals("json", response.getContentType());
 	}
 	
-	*/
+	
 }

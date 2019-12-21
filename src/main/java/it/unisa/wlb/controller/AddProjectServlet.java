@@ -65,6 +65,7 @@ public class AddProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Project project = new Project();
 		Employee manager;
 		Admin admin;
@@ -116,6 +117,7 @@ public class AddProjectServlet extends HttpServlet {
 		String url= response.encodeURL("AddEmployeesToProjectServlet.java");
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
-	}
+		
 	
+}
 }
