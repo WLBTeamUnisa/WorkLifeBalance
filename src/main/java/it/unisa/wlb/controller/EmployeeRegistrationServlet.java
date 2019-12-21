@@ -136,6 +136,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			
 //			System.out.println("Tutto ok");
 			
+			request.setAttribute("result", "success");
 			String url=response.encodeURL("/EmployeeRegistration.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

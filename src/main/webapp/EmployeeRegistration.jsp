@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String s = (String) request.getAttribute("result");
+%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -47,6 +50,9 @@
 							<div class="card-header">
 								<h3>
 									<bold>Registrazione</bold>
+									<%if(s!=null){ %>
+										<p>OOOOOOOOOKKKKKKKKKK</p>
+									<%} %>
 								</h3>
 							</div>
 
@@ -235,7 +241,7 @@
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
-		if ((emailValue.length-7) >= 5 && (emailValue.length-7) <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
+		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
 				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
