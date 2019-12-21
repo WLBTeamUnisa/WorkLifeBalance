@@ -52,7 +52,7 @@
 
 
 							<div class="registration-fields">
-								<form name="registration" method="post" action="/WorkLifeBalance/EmployeeRegistrationServlet">
+								<form name="registration" method="post" action="/EmployeeRegistrationServlet">
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text">

@@ -123,8 +123,9 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		     * insert into Database
 		     */
 			employeeDao.create(Employee1);
+			
 			System.out.println("tutto ok");
-			String url=response.encodeURL("EmployeeRegistration.jsp");
+			String url=response.encodeURL("/EmployeeRegistration.jsp");
 			RequestDispatcher dispatcher =request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 			
