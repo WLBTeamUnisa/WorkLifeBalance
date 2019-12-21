@@ -23,8 +23,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
        
     /**
      * @see HttpServlet#HttpServlet()
-     */
-	
+     */	
 	@EJB
 	private IEmployeeDAO employeeDao;
 	
@@ -49,12 +48,12 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		String status= request.getParameter("status");
 		int statusInt=0;
 		
-		System.out.println(name);
-		System.out.println(surname);
-		System.out.println(email);
-		System.out.println(password);
-		System.out.println(verifyPassword);
-		System.out.println(status);
+//		System.out.println(name);
+//		System.out.println(surname);
+//		System.out.println(email);
+//		System.out.println(password);
+//		System.out.println(verifyPassword);
+//		System.out.println(status);
 		
 		boolean nameOk = false;
 		boolean surnameOk = false;
@@ -76,7 +75,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		else
 			surnameOk=true;
 		
-		if( email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") || email.equals("") || email.length()<5 || email.length()>30 )
+		if( email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
 			emailOk=false;
 		else
 		{
@@ -86,7 +85,10 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 				emailOk=false;
 			} catch (Exception e) {
 				emailOk=true;
-			}				
+			}
+			
+			if(!emailOk)
+				throw new IllegalArgumentException();			
 		}
 			
 		if(password== null || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") || password.length()<8 || password.length()>20)
@@ -99,12 +101,12 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		else
 			verifyPasswordOk=true;
 		
-		if(status.equals("employee") || status.equals("manager") )
+		if(status.equals("Employee") || status.equals("Manager") )
 			{
-				if(status.equals("employee"))
+				if(status.equals("Employee"))
 				statusOk=true;
 				statusInt=0;
-				if(status.equals("manager"))
+				if(status.equals("Manager"))
 				{
 					statusOk=true;
 					statusInt=1;
@@ -125,20 +127,22 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			employee.setPassword(password);
 			employee.setStatus(statusInt);
 			
-			System.out.println(employee.getName()+" "+employee.getStatus());
+//			System.out.println(employee.getName()+" "+employee.getStatus());
 			
 			/**
 		     * insert into Database
 		     */
 			employeeDao.create(employee);
 			
-			System.out.println("Tutto ok");
+//			System.out.println("Tutto ok");
 			
 			String url=response.encodeURL("/EmployeeRegistration.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 			
 		}
+		else
+			throw new IllegalArgumentException();
 	}
 
 	/**

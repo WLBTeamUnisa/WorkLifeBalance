@@ -1,34 +1,35 @@
 package it.unisa.wlb.test;
 
 import java.io.IOException;
-import java.util.*;
 import it.unisa.wlb.controller.EmployeeRegistrationServlet;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.jpa.EmployeeJpa;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 
-public class TestEmployeeRegistrationServlet extends Mockito {
+public class EmployeeRegistrationServletTest extends Mockito {
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private EmployeeRegistrationServlet servlet;
 
+	@EJB
+	private IEmployeeDAO employeeDao;
 	
-
-	@Before
+	@BeforeEach
 	public void setUp() {
 		servlet = new EmployeeRegistrationServlet();
 		request = new MockHttpServletRequest();
@@ -52,7 +53,7 @@ public class TestEmployeeRegistrationServlet extends Mockito {
 	// campo nome supera la lunghezza stabilita
 	@Test 
 	public void TC_1_1_2() throws ServletException, IOException {
-		request.addParameter("name", "Marcooooooooooooooo");
+		request.addParameter("name", "Marcooooooooooooooooo");
 		request.addParameter("surname", "Rossi");
 		request.addParameter("email", "m.rossi1@wlb.it");
 		request.addParameter("password", "MarcoRossi1.");
@@ -124,7 +125,7 @@ public class TestEmployeeRegistrationServlet extends Mockito {
 	public void TC_1_1_7() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
-		request.addParameter("email", "m.ross1@wlb.it");
+		request.addParameter("email", "m.r1@wlb.it");
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
@@ -162,18 +163,16 @@ public class TestEmployeeRegistrationServlet extends Mockito {
 	}
 	
 	// campo E-mail già esistente nel database
-
 	@Test 
 	public void TC_1_1_10() throws ServletException, IOException {
-		Employee em = new Employee();
-		em.setName("Marco");
-		em.setSurname("Rossi");
-		em.setEmail("m.rossi1@wlb.it");
-		em.setPassword("MarcoRossi1.");
-		em.setStatus(1);
+		Employee employee = new Employee();
+		employee.setName("Marco");
+		employee.setSurname("Rossi");
+		employee.setEmail("m.rossi1@wlb.it");
+		employee.setPassword("MarcoRossi1.");
+		employee.setStatus(1);
 		
-		EmployeeJpa jpa = new EmployeeJpa();
-		jpa.create(em);
+		employee = employeeDao.create(employee);
 		
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
@@ -181,9 +180,12 @@ public class TestEmployeeRegistrationServlet extends Mockito {
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
+		
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
 		});
+		
+		employeeDao.remove(employee);
 	}
 	
 	// campo password non rispetta la lunghezza specificata

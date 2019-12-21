@@ -123,8 +123,8 @@
 											</span>
 										</div>
 										<select name="status" class="custom-select" id="inputGroupSelect03" required>
-											<option value="employee">Dipendente</option>
-											<option value="manager">Manager</option>
+											<option value="Employee">Dipendente</option>
+											<option value="Manager">Manager</option>
 										</select>
 									</div>
 									<!-- form-group// Status choose -->
@@ -235,7 +235,7 @@
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
-		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
+		if ((emailValue.length-7) >= 5 && (emailValue.length-7) <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
 				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
