@@ -1,6 +1,8 @@
 package it.unisa.wlb.model.jpa;
 
 import java.util.List;
+
+import javax.ejb.Local;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +13,7 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
 
+@Local
 public class ProjectJpa implements IProjectDAO {
   
   private static final EntityManagerFactory factor =

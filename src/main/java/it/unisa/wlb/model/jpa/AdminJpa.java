@@ -1,6 +1,8 @@
 package it.unisa.wlb.model.jpa;
 
 import java.util.List;
+
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,6 +12,7 @@ import javax.persistence.Query;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.dao.IAdminDAO;
 
+@Stateless
 public class AdminJpa implements IAdminDAO {
   private static final EntityManagerFactory factor =
       Persistence.createEntityManagerFactory("WorkLifeBalance");
@@ -46,5 +49,14 @@ public class AdminJpa implements IAdminDAO {
     return (List<Admin>) q.getResultList();
   }
 
+@Override
+public Admin retrieveByEmailPassword(String email, String password) {
+	entitymanager.getTransaction().begin();
+	Query q = entitymanager.createNamedQuery("SELECT admin FROM Admin admin WHERE id = :id AND password = :password");
+	q.setParameter("email", email);
+	q.setParameter("password", password);
+	entitymanager.getTransaction().commit();
+	return (Admin) q.getSingleResult();
+}
 
 }
