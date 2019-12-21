@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 					if(e != null) {
 						session.setAttribute("userRole", e.getStatus());
 						session.setAttribute("user", e);
-						//response.sendRedirect(".jsp");
+						response.sendRedirect("Homepage.jsp");
 						System.err.println(e.toString());
 					}
 				} else if(email.endsWith("@wlbadmin.it")) {
@@ -50,18 +50,16 @@ public class LoginServlet extends HttpServlet {
 						//userRole = 2 means who access to the platform is an Admin
 						session.setAttribute("userRole", 2);
 						session.setAttribute("user", a);
-						response.sendRedirect(".jsp");
+						response.sendRedirect("Homepage.jsp");
 					}
 				} else {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e Password non validi");
-					System.err.println("MA CHE CAZZ");
 					response.getWriter().flush();
 				}
 			/*} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Email e Password non validi");
-				System.err.println("MA CHE CAZZone");
 				response.getWriter().flush();
 			}*/
 		}
