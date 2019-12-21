@@ -11,5 +11,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	public List<Employee> searchByEmail(String email);
 
 	public List<Employee> retrieveByProjectId(String ProjectId);
+	
+	public Employee retrieveByEmailPassword(String email, String password);
 
 }
