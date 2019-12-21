@@ -1,6 +1,8 @@
 package it.unisa.wlb.model.jpa;
 
 import java.util.List;
+
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,6 +12,7 @@ import javax.persistence.Query;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.dao.IAdminDAO;
 
+@Stateless
 public class AdminJpa implements IAdminDAO {
   private static final EntityManagerFactory factor =
       Persistence.createEntityManagerFactory("WorkLifeBalance");
