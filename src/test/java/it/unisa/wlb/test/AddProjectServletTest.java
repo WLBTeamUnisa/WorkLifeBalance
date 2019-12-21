@@ -3,36 +3,32 @@ package it.unisa.wlb.test;
 import java.io.IOException;
 import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
-import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.jpa.AdminJpa;
 import it.unisa.wlb.model.jpa.ProjectJpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 
+public class AddProjectServletTest extends Mockito {
 
-
-public class TestAddProjectServlet extends Mockito {
-
-
-	/*private MockHttpServletRequest request;
+/*
+	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
 
 
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		servlet = new AddProjectServlet();
 		request = new MockHttpServletRequest();
@@ -42,7 +38,7 @@ public class TestAddProjectServlet extends Mockito {
 
 	// Campo nome non inserito - TC_2.1_1
 	@Test
-	public void TC_2_1_1() throws ServletException, IOException {  
+	public void TC_2_1_1() throws ServletException, IOException {
 		request.addParameter("name", "");
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
@@ -331,6 +327,6 @@ public class TestAddProjectServlet extends Mockito {
 		servlet.doPost(request, response);
 		assertEquals("json", response.getContentType());
 	}
+	
 	*/
-
 }

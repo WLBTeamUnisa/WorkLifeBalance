@@ -36,7 +36,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-85 p-b-20">
-				<form class="login100-form validate-form" action="LoginServlet">
+				<form class="login100-form validate-form" action="LoginServlet" method="POST">
 					<span class="login100-form-title p-b-70"> Work Life Balance
 					</span> <span class="login100-form-avatar"> <img src="img/logo.png"
 						alt="AVATAR">

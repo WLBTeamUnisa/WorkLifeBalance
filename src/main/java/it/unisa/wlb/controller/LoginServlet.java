@@ -39,7 +39,6 @@ public class LoginServlet extends HttpServlet {
 				if(email.endsWith("@wlb.it")) {
 					Employee e = employeeDao.retrieveByEmailPassword(email, password);
 					if(e != null) {
-						session.setAttribute("userRole", e.getStatus());
 						session.setAttribute("user", e);
 						response.sendRedirect("Homepage.jsp");
 						System.err.println(e.toString());
