@@ -49,10 +49,7 @@
 						<div class="card">
 							<div class="card-header">
 								<h3>
-									<bold>Registrazione</bold>
-									<%if(s!=null){ %>
-										<p>OOOOOOOOOKKKKKKKKKK</p>
-									<%} %>
+									<bold>Registrazione dipendente</bold>
 								</h3>
 							</div>
 
