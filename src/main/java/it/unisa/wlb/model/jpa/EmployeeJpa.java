@@ -42,7 +42,10 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public List<Employee> retrieveAll() {
-		return entityManager.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+		entityManager.getTransaction().begin();
+		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
+		entityManager.getTransaction().commit();
+		return (List<Employee>) query.getResultList();
 	}
 
 	@Override
@@ -56,9 +59,14 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public List<Employee> searchByEmail(String email) {
-		return entityManager.createQuery("SELECT e FROM Employee e WHERE e.email LIKE ?1%", Employee.class).setParameter(1, email).getResultList();
+		entityManager.getTransaction().begin();
+		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.searchByEmail", Employee.class);
+		query.setParameter("email", email);
+		entityManager.getTransaction().commit();
+		return (List<Employee>) query.getResultList();		
 	}
 
+	
 	@Override
 	public List<Employee> retrieveByProjectId(String ProjectId) {
 		// TODO Auto-generated method stub
