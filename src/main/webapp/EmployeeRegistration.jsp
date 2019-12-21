@@ -122,9 +122,9 @@
 												</i>
 											</span>
 										</div>
-										<select class="custom-select" id="inputGroupSelect03" required>
-											<option value="1">Dipendente</option>
-											<option value="2">Manager</option>
+										<select name="status" class="custom-select" id="inputGroupSelect03" required>
+											<option value="employee">Dipendente</option>
+											<option value="manager">Manager</option>
 										</select>
 									</div>
 									<!-- form-group// Status choose -->
