@@ -22,13 +22,14 @@ public class EmployeeJpa implements IEmployeeDAO{
 	
 	@Override
 	public Employee create(Employee entity) {
-		// TODO Auto-generated method stub
-		return null;
+	    entitymanager.getTransaction().begin();
+	    entitymanager.persist(entity);
+	    entitymanager.getTransaction().commit();
+	    return entity;
 	}
 
 	@Override
 	public void remove(Employee entityClass) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.Utils;
 
 /**
  * Servlet implementation class LoginServlet
@@ -21,12 +23,12 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@EJB
 	IAdminDAO adminDao;		
 	@EJB
 	IEmployeeDAO employeeDao;
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -35,32 +37,37 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			//if(checkPasswordLogin(password) && checkEmailLogin(email)) {
-				if(email.endsWith("@wlb.it")) {
-					Employee e = employeeDao.retrieveByEmailPassword(email, password);
-					if(e != null) {
-						session.setAttribute("user", e);
-						response.sendRedirect("Homepage.jsp");
-						System.err.println(e.toString());
+			if(email != null && password != null && checkPasswordLogin(password)) {
+				try {
+					String generatedPwd = Utils.generatePwd(password);
+					if(email.endsWith("@wlb.it")) {
+						Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
+						if(e != null) {
+							session.setAttribute("user", e);
+							response.sendRedirect("Homepage.jsp");
+						}
+					} else if(email.endsWith("@wlbadmin.it")) {
+						Admin a = adminDao.retrieveByEmailPassword(email, password);
+						if(a != null) {
+							session.setAttribute("userRole", "Admin");
+							session.setAttribute("user", a);
+							response.sendRedirect("Homepage.jsp");
+						}
+					} else {
+						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+						response.getWriter().write("Email e/o password non validi");
+						response.getWriter().flush();
 					}
-				} else if(email.endsWith("@wlbadmin.it")) {
-					Admin a = adminDao.retrieveByEmailPassword(email, password);
-					if(a != null) {
-						//userRole = 2 means who access to the platform is an Admin
-						session.setAttribute("userRole", 2);
-						session.setAttribute("user", a);
-						response.sendRedirect("Homepage.jsp");
-					}
-				} else {
+				}catch(Exception e) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Email e Password non validi");
+					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
 				}
-			/*} else {
+			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Email e Password non validi");
+				response.getWriter().write("Email e/o password non validi");
 				response.getWriter().flush();
-			}*/
+			}
 		}
 	}
 
@@ -71,17 +78,10 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	
+
+
 	public static boolean checkPasswordLogin(String password) {
-		if(password.length() >= 8 && password.length() <= 20 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*])(?=.{8,20})$")) {
-			return true;
-		}
-		return false;
-	}
-	
-	public static boolean checkEmailLogin(String email) {
-		if(email.matches("[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it") || email.matches("[a-z]{1}\\.[a-z]+[1-9]*\\@wlbadmin.it")) {
+		if(password.length() >= 8 && password.length() <= 20 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
 			return true;
 		}
 		return false;
