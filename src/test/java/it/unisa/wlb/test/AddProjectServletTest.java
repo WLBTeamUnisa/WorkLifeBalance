@@ -5,6 +5,7 @@ import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
+import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.model.jpa.ProjectJpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +26,7 @@ public class AddProjectServletTest extends Mockito {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
+	private IProjectDAO pDao;
 
 
 
@@ -33,6 +35,7 @@ public class AddProjectServletTest extends Mockito {
 		servlet = new AddProjectServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
+		pDao = mock(IProjectDAO.class);
 	}
 
 
@@ -103,8 +106,8 @@ public class AddProjectServletTest extends Mockito {
 	    pr.setEmployees(li);
 	    pr.setEmployee(em);
 	    
-	    ProjectJpa jpa= new ProjectJpa();
-	    Project p = jpa.create(pr);
+	    
+	    pr = pDao.create(pr);
 	    
 		request.addParameter("name", "WLB13PO");
 		request.addParameter("scope", "SmartWorking");
@@ -118,6 +121,8 @@ public class AddProjectServletTest extends Mockito {
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doPost(request, response);
 		});
+		
+		pDao.remove(pr);
 	}
 
 	// scope field not inserted  -  TC_2.2_5
@@ -325,7 +330,7 @@ public class AddProjectServletTest extends Mockito {
 		request.addParameter("employeesList", "1");
 		request.addParameter("employee", "m.bianchi1@wlb.it");
 		servlet.doPost(request, response);
-		assertEquals("json", response.getContentType());
+		assertEquals("success", request.getAttribute("result"));
 	}
 	
 	
