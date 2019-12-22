@@ -129,33 +129,97 @@ a:hover {
 }
 
 a
+
+
+
+
+
+
 :not
+
+
+
  
+
+
+
 (
 [
 href
 ]
+
+
+
  
+
+
+
 )
 :not
+
+
+
  
+
+
+
 (
 [
 tabindex
 ]
+
+
+
  
+
+
+
 ){
 color
-:
- 
-inherit
-;
 
-	
-text-decoration
+
+
+
+
+
 :
+
+
+
  
+
+
+
+inherit
+
+
+
+
+
+
+;
+text-decoration
+
+
+
+
+
+
+:
+
+
+
+ 
+
+
+
 none
+
+
+
+
+
+
 
 
 }
@@ -190,16 +254,52 @@ img {
 }
 
 svg
+
+
+
+
+
+
 :not
+
+
+
  
+
+
+
 (
 :root
+
+
+
  
+
+
+
 ){
 overflow
+
+
+
+
+
+
 :
+
+
+
  
+
+
+
 hidden
+
+
+
+
+
+
 
 
 }

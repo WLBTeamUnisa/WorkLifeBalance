@@ -92,8 +92,8 @@
 
 /* MS supports */
 @
-supports (-ms-overflow-style: none ) { .ps { overflow:auto!important;
-	
+supports (-ms-overflow-style: none ) { .ps {
+	overflow: auto !important;
 }
 
 }

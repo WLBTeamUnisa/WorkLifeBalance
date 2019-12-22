@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -8,7 +12,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Project Insertion</title>
+<title>WLB - Lista dipendenti</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -16,6 +20,10 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/atlantis.css">
+
+<link href="node_modules/sweetalert2/dist/sweetalert2.css"
+	rel="stylesheet" />
+<link href="style.css" rel="stylesheet" />
 
 <!-- Fonts and icons -->
 <script src="js/plugin/webfont/webfont.min.js"></script>
@@ -52,7 +60,7 @@
 						<div class="card">
 
 							<div class="card-header">
-								<h3 class="my-auto">Projects list</h3>
+								<h3 class="my-auto">Lista dei dipendenti</h3>
 							</div>
 
 							<div class="card-body">
@@ -81,19 +89,24 @@
 
 								<ul class="list-group list-group-bordered">
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											1</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											2</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											3</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											4</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											5</a></li>
 								</ul>
 
-								<a class="btn btn-success mt-3" href="ProjectInsertion.jsp"
-									role="button">Insert project</a>
+								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
+									role="button">Inserisci dipendente</a>
 
 								<!-- FINE CARD-BODY -->
 							</div>
@@ -146,6 +159,16 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+
+
+	<c:if test="${not empty result}">
+		<script>
+			function sweetalertclick() {
+				swal("Ottimo!", "Registrazione avvenuta con successo!", "success")
+			}
+			window.onload = sweetalertclick;
+		</script>
+	</c:if>
 
 </body>
 </html>

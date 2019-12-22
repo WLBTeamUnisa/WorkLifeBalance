@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -15,7 +14,8 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e"),
 	@NamedQuery(name="Employee.findByEmail", query="SELECT e FROM Employee e WHERE e.email = :email"),
-	@NamedQuery(name="Employee.findByEmailPassword", query="SELECT e FROM Employee e WHERE e.email = :email and e.password = :password")
+	@NamedQuery(name="Employee.findByEmailPassword", query="SELECT e FROM Employee e WHERE e.email = :email and e.password = :password"),
+	@NamedQuery(name="Employee.findSuggestsByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%')")
 })
 public class Employee implements Serializable {
   private static final long serialVersionUID = 1L;

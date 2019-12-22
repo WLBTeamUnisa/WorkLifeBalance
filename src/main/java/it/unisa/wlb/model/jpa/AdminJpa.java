@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.dao.IAdminDAO;
 
@@ -50,7 +52,7 @@ public class AdminJpa implements IAdminDAO {
 @Override
 public Admin retrieveByEmailPassword(String email, String password) {
 	entityManager.getTransaction().begin();
-	Query q = entityManager.createNamedQuery("SELECT admin FROM Admin admin WHERE id = :id AND password = :password");
+	TypedQuery<Admin> q = entityManager.createNamedQuery("Admin.findByEmailPassword", Admin.class);
 	q.setParameter("email", email);
 	q.setParameter("password", password);
 	entityManager.getTransaction().commit();
