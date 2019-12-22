@@ -22,12 +22,12 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@EJB
 	IAdminDAO adminDao;		
 	@EJB
 	IEmployeeDAO employeeDao;
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -37,32 +37,26 @@ public class LoginServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			if(email != null && password != null && checkPasswordLogin(password)) {
-				if(email.endsWith("@wlb.it")) {
-					try {
+				try {
+					if(email.endsWith("@wlb.it")) {
 						Employee e = employeeDao.retrieveByEmailPassword(email, password);
 						if(e != null) {
 							session.setAttribute("user", e);
 							response.sendRedirect("Homepage.jsp");
 						}
-					}catch(Exception e){
-						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						response.getWriter().write("Email e/o password non validi");
-						response.getWriter().flush();
-					}	
-				} else if(email.endsWith("@wlbadmin.it")) {
-					try {
+					} else if(email.endsWith("@wlbadmin.it")) {
 						Admin a = adminDao.retrieveByEmailPassword(email, password);
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);
 							response.sendRedirect("Homepage.jsp");
 						}
-					}catch(Exception e){
+					} else {
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 						response.getWriter().write("Email e/o password non validi");
 						response.getWriter().flush();
-					}	
-				} else {
+					}
+				}catch(Exception e) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
@@ -82,14 +76,14 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	
+
+
 	public static boolean checkPasswordLogin(String password) {
 		if(password.length() >= 8 && password.length() <= 20 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
 			return true;
 		}
 		return false;
 	}
-	
+
 
 }
