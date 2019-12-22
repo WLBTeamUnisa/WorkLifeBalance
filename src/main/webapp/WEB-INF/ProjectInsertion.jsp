@@ -118,8 +118,9 @@
 												</div>
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
-														<ul class="list-group list-group-bordered" id="employeeList">
-															
+														<ul class="list-group list-group-bordered"
+															id="employeeList">
+
 														</ul>
 													</div>
 												</div>
@@ -162,9 +163,15 @@
 
 											<div class="modal-body">
 												<h3>Ricerca dipendente</h3>
-												<input type="email" onkeyup="Suggestions(this.value)" class="form-control" placeholder="m.red1@wlb.it" aria-describedby="basic-addon1" name="q" id="lista" list="suggestions">
+												<input type="email" onkeyup="Suggestions(this.value)"
+													class="form-control" placeholder="m.red1@wlb.it"
+													aria-describedby="basic-addon1" name="q" id="lista"
+													list="suggestions">
 												<datalist id="suggestions"></datalist>
-												<button class="input-group-text" id="basic-addon1" onclick="insertEmployee(lista.value)"><i class="fas fa-plus-square" data-dismiss="modal"></i></button>
+												<button class="input-group-text" id="basic-addon1"
+													onclick="insertEmployee(lista.value)">
+													<i class="fas fa-plus-square" data-dismiss="modal"></i>
+												</button>
 											</div>
 										</div>
 									</div>

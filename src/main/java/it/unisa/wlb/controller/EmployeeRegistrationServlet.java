@@ -121,7 +121,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			employee.setStatus(statusInt);
 						
 			/**
-		     * Inserton of the new Employee into the database
+		     * Insert on of the new Employee into the database
 		     */
 			try {
 				employeeDao.create(employee);
@@ -130,7 +130,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 				request.setAttribute("result", "failure");
 			}					
 			
-			String url=response.encodeURL("/EmployeeRegistration.jsp");
+			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 			

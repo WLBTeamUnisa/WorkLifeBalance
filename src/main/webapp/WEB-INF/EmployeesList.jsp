@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -16,6 +20,10 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/atlantis.css">
+
+<link href="node_modules/sweetalert2/dist/sweetalert2.css"
+	rel="stylesheet" />
+<link href="style.css" rel="stylesheet" />
 
 <!-- Fonts and icons -->
 <script src="js/plugin/webfont/webfont.min.js"></script>
@@ -97,7 +105,7 @@
 											5</a></li>
 								</ul>
 
-								<a class="btn btn-success mt-3" href="EmployeeRegistration.jsp"
+								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
 									role="button">Inserisci dipendente</a>
 
 								<!-- FINE CARD-BODY -->
@@ -151,6 +159,16 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+
+
+	<c:if test="${not empty result}">
+		<script>
+			function sweetalertclick() {
+				swal("Ottimo!", "Registrazione avvenuta con successo!", "success")
+			}
+			window.onload = sweetalertclick;
+		</script>
+	</c:if>
 
 </body>
 </html>

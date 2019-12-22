@@ -37,10 +37,6 @@
 	});
 </script>
 
-<link href="node_modules/sweetalert2/dist/sweetalert2.css"
-	rel="stylesheet" />
-<link href="style.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -187,15 +183,6 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
-
-	<c:if test="${not empty result}">
-		<script>
-			function sweetalertclick() {
-				swal("Ottimo!", "Registrazione avvenuta con successo!", "success")
-			}
-			window.onload = sweetalertclick;
-		</script>
-	</c:if>
 
 </body>
 

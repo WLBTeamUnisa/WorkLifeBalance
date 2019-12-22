@@ -37,6 +37,8 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
+			System.out.println(email);
+			System.out.println(password);
 			if(email != null && password != null && checkPasswordLogin(password)) {
 				try {
 					String generatedPwd = Utils.generatePwd(password);
@@ -44,28 +46,29 @@ public class LoginServlet extends HttpServlet {
 						Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
 						if(e != null) {
 							session.setAttribute("user", e);
-							response.sendRedirect("Homepage.jsp");
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
 						}
 					} else if(email.endsWith("@wlbadmin.it")) {
 						Admin a = adminDao.retrieveByEmailPassword(email, password);
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);
-							response.sendRedirect("Homepage.jsp");
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
 						}
 					} else {
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						response.getWriter().write("Email e/o password non validi");
+						response.getWriter().write("Email e/o password non validi1");
 						response.getWriter().flush();
 					}
 				}catch(Exception e) {
+					e.printStackTrace();
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Email e/o password non validi");
+					response.getWriter().write("Email e/o password non validi2");
 					response.getWriter().flush();
 				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Email e/o password non validi");
+				response.getWriter().write("Email e/o password non validi3");
 				response.getWriter().flush();
 			}
 		}

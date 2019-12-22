@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -8,7 +12,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Project Insertion</title>
+<title>WLB - Homepage</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -22,7 +26,7 @@
 <script>
 	WebFont.load({
 		google : {
-			"families" : [ "Lato:300,400,700,900" ] 
+			"families" : [ "Lato:300,400,700,900" ]
 		},
 		custom : {
 			"families" : [ "Flaticon", "Font Awesome 5 Solid",
@@ -50,15 +54,18 @@
 					<div class="col-lg-7 mx-auto">
 
 						<div class="card">
+							<c:choose>
+								<c:when test="${userRole=='Admin'}">
+									<div class="card-header">
+										<h3 class="my-auto">Admin Dashboard</h3>
+									</div>
 
-							<div class="card-header">
-								<h3 class="my-auto">Admin Dashboard</h3>
-							</div>
-
-							<div class="card-body">
-								<h4 class="my-auto">Admin</h4>
-								<!-- FINE CARD-BODY -->
-							</div>
+									<div class="card-body">
+										<h4 class="my-auto">Admin</h4>
+										<!-- FINE CARD-BODY -->
+									</div>
+								</c:when>
+							</c:choose>
 
 							<!-- FINE CARD -->
 						</div>

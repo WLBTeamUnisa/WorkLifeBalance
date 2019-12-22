@@ -92,7 +92,7 @@
 										class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
 								</ul>
 
-								<a class="btn btn-success mt-3" href="ProjectInsertion.jsp"
+								<a class="btn btn-success mt-3" href="ProjectInsertPage"
 									role="button">Inserisci nuovo progetto</a>
 
 								<!-- FINE CARD-BODY -->
