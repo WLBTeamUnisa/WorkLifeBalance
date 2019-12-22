@@ -22,13 +22,11 @@ public class EmployeeJpa implements IEmployeeDAO{
 	
 	@Override
 	public Employee create(Employee entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void remove(Employee entityClass) {
-		// TODO Auto-generated method stub
 		
 	}
 

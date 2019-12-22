@@ -3,7 +3,8 @@ package it.unisa.wlb.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.mockito.Mockito.mock;
+import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.LoginServlet;
 import it.unisa.wlb.model.bean.Employee;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,11 +30,14 @@ public class LoginServletTest {
 	MockHttpServletResponse response;
 	LoginServlet servlet;
 	
+	IEmployeeDAO eDao;
+	
 	@BeforeEach
 	 public void setUp() {
         servlet= new LoginServlet();
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
+        eDao = mock(IEmployeeDAO.class);
     }
 	
 	/*TC_4.1_1: email.length() < 5. 
@@ -115,10 +120,18 @@ public class LoginServletTest {
 	/* TC_4.1_8: SUCCESS. */
 	@Test
 	public void TC_4_1_8() throws Exception {
-		request.setParameter("email", "v.fabiano1@wlb.it");
-		request.setParameter("password", "Vincenzo98.");
+		Employee e = new Employee();
+		e.setEmail("m.rossi1@wlb.it");
+		e.setPassword("MarcoRossi1.");
+		e.setName("Marco");
+		e.setPassword("Rossi");
+		e.setStatus(0);
+		e = eDao.create(e);
+		request.setParameter("email", "m.rossi1@wlb.it");
+		request.setParameter("password", "MarcoRossi1.");
 		servlet.doPost(request, response);
 		assertTrue(response.SC_ACCEPTED==202);
+		eDao.remove(e);
 	}
 
 }
