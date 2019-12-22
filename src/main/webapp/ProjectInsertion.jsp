@@ -77,7 +77,7 @@
 											date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
-												name="startDate" id="startDate">
+												name="startDate" id="startDate" onblur="verificaDataInizio()">
 										</div>
 									</div>
 
@@ -86,27 +86,27 @@
 											date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
-												name=endDate id="endDate">
+												name=endDate id="endDate" onblur="verificaDataFine()">
 										</div>
 									</div>
 
 									<div class="form-group row pb-3">
 										<label for="descrizione" class="col-sm-2 col-form-label">Descrizione:</label>
 										<div class="col-sm-10">
-											<textarea name="" id="" cols="30" rows="5"
-												class="form-control my-2"></textarea>
+											<textarea name="description" id="description" cols="30" rows="5"
+												class="form-control my-2" onblur="verificaDescrizione()"></textarea>
 										</div>
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="manager" class="col-sm-2 col-form-label">Manager:</label>
+										<label for="managerEmail" class="col-sm-2 col-form-label">Manager:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="manager" id="manager">
+												name="managerEmail" id="managerEmail" onkeyup="verificaManager()">
 										</div>
 									</div>
 
-									<div class="form-group row pb-4">
+									<div class="form-group row pb-1">
 										<div class="col-lg-8">
 											<div class="card">
 												<div class="card-header p-2">
@@ -128,7 +128,7 @@
 											</div>
 										</div>
 
-										<div class="col-lg-4 mx-auto my-auto">
+										<div class="col-lg-4 mx-auto mb-auto">
 											<!-- Button trigger modal -->
 											<button type="button" class="btn btn-warning mx-auto"
 												data-toggle="modal" data-target="#exampleModal">
@@ -137,7 +137,16 @@
 										</div>
 									</div>
 
-									<!-- Modal -->
+									<hr>
+
+									<div class="col-lg-4 mx-auto">
+										<button type="submit" class="btn btn-success" id="insertButton" disabled>Insert</button>
+									</div>
+
+									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
+								</form>
+								
+								<!-- Modal -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -176,15 +185,6 @@
 											</div>
 										</div>
 									</div>
-
-									<hr>
-
-									<div class="col-lg-4 mx-auto">
-										<button type="submit" class="btn btn-success">Insert</button>
-									</div>
-
-									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
-								</form>
 
 								<!-- FINE CARD BODY -->
 							</div>
@@ -251,13 +251,13 @@
 		var borderNO = '1px solid #f00';
 
 		function verificaNome(){
-			var input = $("#nome").val();
+			var input = $("#name").val();
 
 			if(input.trim().length>=4 && input.trim().length<=15 && input.match(/^[A-Za-z0-9]+$/)){
-				$("#nome").css("border", borderOK);
+				$("#name").css("border", borderOK);
 				nomeOK = true;
 			} else {
-				$("#nome").css("border", borderNO);
+				$("#name").css("border", borderNO);
 				nomeOK = false;
 			}
 			changeInsertButtonState();
@@ -275,18 +275,70 @@
 			}
 			changeInsertButtonState();
 		}
+		
+		function verificaDataInizio(){
+			var input = $("#startDate").val();
+			
+			if(input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)){
+				$("#startDate").css("border", borderOK);
+				dataInizioOK = true;
+			} else {
+				$("#startDate").css("border", borderNO);
+				dataInizioOK = false;
+			}
+			changeInsertButtonState();
+		}
+		
+		function verificaDataFine(){
+			var input = $("#endDate").val();
+			
+			if(input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)){
+				$("#endDate").css("border", borderOK);
+				dataFineOK = true;
+			} else {
+				$("#endDate").css("border", borderNO);
+				dataFineOK = false;
+			}
+			changeInsertButtonState();
+		}
+		
+		function verificaDescrizione(){
+			var input = $("#description").val();
+			
+			if(input.trim().length>=20 && input.trim().length<=250 && input.match(/^[\s\S]+$/)){
+				$("#description").css("border", borderOK);
+				descrizioneOK = true;
+			} else {
+				$("#description").css("border", borderNO);
+				descrizioneOK = false;
+			}
+			changeInsertButtonState();
+		}
+		
+		function verificaManager(){
+			var input = $("#managerEmail").val();
+
+			if(input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)){
+				$("#managerEmail").css("border", borderOK);
+				managerOK = true;
+			} else {
+				$("#managerEmail").css("border", borderNO);
+				managerOK = false;
+			}
+			changeInsertButtonState();
+		}
 
 		function changeInsertButtonState(){
 			var btn = $("#insertButton");
 
-			if(nomeOK && scopeOK && dataInizioOK && dataInizioOK && descrizioneOK && managerOK){
-				btn.prop("disabled", false);
+			if(nomeOK && scopeOK && dataInizioOK && dataFineOK && descrizioneOK && managerOK){
+				document.getElementById('insertButton').disabled = false;
 				btn.css("background-color", "#31CE36");
 				btn.css("color", "#ffffff");
 			} else {
-				btn.prop("disabled", true);
+				document.getElementById('insertButton').disabled = true;
 				btn.css("background-color", "#d6d6d6");
-				btn.css("color", "#b8b8b8");
+				btn.css("color", "#ffffff");
 			}
 		}
 	</script>
