@@ -43,7 +43,28 @@
 		<jsp:include page="header.jsp" />
 		<div class="main-panel">
 			<!-- CORPO PAGINA-->
+
 			<div class="content" style="display: flex; align-items: center;">
+			<%
+				if (s != null) {
+			%>
+			<div class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Registrazione avvenuta con successo</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>			
+			<%
+				}
+			%>
+			
 				<div class="container mt-4 text-center">
 					<div class="col-lg-7 mx-auto">
 						<div class="card">
@@ -52,7 +73,6 @@
 									<bold>Registrazione dipendente</bold>
 								</h3>
 							</div>
-
 
 							<div class="registration-fields">
 								<form name="registration" method="post" action="EmployeeRegistrationServlet">

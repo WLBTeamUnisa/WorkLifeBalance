@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.Utils;
 
 /**
  * The aim of this Servlet is registering an Employee into the system.
@@ -19,13 +20,10 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
  * @author Simranjit, Sabato
  *
  */
-@WebServlet("/EmployeeRegistrationServlet")
+@WebServlet(name = "EmployeeRegistrationServlet", urlPatterns = "/EmployeeRegistrationServlet")
 public class EmployeeRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */	
 	@EJB
 	private IEmployeeDAO employeeDao;
 	
@@ -48,13 +46,6 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		String verifyPassword= request.getParameter("verifyPassword");
 		String status= request.getParameter("status");
 		int statusInt=0;
-		
-//		System.out.println(name);
-//		System.out.println(surname);
-//		System.out.println(email);
-//		System.out.println(password);
-//		System.out.println(verifyPassword);
-//		System.out.println(status);
 		
 		boolean nameOk = false;
 		boolean surnameOk = false;
@@ -130,19 +121,22 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			employee.setName(name);
 			employee.setSurname(surname);
 			employee.setEmail(email);
-			employee.setPassword(password);
+			employee.setPassword(Utils.generatePwd(password));
 			employee.setStatus(statusInt);
 			
-//			System.out.println(employee.getName()+" "+employee.getStatus());
+			System.out.println(employee.getName() + " " + employee.getSurname()+ " " + employee.getEmail()+" "+employee.getPassword()+" "+employee.getStatus());
+			
 			
 			/**
 		     * Inserton of the new Employee into the database
 		     */
-			employeeDao.create(employee);
+			try {
+				employeeDao.create(employee);
+				request.setAttribute("result", "success");
+			} catch (Exception e) {
+				request.setAttribute("result", "failure");
+			}					
 			
-//			System.out.println("Ok, fine!");
-			
-			request.setAttribute("result", "success");
 			String url=response.encodeURL("/EmployeeRegistration.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
