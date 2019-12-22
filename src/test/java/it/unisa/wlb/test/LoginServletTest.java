@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -29,11 +30,11 @@ public class LoginServletTest {
 	MockHttpServletRequest request;
 	MockHttpServletResponse response;
 	LoginServlet servlet;
-	
 	IEmployeeDAO eDao;
 	
 	@BeforeEach
 	 public void setUp() {
+		MockitoAnnotations.initMocks(this);
         servlet= new LoginServlet();
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
@@ -126,12 +127,11 @@ public class LoginServletTest {
 		e.setName("Marco");
 		e.setPassword("Rossi");
 		e.setStatus(0);
-		e = eDao.create(e);
+		Mockito.when(eDao.create(e)).thenReturn(e);
 		request.setParameter("email", "m.rossi1@wlb.it");
 		request.setParameter("password", "MarcoRossi1.");
 		servlet.doPost(request, response);
 		assertTrue(response.SC_ACCEPTED==202);
-		eDao.remove(e);
 	}
 
 }

@@ -15,6 +15,7 @@ import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.Utils;
 
 /**
  * Servlet implementation class LoginServlet
@@ -38,8 +39,9 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			if(email != null && password != null && checkPasswordLogin(password)) {
 				try {
+					String generatedPwd = Utils.generatePwd(password);
 					if(email.endsWith("@wlb.it")) {
-						Employee e = employeeDao.retrieveByEmailPassword(email, password);
+						Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
 						if(e != null) {
 							session.setAttribute("user", e);
 							response.sendRedirect("Homepage.jsp");

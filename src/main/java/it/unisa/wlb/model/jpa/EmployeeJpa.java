@@ -22,7 +22,10 @@ public class EmployeeJpa implements IEmployeeDAO{
 	
 	@Override
 	public Employee create(Employee entity) {
-		return null;
+	    entitymanager.getTransaction().begin();
+	    entitymanager.persist(entity);
+	    entitymanager.getTransaction().commit();
+	    return entity;
 	}
 
 	@Override
