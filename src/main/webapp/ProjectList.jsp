@@ -8,7 +8,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Project Insertion</title>
+<title>WLB - Lista progetti</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -52,7 +52,7 @@
 						<div class="card">
 
 							<div class="card-header">
-								<h3 class="my-auto">Projects list</h3>
+								<h3 class="my-auto">Lista progetti</h3>
 							</div>
 
 							<div class="card-body">
@@ -93,7 +93,7 @@
 								</ul>
 
 								<a class="btn btn-success mt-3" href="ProjectInsertion.jsp"
-									role="button">Insert project</a>
+									role="button">Inserisci nuovo progetto</a>
 
 								<!-- FINE CARD-BODY -->
 							</div>

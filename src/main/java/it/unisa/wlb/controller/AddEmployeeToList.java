@@ -1,13 +1,15 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
@@ -45,7 +47,7 @@ public class AddEmployeeToList extends HttpServlet {
 	     * Controllo che il dipendente effettivamente esista
 	     * 
 	     * */
-	    Employee employee=employeeDao.retrieveByEmail(EMAIL_EMPLOYEE);
+	    Employee employee=employeeDao.retrieveByEmail(email_employee);
 	    if(employee==null)
 	    {
 	        response.getWriter().append("Non hai inserito un dipendente valido");
@@ -53,17 +55,23 @@ public class AddEmployeeToList extends HttpServlet {
 	    
 	    else
 	    {
+	    	JSONObject obj = new JSONObject();
+	    	obj.put("emailEmployee", employee.getEmail());
+	    	
+	    	response.setContentType("application/json");
+	        response.getWriter().append(obj.toString());
+	        
 	        /**
 	         * Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
 	         * 
 	         * */
-	        List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
+	        //List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
 	        
 	        /**
 	         * Controllo che il dipendente non faccia già parte della lista
 	         * 
 	         * */
-	        if(lista.contains(employee))
+	        /*if(lista.contains(employee))
 	        {
 	          response.getWriter().append("Hai inserito un dipendente che fa già parte del progetto");
 	        }
@@ -72,7 +80,7 @@ public class AddEmployeeToList extends HttpServlet {
 	        {
 	          lista.add(employee);
 	          request.setAttribute("lista_dipendenti", lista);
-	        }
+	        }*/
 	    }
 	}
 

@@ -9,7 +9,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Project Insertion</title>
+<title>WLB - Inserimento progetto</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -52,13 +52,13 @@
 
 						<div class="card">
 							<div class="card-header">
-								<h3>Insert project</h3>
+								<h3>Inserisci progetto</h3>
 							</div>
 							<div class="card-body">
 								<form action="/AddProjectServlet" method="post">
 
 									<div class="form-group row pb-4">
-										<label for="name" class="col-sm-2 col-form-label">Name:</label>
+										<label for="" class="col-sm-2 col-form-label">Nome:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
 												name="name" id="name" onkeyup="verificaNome()">
@@ -74,8 +74,8 @@
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="startDate" class="col-sm-2 col-form-label">Start
-											date:</label>
+										<label for="startDate" class="col-sm-2 col-form-label">Data
+											inizio:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate"
@@ -84,8 +84,8 @@
 									</div>
 
 									<div class="form-group row pb-4">
-										<label for="endDate" class="col-sm-2 col-form-label">End
-											date:</label>
+										<label for="endDate" class="col-sm-2 col-form-label">Data
+											fine:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
 												name=endDate id="endDate" onblur="verificaDataFine()">
@@ -93,7 +93,7 @@
 									</div>
 
 									<div class="form-group row pb-3">
-										<label for="descrizione" class="col-sm-2 col-form-label">Description:</label>
+										<label for="descrizione" class="col-sm-2 col-form-label">Descrizione:</label>
 										<div class="col-sm-10">
 											<textarea name="description" id="description" cols="30"
 												rows="5" class="form-control my-2"
@@ -114,14 +114,12 @@
 										<div class="col-lg-8">
 											<div class="card">
 												<div class="card-header p-2">
-													<h3 class="my-auto">Employee list:</h3>
+													<h3 class="my-auto">Lista dipendenti:</h3>
 												</div>
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
-														<ul class="list-group list-group-bordered">
-															<li class="list-group-item" id="employee"><i
-																class="fas fa-user my-auto"> </i>
-															<p class="my-auto ml-3\">
+														<ul class="list-group list-group-bordered" id="employeeList">
+															
 														</ul>
 													</div>
 												</div>
@@ -132,7 +130,7 @@
 											<!-- Button trigger modal -->
 											<button type="button" class="btn btn-warning mx-auto"
 												data-toggle="modal" data-target="#exampleModal">
-												Insert employee <span class="caret"></span>
+												Inserisci dipendente <span class="caret"></span>
 											</button>
 										</div>
 									</div>
@@ -141,7 +139,7 @@
 
 									<div class="col-lg-4 mx-auto">
 										<button type="submit" class="btn btn-success"
-											id="insertButton" disabled>Insert</button>
+											id="insertButton" disabled>Inserisci</button>
 									</div>
 
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
@@ -154,8 +152,8 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header text-center">
-												<h5 class="modal-title" id="exampleModalLabel">Insert
-													employee</h5>
+												<h5 class="modal-title" id="exampleModalLabel">Inserisci
+													dipendente</h5>
 												<button type="button" class="close" data-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
@@ -163,30 +161,10 @@
 											</div>
 
 											<div class="modal-body">
-												<h3>Search employee</h3>
-												<form class="navbar-form" role="search">
-													<div class="form-group">
-														<div class="input-group mb-3">
-															<input type="email" onkeyup="Suggestions(this.value)"
-																class="form-control" placeholder="m.red1@wlb.it"
-																aria-describedby="basic-addon1" name="q"
-																list="suggestions">
-															<datalist id="suggestions">
-															</datalist>
-															<div class="input-group-append">
-																<button onclick="insertEmployee(email)"
-																	class="input-group-text" id="basic-addon1">
-																	<i class="fas fa-plus-square"></i>
-																</button>
-															</div>
-														</div>
-													</div>
-												</form>
-
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-danger"
-													data-dismiss="modal">Close</button>
+												<h3>Ricerca dipendente</h3>
+												<input type="email" onkeyup="Suggestions(this.value)" class="form-control" placeholder="m.red1@wlb.it" aria-describedby="basic-addon1" name="q" id="lista" list="suggestions">
+												<datalist id="suggestions"></datalist>
+												<button class="input-group-text" id="basic-addon1" onclick="insertEmployee(lista.value)"><i class="fas fa-plus-square" data-dismiss="modal"></i></button>
 											</div>
 										</div>
 									</div>
@@ -349,7 +327,7 @@
 					
 					var lista = JSON.parse(this.responseText);
 					
-					 var options;
+					 var options="";
 					  
 					  for (i = 0; i < lista.length; i++) { 
 					    options += "<option>" + lista[i].email + "</option>";
@@ -362,11 +340,19 @@
 			xhttp.send();
 		}
 		
-		function insertEmployee()
+		function insertEmployee(email)
 		{
+			console.log(email);
 			var xhttp = new  XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
+					var lista = JSON.parse(this.responseText);
+					var li="";
+					
+					li += "<li>" + lista.emailEmployee + "</li>";
+					console.log(li);
+					document.getElementById("employeeList").innerHTML += li;
+
 				}
 			}
 			xhttp.open("GET", "AddEmployeeToList?email="+ email , true);

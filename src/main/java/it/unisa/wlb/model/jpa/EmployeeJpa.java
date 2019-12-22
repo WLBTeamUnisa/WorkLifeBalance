@@ -46,8 +46,11 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public Employee retrieveByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		entitymanager.getTransaction().begin();
+		TypedQuery<Employee> query = entitymanager.createNamedQuery("Employee.findByEmail", Employee.class);
+		query.setParameter("email", email);
+		entitymanager.getTransaction().commit();
+		return (Employee) query.getSingleResult();
 	}
 
 	@Override

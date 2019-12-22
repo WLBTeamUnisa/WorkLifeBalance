@@ -45,13 +45,13 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  HttpSession session = request.getSession();
-	  int userRole=(int) session.getAttribute("userRole");
+	  String userRole=(String) session.getAttribute("userRole");
 	  
 	  /**
 	   * Ruolo dell'admin
 	   * 
 	   * */
-	  if(userRole==2)
+	  if(userRole.equalsIgnoreCase("Admin"))
 	  {
 	      /**
 	       * Acquisisco il progetto tramite un attributo

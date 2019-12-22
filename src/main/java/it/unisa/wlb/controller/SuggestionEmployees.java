@@ -44,7 +44,7 @@ public class SuggestionEmployees extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONArray lista_json=new JSONArray();
         String email_employee=request.getParameter(EMAIL_EMPLOYEE);
-        List<Employee> lista_dipendenti=null;
+        List<Employee> listaDipendenti=null;
         
         if(email_employee!=null || email_employee!="")
         {
@@ -52,25 +52,25 @@ public class SuggestionEmployees extends HttpServlet {
            * Restituisco una lista di suggerimenti dei dipendenti tramite l'email
            * 
            * */
-           lista_dipendenti=employeeDao.retrieveSuggestsByEmail(email_employee);
+           listaDipendenti=employeeDao.retrieveSuggestsByEmail(email_employee);
            
-           for(int i = 0; i<lista_dipendenti.size();i++) {
+           for(int i = 0; i<listaDipendenti.size();i++) {
         	   JSONObject obj = new JSONObject();
-        	   obj.put("email", lista_dipendenti.get(i).getEmail());
+        	   obj.put("email", listaDipendenti.get(i).getEmail());
         	   lista_json.put(obj);
            }
            
-           /**if(lista_dipendenti!=null && lista_dipendenti.size()>0)
+           /**if(listaDipendenti!=null && listaDipendenti.size()>0)
            {
-             List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
-             for(int i=0; i<lista_dipendenti.size(); i++)
+             List<Employee> lista=(List<Employee>) request.getAttribute("listaDipendenti");
+             for(int i=0; i<listaDipendenti.size(); i++)
              {
                
                 * Facendo questo controllo, evito che l'admin scelga un dipendente che fa già parte della lista
                 * 
                 *
-               if(!lista.contains(lista_dipendenti.get(i)));
-               lista_json.put(lista_dipendenti.get(i).getEmail());
+               if(!lista.contains(listaDipendenti.get(i)));
+               lista_json.put(listaDipendenti.get(i).getEmail());
              }
            }
             */
