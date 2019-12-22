@@ -30,15 +30,15 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private EmployeeRegistrationServlet servlet;
-
-	@EJB
-	private IEmployeeDAO employeeDao;
+	
+	private IEmployeeDAO pDao;
 	
 	@BeforeEach
 	public void setUp() {
 		servlet = new EmployeeRegistrationServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
+		pDao = mock(IEmployeeDAO.class);
 	}
 	
 	
@@ -231,7 +231,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(1);
 		
-		employee = employeeDao.create(employee);
+		pDao.create(employee);
 		
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
@@ -244,7 +244,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 		
-		employeeDao.remove(employee);
+		 pDao.remove(employee);
 	}
 	
 	/**
@@ -415,7 +415,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
 		servlet.doGet(request, response);
-		assertEquals("json", response.getContentType());
+		assertEquals("success", request.getAttribute("result"));
 		
 	}
 
