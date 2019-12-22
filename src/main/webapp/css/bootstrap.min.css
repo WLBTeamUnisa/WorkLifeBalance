@@ -182,13 +182,39 @@ a:hover {
 	text-decoration: underline
 }
 
-a:not ([href] ):not ([tabindex] ){
-	color: inherit;
-	text-decoration: none
-}
+a
+:not
+ 
+(
+[
+href
+]
+ 
+)
+:not
+ 
+(
+[
+tabindex
+]
+ 
+){
+color
+:
+ 
+inherit
+;
 
+	
+text-decoration
+:
+ 
+none
+
+
+}
 a:not ([href] ):not ([tabindex] ):focus, a:not ([href] ):not ([tabindex]
-	):hover {
+	 ):hover {
 	color: inherit;
 	text-decoration: none
 }
@@ -217,10 +243,20 @@ img {
 	border-style: none
 }
 
-svg:not (:root ){
-	overflow: hidden
-}
+svg
+:not
+ 
+(
+:root
+ 
+){
+overflow
+:
+ 
+hidden
 
+
+}
 [role=button], a, area, button, input, label, select, summary, textarea
 	{
 	-ms-touch-action: manipulation;
@@ -444,10 +480,21 @@ hr {
 	display: inline-block
 }
 
-.list-inline-item:not (:last-child ){
-	margin-right: 5px
-}
+.list-inline-item
+:not
+ 
+(
+:last-child
+ 
+){
+margin-right
+:
+ 
+5
+px
 
+
+}
 .initialism {
 	font-size: 90%;
 	text-transform: uppercase
@@ -1526,10 +1573,37 @@ pre code {
 	opacity: 1
 }
 
-select.form-control:not ([size] ):not ([multiple] ){
-	height: calc(2.25rem + 2px)
-}
+select
+.form-control
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+ 
+){
+height
+:
+ 
+calc
+(2
+.25rem
++
+2
+px
+)
 
+
+}
 select.form-control:focus::-ms-value {
 	color: #495057;
 	background-color: #fff
@@ -1590,13 +1664,101 @@ select.form-control:focus::-ms-value {
 	border-radius: .2rem
 }
 
-.input-group-sm>.input-group-btn>select.btn:not ([size] ):not ([multiple]
-	), .input-group-sm>select.form-control:not ([size] ):not ([multiple] ),
-	.input-group-sm>select.input-group-addon:not ([size] ):not ([multiple]
-	), select.form-control-sm:not ([size] ):not ([multiple] ){
-	height: calc(1.8125rem + 2px)
-}
+.input-group-sm
+>
+.input-group-btn
+>
+select
+.btn
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
 
+	
+),
+.input-group-sm
+>
+select
+.form-control
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+ 
+),
+.input-group-sm
+>
+select
+.input-group-addon
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+
+	
+),
+select
+.form-control-sm
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+ 
+){
+height
+:
+ 
+calc
+(1
+.8125rem
++
+2
+px
+)
+
+
+}
 .form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-addon,
 	.input-group-lg>.input-group-btn>.btn {
 	padding: .5rem 1rem;
@@ -1605,13 +1767,101 @@ select.form-control:focus::-ms-value {
 	border-radius: .3rem
 }
 
-.input-group-lg>.input-group-btn>select.btn:not ([size] ):not ([multiple]
-	), .input-group-lg>select.form-control:not ([size] ):not ([multiple] ),
-	.input-group-lg>select.input-group-addon:not ([size] ):not ([multiple]
-	), select.form-control-lg:not ([size] ):not ([multiple] ){
-	height: calc(2.3125rem + 2px)
-}
+.input-group-lg
+>
+.input-group-btn
+>
+select
+.btn
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
 
+	
+),
+.input-group-lg
+>
+select
+.form-control
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+ 
+),
+.input-group-lg
+>
+select
+.input-group-addon
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+
+	
+),
+select
+.form-control-lg
+:not
+ 
+(
+[
+size
+]
+ 
+)
+:not
+ 
+(
+[
+multiple
+]
+ 
+){
+height
+:
+ 
+calc
+(2
+.3125rem
++
+2
+px
+)
+
+
+}
 .form-group {
 	margin-bottom: 1rem
 }
@@ -1708,7 +1958,7 @@ select.form-control:focus::-ms-value {
 .custom-select.is-valid ~.invalid-feedback, .custom-select.is-valid ~.invalid-tooltip,
 	.form-control.is-valid ~.invalid-feedback, .form-control.is-valid ~.invalid-tooltip,
 	.was-validated .custom-select:valid ~.invalid-feedback, .was-validated .custom-select:valid
-	~.invalid-tooltip, .was-validated .form-control:valid ~.invalid-feedback,
+	 ~.invalid-tooltip, .was-validated .form-control:valid ~.invalid-feedback,
 	.was-validated .form-control:valid ~.invalid-tooltip {
 	display: block
 }
@@ -1730,7 +1980,7 @@ select.form-control:focus::-ms-value {
 }
 
 .custom-file-input.is-valid ~.custom-file-control, .was-validated .custom-file-input:valid
-	~.custom-file-control {
+	 ~.custom-file-control {
 	border-color: #28a745
 }
 
@@ -1756,11 +2006,11 @@ select.form-control:focus::-ms-value {
 }
 
 .custom-select.is-invalid ~.invalid-feedback, .custom-select.is-invalid
-	~.invalid-tooltip, .form-control.is-invalid ~.invalid-feedback,
+	 ~.invalid-tooltip, .form-control.is-invalid ~.invalid-feedback,
 	.form-control.is-invalid ~.invalid-tooltip, .was-validated .custom-select:invalid
-	~.invalid-feedback, .was-validated .custom-select:invalid ~.invalid-tooltip,
+	 ~.invalid-feedback, .was-validated .custom-select:invalid ~.invalid-tooltip,
 	.was-validated .form-control:invalid ~.invalid-feedback, .was-validated .form-control:invalid
-	~.invalid-tooltip {
+	 ~.invalid-tooltip {
 	display: block
 }
 
@@ -1782,7 +2032,7 @@ select.form-control:focus::-ms-value {
 }
 
 .custom-file-input.is-invalid ~.custom-file-control, .was-validated .custom-file-input:invalid
-	~.custom-file-control {
+	 ~.custom-file-control {
 	border-color: #dc3545
 }
 
@@ -2619,26 +2869,91 @@ tbody.collapse.show {
 	width: auto
 }
 
-.btn-group>.btn:not (:first-child ):not (:last-child ):not (.dropdown-toggle
-	){
-	border-radius: 0
-}
+.btn-group
+>
+.btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+)
+:not
+ 
+(
+.dropdown-toggle
 
+	
+){
+border-radius
+:
+ 
+0
+}
 .btn-group>.btn:first-child {
 	margin-left: 0
 }
 
-.btn-group>.btn:first-child:not (:last-child ):not (.dropdown-toggle ){
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0
+.btn-group
+>
+.btn
+:first-child
+:not
+ 
+(
+:last-child
+ 
+)
+:not
+ 
+(
+.dropdown-toggle
+ 
+){
+border-top-right-radius
+:
+ 
+0;
+border-bottom-right-radius
+:
+ 
+0
 }
+.btn-group
+>
+.btn
+:last-child
+:not
+ 
+(
+:first-child
+ 
+),
+.btn-group
+>
+.dropdown-toggle
+:not
 
-.btn-group>.btn:last-child:not (:first-child ), .btn-group>.dropdown-toggle:not
-	(:first-child ){
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0
+	
+(
+:first-child
+ 
+){
+border-top-left-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+0
 }
-
 .btn-group>.btn-group {
 	float: left
 }
@@ -2701,20 +3016,64 @@ tbody.collapse.show {
 	margin-left: 0
 }
 
-.btn-group-vertical>.btn:not (:first-child ):not (:last-child ){
-	border-radius: 0
+.btn-group-vertical
+>
+.btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+){
+border-radius
+:
+ 
+0
 }
-
-.btn-group-vertical>.btn:first-child:not (:last-child ){
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0
+.btn-group-vertical
+>
+.btn
+:first-child
+:not
+ 
+(
+:last-child
+ 
+){
+border-bottom-right-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+0
 }
-
-.btn-group-vertical>.btn:last-child:not (:first-child ){
-	border-top-left-radius: 0;
-	border-top-right-radius: 0
+.btn-group-vertical
+>
+.btn
+:last-child
+:not
+ 
+(
+:first-child
+ 
+){
+border-top-left-radius
+:
+ 
+0;
+border-top-right-radius
+:
+ 
+0
 }
-
 .btn-group-vertical>.btn-group:not (:first-child ):not (:last-child )>.btn
 	{
 	border-radius: 0
@@ -2769,12 +3128,52 @@ tbody.collapse.show {
 	align-items: center
 }
 
-.input-group .form-control:not (:first-child ):not (:last-child ),
-	.input-group-addon:not (:first-child ):not (:last-child ),
-	.input-group-btn:not (:first-child ):not (:last-child ){
-	border-radius: 0
+.input-group
+ 
+.form-control
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+),
+.input-group-addon
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+),
+.input-group-btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+){
+border-radius
+:
+ 
+0
 }
-
 .input-group-addon, .input-group-btn {
 	white-space: nowrap;
 	vertical-align: middle
@@ -2813,32 +3212,128 @@ tbody.collapse.show {
 }
 
 .input-group .form-control:not (:last-child ), .input-group-addon:not (:last-child
-	), .input-group-btn:not (:first-child )>.btn-group:not (:last-child )>.btn,
-	.input-group-btn:not (:first-child )>.btn:not (:last-child ):not (.dropdown-toggle
-	), .input-group-btn:not (:last-child )>.btn, .input-group-btn:not (:last-child
-	)>.btn-group>.btn, .input-group-btn:not (:last-child )>.dropdown-toggle
+	 ), .input-group-btn:not (:first-child )>.btn-group:not (:last-child 
+	)>.btn, .input-group-btn:not (:first-child )>.btn:not (:last-child ):not 
+	(.dropdown-toggle
+	 ), .input-group-btn:not (:last-child )>.btn, .input-group-btn:not (:last-child
+	 )>.btn-group>.btn, .input-group-btn:not (:last-child )>.dropdown-toggle
 	{
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0
 }
 
-.input-group-addon:not (:last-child ){
-	border-right: 0
+.input-group-addon
+:not
+ 
+(
+:last-child
+ 
+){
+border-right
+:
+ 
+0
 }
+.input-group
+ 
+.form-control
+:not
+ 
+(
+:first-child
+ 
+),
+.input-group-addon
+:not
+ 
+(
+:first-child
 
-.input-group .form-control:not (:first-child ), .input-group-addon:not (:first-child
-	), .input-group-btn:not (:first-child )>.btn, .input-group-btn:not (:first-child
-	)>.btn-group>.btn, .input-group-btn:not (:first-child )>.dropdown-toggle,
-	.input-group-btn:not (:last-child )>.btn-group:not (:first-child )>.btn,
-	.input-group-btn:not (:last-child )>.btn:not (:first-child ){
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0
+	
+),
+.input-group-btn
+:not
+ 
+(
+:first-child
+ 
+)>
+.btn
+,
+.input-group-btn
+:not
+ 
+(
+:first-child
+
+	
+)>
+.btn-group
+>
+.btn
+,
+.input-group-btn
+:not
+ 
+(
+:first-child
+ 
+)>
+.dropdown-toggle
+,
+.input-group-btn
+:not
+ 
+(
+:last-child
+ 
+)>
+.btn-group
+:not
+ 
+(
+:first-child
+ 
+)>
+.btn
+,
+.input-group-btn
+:not
+ 
+(
+:last-child
+ 
+)>
+.btn
+:not
+ 
+(
+:first-child
+ 
+){
+border-top-left-radius
+:
+ 
+0;
+border-bottom-left-radius
+:
+ 
+0
 }
-
-.form-control+.input-group-addon:not (:first-child ){
-	border-left: 0
+.form-control
++
+.input-group-addon
+:not
+ 
+(
+:first-child
+ 
+){
+border-left
+:
+ 
+0
 }
-
 .input-group-btn {
 	position: relative;
 	font-size: 0;
@@ -2859,20 +3354,21 @@ tbody.collapse.show {
 }
 
 .input-group-btn:not (:last-child )>.btn, .input-group-btn:not (:last-child
-	)>.btn-group {
+	 )>.btn-group {
 	margin-right: -1px
 }
 
 .input-group-btn:not (:first-child )>.btn, .input-group-btn:not (:first-child
-	)>.btn-group {
+	 )>.btn-group {
 	z-index: 2;
 	margin-left: -1px
 }
 
 .input-group-btn:not (:first-child )>.btn-group:active, .input-group-btn:not
-	(:first-child )>.btn-group:focus, .input-group-btn:not (:first-child )>.btn-group:hover,
-	.input-group-btn:not (:first-child )>.btn:active, .input-group-btn:not
-	(:first-child )>.btn:focus, .input-group-btn:not (:first-child )>.btn:hover
+	 (:first-child )>.btn-group:focus, .input-group-btn:not (:first-child 
+	)>.btn-group:hover, .input-group-btn:not (:first-child )>.btn:active,
+	.input-group-btn:not
+	 (:first-child )>.btn:focus, .input-group-btn:not (:first-child )>.btn:hover
 	{
 	z-index: 3
 }
@@ -3733,16 +4229,34 @@ tbody.collapse.show {
 	.card-group .card:last-child .card-img-bottom {
 		border-bottom-left-radius: 0
 	}
-	.card-group .card:not (:first-child ):not (:last-child ){
-		border-radius: 0
-	}
-	.card-group .card:not (:first-child ):not (:last-child ) .card-img-bottom,
-		.card-group .card:not (:first-child ):not (:last-child ) .card-img-top
-		{
-		border-radius: 0
-	}
+	.card-group
+	 
+	.card
+	:not
+	 
+	(
+	:first-child
+	 
+	)
+	:not
+	 
+	(
+	:last-child
+	 
+	){
+	border-radius
+	:
+	 
+	0
 }
 
+.card-group .card:not (:first-child ):not (:last-child )
+	.card-img-bottom, .card-group .card:not (:first-child ):not (:last-child 
+	) .card-img-top {
+	border-radius: 0
+}
+
+}
 .card-columns .card {
 	margin-bottom: .75rem
 }
@@ -4591,14 +5105,36 @@ button.close {
 	border-top: 1px solid #e9ecef
 }
 
-.modal-footer>:not (:first-child ){
-	margin-left: .25rem
-}
+.modal-footer
+>
+:not
+ 
+(
+:first-child
+ 
+){
+margin-left
+:
+ 
+.25rem
 
-.modal-footer>:not (:last-child ){
-	margin-right: .25rem
-}
 
+}
+.modal-footer
+>
+:not
+ 
+(
+:last-child
+ 
+){
+margin-right
+:
+ 
+.25rem
+
+
+}
 .modal-scrollbar-measure {
 	position: absolute;
 	top: -9999px;
@@ -4989,10 +5525,9 @@ button.close {
 
 @
 supports ((-webkit-transform-style:preserve-3d ) or (transform-style:preserve-3d
-	)){ .
-	carousel-item-next
-		.carousel-item-left,.carousel-item-prev.carousel-item-right{-webkit-transform:
-		translate3d(0, 0, 0);
+	 )){ . carousel-item-next
+		.carousel-item-left, .carousel-item-prev.carousel-item-right {
+	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0)
 }
 
@@ -5004,9 +5539,8 @@ supports ((-webkit-transform-style:preserve-3d ) or (transform-style:preserve-3d
 
 @
 supports ((-webkit-transform-style:preserve-3d ) or (transform-style:preserve-3d
-	)){ .
-	active .carousel-item-right,.carousel-item-next{-webkit-transform:
-		translate3d(100%, 0, 0);
+	 )){ . active .carousel-item-right, .carousel-item-next {
+	-webkit-transform: translate3d(100%, 0, 0);
 	transform: translate3d(100%, 0, 0)
 }
 
@@ -5018,9 +5552,8 @@ supports ((-webkit-transform-style:preserve-3d ) or (transform-style:preserve-3d
 
 @
 supports ((-webkit-transform-style:preserve-3d ) or (transform-style:preserve-3d
-	)){ .
-	active .carousel-item-left,.carousel-item-prev{-webkit-transform:
-		translate3d(-100%, 0, 0);
+	 )){ . active .carousel-item-left, .carousel-item-prev {
+	-webkit-transform: translate3d(-100%, 0, 0);
 	transform: translate3d(-100%, 0, 0)
 }
 
@@ -6259,7 +6792,8 @@ a.bg-dark:focus, a.bg-dark:hover {
 
 @
 supports ((position:-webkit-sticky ) or (position:sticky )){ .
-	sticky-top {position: -webkit-sticky;
+	sticky-top {
+	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
 	z-index: 1020

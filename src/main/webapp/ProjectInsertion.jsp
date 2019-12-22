@@ -1,4 +1,4 @@
-<%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee" %>
+<%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -39,7 +39,6 @@
 </head>
 
 <body>
-<% List<Employee> employee_list=(List<Employee>)request.getAttribute("lista_dipendenti"); %>
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 
@@ -79,7 +78,8 @@
 											date:</label>
 										<div class="col-sm-10">
 											<input type="date" class="form-control text-center"
-												name="startDate" id="startDate" onblur="verificaDataInizio()">
+												name="startDate" id="startDate"
+												onblur="verificaDataInizio()">
 										</div>
 									</div>
 
@@ -95,8 +95,9 @@
 									<div class="form-group row pb-3">
 										<label for="descrizione" class="col-sm-2 col-form-label">Description:</label>
 										<div class="col-sm-10">
-											<textarea name="description" id="description" cols="30" rows="5"
-												class="form-control my-2" onblur="verificaDescrizione()"></textarea>
+											<textarea name="description" id="description" cols="30"
+												rows="5" class="form-control my-2"
+												onblur="verificaDescrizione()"></textarea>
 										</div>
 									</div>
 
@@ -104,7 +105,8 @@
 										<label for="managerEmail" class="col-sm-2 col-form-label">Manager:</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control text-center"
-												name="managerEmail" id="managerEmail" onkeyup="verificaManager()">
+												name="managerEmail" id="managerEmail"
+												onkeyup="verificaManager()">
 										</div>
 									</div>
 
@@ -117,16 +119,9 @@
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
 														<ul class="list-group list-group-bordered">
-														<% if(employee_list!=null || employee_list.size()>0) 
-															{
-																for(int i=0; i<employee_list.size(); i++)
-																{
-																	
-														%>
-														<li class="list-group-item" id="employee"<%=(i+1)%>><i class="fas fa-user my-auto">
-														</i><p class="my-auto ml-3\"><%=employee_list.get(i).getEmail()%></p></li>
-														<%		}
-															}%>
+															<li class="list-group-item" id="employee"><i
+																class="fas fa-user my-auto"> </i>
+															<p class="my-auto ml-3\">
 														</ul>
 													</div>
 												</div>
@@ -145,53 +140,57 @@
 									<hr>
 
 									<div class="col-lg-4 mx-auto">
-										<button type="submit" class="btn btn-success" id="insertButton" disabled>Insert</button>
+										<button type="submit" class="btn btn-success"
+											id="insertButton" disabled>Insert</button>
 									</div>
 
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
 								</form>
-								
-								<!-- Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header text-center">
-													<h5 class="modal-title" id="exampleModalLabel">Insert
-														employee</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
 
-												<div class="modal-body">
-													<h3>Search employee</h3>
-													<form class="navbar-form" role="search">
-														<div class="form-group">
-															<div class="input-group mb-3">
-																<input type="email" onkeyup="Suggestions(this.value)" class="form-control"
-																	placeholder="m.red1@wlb.it"
-																	aria-describedby="basic-addon1">
-																	<datalist id="suggestions">
-																	</datalist>
-																<div class="input-group-append">
-																	<button onclick="insertEmployee(email)" class="input-group-text" id="basic-addon1"><i
-																		class="fas fa-plus-square"></i></button>
-																</div>
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header text-center">
+												<h5 class="modal-title" id="exampleModalLabel">Insert
+													employee</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<h3>Search employee</h3>
+												<form class="navbar-form" role="search">
+													<div class="form-group">
+														<div class="input-group mb-3">
+															<input type="email" onkeyup="Suggestions(this.value)"
+																class="form-control" placeholder="m.red1@wlb.it"
+																aria-describedby="basic-addon1" name="q"
+																list="suggestions">
+															<datalist id="suggestions">
+															</datalist>
+															<div class="input-group-append">
+																<button onclick="insertEmployee(email)"
+																	class="input-group-text" id="basic-addon1">
+																	<i class="fas fa-plus-square"></i>
+																</button>
 															</div>
 														</div>
-													</form>
+													</div>
+												</form>
 
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-danger"
-														data-dismiss="modal">Close</button>
-												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
+								</div>
 
 								<!-- FINE CARD BODY -->
 							</div>
@@ -347,15 +346,16 @@
 			var xhttp = new  XMLHttpRequest();
 			xhttp.onreadystatechange = function(){
 				if(this.readyState == 4 && this.status == 200){
+					
 					var lista = JSON.parse(this.responseText);
 					
-					 var options="";
+					 var options;
 					  
-					  for (i = 0; i < zone.length; i++) { 
-					    options += "<option>" + lista[i] + "</option>";
+					  for (i = 0; i < lista.length; i++) { 
+					    options += "<option>" + lista[i].email + "</option>";
 					  }
+					  console.log(options);
 					  document.getElementById("suggestions").innerHTML = options;
-					  var list="";
 				}
 			}
 			xhttp.open("GET", "SuggestionEmployees?email="+ email , true);

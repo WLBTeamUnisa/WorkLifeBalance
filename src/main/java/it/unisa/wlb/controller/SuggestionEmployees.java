@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
@@ -46,25 +48,32 @@ public class SuggestionEmployees extends HttpServlet {
         
         if(email_employee!=null || email_employee!="")
         {
-        
           /**
            * Restituisco una lista di suggerimenti dei dipendenti tramite l'email
            * 
            * */
-           lista_dipendenti=employeeDao.searchByEmail(email_employee);
-           if(lista_dipendenti!=null && lista_dipendenti.size()>0)
+           lista_dipendenti=employeeDao.retrieveSuggestsByEmail(email_employee);
+           
+           for(int i = 0; i<lista_dipendenti.size();i++) {
+        	   JSONObject obj = new JSONObject();
+        	   obj.put("email", lista_dipendenti.get(i).getEmail());
+        	   lista_json.put(obj);
+           }
+           
+           /**if(lista_dipendenti!=null && lista_dipendenti.size()>0)
            {
              List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
              for(int i=0; i<lista_dipendenti.size(); i++)
              {
-               /**
+               
                 * Facendo questo controllo, evito che l'admin scelga un dipendente che fa già parte della lista
                 * 
-                * */
+                *
                if(!lista.contains(lista_dipendenti.get(i)));
                lista_json.put(lista_dipendenti.get(i).getEmail());
              }
            }
+            */
            
            response.setContentType("application/json");
            response.getWriter().append(lista_json.toString());
