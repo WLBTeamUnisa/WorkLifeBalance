@@ -251,7 +251,7 @@
 					if (input.classList.contains("is-valid"))
 						input.classList.remove("is-valid");
 					input.classList.add("is-invalid");
-					document.getElementById("errorEmail").innerHTML = "Attenzione! Questa email esiste già.";
+					document.getElementById("errorEmail").innerHTML = "Attenzione! Questa email è già associata ad un altro utente.";
 					emailOk = false;
 				}
 				checkForm();

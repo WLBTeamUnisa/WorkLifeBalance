@@ -1,19 +1,14 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 /**
@@ -47,10 +42,8 @@ public class CheckEmployeeServlet extends HttpServlet {
 		response.setContentType("text/xml");
 		
 		if( (email!=null) && (email.length()>=6) && email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") ){
-			Employee employee = null;
-			
 			try {
-				employee = employeeDao.retrieveByEmail(email);
+				employeeDao.retrieveByEmail(email);
 				response.getWriter().write("<no/>");
 			} catch (Exception e) {
 				response.getWriter().write("<ok/>");

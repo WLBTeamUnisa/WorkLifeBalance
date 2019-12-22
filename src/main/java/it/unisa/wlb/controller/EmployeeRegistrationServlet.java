@@ -1,7 +1,6 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +14,10 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 /**
- * Servlet implementation class EmployeeRegistrationServlet
+ * The aim of this Servlet is registering an Employee into the system.
+ * 
+ * @author Simranjit, Sabato
+ *
  */
 @WebServlet("/EmployeeRegistrationServlet")
 public class EmployeeRegistrationServlet extends HttpServlet {
@@ -34,9 +36,8 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter p = response.getWriter();
-				
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
+		
 		/**
 	     * Employee Registration parameters
 	     */
@@ -79,11 +80,16 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			emailOk=false;
 		else
 		{
-			Employee employeeExist;
 			try {
-				employeeExist = employeeDao.retrieveByEmail(email);
+				employeeDao.retrieveByEmail(email);
+				/**
+				 * The method above has found a valid result
+				 */
 				emailOk=false;
 			} catch (Exception e) {
+				/**
+				 * The method above has not found a valid result, meaning that an Employee with that email is not yet associated
+				 */
 				emailOk=true;
 			}
 			
@@ -118,7 +124,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		if(nameOk && surnameOk && emailOk && passwordOk && verifyPasswordOk && statusOk)
 		{
 			/**
-		     * Create new Employee with form parameters
+		     * Creation of a new Employee with form parameters
 		     */
 			Employee employee= new Employee();
 			employee.setName(name);
@@ -130,11 +136,11 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 //			System.out.println(employee.getName()+" "+employee.getStatus());
 			
 			/**
-		     * insert into Database
+		     * Inserton of the new Employee into the database
 		     */
 			employeeDao.create(employee);
 			
-//			System.out.println("Tutto ok");
+//			System.out.println("Ok, fine!");
 			
 			request.setAttribute("result", "success");
 			String url=response.encodeURL("/EmployeeRegistration.jsp");

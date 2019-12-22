@@ -10,7 +10,6 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,6 +19,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 
+/**
+ * This test class follows the specification of the section "3.1.1 TC_1.1 Registra dipendente" of the document "Test Case Specification"
+ * 
+ * @author Aniello, Sabato
+ *
+ */
 public class EmployeeRegistrationServletTest extends Mockito {
 	
 	private MockHttpServletRequest request;
@@ -36,7 +41,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		response = new MockHttpServletResponse();
 	}
 	
-	// name field doesn't respect the specified lenght
+	
+	/**
+	 * "name" field doesn't respect the specified lenght
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_1() throws ServletException, IOException {
 		request.addParameter("name", "M");
@@ -50,7 +60,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// name field doesn't respect the specified lenght
+	/**
+	 * "name" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_2() throws ServletException, IOException {
 		request.addParameter("name", "Marcooooooooooooooooo");
@@ -64,7 +79,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// name field doesn't respect the specified format
+	/**
+	 * "name" field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_3() throws ServletException, IOException {
 		request.addParameter("name", "Marco90");
@@ -78,7 +98,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// surname field doesn't respect the specified lenght
+	/**
+	 * "surname" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_4() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -92,7 +117,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// surname field doesn't respect the specified lenght
+	/**
+	 * "surname" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_5() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -106,7 +136,13 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// surname field doesn't respect the specified format
+	 
+	/**
+	 * "surname" field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_6() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -120,7 +156,13 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// email field doesn't respect the specified lenght
+	
+	/**
+	 * "email" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_7() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -134,7 +176,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// email field doesn't respect the specified lenght
+	/**
+	 * "email" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_8() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -148,7 +195,13 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// email field doesn't respect the specified format
+	
+	/**
+	 * "email" field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_9() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -162,7 +215,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// Email field doesn't exist into database
+	/**
+	 * "email" field doesn't exist into database
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_10() throws ServletException, IOException {
 		
@@ -189,7 +247,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		employeeDao.remove(employee);
 	}
 	
-	// password field doesn't respect the specified lenght
+	/**
+	 * "password" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_11() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -203,7 +266,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// password field doesn't respect the specified lenght
+	/**
+	 * "password" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_12() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -217,7 +285,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	//  password field doesn't respect the specified lenght
+	/**
+	 * "password" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_13() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -231,7 +304,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// password field doesn't respect the specified format
+	/**
+	 * "password" field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_14() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -245,7 +323,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// verify password field doesn't respect the specified lenght
+	/**
+	 * "verify password" field doesn't respect the specified lenght
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_15() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -259,7 +342,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// verify password field doesn't respect the specified format
+	/**
+	 * "verify password" field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_16() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -273,7 +361,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// password field and verify password field doesn't correspond
+	/**
+	 * "password" field and verify password field doesn't correspond
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_17() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -287,7 +380,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// status field not inserted
+	/**
+	 * "status" field not inserted
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_18() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
@@ -301,7 +399,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		});
 	}
 	
-	// User registration ended with success
+	/**
+	 * Employee/Manager registration ended with success
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test 
 	public void TC_1_1_19() throws ServletException, IOException {
 		
