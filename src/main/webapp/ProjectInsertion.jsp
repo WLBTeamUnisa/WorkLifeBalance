@@ -1,3 +1,4 @@
+<%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee" %>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -38,6 +39,7 @@
 </head>
 
 <body>
+<% List<Employee> employee_list=(List<Employee>)request.getAttribute("lista_dipendenti"); %>
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 
@@ -54,7 +56,7 @@
 								<h3>Insert project</h3>
 							</div>
 							<div class="card-body">
-								<form action="">
+								<form action="/AddProjectServlet" method="post">
 
 									<div class="form-group row pb-4">
 										<label for="name" class="col-sm-2 col-form-label">Name:</label>
@@ -91,7 +93,7 @@
 									</div>
 
 									<div class="form-group row pb-3">
-										<label for="descrizione" class="col-sm-2 col-form-label">Descrizione:</label>
+										<label for="descrizione" class="col-sm-2 col-form-label">Description:</label>
 										<div class="col-sm-10">
 											<textarea name="description" id="description" cols="30" rows="5"
 												class="form-control my-2" onblur="verificaDescrizione()"></textarea>
@@ -115,13 +117,16 @@
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
 														<ul class="list-group list-group-bordered">
-															<li class="list-group-item" id="employee1"><i
-																class="fas fa-user my-auto"></i>
-																<p class="my-auto ml-3">m.red10@wlb.it</p></li>
-
-															<li class="list-group-item" id="employee2"><i
-																class="fas fa-user my-auto"></i>
-																<p class="my-auto ml-3">m.green10@wlb.it</p></li>
+														<% if(employee_list!=null || employee_list.size()>0) 
+															{
+																for(int i=0; i<employee_list.size(); i++)
+																{
+																	
+														%>
+														<li class="list-group-item" id="employee"<%=(i+1)%>><i class="fas fa-user my-auto">
+														</i><p class="my-auto ml-3\"><%=employee_list.get(i).getEmail()%></p></li>
+														<%		}
+															}%>
 														</ul>
 													</div>
 												</div>
@@ -166,12 +171,14 @@
 													<form class="navbar-form" role="search">
 														<div class="form-group">
 															<div class="input-group mb-3">
-																<input type="text" class="form-control"
+																<input type="email" onkeyup="Suggestions(this.value)" class="form-control"
 																	placeholder="m.red1@wlb.it"
 																	aria-describedby="basic-addon1">
+																	<datalist id="suggestions">
+																	</datalist>
 																<div class="input-group-append">
-																	<span class="input-group-text" id="basic-addon1"><i
-																		class="fas fa-plus-square"></i></span>
+																	<button onclick="insertEmployee(email)" class="input-group-text" id="basic-addon1"><i
+																		class="fas fa-plus-square"></i></button>
 																</div>
 															</div>
 														</div>
@@ -245,14 +252,11 @@
 		var dataFineOK = false;
 		var descrizioneOK = false;
 		var managerOK = false;
-
 		//TEMPLATE
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
-
 		function verificaNome(){
 			var input = $("#name").val();
-
 			if(input.trim().length>=4 && input.trim().length<=15 && input.match(/^[A-Za-z0-9]+$/)){
 				$("#name").css("border", borderOK);
 				nomeOK = true;
@@ -262,10 +266,8 @@
 			}
 			changeInsertButtonState();
 		}
-
 		function verificaScope(){
 			var input = $("#scope").val();
-
 			if(input.trim().length>=3 && input.trim().length<=25 && input.match(/^[A-Za-z\s]+$/)){
 				$("#scope").css("border", borderOK);
 				scopeOK = true;
@@ -317,7 +319,6 @@
 		
 		function verificaManager(){
 			var input = $("#managerEmail").val();
-
 			if(input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)){
 				$("#managerEmail").css("border", borderOK);
 				managerOK = true;
@@ -327,10 +328,9 @@
 			}
 			changeInsertButtonState();
 		}
-
+		
 		function changeInsertButtonState(){
 			var btn = $("#insertButton");
-
 			if(nomeOK && scopeOK && dataInizioOK && dataFineOK && descrizioneOK && managerOK){
 				document.getElementById('insertButton').disabled = false;
 				btn.css("background-color", "#31CE36");
@@ -340,6 +340,37 @@
 				btn.css("background-color", "#d6d6d6");
 				btn.css("color", "#ffffff");
 			}
+		}
+		
+		function Suggestions(email){
+			
+			var xhttp = new  XMLHttpRequest();
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var lista = JSON.parse(this.responseText);
+					
+					 var options="";
+					  
+					  for (i = 0; i < zone.length; i++) { 
+					    options += "<option>" + lista[i] + "</option>";
+					  }
+					  document.getElementById("suggestions").innerHTML = options;
+					  var list="";
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email="+ email , true);
+			xhttp.send();
+		}
+		
+		function insertEmployee()
+		{
+			var xhttp = new  XMLHttpRequest();
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+				}
+			}
+			xhttp.open("GET", "AddEmployeeToList?email="+ email , true);
+			xhttp.send();
 		}
 	</script>
 

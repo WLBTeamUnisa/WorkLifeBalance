@@ -19,10 +19,6 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.jpa.AdminJpa;
-import it.unisa.wlb.model.jpa.EmployeeJpa;
-import it.unisa.wlb.model.jpa.ProjectJpa;
-
 
 
 
