@@ -16,7 +16,7 @@ public class Utils {
    */
   public static String generatePwd(String passwordToHash) {
     String generatedPassword = null;
-    String salt = "englishvalidation";
+    String salt = "worklifebalance";
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-1");
       md.update(salt.getBytes(StandardCharsets.UTF_8));
@@ -31,6 +31,4 @@ public class Utils {
     }
     return generatedPassword;
   }
-
-
 }

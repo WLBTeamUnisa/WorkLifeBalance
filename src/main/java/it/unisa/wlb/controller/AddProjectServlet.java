@@ -57,6 +57,7 @@ public class AddProjectServlet extends HttpServlet {
 		 * Project Parameters
 		 */
 		Project project;
+
 		Employee manager;
 		Admin admin;
 		String name;
@@ -195,7 +196,6 @@ public class AddProjectServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			doGet(request, response);
-		
 	}
 	
 }

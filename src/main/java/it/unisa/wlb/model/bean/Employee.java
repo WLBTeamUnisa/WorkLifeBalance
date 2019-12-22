@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 

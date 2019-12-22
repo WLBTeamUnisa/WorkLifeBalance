@@ -8,7 +8,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Project Insertion</title>
+<title>WLB - Lista dipendenti</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -22,7 +22,7 @@
 <script>
 	WebFont.load({
 		google : {
-			"families" : [ "Lato:300,400,700,900" ] 
+			"families" : [ "Lato:300,400,700,900" ]
 		},
 		custom : {
 			"families" : [ "Flaticon", "Font Awesome 5 Solid",
@@ -52,11 +52,49 @@
 						<div class="card">
 
 							<div class="card-header">
-								<h3 class="my-auto">Admin Dashboard</h3>
+								<h3 class="my-auto">Lista dei dipendenti</h3>
 							</div>
 
 							<div class="card-body">
-								<h4 class="my-auto">Admin</h4>
+
+								<a class="nav-link nav-item toggle-nav-search hidden-caret mb-3"
+									data-toggle="collapse" href="#search-nav" role="button"
+									aria-expanded="false" aria-controls="search-nav">
+									<button class="btn">
+										<i class="fa fa-search"></i>
+									</button>
+								</a>
+
+								<div class="collapse mx-auto mb-3" id="search-nav">
+									<form class="navbar-left navbar-form nav-search">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<button type="submit" class="btn btn-search pr-1">
+													<i class="fa fa-search search-icon"></i>
+												</button>
+											</div>
+											<input type="text" placeholder="Search ..."
+												class="form-control">
+										</div>
+									</form>
+								</div>
+
+								<ul class="list-group list-group-bordered">
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente 1</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente 2</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente 3</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente 4</a></li>
+									<li class="list-group-item"><a href="#"
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente 5</a></li>
+								</ul>
+
+								<a class="btn btn-success mt-3" href="EmployeeRegistration.jsp"
+									role="button">Inserisci dipendente</a>
+
 								<!-- FINE CARD-BODY -->
 							</div>
 
