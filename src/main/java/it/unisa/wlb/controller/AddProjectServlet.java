@@ -58,7 +58,10 @@ public class AddProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Project project = new Project();
+		/**
+		 * Project Parameters
+		 */
+		Project project;
 		Employee manager;
 		Admin admin;
 		String name;
@@ -92,7 +95,9 @@ public class AddProjectServlet extends HttpServlet {
 		admin = (Admin) request.getSession().getAttribute(ADMIN_EMAIL);
 		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);			
 		
-		//Controlli sui parametri
+		/**
+		 * Project Parameters checks
+		 */
 		if(name.matches("^[A-Za-z0-9]+$") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
 			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
@@ -113,12 +118,23 @@ public class AddProjectServlet extends HttpServlet {
 		if(description.matches("^[\\s\\S]+$") && description.length() >=20 && description.length() <= 250) {
 			descriptionOk = true;
 		}
-		// Controllo se esiste il manager nel db
-		manager = employeeDao.retrieveByEmail(managerEmail);
-		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null)) {
-			managerEmailOk = true;
+		
+		/**
+		 * Checks if the manager is in the Database
+		 */
+		try {
+			manager = employeeDao.retrieveByEmail(managerEmail);
+		} catch(Exception e) {
+			throw new IllegalArgumentException();
 		}
 		
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null)) {
+		managerEmailOk = true;
+		}
+		
+		/**
+		 * Formats the dates in format yyyy-MM-dd
+		 */
 		if(startDateOk && endDateOk) {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");	// La m (minuscolo) nel format è minute
 			try {
@@ -134,6 +150,7 @@ public class AddProjectServlet extends HttpServlet {
 		}
 		
 		if(nameOk && scopeOk && startDateOk && endDateOk && descriptionOk && managerEmailOk) {
+			project = new Project();
 			project.setName(name);
 			project.setScope(scope);
 			project.setStartDate(startDate);
@@ -142,9 +159,14 @@ public class AddProjectServlet extends HttpServlet {
 			project.setEmployee(manager);
 			project.setAdmin(admin);
 			project.setEmployees(employeesList);
+			/**
+			 * Creation of the new project
+			 */
 			projectDao.create(project);
 			
-			//Aggiorno il manager inserendo il nuovo progetto che supervisiona
+			/**
+			 * Updating manager with the insertion of the project
+			 */
 			manager.addProjects1(project);
 			employeeDao.update(manager);
 		
