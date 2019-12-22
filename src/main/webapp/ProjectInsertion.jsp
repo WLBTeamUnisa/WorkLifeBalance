@@ -1,4 +1,4 @@
-<%@ page import="java.util.List,it.unisa.wlb.model.bean.*" %>
+<%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee" %>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -56,7 +56,7 @@
 								<h3>Insert project</h3>
 							</div>
 							<div class="card-body">
-								<form action="">
+								<form action="/AddProjectServlet" method="post">
 
 									<div class="form-group row pb-4">
 										<label for="name" class="col-sm-2 col-form-label">Name:</label>
