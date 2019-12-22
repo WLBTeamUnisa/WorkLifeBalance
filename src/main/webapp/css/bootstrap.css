@@ -183,37 +183,55 @@ a:hover {
 }
 
 a
+
+
 :not
+
  
+
 (
 [
 href
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 tabindex
 ]
+
  
+
 )
 {
 color
+
+
 :
+
  
+
 inherit
-;
 
-	
+
+;
 text-decoration
+
+
 :
+
  
+
 none
+
+
 ;
-
-
 }
 a:not ([href] ):not ([tabindex] ):focus, a:not ([href] ):not ([tabindex]
 	 ):hover {
@@ -246,20 +264,30 @@ img {
 }
 
 svg
+
+
 :not
+
  
+
 (
 :root
+
  
+
 )
 {
 overflow
+
+
 :
+
  
+
 hidden
+
+
 ;
-
-
 }
 a, area, button, [role="button"], input, label, select, summary,
 	textarea {
@@ -485,21 +513,31 @@ mark, .mark {
 }
 
 .list-inline-item
+
+
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 {
 margin-right
+
+
 :
+
  
+
 5
 px
+
+
 ;
-
-
 }
 .initialism {
 	font-size: 90%;
@@ -1580,36 +1618,54 @@ pre code {
 }
 
 select
+
+
 .form-control
+
+
 :not
+
  
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 )
 {
 height
+
+
 :
+
  
+
 calc
+
+
 (2
 .25rem
 +
 2
 px
+
+
 );
-
-
 }
 select.form-control:focus::-ms-value {
 	color: #495057;
@@ -1673,101 +1729,155 @@ select.form-control:focus::-ms-value {
 }
 
 select
+
+
 .form-control-sm
+
+
 :not
+
  
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-sm
 >
 select
+
+
 .form-control
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-sm
 >
 select
+
+
 .input-group-addon
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-sm
 >
 .input-group-btn
 >
 select
+
+
 .btn
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 )
 {
 height
+
+
 :
+
  
+
 calc
+
+
 (1
 .8125rem
 +
 2
 px
+
+
 );
-
-
 }
 .form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-addon,
 	.input-group-lg>.input-group-btn>.btn {
@@ -1778,101 +1888,155 @@ px
 }
 
 select
+
+
 .form-control-lg
+
+
 :not
+
  
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-lg
 >
 select
+
+
 .form-control
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-lg
 >
 select
+
+
 .input-group-addon
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 ),
 .input-group-lg
 >
 .input-group-btn
 >
 select
+
+
 .btn
+
+
 :not
 
+
 	
+
 (
 [
 size
 ]
+
  
+
 )
 :not
+
  
+
 (
 [
 multiple
 ]
+
  
+
 )
 {
 height
+
+
 :
+
  
+
 calc
+
+
 (2
 .3125rem
 +
 2
 px
+
+
 );
-
-
 }
 .form-group {
 	margin-bottom: 1rem;
@@ -2884,29 +3048,47 @@ tbody.collapse.show {
 .btn-group
 >
 .btn
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 )
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 :not
+
  
+
 (
 .dropdown-toggle
 
+
 	
+
 )
 {
 border-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group>.btn:first-child {
@@ -2916,57 +3098,99 @@ border-radius
 .btn-group
 >
 .btn
+
+
 :first-child
+
+
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 :not
+
  
+
 (
 .dropdown-toggle
+
  
+
 )
 {
 border-top-right-radius
+
+
 :
+
  
+
 0;
 border-bottom-right-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group
 >
 .btn
+
+
 :last-child
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 ),
 .btn-group
 >
 .dropdown-toggle
+
+
 :not
 
+
 	
+
 (
 :first-child
+
  
+
 )
 {
 border-top-left-radius
+
+
 :
+
  
+
 0;
 border-bottom-left-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group>.btn-group {
@@ -3035,62 +3259,108 @@ border-bottom-left-radius
 .btn-group-vertical
 >
 .btn
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 )
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 {
 border-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group-vertical
 >
 .btn
+
+
 :first-child
+
+
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 {
 border-bottom-right-radius
+
+
 :
+
  
+
 0;
 border-bottom-left-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group-vertical
 >
 .btn
+
+
 :last-child
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 )
 {
 border-top-left-radius
+
+
 :
+
  
+
 0;
 border-top-right-radius
+
+
 :
+
  
+
 0;
 }
 .btn-group-vertical>.btn-group:not (:first-child ):not (:last-child ) >.btn
@@ -3148,51 +3418,87 @@ border-top-right-radius
 }
 
 .input-group-addon
-:not
- 
-(
-:first-child
- 
-)
-:not
- 
-(
-:last-child
- 
-),
-.input-group-btn
-:not
- 
-(
-:first-child
- 
-)
-:not
- 
-(
-:last-child
- 
-),
-.input-group
- 
-.form-control
+
+
 :not
 
-	
+ 
+
 (
 :first-child
+
  
+
 )
 :not
+
  
+
 (
 :last-child
+
  
+
+),
+.input-group-btn
+
+
+:not
+
+ 
+
+(
+:first-child
+
+ 
+
+)
+:not
+
+ 
+
+(
+:last-child
+
+ 
+
+),
+.input-group
+
+ 
+
+.form-control
+
+
+:not
+
+
+	
+
+(
+:first-child
+
+ 
+
+)
+:not
+
+ 
+
+(
+:last-child
+
+ 
+
 )
 {
 border-radius
+
+
 :
+
  
+
 0;
 }
 .input-group-addon, .input-group-btn {
@@ -3237,26 +3543,36 @@ border-radius
 	 ) >.btn-group>.btn, .input-group-btn:not (:last-child ) >.dropdown-toggle,
 	.input-group-btn:not (:first-child ) >.btn:not (:last-child ):not (.dropdown-toggle
 	 ), .input-group-btn:not (:first-child ) >.btn-group:not (:last-child 
-	) >.btn {
+	 ) >.btn {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
 .input-group-addon
+
+
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 {
 border-right
+
+
 :
+
  
+
 0;
 }
 .input-group .form-control:not (:first-child ), .input-group-addon:not 
-	(:first-child
+	 (:first-child
 	 ), .input-group-btn:not (:first-child ) >.btn, .input-group-btn:not (:first-child
 	 ) >.btn-group>.btn, .input-group-btn:not (:first-child ) >.dropdown-toggle,
 	.input-group-btn:not (:last-child ) >.btn:not (:first-child ),
@@ -3269,16 +3585,26 @@ border-right
 .form-control
 +
 .input-group-addon
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 )
 {
 border-left
+
+
 :
+
  
+
 0;
 }
 .input-group-btn {
@@ -3312,7 +3638,7 @@ border-left
 }
 
 .input-group-btn:not (:first-child ) >.btn:focus, .input-group-btn:not 
-	(:first-child
+	 (:first-child
 	 ) >.btn:active, .input-group-btn:not (:first-child ) >.btn:hover,
 	.input-group-btn:not (:first-child ) >.btn-group:focus,
 	.input-group-btn:not (:first-child ) >.btn-group:active,
@@ -4178,24 +4504,40 @@ border-left
 		border-bottom-left-radius: 0;
 	}
 	.card-group
+	
 	 
+	
 	.card
+	
+	
 	:not
+	
 	 
+	
 	(
 	:first-child
+	
 	 
+	
 	)
 	:not
+	
 	 
+	
 	(
 	:last-child
+	
 	 
+	
 	)
 	{
 	border-radius
+	
+	
 	:
+	
 	 
+	
 	0;
 }
 
@@ -5057,36 +5399,52 @@ button.close {
 .modal-footer
 >
 :not
+
  
+
 (
 :first-child
+
  
+
 )
 {
 margin-left
+
+
 :
+
  
+
 .25rem
+
+
 ;
-
-
 }
 .modal-footer
 >
 :not
+
  
+
 (
 :last-child
+
  
+
 )
 {
 margin-right
+
+
 :
+
  
+
 .25rem
+
+
 ;
-
-
 }
 .modal-scrollbar-measure {
 	position: absolute;

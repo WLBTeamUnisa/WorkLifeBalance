@@ -1632,13 +1632,19 @@ to {
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .7
+
+
 
 
 
@@ -1649,13 +1655,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .7
+
+
 
 
 
@@ -1681,13 +1693,19 @@ keyframes zoom-out { 0%{
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .7
+
+
 
 
 
@@ -1698,13 +1716,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .7
+
+
 
 
 
@@ -1764,13 +1788,19 @@ to {
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .95
+
+
 
 
 
@@ -1781,13 +1811,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .95
+
+
 
 
 
@@ -1813,13 +1849,19 @@ keyframes zoom-out-sm { 0%{
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .95
+
+
 
 
 
@@ -1830,13 +1872,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .95
+
+
 
 
 
@@ -1896,13 +1944,19 @@ to {
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .4
+
+
 
 
 
@@ -1913,13 +1967,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .4
+
+
 
 
 
@@ -1945,13 +2005,19 @@ keyframes zoom-out-lg { 0%{
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .4
+
+
 
 
 
@@ -1962,13 +2028,19 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
 
 (
 .4
+
+
 
 
 

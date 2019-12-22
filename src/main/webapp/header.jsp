@@ -37,7 +37,8 @@
 				<!-- <li class="nav-item"><h4 class="text-right my-auto mr-3"
 						style="color: white;">Nome - Cognome</h4></li>
 						 -->
-				<li class="nav-item"><a href="LogoutServlet" class="nav-link text-right my-auto mr-3" style="color: white;">Logout</a></li>
+				<li class="nav-item"><a href="LogoutServlet"
+					class="nav-link text-right my-auto mr-3" style="color: white;">Logout</a></li>
 			</ul>
 		</div>
 	</nav>

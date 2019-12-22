@@ -81,15 +81,20 @@
 
 								<ul class="list-group list-group-bordered">
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente 1</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											1</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente 2</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											2</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente 3</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											3</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente 4</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											4</a></li>
 									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente 5</a></li>
+										class="mx-auto nav-link" style="color: #2f3640">Dipendente
+											5</a></li>
 								</ul>
 
 								<a class="btn btn-success mt-3" href="EmployeeRegistration.jsp"

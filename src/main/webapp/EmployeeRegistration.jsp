@@ -37,8 +37,9 @@
 	});
 </script>
 
-<link href="node_modules/sweetalert2/dist/sweetalert2.css" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/>
+<link href="node_modules/sweetalert2/dist/sweetalert2.css"
+	rel="stylesheet" />
+<link href="style.css" rel="stylesheet" />
 
 </head>
 
@@ -54,7 +55,7 @@
 						<div class="card">
 							<div class="card-header">
 								<h3>
-									<bold>Registrazione dipendente</bold>									
+									<bold>Registrazione dipendente</bold>
 								</h3>
 							</div>
 
