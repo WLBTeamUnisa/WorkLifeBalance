@@ -3,7 +3,6 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +47,6 @@ public class AddProjectServlet extends HttpServlet {
 	private static final String PROJECT_DESCRIPTION = "description";
 	private static final String PROJECT_MANAGER = "managerEmail"; 
 	private static final String USER = "user";
-	private static final String EMPLOYEES_LIST = "employeesList";
 	private static final String USER_ROLE = "userRole";
 	
     public AddProjectServlet() {
@@ -76,7 +74,6 @@ public class AddProjectServlet extends HttpServlet {
 		String description;
 		String managerEmail;
 		String userRole;
-		List<Employee> employeesList;
 		
 		boolean nameOk = false;
 		boolean scopeOk = false;
@@ -95,8 +92,7 @@ public class AddProjectServlet extends HttpServlet {
 		description = request.getParameter(PROJECT_DESCRIPTION);
 		managerEmail = request.getParameter(PROJECT_MANAGER);
 		admin = (Admin) request.getSession().getAttribute(USER);
-		userRole = (String) request.getSession().getAttribute(USER_ROLE);
-		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);			
+		userRole = (String) request.getSession().getAttribute(USER_ROLE);		
 		
 		/**
 		 * Project Parameters checks
@@ -173,7 +169,6 @@ public class AddProjectServlet extends HttpServlet {
 			project.setDescription(description);
 			project.setEmployee(manager);
 			project.setAdmin(admin);
-			project.setEmployees(employeesList);
 			/**
 			 * Creation of the new project
 			 */
