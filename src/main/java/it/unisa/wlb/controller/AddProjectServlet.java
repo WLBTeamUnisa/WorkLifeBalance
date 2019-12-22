@@ -93,29 +93,29 @@ public class AddProjectServlet extends HttpServlet {
 		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);			
 		
 		//Controlli sui parametri
-		if(name.matches("[A-Za-z0-9]+") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
+		if(name.matches("^[A-Za-z0-9]+$") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
 			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
 		}
 		
-		if(scope.matches("[A-Za-z\\s]+") && scope.length() > 2 && scope.length() < 26 && !scope.equals("") && !(scope==null)) {
+		if(scope.matches("^[A-Za-z\\s]+$") && scope.length() > 2 && scope.length() < 26 && !scope.equals("") && !(scope==null)) {
 			scopeOk = true;
 		}
 		
-		if(startDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])") && !startDateString.equals("") && !(startDateString==null)) {
+		if(startDateString.matches("^(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$") && !startDateString.equals("") && !(startDateString==null)) {
 			startDateOk = true;
 		}
 		
-		if(endDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])") && !endDateString.equals("") && !(endDateString==null)) {
+		if(endDateString.matches("^(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$") && !endDateString.equals("") && !(endDateString==null)) {
 			endDateOk = true;
 		}
 		
-		if(description.matches("[\\s\\S]+") && description.length() >=20 && description.length() <= 250) {
+		if(description.matches("^[\\s\\S]+$") && description.length() >=20 && description.length() <= 250) {
 			descriptionOk = true;
 		}
 		// Controllo se esiste il manager nel db
 		manager = employeeDao.retrieveByEmail(managerEmail);
-		if(!(manager==null) && managerEmail.matches("[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it") && !managerEmail.equals("") && !(managerEmail==null)) {
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null)) {
 			managerEmailOk = true;
 		}
 		
