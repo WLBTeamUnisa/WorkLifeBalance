@@ -71,21 +71,17 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			emailOk=false;
 		else
 		{
+			Employee employee = null;
 			try {
-				employeeDao.retrieveByEmail(email);
-				/**
-				 * The method above has found a valid result
-				 */
-				emailOk=false;
+				employee = employeeDao.retrieveByEmail(email);
 			} catch (Exception e) {
-				/**
-				 * The method above has not found a valid result, meaning that an Employee with that email is not yet associated
-				 */
-				emailOk=true;
-			}
+				;
+			}		
 			
-			if(!emailOk)
-				throw new IllegalArgumentException();			
+			if(employee==null)
+				emailOk=true;
+			else
+				emailOk=false;						
 		}
 			
 		if(password== null || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") || password.length()<8 || password.length()>20)
@@ -123,10 +119,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 			employee.setEmail(email);
 			employee.setPassword(Utils.generatePwd(password));
 			employee.setStatus(statusInt);
-			
-			System.out.println(employee.getName() + " " + employee.getSurname()+ " " + employee.getEmail()+" "+employee.getPassword()+" "+employee.getStatus());
-			
-			
+						
 			/**
 		     * Inserton of the new Employee into the database
 		     */

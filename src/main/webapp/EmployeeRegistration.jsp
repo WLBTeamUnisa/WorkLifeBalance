@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String s = (String) request.getAttribute("result");
-%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>WLB - Registrazione Dipendente</title>
-<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
+	name='viewport' />
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
 
 <!-- CSS Files -->
@@ -36,6 +37,9 @@
 	});
 </script>
 
+<link href="node_modules/sweetalert2/dist/sweetalert2.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -45,94 +49,78 @@
 			<!-- CORPO PAGINA-->
 
 			<div class="content" style="display: flex; align-items: center;">
-			<%
-				if (s != null) {
-			%>
-			<div class="modal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Registrazione avvenuta con successo</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>			
-			<%
-				}
-			%>
-			
 				<div class="container mt-4 text-center">
 					<div class="col-lg-7 mx-auto">
 						<div class="card">
 							<div class="card-header">
 								<h3>
-									<bold>Registrazione dipendente</bold>
+									<bold>Registrazione dipendente</bold>									
 								</h3>
 							</div>
 
 							<div class="registration-fields">
-								<form name="registration" method="post" action="EmployeeRegistrationServlet">
+								<form name="registration" method="post"
+									action="EmployeeRegistrationServlet">
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">
-												<i class="fa fa-user">
-												</i>
+											<span class="input-group-text"> <i class="fa fa-user">
+											</i>
 											</span>
 										</div>
-										<input name="name" id="Name" oninput="validName()" class="form-control" placeholder="Nome*" type="text" required>
+										<input name="name" id="Name" oninput="validName()"
+											class="form-control" placeholder="Nome*" type="text" required>
 									</div>
 									<!-- form-group// Name -->
-									<span id="errorName"> 
-									</span>
+									<span id="errorName"> </span>
 
 									<div class="form-group input-group">
-										<div class="input-group-prepend"> 
-											<span class="input-group-text"> 
-												<i class="fa fa-user">
-												</i>
+										<div class="input-group-prepend">
+											<span class="input-group-text"> <i class="fa fa-user">
+											</i>
 											</span>
 										</div>
-										<input name="surname" id="Surname" oninput="validSurname()" class="form-control" placeholder="Cognome*" type="text" required>
+										<input name="surname" id="Surname" oninput="validSurname()"
+											class="form-control" placeholder="Cognome*" type="text"
+											required>
 									</div>
 									<!-- form-group// Last name -->
 									<span id="errorSurname"></span>
 
 									<div class="form-group input-group">
-										<div class="input-group-prepend"> 
-											<span class="input-group-text"> 
-												<i class="fa fa-envelope">
-												</i>
+										<div class="input-group-prepend">
+											<span class="input-group-text"> <i
+												class="fa fa-envelope"> </i>
 											</span>
 										</div>
-										<input name="email" id="Email" oninput="validEmail()" class="form-control" placeholder="Email*" type="email" required>
+										<input name="email" id="Email" oninput="validEmail()"
+											class="form-control" placeholder="Email*" type="email"
+											required>
 									</div>
 									<!-- form-group//  Email -->
 									<span id="errorEmail"></span>
 
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text"> 
-												<i class="fas fa-key">
-												</i>
+											<span class="input-group-text"> <i class="fas fa-key">
+											</i>
 											</span>
 										</div>
-										<input name="password" id="Password" oninput="validPassword()"  class="form-control" placeholder="Password*" type="password" required>
+										<input name="password" id="Password" oninput="validPassword()"
+											class="form-control" placeholder="Password*" type="password"
+											required>
 									</div>
 									<!-- form-group//   Password -->
 
 
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text"> 
-												<i class="fas fa-key">
-												</i>
+											<span class="input-group-text"> <i class="fas fa-key">
+											</i>
 											</span>
 										</div>
-										<input name="verifyPassword" id="VerifyPassword" oninput="validPassword()" class="form-control" placeholder="Conferma password*" type="password" required>
+										<input name="verifyPassword" id="VerifyPassword"
+											oninput="validPassword()" class="form-control"
+											placeholder="Conferma password*" type="password" required>
 									</div>
 									<!-- form-group// Verify Password  -->
 									<span id="errorPassword"></span>
@@ -140,12 +128,12 @@
 
 									<div class="form-group input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text"> 
-												<i class="fas fa-user-tie">
-												</i>
+											<span class="input-group-text"> <i
+												class="fas fa-user-tie"> </i>
 											</span>
 										</div>
-										<select name="status" class="custom-select" id="inputGroupSelect03" required>
+										<select name="status" class="custom-select"
+											id="inputGroupSelect03" required>
 											<option value="Employee">Dipendente</option>
 											<option value="Manager">Manager</option>
 										</select>
@@ -155,13 +143,12 @@
 									<span id="errorRegistrationForm"></span>
 									<div class="form-group">
 										<span class="rounded-icon">
-											<button type="submit" id="registrationButton" class="btn btn btn-success btn-block" disabled>
-												Registra
-											</button>
+											<button type="submit" id="registrationButton"
+												class="btn btn btn-success btn-block" disabled>
+												Registra</button>
 										</span>
 									</div>
 									<!-- form-group//  Register button-->
-									
 							</div>
 						</div>
 					</div>
@@ -200,6 +187,15 @@
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
 
+	<c:if test="${not empty result}">
+		<script>
+			function sweetalertclick() {
+				swal("Ottimo!", "Registrazione avvenuta con successo!", "success")
+			}
+			window.onload = sweetalertclick;
+		</script>
+	</c:if>
+
 </body>
 
 <script type="text/javascript">
@@ -214,7 +210,8 @@
 
 		var msgError = "La sintassi del nome non è corretta";
 		var nameValue = input.value;
-		if (nameValue.length >= 2 && nameValue.length <= 20 && input.value.match(/^[A-Za-z]+$/)) {
+		if (nameValue.length >= 2 && nameValue.length <= 20
+				&& input.value.match(/^[A-Za-z]+$/)) {
 			if (input.classList.contains("is-invalid"))
 				input.classList.remove("is-invalid");
 			input.classList.add("is-valid");
@@ -236,7 +233,8 @@
 
 		var msgError = "La sintassi del cognome non è corretta";
 		var surnameValue = input.value;
-		if (surnameValue.length >= 2 && surnameValue.length <= 20 && input.value.match(/^[A-Za-z\s]+$/)) {
+		if (surnameValue.length >= 2 && surnameValue.length <= 20
+				&& input.value.match(/^[A-Za-z\s]+$/)) {
 			if (input.classList.contains("is-invalid"))
 				input.classList.remove("is-invalid");
 			input.classList.add("is-valid");
@@ -253,21 +251,25 @@
 
 	}
 	function validEmail() {
-	
+
 		var ok = "<ok/>";
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
-		if (emailValue.length >= 5 && emailValue.length <= 30 && input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
+		if ((emailValue.length-7) >= 5 && (emailValue.length-7) <= 30
+				&& input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
-				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText == ok) {
+				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200
+						&& xmlHttpReq.responseText == ok) {
 					if (input.classList.contains("is-invalid"))
 						input.classList.remove("is-invalid");
 					input.classList.add("is-valid");
 					document.getElementById("errorEmail").innerHTML = "";
 					emailOk = true;
-				} else if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200 && xmlHttpReq.responseText != ok) {
+				} else if (xmlHttpReq.readyState == 4
+						&& xmlHttpReq.status == 200
+						&& xmlHttpReq.responseText != ok) {
 					if (input.classList.contains("is-valid"))
 						input.classList.remove("is-valid");
 					input.classList.add("is-invalid");
@@ -276,7 +278,9 @@
 				}
 				checkForm();
 			}
-			xmlHttpReq.open("GET", "/WorkLifeBalance/CheckEmployeeServlet?email=" + encodeURIComponent(input.value), true);
+			xmlHttpReq.open("GET",
+					"/WorkLifeBalance/CheckEmployeeServlet?email="
+							+ encodeURIComponent(input.value), true);
 			xmlHttpReq.send();
 		} else {
 			if (input.classList.contains("is-valid"))
@@ -286,13 +290,17 @@
 			emailOk = false;
 		}
 		checkForm();
-		
+
 	}
 	function validPassword() {
 		var inputpw = document.querySelector("#Password");
 		var inputpwconf = document.querySelector("#VerifyPassword");
 		var password = inputpw.value;
-		if (password.length >= 8 && password.toUpperCase() != password && password.toLowerCase() != password && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\.!@#\$%\^&\*]).{8,20}$/)) {
+		if (password.length >= 8
+				&& password.toUpperCase() != password
+				&& password.toLowerCase() != password
+				&& password
+						.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\.!@#\$%\^&\*]).{8,20}$/)) {
 			if (inputpw.classList.contains("is-invalid"))
 				inputpw.classList.remove("is-invalid");
 			inputpw.classList.add("is-valid");
@@ -314,17 +322,17 @@
 			if (inputpw.classList.contains("is-valid"))
 				inputpw.classList.remove("is-valid");
 			inputpw.classList.add("is-invalid");
-			
+
 			if (inputpwconf.classList.contains("is-valid"))
 				inputpwconf.classList.remove("is-valid");
 			inputpwconf.classList.add("is-invalid");
-			
+
 			document.getElementById("errorPassword").innerHTML = "La password deve contenere almeno una maiuscola, un numero, un carattere speciale valido ed almeno 8 caratteri";
 			passwordOk = false;
 		}
 		checkForm();
 	}
-	
+
 	function checkForm() {
 		if (nameOk && surnameOk && emailOk && passwordOk) {
 			document.getElementById("registrationButton").disabled = false;
