@@ -41,7 +41,10 @@ public class AddEmployeeToList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String email_employee=request.getParameter(EMAIL_EMPLOYEE);
 	    
-	    //Controllo che il dipendente effettivamente esista
+	    /**
+	     * Controllo che il dipendente effettivamente esista
+	     * 
+	     * */
 	    Employee employee=employeeDao.retrieveByEmail(EMAIL_EMPLOYEE);
 	    if(employee==null)
 	    {
@@ -50,10 +53,16 @@ public class AddEmployeeToList extends HttpServlet {
 	    
 	    else
 	    {
-	        //Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
+	        /**
+	         * Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
+	         * 
+	         * */
 	        List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
 	        
-	        //Controllo che il dipendente non faccia già parte della lista
+	        /**
+	         * Controllo che il dipendente non faccia già parte della lista
+	         * 
+	         * */
 	        if(lista.contains(employee))
 	        {
 	          response.getWriter().append("Hai inserito un dipendente che fa già parte del progetto");

@@ -47,9 +47,15 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	  HttpSession session = request.getSession();
 	  int userRole=(int) session.getAttribute("userRole");
 	  
+	  /**
+	   * Ruolo dell'admin
+	   * 
+	   * */
 	  if(userRole==2)
 	  {
-	      //acquisisco il progetto tramite un attributo
+	      /**
+	       * Acquisisco il progetto tramite un attributo
+	       * */
 	      Project project=(Project) request.getAttribute("Project");
 	      if(project==null)
 	      {
@@ -63,7 +69,10 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	        
 	        List<Employee> lista_dipendenti=(List<Employee>) request.getAttribute("lista_dipendenti");
 	        
-	        //inserisco tutti i dipendenti che fanno parte della lista
+	        /**
+	         * Inserisco tutti i dipendenti che fanno parte della lista
+	         * 
+	         * */
 	        for(int i=0; i<lista_dipendenti.size(); i++)
 	        {
 	          projectDao.insertEmployeeToProject(EMAIL_EMPLOYEE, project.getId());

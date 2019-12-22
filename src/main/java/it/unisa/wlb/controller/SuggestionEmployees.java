@@ -47,14 +47,20 @@ public class SuggestionEmployees extends HttpServlet {
         if(email_employee!=null || email_employee!="")
         {
         
-          //restituisco una lista di suggerimenti dei dipendenti tramite l'email
+          /**
+           * Restituisco una lista di suggerimenti dei dipendenti tramite l'email
+           * 
+           * */
            lista_dipendenti=employeeDao.searchByEmail(email_employee);
            if(lista_dipendenti!=null && lista_dipendenti.size()>0)
            {
              List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
              for(int i=0; i<lista_dipendenti.size(); i++)
              {
-               //Facendo questo controllo, evito che il dipendente scelga un dipendente che fa già parte della lista
+               /**
+                * Facendo questo controllo, evito che l'admin scelga un dipendente che fa già parte della lista
+                * 
+                * */
                if(!lista.contains(lista_dipendenti.get(i)));
                lista_json.put(lista_dipendenti.get(i).getEmail());
              }
