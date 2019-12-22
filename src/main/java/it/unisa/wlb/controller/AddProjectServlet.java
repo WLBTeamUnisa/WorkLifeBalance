@@ -58,13 +58,6 @@ public class AddProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Project project = new Project();
 		Employee manager;
 		Admin admin;
@@ -100,24 +93,29 @@ public class AddProjectServlet extends HttpServlet {
 		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);			
 		
 		//Controlli sui parametri
-		if(name.matches("[A-Za-z0-9]+") && name.length() > 3 && name.length() < 16) {
+		if(name.matches("[A-Za-z0-9]+") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
 			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
 		}
 		
-		if(scope.matches("[A-Za-z\\s]+") && scope.length() > 2 && scope.length() < 26) {
+		if(scope.matches("[A-Za-z\\s]+") && scope.length() > 2 && scope.length() < 26 && !scope.equals("") && !(scope==null)) {
 			scopeOk = true;
 		}
 		
-		if(startDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])")) startDateOk = true;
-		if(endDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])")) endDateOk = true;
+		if(startDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])") && !startDateString.equals("") && !(startDateString==null)) {
+			startDateOk = true;
+		}
+		
+		if(endDateString.matches("(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])") && !endDateString.equals("") && !(endDateString==null)) {
+			endDateOk = true;
+		}
 		
 		if(description.matches("[\\s\\S]+") && description.length() >=20 && description.length() <= 250) {
 			descriptionOk = true;
 		}
 		// Controllo se esiste il manager nel db
 		manager = employeeDao.retrieveByEmail(managerEmail);
-		if(managerEmail.matches("[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it") && manager == null) {
+		if(!(manager==null) && managerEmail.matches("[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it") && !managerEmail.equals("") && !(managerEmail==null)) {
 			managerEmailOk = true;
 		}
 		
@@ -128,6 +126,10 @@ public class AddProjectServlet extends HttpServlet {
 				endDate = formatter.parse(endDateString);
 			} catch(Exception e) {
 				// Annulla l'inserimento poichè il formato della data è errato
+				String url= response.encodeURL("ProjectInsertion.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+				dispatcher.forward(request, response);
+				throw new IllegalArgumentException();
 			}
 		}
 		
@@ -148,15 +150,23 @@ public class AddProjectServlet extends HttpServlet {
 		
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
-			String url= response.encodeURL("AddEmployeesToProjectServlet.java");
+			String url= response.encodeURL("/AddEmployeesToProjectServlet.java");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
+			request.setAttribute("result", "success");
 		} else {
-			String url= response.encodeURL("AddProjectServlet.java");
+			String url= response.encodeURL("ProjectInsertion.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
+			throw new IllegalArgumentException();
 		}
-		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			doGet(request, response);
 		
 	}
 	
