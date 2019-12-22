@@ -1,3 +1,4 @@
+<%@ page import="java.util.List,it.unisa.wlb.model.bean.*" %>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -38,6 +39,7 @@
 </head>
 
 <body>
+<% List<Employee> employee_list=(List<Employee>)request.getAttribute("lista_dipendenti"); %>
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 
@@ -91,7 +93,7 @@
 									</div>
 
 									<div class="form-group row pb-3">
-										<label for="descrizione" class="col-sm-2 col-form-label">Descrizione:</label>
+										<label for="descrizione" class="col-sm-2 col-form-label">Description:</label>
 										<div class="col-sm-10">
 											<textarea name="description" id="description" cols="30" rows="5"
 												class="form-control my-2" onblur="verificaDescrizione()"></textarea>
@@ -115,13 +117,16 @@
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
 														<ul class="list-group list-group-bordered">
-															<li class="list-group-item" id="employee1"><i
-																class="fas fa-user my-auto"></i>
-																<p class="my-auto ml-3">m.red10@wlb.it</p></li>
-
-															<li class="list-group-item" id="employee2"><i
-																class="fas fa-user my-auto"></i>
-																<p class="my-auto ml-3">m.green10@wlb.it</p></li>
+														<% if(employee_list!=null || employee_list.size()>0) 
+															{
+																for(int i=0; i<employee_list.size(); i++)
+																{
+																	
+														%>
+														<li class="list-group-item" id="employee"<%=(i+1)%>><i class="fas fa-user my-auto">
+														</i><p class="my-auto ml-3\"><%=employee_list.get(i).getEmail()%></p></li>
+														<%		}
+															}%>
 														</ul>
 													</div>
 												</div>
@@ -166,12 +171,14 @@
 													<form class="navbar-form" role="search">
 														<div class="form-group">
 															<div class="input-group mb-3">
-																<input type="text" class="form-control"
+																<input type="email" onkeyup="Suggestions(this.value)" class="form-control"
 																	placeholder="m.red1@wlb.it"
 																	aria-describedby="basic-addon1">
+																	<datalist id="suggestions">
+																	</datalist>
 																<div class="input-group-append">
-																	<span class="input-group-text" id="basic-addon1"><i
-																		class="fas fa-plus-square"></i></span>
+																	<button onclick="insertEmployee(email)" class="input-group-text" id="basic-addon1"><i
+																		class="fas fa-plus-square"></i></button>
 																</div>
 															</div>
 														</div>
@@ -332,6 +339,37 @@
 				btn.css("background-color", "#d6d6d6");
 				btn.css("color", "#ffffff");
 			}
+		}
+		
+		function Suggestions(email){
+			
+			var xhttp = new  XMLHttpRequest();
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					var lista = JSON.parse(this.responseText);
+					
+					 var options="";
+					  
+					  for (i = 0; i < zone.length; i++) { 
+					    options += "<option>" + lista[i] + "</option>";
+					  }
+					  document.getElementById("suggestions").innerHTML = options;
+					  var list="";
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email="+ email , true);
+			xhttp.send();
+		}
+		
+		function insertEmployee()
+		{
+			var xhttp = new  XMLHttpRequest();
+			xhttp.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+				}
+			}
+			xhttp.open("GET", "AddEmployeeToList?email="+ email , true);
+			xhttp.send();
 		}
 	</script>
 
