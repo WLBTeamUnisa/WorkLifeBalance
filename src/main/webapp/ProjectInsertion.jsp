@@ -55,7 +55,7 @@
 								<h3>Inserisci progetto</h3>
 							</div>
 							<div class="card-body">
-								<form action="/AddProjectServlet" method="post">
+								<form action="AddProjectServlet" method="post">
 
 									<div class="form-group row pb-4">
 										<label for="" class="col-sm-2 col-form-label">Nome:</label>

@@ -3,7 +3,6 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -43,8 +42,8 @@ public class AddProjectServlet extends HttpServlet {
 	private static final String PROJECT_END_DATE = "endDate";
 	private static final String PROJECT_DESCRIPTION = "description";
 	private static final String PROJECT_MANAGER = "managerEmail"; 
-	private static final String ADMIN_EMAIL = "adminEmail";
-	private static final String EMPLOYEES_LIST = "employeesList";
+	private static final String USER = "user";
+	private static final String USER_ROLE = "userRole";
 	
     public AddProjectServlet() {
         super();
@@ -70,7 +69,7 @@ public class AddProjectServlet extends HttpServlet {
 		endDate = null;
 		String description;
 		String managerEmail;
-		List<Employee> employeesList;
+		String userRole;
 		
 		boolean nameOk = false;
 		boolean scopeOk = false;
@@ -78,7 +77,7 @@ public class AddProjectServlet extends HttpServlet {
 		boolean endDateOk = false;
 		boolean descriptionOk = false;
 		boolean managerEmailOk = false;
-		
+		boolean roleOk = false;
 		//Ruolo admin 2 userRole attributo della sessione
 		
 		name = request.getParameter(PROJECT_NAME);
@@ -88,12 +87,16 @@ public class AddProjectServlet extends HttpServlet {
 		endDateString = request.getParameter(PROJECT_END_DATE);
 		description = request.getParameter(PROJECT_DESCRIPTION);
 		managerEmail = request.getParameter(PROJECT_MANAGER);
-		admin = (Admin) request.getSession().getAttribute(ADMIN_EMAIL);
-		employeesList = (List<Employee>) request.getSession().getAttribute(EMPLOYEES_LIST);			
+		admin = (Admin) request.getSession().getAttribute(USER);
+		userRole = (String) request.getSession().getAttribute(USER_ROLE);		
 		
 		/**
 		 * Project Parameters checks
 		 */
+		if(userRole.equals("Admin")) {
+			roleOk = true;
+		}
+		
 		if(name.matches("^[A-Za-z0-9]+$") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
 			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
@@ -118,9 +121,13 @@ public class AddProjectServlet extends HttpServlet {
 		/**
 		 * Checks if the manager is in the Database
 		 */
+		manager = new Employee();
 		try {
 			manager = employeeDao.retrieveByEmail(managerEmail);
 		} catch(Exception e) {
+			String url= response.encodeURL("ProjectInsertion.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			dispatcher.forward(request, response);
 			throw new IllegalArgumentException();
 		}
 		
@@ -136,6 +143,10 @@ public class AddProjectServlet extends HttpServlet {
 			try {
 				startDate = formatter.parse(startDateString);
 				endDate = formatter.parse(endDateString);
+				if(!endDate.after(startDate)) {
+					startDateOk = false;
+					endDateOk = false;
+				}
 			} catch(Exception e) {
 				// Annulla l'inserimento poichè il formato della data è errato
 				String url= response.encodeURL("ProjectInsertion.jsp");
@@ -145,7 +156,7 @@ public class AddProjectServlet extends HttpServlet {
 			}
 		}
 		
-		if(nameOk && scopeOk && startDateOk && endDateOk && descriptionOk && managerEmailOk) {
+		if(nameOk && scopeOk && startDateOk && endDateOk && descriptionOk && managerEmailOk && roleOk) {
 			project = new Project();
 			project.setName(name);
 			project.setScope(scope);
@@ -154,7 +165,6 @@ public class AddProjectServlet extends HttpServlet {
 			project.setDescription(description);
 			project.setEmployee(manager);
 			project.setAdmin(admin);
-			project.setEmployees(employeesList);
 			/**
 			 * Creation of the new project
 			 */
@@ -168,7 +178,7 @@ public class AddProjectServlet extends HttpServlet {
 		
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
-			String url= response.encodeURL("/AddEmployeesToProjectServlet.java");
+			String url= response.encodeURL("/AddEmployeeToProjectServlet.java");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 			request.setAttribute("result", "success");
