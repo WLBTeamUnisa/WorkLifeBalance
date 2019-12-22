@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Navbar -->
 <div class="main-header">
@@ -75,33 +74,33 @@
 				</c:when>
 
 				<c:otherwise>
-          	
-          		<!-- DIPENDENTE LIST-->
-			<ul class="nav nav-primary my-auto">
-				<li class="nav-section"><span class="sidebar-mini-icon">
-						<i class="fa fa-ellipsis-h"></i>
-				</span>
-					<h4 class="text-section">Dipendente</h4></li>
-				<li class="nav-item"><a href="#base" class="nav-link"><i
-						class="fas fa-layer-group"></i>
-						<p class="b">Visualizza planimetria</p></a></li>
 
-				<li class="nav-item"><a href="#sidebarLayouts" class="nav-link"><i
-						class="fas fa-th-list"></i>
-						<p class="b">Storico</p></a></li>
+					<!-- DIPENDENTE LIST-->
+					<ul class="nav nav-primary my-auto">
+						<li class="nav-section"><span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+						</span>
+							<h4 class="text-section">Dipendente</h4></li>
+						<li class="nav-item"><a href="#base" class="nav-link"><i
+								class="fas fa-layer-group"></i>
+								<p class="b">Visualizza planimetria</p></a></li>
 
-				<li class="nav-item"><a href="#forms" class="nav-link"><i
-						class="fas fa-pen-square"></i>
-						<p class="b">Prenota postazione</p></a></li>
+						<li class="nav-item"><a href="#sidebarLayouts"
+							class="nav-link"><i class="fas fa-th-list"></i>
+								<p class="b">Storico</p></a></li>
 
-				<li class="nav-item"><a href="#forms" class="nav-link"><i
-						class="fas fa-pen-square"></i>
-						<p class="b">Smart Working</p></a></li>
-          	
-			</ul>
-          </c:otherwise>
-          
-          </c:choose>
+						<li class="nav-item"><a href="#forms" class="nav-link"><i
+								class="fas fa-pen-square"></i>
+								<p class="b">Prenota postazione</p></a></li>
+
+						<li class="nav-item"><a href="#forms" class="nav-link"><i
+								class="fas fa-pen-square"></i>
+								<p class="b">Smart Working</p></a></li>
+
+					</ul>
+				</c:otherwise>
+
+			</c:choose>
 
 		</div>
 	</div>
