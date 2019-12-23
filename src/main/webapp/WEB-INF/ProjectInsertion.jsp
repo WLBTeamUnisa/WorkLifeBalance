@@ -37,8 +37,8 @@
 	});
 </script>
 </head>
-
 <body>
+
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 

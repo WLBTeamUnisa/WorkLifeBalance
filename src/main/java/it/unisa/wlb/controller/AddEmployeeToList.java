@@ -1,12 +1,16 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -57,30 +61,49 @@ public class AddEmployeeToList extends HttpServlet {
 	    {
 	    	JSONObject obj = new JSONObject();
 	    	obj.put("emailEmployee", employee.getEmail());
-	    	
-	    	response.setContentType("application/json");
-	        response.getWriter().append(obj.toString());
 	        
 	        /**
 	         * Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
 	         * 
 	         * */
-	        //List<Employee> lista=(List<Employee>) request.getAttribute("lista_dipendenti");
+	    	HttpSession session=request.getSession();
+	        ArrayList<Employee> lista=(ArrayList<Employee>) session.getAttribute("lista_dipendenti");
+	        
+	        if(lista==null)
+	        {
+	        	lista=new ArrayList<Employee>();
+	        	lista.add(employee);
+	        	session.setAttribute("lista_dipendenti", lista);
+		        response.getWriter().append(obj.toString());
+		        response.setContentType("application/json");
+	        }
+	        
 	        
 	        /**
 	         * Controllo che il dipendente non faccia già parte della lista
 	         * 
 	         * */
-	        /*if(lista.contains(employee))
-	        {
-	          response.getWriter().append("Hai inserito un dipendente che fa già parte del progetto");
-	        }
-	        
 	        else
 	        {
-	          lista.add(employee);
-	          request.setAttribute("lista_dipendenti", lista);
-	        }*/
+	          int flag=0;
+	          for(int i=0; i<lista.size() && flag==0; i++)
+	          {
+	        	  System.out.println(lista.get(i).getEmail());
+	        	  System.out.println(employee.getEmail());
+	        	  if(lista.get(i).getEmail()==employee.getEmail())
+	        	  {
+	        		  flag=1;
+	        	  }
+	          }
+	          
+	          if(flag==0)
+	          {
+	        	  lista.add(employee);
+        		  session.setAttribute("lista_dipendenti", lista);
+        		  response.getWriter().append(obj.toString());
+        		  response.setContentType("application/json");
+	          }
+	        }
 	    }
 	}
 
