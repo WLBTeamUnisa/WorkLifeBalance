@@ -72,12 +72,13 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		else
 		{
 			Employee employee = null;
+			System.out.println(email);
 			try {
 				employee = employeeDao.retrieveByEmail(email);
 			} catch (Exception e) {
 				;
 			}		
-			
+			System.out.println(employee);
 			if(employee==null)
 				emailOk=true;
 			else
