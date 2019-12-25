@@ -219,6 +219,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	 */
 	@Test 
 	public void TC_1_1_10() throws ServletException, IOException {		
+		
 		String commonEmail = "m.rossi1@wlb.it";
 		
 		Employee employee = new Employee();
@@ -406,7 +407,8 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	 * @throws IOException
 	 */
 	@Test 
-	public void TC_1_1_19() throws ServletException, IOException {		
+	public void TC_1_1_19() throws ServletException, IOException {	
+		
 		Employee employee = new Employee();
 		employee.setName("Marco");
 		employee.setSurname("Rossi");

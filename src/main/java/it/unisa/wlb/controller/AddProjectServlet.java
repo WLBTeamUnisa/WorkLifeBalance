@@ -48,6 +48,11 @@ public class AddProjectServlet extends HttpServlet {
     public AddProjectServlet() {
         super();
     }
+    
+    public AddProjectServlet(IProjectDAO projectDao) {
+    	super();
+    	this.projectDao=projectDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
