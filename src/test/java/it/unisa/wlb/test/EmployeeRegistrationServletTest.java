@@ -4,11 +4,10 @@ import java.io.IOException;
 import it.unisa.wlb.controller.EmployeeRegistrationServlet;
 
 import it.unisa.wlb.model.bean.Employee;
-
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +15,6 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 
 /**
@@ -33,9 +29,6 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	private MockHttpServletResponse response;
 	private EmployeeRegistrationServlet servlet;
 
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-	private EntityManager entityManager = factor.createEntityManager();
-
 	@BeforeEach
 	public void setUp() {
 		servlet = new EmployeeRegistrationServlet();
@@ -46,6 +39,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 	/**
 	 * "name" field doesn't respect the specified lenght
+	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
@@ -218,42 +212,37 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "email" field doesn't exist into database
+	 * "email" field already exists in the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test 
-	public void TC_1_1_10() throws ServletException, IOException {
+	public void TC_1_1_10() throws ServletException, IOException {		
+		String commonEmail = "m.rossi1@wlb.it";
+		
 		Employee employee = new Employee();
 		employee.setName("Marco");
 		employee.setSurname("Rossi");
-		employee.setEmail("m.rossi1@wlb.it");
+		employee.setEmail(commonEmail);
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(1);
-
-		entityManager.getTransaction().begin();
-		entityManager.persist(employee);
-		entityManager.getTransaction().commit();
-
-		System.out.println(entityManager.find(Employee.class, employee.getEmail()).getEmail() + " TEST");
+		
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.retrieveByEmail(commonEmail)).thenReturn(employee);		
+		
+		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);
 
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
-		request.addParameter("email", "m.rossi1@wlb.it");
+		request.addParameter("email", commonEmail);
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
 		
-		try {
-			assertThrows(IllegalArgumentException.class, () -> {
-				servlet.doGet(request, response);
-			});
-		} finally {
-			entityManager.getTransaction().begin();
-			entityManager.remove(employee);
-			entityManager.getTransaction().commit();
-		}
+		assertThrows(IllegalArgumentException.class, () -> {
+			tmp.doGet(request, response);
+		});
 	}
 	
 
@@ -417,7 +406,18 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	 * @throws IOException
 	 */
 	@Test 
-	public void TC_1_1_19() throws ServletException, IOException {
+	public void TC_1_1_19() throws ServletException, IOException {		
+		Employee employee = new Employee();
+		employee.setName("Marco");
+		employee.setSurname("Rossi");
+		employee.setEmail("m.rossi1@wlb.it");
+		employee.setPassword("MarcoRossi1.");
+		employee.setStatus(1);
+		
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.create(employee)).thenReturn(employee);		
+		
+		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);
 
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
@@ -425,7 +425,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
-		servlet.doGet(request, response);
+		tmp.doGet(request, response);
 		assertEquals("success", request.getAttribute("result"));
 
 	}
