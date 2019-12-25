@@ -29,6 +29,15 @@ public class LoginServlet extends HttpServlet {
 	@EJB
 	IEmployeeDAO employeeDao;
 
+	public LoginServlet() {
+		super();
+	}
+
+	public LoginServlet(IEmployeeDAO employeeDAO) {
+		super();
+		this.employeeDao = employeeDao;
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -37,8 +46,6 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			System.out.println(email);
-			System.out.println(password);
 			if(email != null && password != null && checkPasswordLogin(password)) {
 				try {
 					String generatedPwd = Utils.generatePwd(password);
@@ -49,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
 						}
 					} else if(email.endsWith("@wlbadmin.it")) {
-						Admin a = adminDao.retrieveByEmailPassword(email, password);
+						Admin a = adminDao.retrieveByEmailPassword(email, generatedPwd);
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);
@@ -57,18 +64,18 @@ public class LoginServlet extends HttpServlet {
 						}
 					} else {
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						response.getWriter().write("Email e/o password non validi1");
+						response.getWriter().write("Email e/o password non validi");
 						response.getWriter().flush();
 					}
 				}catch(Exception e) {
 					e.printStackTrace();
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Email e/o password non validi2");
+					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
 				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Email e/o password non validi3");
+				response.getWriter().write("Email e/o password non validi");
 				response.getWriter().flush();
 			}
 		}
