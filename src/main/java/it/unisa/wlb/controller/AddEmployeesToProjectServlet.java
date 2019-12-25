@@ -23,76 +23,96 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 @WebServlet("/AddEmployeesToProjectServlet")
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	    @EJB
-	    private IProjectDAO projectDao;
-	   
-	    @EJB
-	    private IEmployeeDAO employeeDao;
-	 
-	    private static final String EMAIL_EMPLOYEE = "email"; 
-	    
-    public AddEmployeesToProjectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  HttpSession session = request.getSession();
-	  String userRole=(String) session.getAttribute("userRole");
-	  
-	  /**
-	   * Ruolo dell'admin
-	   * 
-	   * */
-	  if(userRole.equalsIgnoreCase("Admin"))
-	  {
-	      /**
-	       * Acquisisco il progetto tramite un attributo
-	       * */
-	      Project project=(Project) request.getAttribute("Project");
-	      if(project==null)
-	      {
-	        String url= response.encodeURL("AddEmployeesToProjectServlet.java");
-	        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-	        dispatcher.forward(request, response);
-	      }
-	    
-	      else
-	      {
-	        
-	        List<Employee> lista_dipendenti=(List<Employee>) request.getAttribute("lista_dipendenti");
-	        
-	        /**
-	         * Inserisco tutti i dipendenti che fanno parte della lista
-	         * 
-	         * */
-	        for(int i=0; i<lista_dipendenti.size(); i++)
-	        {
-	          projectDao.insertEmployeeToProject(EMAIL_EMPLOYEE, project.getId());
-	        }
-	        
-	        String url= response.encodeURL("localhost:8080/WorkLifeBalance/ProjectList.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
-	      
-	      }
-	      
-	  
+	@EJB
+	private IProjectDAO projectDao;
+
+	@EJB
+	private IEmployeeDAO employeeDao;
+
+	public AddEmployeesToProjectServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-}
+	/**
+		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+		 */
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		  HttpSession session = request.getSession();
+		  String userRole=(String) session.getAttribute("userRole");
+		  
+		  /**
+		   * Ruolo dell'admin
+		   * 
+		   * */
+		  if(userRole.equalsIgnoreCase("Admin"))
+		  {
+		      /**
+		       * Acquisisco il progetto tramite un attributo
+		       * */
+		      Project project=(Project) request.getAttribute("Project");
+		      if(project==null)
+		      {
+		        String url= response.encodeURL("/AddEmployeesToProjectServlet");
+		        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		        dispatcher.forward(request, response);
+		      }
+		    
+		      else
+		      {
+		        
+		        List<Employee> lista_dipendenti=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		        
+		        if(lista_dipendenti!=null && lista_dipendenti.size()>=1 )
+		        {
+		        	/**
+		        	 * Insertion of employees into Works table
+		        	 * 
+		        	 * */
+		        	project.setEmployees(lista_dipendenti);
+		        
+		        	/**
+		        	 * Creation of the new project
+		        	 */
+		        	projectDao.create(project);
+		        
+		        	Employee manager=(Employee) request.getAttribute("manager");
+		        	manager.addProjects1(project);
+		        
+		        	/**
+		        	 * Updating manager with the insertion of the project
+		        	 */
+		        	employeeDao.update(manager);
+		        	session.removeAttribute("lista_dipendenti");
+					request.setAttribute("result", "success");
+		        	String url= response.encodeURL("WEB-INF/ProjectList.jsp");
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		        	dispatcher.forward(request, response);
+		        	
+		        }
+		        
+		        else
+		        {
+		        	request.setAttribute("result", "error");
+		        	response.getWriter().write("Progetto non inserito correttamente");
+		        	session.removeAttribute("lista_dipendenti");
+		        }
+		      
+		   }
+		}
+	
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

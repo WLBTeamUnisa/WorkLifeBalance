@@ -37,8 +37,8 @@
 	});
 </script>
 </head>
-
 <body>
+
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 
@@ -46,101 +46,134 @@
 
 			<!-- CORPO PAGINA-->
 			<div class="content" style="display: flex; align-items: center;">
+
+				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
+					<!-- COLONNA -->
 					<div class="col-lg-7 mx-auto">
 
+						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
-								<h3>Inserisci progetto</h3>
+								<h3>Inserimento progetto</h3>
 							</div>
+
+							<!-- CARD-BODY -->
 							<div class="card-body">
+
+								<!-- FORM -->
 								<form action="AddProjectServlet" method="post">
 
-									<div class="form-group row pb-4">
-										<label for="" class="col-sm-2 col-form-label">Nome:</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control text-center"
-												name="name" id="name" onkeyup="verificaNome()">
-										</div>
-									</div>
+									<!-- CONTAINER -->
+									<div class="container">
 
-									<div class="form-group row pb-4">
-										<label for="scope" class="col-sm-2 col-form-label">Scope:</label>
-										<div class="col-sm-10">
+										<!-- NOME -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fa fa-user"></i></span>
+											</div>
 											<input type="text" class="form-control text-center"
-												name="scope" id="scope" onkeyup="verificaScope()">
+												name="name" id="name" onkeyup="verificaNome()"
+												placeholder="Nome..." required>
 										</div>
-									</div>
 
-									<div class="form-group row pb-4">
-										<label for="startDate" class="col-sm-2 col-form-label">Data
-											inizio:</label>
-										<div class="col-sm-10">
+
+										<!-- SCOPE -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fas fa-search"></i></span>
+											</div>
+											<input type="text" class="form-control text-center"
+												name="scope" id="scope" onkeyup="verificaScope()"
+												placeholder="Scope..." required>
+										</div>
+
+
+										<!-- DATA INIZIO -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fas fa-calendar-plus"></i></span>
+											</div>
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate"
-												onblur="verificaDataInizio()">
+												onblur="verificaDataInizio()"
+												placeholder="Data di inizio: yyyy-MM-dd" required>
 										</div>
-									</div>
 
-									<div class="form-group row pb-4">
-										<label for="endDate" class="col-sm-2 col-form-label">Data
-											fine:</label>
-										<div class="col-sm-10">
+
+										<!-- DATA FINE -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fas fa-calendar-minus"></i></span>
+											</div>
 											<input type="date" class="form-control text-center"
-												name=endDate id="endDate" onblur="verificaDataFine()">
+												name=endDate id="endDate" onblur="verificaDataFine()"
+												placeholder="Data di fine: yyyy-MM-dd" required>
 										</div>
-									</div>
 
-									<div class="form-group row pb-3">
-										<label for="descrizione" class="col-sm-2 col-form-label">Descrizione:</label>
-										<div class="col-sm-10">
-											<textarea name="description" id="description" cols="30"
-												rows="5" class="form-control my-2"
-												onblur="verificaDescrizione()"></textarea>
+
+										<!-- DESCRIZIONE -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fas fa-comment-alt"></i></span>
+											</div>
+											<textarea name="description" id="description"
+												class="form-control text-center"
+												onblur="verificaDescrizione()" placeholder="Descrizione..."
+												required></textarea>
 										</div>
-									</div>
 
-									<div class="form-group row pb-4">
-										<label for="managerEmail" class="col-sm-2 col-form-label">Manager:</label>
-										<div class="col-sm-10">
+
+										<!-- MANAGER -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fa fa-user"></i></span>
+											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()">
+												onkeyup="verificaManager()" placeholder="Manager..."
+												required>
 										</div>
-									</div>
 
-									<div class="form-group row pb-1">
-										<div class="col-lg-8">
-											<div class="card">
-												<div class="card-header p-2">
-													<h3 class="my-auto">Lista dipendenti:</h3>
-												</div>
-												<div class="card-body">
-													<div class="form-group text-center mx-auto">
-														<ul class="list-group list-group-bordered"
-															id="employeeList">
+										<div class="form-group row pb-1">
+											<div class="col-lg-7">
+												<div class="card">
+													<div class="card-header p-2">
+														<h3 class="my-auto">Lista dipendenti:</h3>
+													</div>
+													<div class="card-body">
+														<div class="form-group text-center mx-auto">
+															<ul class="list-group list-group-bordered"
+																id="employeeList">
 
-														</ul>
+															</ul>
+														</div>
 													</div>
 												</div>
 											</div>
+
+											<div class="col-lg-5 mx-auto mb-auto">
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-warning mx-auto"
+													data-toggle="modal" data-target="#exampleModal">
+													Inserisci dipendente <i class="fas fa-plus ml-2 my-auto"></i>
+												</button>
+											</div>
 										</div>
 
-										<div class="col-lg-4 mx-auto mb-auto">
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-warning mx-auto"
-												data-toggle="modal" data-target="#exampleModal">
-												Inserisci dipendente <span class="caret"></span>
-											</button>
+										<hr>
+
+										<div class="col-lg-4 mx-auto">
+											<button type="submit" class="btn btn-success"
+												id="insertButton" disabled>Inserisci</button>
 										</div>
-									</div>
 
-									<hr>
-
-									<div class="col-lg-4 mx-auto">
-										<button type="submit" class="btn btn-success"
-											id="insertButton" disabled>Inserisci</button>
+										<!-- FINE CONTAINER -->
 									</div>
 
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
@@ -150,7 +183,7 @@
 								<div class="modal fade" id="exampleModal" tabindex="-1"
 									role="dialog" aria-labelledby="exampleModalLabel"
 									aria-hidden="true">
-									<div class="modal-dialog" role="document">
+									<div class="modal-dialog modal-dialog-centered" role="document">
 										<div class="modal-content">
 											<div class="modal-header text-center">
 												<h5 class="modal-title" id="exampleModalLabel">Inserisci
@@ -163,15 +196,21 @@
 
 											<div class="modal-body">
 												<h3>Ricerca dipendente</h3>
-												<input type="email" onkeyup="Suggestions(this.value)"
-													class="form-control" placeholder="m.red1@wlb.it"
-													aria-describedby="basic-addon1" name="q" id="lista"
-													list="suggestions">
+
+												<div class="input-group mb-3">
+													<input type="email" onkeyup="Suggestions(this.value)"
+														class="form-control" placeholder="m.red1@wlb.it"
+														aria-describedby="basic-addon1" name="q" id="lista"
+														list="suggestions">
+													<div class="input-group-append">
+														<button class="input-group-text" type="button"
+															onclick="insertEmployee(lista.value)"
+															data-dismiss="modal">
+															<i class="fas fa-plus-square"></i>
+														</button>
+													</div>
+												</div>
 												<datalist id="suggestions"></datalist>
-												<button class="input-group-text" id="basic-addon1"
-													onclick="insertEmployee(lista.value)">
-													<i class="fas fa-plus-square" data-dismiss="modal"></i>
-												</button>
 											</div>
 										</div>
 									</div>
@@ -239,9 +278,10 @@
 		//TEMPLATE
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
-		function verificaNome(){
+		function verificaNome() {
 			var input = $("#name").val();
-			if(input.trim().length>=4 && input.trim().length<=15 && input.match(/^[A-Za-z0-9]+$/)){
+			if (input.trim().length >= 4 && input.trim().length <= 15
+					&& input.match(/^[A-Za-z0-9]+$/)) {
 				$("#name").css("border", borderOK);
 				nomeOK = true;
 			} else {
@@ -250,9 +290,10 @@
 			}
 			changeInsertButtonState();
 		}
-		function verificaScope(){
+		function verificaScope() {
 			var input = $("#scope").val();
-			if(input.trim().length>=3 && input.trim().length<=25 && input.match(/^[A-Za-z\s]+$/)){
+			if (input.trim().length >= 3 && input.trim().length <= 25
+					&& input.match(/^[A-Za-z\s]+$/)) {
 				$("#scope").css("border", borderOK);
 				scopeOK = true;
 			} else {
@@ -261,11 +302,12 @@
 			}
 			changeInsertButtonState();
 		}
-		
-		function verificaDataInizio(){
+
+		function verificaDataInizio() {
 			var input = $("#startDate").val();
-			
-			if(input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)){
+
+			if (input
+					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				$("#startDate").css("border", borderOK);
 				dataInizioOK = true;
 			} else {
@@ -274,11 +316,12 @@
 			}
 			changeInsertButtonState();
 		}
-		
-		function verificaDataFine(){
+
+		function verificaDataFine() {
 			var input = $("#endDate").val();
-			
-			if(input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)){
+
+			if (input
+					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				$("#endDate").css("border", borderOK);
 				dataFineOK = true;
 			} else {
@@ -287,11 +330,12 @@
 			}
 			changeInsertButtonState();
 		}
-		
-		function verificaDescrizione(){
+
+		function verificaDescrizione() {
 			var input = $("#description").val();
-			
-			if(input.trim().length>=20 && input.trim().length<=250 && input.match(/^[\s\S]+$/)){
+
+			if (input.trim().length >= 20 && input.trim().length <= 250
+					&& input.match(/^[\s\S]+$/)) {
 				$("#description").css("border", borderOK);
 				descrizioneOK = true;
 			} else {
@@ -300,10 +344,10 @@
 			}
 			changeInsertButtonState();
 		}
-		
-		function verificaManager(){
+
+		function verificaManager() {
 			var input = $("#managerEmail").val();
-			if(input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)){
+			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 				$("#managerEmail").css("border", borderOK);
 				managerOK = true;
 			} else {
@@ -312,10 +356,11 @@
 			}
 			changeInsertButtonState();
 		}
-		
-		function changeInsertButtonState(){
+
+		function changeInsertButtonState() {
 			var btn = $("#insertButton");
-			if(nomeOK && scopeOK && dataInizioOK && dataFineOK && descrizioneOK && managerOK){
+			if (nomeOK && scopeOK && dataInizioOK && dataFineOK
+					&& descrizioneOK && managerOK) {
 				document.getElementById('insertButton').disabled = false;
 				btn.css("background-color", "#31CE36");
 				btn.css("color", "#ffffff");
@@ -325,44 +370,43 @@
 				btn.css("color", "#ffffff");
 			}
 		}
-		
-		function Suggestions(email){
-			
-			var xhttp = new  XMLHttpRequest();
-			xhttp.onreadystatechange = function(){
-				if(this.readyState == 4 && this.status == 200){
-					
+
+		function Suggestions(email) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
 					var lista = JSON.parse(this.responseText);
-					
-					 var options="";
-					  
-					  for (i = 0; i < lista.length; i++) { 
-					    options += "<option>" + lista[i].email + "</option>";
-					  }
-					  console.log(options);
-					  document.getElementById("suggestions").innerHTML = options;
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					console.log(options);
+					document.getElementById("suggestions").innerHTML = options;
 				}
 			}
-			xhttp.open("GET", "SuggestionEmployees?email="+ email , true);
+			xhttp.open("GET", "SuggestionEmployees?email=" + email, true);
 			xhttp.send();
 		}
-		
-		function insertEmployee(email)
-		{
+
+		function insertEmployee(email) {
 			console.log(email);
-			var xhttp = new  XMLHttpRequest();
-			xhttp.onreadystatechange = function(){
-				if(this.readyState == 4 && this.status == 200){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
 					var lista = JSON.parse(this.responseText);
-					var li="";
-					
-					li += "<li>" + lista.emailEmployee + "</li>";
+					var li = "";
+
+					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>" + lista.emailEmployee + "</li>";
 					console.log(li);
 					document.getElementById("employeeList").innerHTML += li;
 
 				}
 			}
-			xhttp.open("GET", "AddEmployeeToList?email="+ email , true);
+			xhttp.open("GET", "AddEmployeeToList?email=" + email, true);
 			xhttp.send();
 		}
 	</script>

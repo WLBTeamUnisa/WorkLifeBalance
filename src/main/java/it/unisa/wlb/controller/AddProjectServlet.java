@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
@@ -137,7 +138,7 @@ public class AddProjectServlet extends HttpServlet {
 			throw new IllegalArgumentException();
 		}
 		
-		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null)) {
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
 		managerEmailOk = true;
 		}
 		
@@ -171,24 +172,16 @@ public class AddProjectServlet extends HttpServlet {
 			project.setDescription(description);
 			project.setEmployee(manager);
 			project.setAdmin(admin);
-			/**
-			 * Creation of the new project
-			 */
-			projectDao.create(project);
-			
-			/**
-			 * Updating manager with the insertion of the project
-			 */
-			manager.addProjects1(project);
-			employeeDao.update(manager);
-		
+	
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
-			String url= response.encodeURL("/AddEmployeeToProjectServlet.java");
+			request.setAttribute("manager", manager);
+			String url= response.encodeURL("/AddEmployeesToProjectServlet");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
-			request.setAttribute("result", "success");
 		} else {
+			request.getSession().removeAttribute("lista_dipendenti");
+			request.setAttribute("result", "error");
 			String url= response.encodeURL("ProjectInsertion.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

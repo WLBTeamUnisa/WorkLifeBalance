@@ -43,118 +43,149 @@
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 		<div class="main-panel">
+		
 			<!-- CORPO PAGINA-->
-
 			<div class="content" style="display: flex; align-items: center;">
+			
+				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
+				
+					<!-- COLONNA -->
 					<div class="col-lg-7 mx-auto">
+					
+						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
-								<h3>
-									<bold>Registrazione dipendente</bold>
-								</h3>
+								<h3>Registrazione dipendente</h3>
 							</div>
-
-							<div class="registration-fields">
+							
+							<!-- CARD-BODY -->
+							<div class="card-body registration-fields">
+							
+								<!-- FORM -->
 								<form name="registration" method="post"
 									action="EmployeeRegistrationServlet">
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i class="fa fa-user">
-											</i>
-											</span>
+									
+									<!-- CONTAINER -->
+									<div class="container">
+
+
+										<!-- NOME -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fa fa-user"></i></span>
+											</div>
+											<input name="name" id="Name" oninput="validName()"
+												class="form-control text-center" placeholder="Nome*"
+												type="text" required>
 										</div>
-										<input name="name" id="Name" oninput="validName()"
-											class="form-control" placeholder="Nome*" type="text" required>
-									</div>
-									<!-- form-group// Name -->
-									<span id="errorName"> </span>
+										<!-- form-group// Name -->
+										<span id="errorName"> </span>
 
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i class="fa fa-user">
-											</i>
-											</span>
+
+										<!-- COGNOME -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fa fa-user"></i></span>
+											</div>
+											<input name="surname" id="Surname" oninput="validSurname()"
+												class="form-control text-center" placeholder="Cognome*"
+												type="text" required>
 										</div>
-										<input name="surname" id="Surname" oninput="validSurname()"
-											class="form-control" placeholder="Cognome*" type="text"
-											required>
-									</div>
-									<!-- form-group// Last name -->
-									<span id="errorSurname"></span>
+										<!-- form-group// Last name -->
+										<span id="errorSurname"></span>
 
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i
-												class="fa fa-envelope"> </i>
-											</span>
+
+										<!-- EMAIL -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fa fa-envelope"></i></span>
+											</div>
+											<input name="email" id="Email" oninput="validEmail()"
+												class="form-control text-center" placeholder="Email*"
+												type="email" required>
 										</div>
-										<input name="email" id="Email" oninput="validEmail()"
-											class="form-control" placeholder="Email*" type="email"
-											required>
-									</div>
-									<!-- form-group//  Email -->
-									<span id="errorEmail"></span>
+										<!-- form-group// Email -->
+										<span id="errorEmail"></span>
 
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i class="fas fa-key">
-											</i>
-											</span>
+
+
+										<!-- PASSWORD -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fas fa-key"></i></span>
+											</div>
+											<input name="password" id="Password"
+												oninput="validPassword()" class="form-control text-center"
+												placeholder="Password*" type="password" required>
 										</div>
-										<input name="password" id="Password" oninput="validPassword()"
-											class="form-control" placeholder="Password*" type="password"
-											required>
-									</div>
-									<!-- form-group//   Password -->
+										<!-- form-group// Password -->
 
 
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i class="fas fa-key">
-											</i>
-											</span>
+										<!-- CONFERMA PASSWORD -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i class="fas fa-key"></i></span>
+											</div>
+											<input name="verifyPassword" id="VerifyPassword"
+												oninput="validPassword()" class="form-control text-center"
+												placeholder="Conferma password*" type="password" required>
 										</div>
-										<input name="verifyPassword" id="VerifyPassword"
-											oninput="validPassword()" class="form-control"
-											placeholder="Conferma password*" type="password" required>
-									</div>
-									<!-- form-group// Verify Password  -->
-									<span id="errorPassword"></span>
+										<!-- form-group// Verify Password  -->
+										<span id="errorPassword"></span>
 
 
-									<div class="form-group input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"> <i
-												class="fas fa-user-tie"> </i>
-											</span>
+										<!-- SELECT RUOLO -->
+										<div class="form-group input-group mx-auto">
+											<div class="input-group-prepend">
+												<span class="input-group-text"><i
+													class="fas fa-user-tie"></i></span>
+											</div>
+											<select name="status" class="custom-select text-center"
+												id="inputGroupSelect03" required>
+												<option value="Employee">Dipendente</option>
+												<option value="Manager">Manager</option>
+											</select>
 										</div>
-										<select name="status" class="custom-select"
-											id="inputGroupSelect03" required>
-											<option value="Employee">Dipendente</option>
-											<option value="Manager">Manager</option>
-										</select>
-									</div>
-									<!-- form-group// Status choose -->
+										<!-- form-group// Status choose -->
 
-									<span id="errorRegistrationForm"></span>
-									<div class="form-group">
-										<span class="rounded-icon">
+										<span id="errorRegistrationForm"></span>
+										<div class="form-group col-sm-6 mx-auto">
 											<button type="submit" id="registrationButton"
-												class="btn btn btn-success btn-block" disabled>
+												class="btn btn btn-success btn-block mx-auto" disabled>
 												Registra</button>
-										</span>
+										</div>
+										<!-- form-group//  Register button-->
+										
+									<!-- FINE CONTAINER -->
 									</div>
-									<!-- form-group//  Register button-->
+									
+								<!-- FINE FORM -->
+								</form>
+								
+							<!-- FINE CARD-BODY -->
 							</div>
+							
+						<!-- FINE CARD -->
 						</div>
+						
+					<!-- FINE COLONNA -->
 					</div>
+					
+				<!-- FINE CONTAINER -->
 				</div>
+				
+			<!-- FINE CONTENT -->
 			</div>
-		</div>
 		<jsp:include page="footer.jsp" />
+		
+		<!-- FINE MAIN PANEL -->
+		</div>
+		
+	<!-- FINE WRAPPER -->
 	</div>
-	</div>
+
 	<!--   Core JS Files   -->
 	<script src="js/core/jquery.3.2.1.min.js"></script>
 	<script src="js/core/popper.min.js"></script>
@@ -244,7 +275,7 @@
 		var input = document.querySelector("#Email");
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
-		if ((emailValue.length-7) >= 5 && (emailValue.length-7) <= 30
+		if ((emailValue.length - 7) >= 5 && (emailValue.length - 7) <= 30
 				&& input.value.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
