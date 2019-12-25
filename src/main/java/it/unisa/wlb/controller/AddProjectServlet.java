@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
@@ -173,8 +174,9 @@ public class AddProjectServlet extends HttpServlet {
 			String url= response.encodeURL("/AddEmployeesToProjectServlet");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
-			request.setAttribute("result", "success");
 		} else {
+			request.getSession().removeAttribute("lista_dipendenti");
+			request.setAttribute("result", "error");
 			String url= response.encodeURL("ProjectInsertion.jsp");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);

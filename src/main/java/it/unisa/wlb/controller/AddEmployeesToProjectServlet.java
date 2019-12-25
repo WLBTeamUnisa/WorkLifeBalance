@@ -67,10 +67,10 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        
 		        List<Employee> lista_dipendenti=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
 		        
-		        if(lista_dipendenti.size()>0)
+		        if(lista_dipendenti!=null && lista_dipendenti.size()>=1 )
 		        {
 		        	/**
-		        	 * Inserisco tutti i dipendenti che fanno parte della lista
+		        	 * Insertion of employees into Works table
 		        	 * 
 		        	 * */
 		        	project.setEmployees(lista_dipendenti);
@@ -88,6 +88,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	 */
 		        	employeeDao.update(manager);
 		        	session.removeAttribute("lista_dipendenti");
+					request.setAttribute("result", "success");
 		        	String url= response.encodeURL("WEB-INF/ProjectList.jsp");
 		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		        	dispatcher.forward(request, response);
@@ -96,6 +97,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        
 		        else
 		        {
+		        	request.setAttribute("result", "error");
 		        	response.getWriter().write("Progetto non inserito correttamente");
 		        	session.removeAttribute("lista_dipendenti");
 		        }
