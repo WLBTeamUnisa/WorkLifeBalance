@@ -98,6 +98,44 @@
 								<p class="b">Smart Working</p></a></li>
 
 					</ul>
+					<!-- MANAGER LIST -->
+					<c:if test="${user.status == 1}">
+						<ul class="nav nav-primary my-auto">
+							<li class="nav-section"><span class="sidebar-mini-icon">
+									<i class="fa fa-ellipsis-h"></i>
+							</span>
+								<h4 class="text-section">Manager</h4></li>
+							<li class="nav-item"><a href="#base" class="nav-link"><i
+									class="fas fa-layer-group"></i>
+									<p class="b">Visualizza planimetria</p></a></li>
+
+							<li class="nav-item"><a href="#sidebarLayouts"
+								class="nav-link"><i class="fas fa-th-list"></i>
+									<p class="b">Storico</p></a></li>
+
+							<li class="nav-item"><a href="#forms" class="nav-link"><i
+									class="fas fa-pen-square"></i>
+									<p class="b">Prenota postazione</p></a></li>
+
+							<li class="nav-item"><a href="#forms" class="nav-link"><i
+									class="fas fa-pen-square"></i>
+									<p class="b">Smart Working</p></a></li>
+
+							<li class="nav-item"><a href="#base" class="nav-link"><i
+									class="fa fa-layer-group"></i>
+									<p class="b">Ricerca storico giornate lavorative</p></a></li>
+
+							<li class="nav-item"><a href="#base" class="nav-link"><i
+									class="fa fa-layer-group"></i>
+									<p class="b">Visualizza tutti i progetti supervisionati</p></a></li>
+
+							<li class="nav-item"><a href="#base" class="nav-link"><i
+									class="fa fa-layer-group"></i>
+									<p class="b">Visualizza progetto supervisionato</p></a></li>
+
+						</ul>
+					</c:if>
+s
 				</c:otherwise>
 
 			</c:choose>
