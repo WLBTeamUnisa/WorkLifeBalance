@@ -201,6 +201,8 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
         	dispatcher.forward(request, response);
 		}
+		
+		
 	}
 
 	/**
