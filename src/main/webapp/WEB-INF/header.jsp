@@ -129,12 +129,44 @@
 										Ricerca storico giornate<br> lavorative
 									</p></a></li>
 
-							<li class="nav-item"><a href="#base" class="nav-link"><i
+							<li class="nav-item">
+							<a data-toggle="collapse" href="#sidebarLayouts"><i
 									class="fas fa-layer-group"></i>
-											<p class="b">Visualizza tutti i<br>progetti supervisionati
-											</p></a></li>	
-						</ul>
-					</c:if>
+									<p>Visualizza tutti i<br>progetti supervisionati</p> 
+									<span class="caret"></span>
+									</a>
+								<div class="collapse" id="sidebarLayouts">
+									<ul class="nav nav-collapse">
+										<li>
+											<a href="">
+											<span class="sub-item">Work Life Balance</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="sub-item">Business Accademy</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="sub-item">Java Enterprise Edition</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="sub-item">Front end development</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="sub-item">Back end development</span>
+										</a>
+										</li>
+										</ul>
+										</div>
+										</li>
+												
+												</c:if>
 
 				</c:otherwise>
 
