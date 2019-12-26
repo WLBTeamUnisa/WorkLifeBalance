@@ -11,8 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
@@ -151,8 +149,7 @@ public class AddProjectServlet extends HttpServlet {
 				}
 			} catch(Exception e) {
 				// Annulla l'inserimento poichè il formato della data è errato
-				String url= response.encodeURL("ProjectInsertion.jsp");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ProjectInsertion.jsp");
 				dispatcher.forward(request, response);
 				throw new IllegalArgumentException();
 			}
@@ -171,14 +168,12 @@ public class AddProjectServlet extends HttpServlet {
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
 			request.setAttribute("manager", manager);
-			String url= response.encodeURL("/AddEmployeesToProjectServlet");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
 			dispatcher.forward(request, response);
 		} else {
 			request.getSession().removeAttribute("lista_dipendenti");
 			request.setAttribute("result", "error");
-			String url= response.encodeURL("ProjectInsertion.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ProjectInsertion.jsp");
 			dispatcher.forward(request, response);
 			throw new IllegalArgumentException();
 		}

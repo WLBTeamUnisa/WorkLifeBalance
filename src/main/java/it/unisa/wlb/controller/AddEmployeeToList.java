@@ -88,8 +88,6 @@ public class AddEmployeeToList extends HttpServlet {
 	          int flag=0;
 	          for(int i=0; i<lista.size() && flag==0; i++)
 	          {
-	        	  System.out.println(lista.get(i).getEmail());
-	        	  System.out.println(employee.getEmail());
 	        	  if(lista.get(i).getEmail()==employee.getEmail())
 	        	  {
 	        		  flag=1;

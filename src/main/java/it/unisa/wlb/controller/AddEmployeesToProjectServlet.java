@@ -89,8 +89,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	employeeDao.update(manager);
 		        	session.removeAttribute("lista_dipendenti");
 					request.setAttribute("result", "success");
-		        	String url= response.encodeURL("WEB-INF/ProjectList.jsp");
-		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/ProjectList.jsp");
 		        	dispatcher.forward(request, response);
 		        	
 		        }
