@@ -122,15 +122,15 @@
 									<p class="b">Smart Working</p></a></li>
 
 							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fa fa-layer-group"></i>
+									class="fas fa-th-list"></i>
 									<p class="b">Ricerca storico giornate lavorative</p></a></li>
 
 							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fa fa-layer-group"></i>
+									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza tutti i progetti supervisionati</p></a></li>
 
 							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fa fa-layer-group"></i>
+									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza progetto supervisionato</p></a></li>
 
 						</ul>
