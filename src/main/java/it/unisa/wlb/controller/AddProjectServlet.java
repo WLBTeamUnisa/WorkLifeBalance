@@ -50,9 +50,10 @@ public class AddProjectServlet extends HttpServlet {
         super();
     }
     
-    public AddProjectServlet(IProjectDAO projectDao) {
+    public AddProjectServlet(IProjectDAO projectDao, IEmployeeDAO employeeDao) {
     	super();
-    	this.projectDao=projectDao;
+    	this.projectDao = projectDao;
+    	this.employeeDao = employeeDao;
     }
 
 	/**
@@ -176,7 +177,8 @@ public class AddProjectServlet extends HttpServlet {
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
 			request.setAttribute("manager", manager);
-			String url= response.encodeURL("/AddEmployeesToProjectServlet");
+			request.setAttribute("result", "success");
+			String url = response.encodeURL("/AddEmployeesToProjectServlet");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 		} else {

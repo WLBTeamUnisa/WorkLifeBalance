@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
 import it.unisa.wlb.controller.EmployeeRegistrationServlet;
+import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
@@ -29,6 +30,7 @@ public class AddProjectServletTest extends Mockito {
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
 	private IProjectDAO pDao;
+	private IEmployeeDAO eDao;
 
 
 
@@ -38,6 +40,8 @@ public class AddProjectServletTest extends Mockito {
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		pDao = mock(IProjectDAO.class);
+		request.getSession().setAttribute("userRole", "Admin");
+		request.getSession().setAttribute("user", new Admin());
 	}
 
 
@@ -110,9 +114,9 @@ public class AddProjectServletTest extends Mockito {
 	    pr.setEmployee(em);
 		
 		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
 		when(projectDao.retrieveByName(commonName)).thenReturn(pr);		
-		
-		AddProjectServlet tmp = new AddProjectServlet(projectDao);
+		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
 	   
 	    
 		request.addParameter("name", commonName);
@@ -329,6 +333,10 @@ public class AddProjectServletTest extends Mockito {
 		
 		String commonName = "WLB13PO";
 		Project pr = new Project();
+		String managerEmail = "m.rossi1@wlb.it";
+		Employee manager = new Employee();
+		manager.setEmail(managerEmail);
+		manager.setStatus(1);
 		Date dateS = new Date(2019,11,02);
 		Date dateE = new Date(2019,12,02);
 		Employee em = new Employee();
@@ -336,9 +344,10 @@ public class AddProjectServletTest extends Mockito {
 		li.add(em);
 		
 		IProjectDAO projectDao = mock(IProjectDAO.class);
-		when(projectDao.retrieveByName(commonName)).thenReturn(pr);		
-		
-		AddProjectServlet tmp = new AddProjectServlet(projectDao);
+		when(projectDao.retrieveByName(commonName)).thenReturn(pr);	
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.retrieveByEmail(managerEmail)).thenReturn(manager);
+		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
 		
 		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
