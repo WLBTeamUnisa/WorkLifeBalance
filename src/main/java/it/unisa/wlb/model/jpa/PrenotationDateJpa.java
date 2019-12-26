@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.PrenotationDate;
+import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 
 public class PrenotationDateJpa implements IPrenotationDateDAO{
@@ -39,14 +41,20 @@ public class PrenotationDateJpa implements IPrenotationDateDAO{
 
 	@Override
 	public List<PrenotationDate> retrieveAll() {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.getTransaction().begin();
+		TypedQuery<PrenotationDate> query = entityManager.createNamedQuery("PrenotationDate.findAll", PrenotationDate.class);
+		entityManager.getTransaction().commit();
+		return (List<PrenotationDate>) query.getResultList();
 	}
 
 	@Override
 	public List<PrenotationDate> retrieveBySmartWorking(int idSmartWorking, String email) {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.getTransaction().begin();
+		TypedQuery<PrenotationDate> query = entityManager.createNamedQuery("PrenotationDate.findAll", PrenotationDate.class);
+		query.setParameter("id.idPrenotationSw", idSmartWorking);
+		query.setParameter("id.employeeEmail", email);
+		entityManager.getTransaction().commit();
+		return (List<PrenotationDate>) query.getResultList();
 	}
 
 }
