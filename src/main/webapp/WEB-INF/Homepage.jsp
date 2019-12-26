@@ -65,11 +65,64 @@
 										<!-- FINE CARD-BODY -->
 									</div>
 								</c:when>
-								<c:otherwise>
 								
-								<c:if test = "${user.status == 0}">
-									<div class="card">
+								<c:otherwise>
 
+									<c:if test="${user.status == 0}">
+										<div class="card">
+
+											<table class="table borderless">
+
+
+												<tbody>
+
+													<tr>
+														<td>Giorno 1</td>
+														<td><span align="center"><i
+																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
+														<td></td>
+
+													</tr>
+
+													<tr>
+														<td>Giorno 2</td>
+														<td><span align="center"><i
+																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
+														<td>P1- S3- P16</td>
+													</tr>
+
+													<tr>
+														<td>Giorno 3</td>
+														<td><span align="center"><i
+																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
+														<td></td>
+													</tr>
+													<tr>
+														<td>Giorno 4</td>
+														<td><span align="center"><i
+																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
+														<td>P1- S3- P16</td>
+													</tr>
+													<tr>
+														<td>Giorno 5</td>
+														<td><span align="center"><i
+																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
+														<td></td>
+													</tr>
+													<div class="card-footer" style="font-size: 1.35em;">
+														<B>3° SETTIMANA</B>
+													</div>
+												</tbody>
+											</table>
+
+										</div>
+										
+									</c:if>
+								</c:otherwise>
+
+								<c:otherwise>
+								<c:if test="${user.status == 1}">
+									<div class="card">
 										<table class="table borderless">
 
 
@@ -113,12 +166,14 @@
 												</div>
 											</tbody>
 										</table>
-
-
-										<!-- FINE CARD-BODY -->
 									</div>
 								</c:if>
 								</c:otherwise>
+
+
+								<!-- FINE CARD-BODY -->
+
+
 							</c:choose>
 
 							<!-- FINE CARD -->
