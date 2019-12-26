@@ -1,6 +1,5 @@
 package it.unisa.wlb.controller;
 
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,9 +54,8 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		
 		if(employee!=null)
 		{
-			String dateString1=request.getParameter("firstDate");
-			String dateString2=request.getParameter("secondDate");
-			String dateString3=request.getParameter("thirdDate");
+			String[] ArrayDate=request.getParameterValues("dates");
+			System.out.println(ArrayDate[0]+"\n"+ArrayDate[1]+"\n"+ArrayDate[2]);
 			Date date1=null;
 			Date date2=null;
 			Date date3=null;
@@ -67,11 +64,11 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			List<Date> dateList=new ArrayList<Date>();
 			Calendar Bookingcalendar = new GregorianCalendar();
 			
-			if(dateString1!=null)
+			if(ArrayDate[0]!=null && !ArrayDate[0].equals(""))
 			{
 				try 
 				{
-					date1=formatter.parse(dateString1);
+					date1=formatter.parse(ArrayDate[0]);
 					Bookingcalendar.setTime(date1);
 					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
 					
@@ -89,15 +86,14 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			
 				catch (ParseException e) 
 				{
-					request.setAttribute("result", "error");
 				}
 			}
 		
-			if(dateString2!=null)
+			if(ArrayDate[1]!=null && !ArrayDate[1].equals(""))
 			{
 				try 
 				{
-					date2=formatter.parse(dateString2);  
+					date2=formatter.parse(ArrayDate[1]);  
 					Bookingcalendar.setTime(date2);
 					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
 					
@@ -115,15 +111,14 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			
 				catch (ParseException e) 
 				{
-					request.setAttribute("result", "error");
 				}
 			}
 		
-			if(dateString3!=null)
+			if(ArrayDate[2]!=null && !ArrayDate[2].equals(""))
 			{
 				try 
 				{
-					date3=formatter.parse(dateString3);
+					date3=formatter.parse(ArrayDate[2]);
 					Bookingcalendar.setTime(date3);
 					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
 					
@@ -141,7 +136,6 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			
 				catch (ParseException e) 
 				{
-					request.setAttribute("result", "error");
 				}
 			}
 			
@@ -201,8 +195,6 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
         	dispatcher.forward(request, response);
 		}
-		
-		
 	}
 
 	/**
