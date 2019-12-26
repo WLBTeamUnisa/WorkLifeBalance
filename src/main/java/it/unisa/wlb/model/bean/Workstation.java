@@ -11,64 +11,69 @@ import java.util.List;
  */
 @Entity
 @Table(name="WORKSTATION")
-@NamedQuery(name="Workstation.findAll", query="SELECT w FROM Workstation w")
+@NamedQueries({
+	@NamedQuery(name="Workstation.findAll", query="SELECT w FROM Workstation w"),
+	@NamedQuery(name="Workstation.retrieveByFloorAndRoom", query="SELECT w FROM Workstation w WHERE w.id.floor=?1 AND w.id.room=?2"),
+	@NamedQuery(name="Workstation.retrieveById", query="SELECT w FROM Workstation w WHERE w.id.workstation=?1 AND w.id.floor=?2 AND w.id.room=?3"),
+	@NamedQuery(name="Workstation.countMaxByFloorAndRoom", query="SELECT COUNT(w) FROM Workstation w WHERE w.id.floor=?1 AND w.id.room=?2"),
+})
 public class Workstation implements Serializable {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @EmbeddedId
-  private WorkstationPK id;
- 
-  //bi-directional many-to-one association to Room
-  @ManyToOne
-  @JoinColumns(value={
-    @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM",columnDefinition="int(2)", nullable=false)
-  })
-  @MapsId(value="WorkstationPK")
-  private Room room;
-  
-  //bi-directional many-to-one association to WorkstationPrenotation
-  @OneToMany(mappedBy="workstation")
-  private List<WorkstationPrenotation> workstationPrenotations;
+	@EmbeddedId
+	private WorkstationPK id;
 
-  public Workstation() {
-  }
+	//bi-directional many-to-one association to Room
+	@ManyToOne
+	@JoinColumns(value={
+			@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM",columnDefinition="int(2)", nullable=false)
+	})
+	@MapsId(value="WorkstationPK")
+	private Room room;
 
-  public WorkstationPK getId() {
-    return this.id;
-  }
+	//bi-directional many-to-one association to WorkstationPrenotation
+	@OneToMany(mappedBy="workstation")
+	private List<WorkstationPrenotation> workstationPrenotations;
 
-  public void setId(WorkstationPK id) {
-    this.id = id;
-  }
+	public Workstation() {
+	}
 
-  public Room getRoom() {
-    return this.room;
-  }
+	public WorkstationPK getId() {
+		return this.id;
+	}
 
-  public void setRoom(Room room) {
-    this.room = room;
-  }
+	public void setId(WorkstationPK id) {
+		this.id = id;
+	}
 
-  public List<WorkstationPrenotation> getWorkstationPrenotations() {
-    return this.workstationPrenotations;
-  }
+	public Room getRoom() {
+		return this.room;
+	}
 
-  public void setWorkstationPrenotations(List<WorkstationPrenotation> workstationPrenotations) {
-    this.workstationPrenotations = workstationPrenotations;
-  }
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 
-  public WorkstationPrenotation addWorkstationPrenotation(WorkstationPrenotation workstationPrenotation) {
-    getWorkstationPrenotations().add(workstationPrenotation);
-    workstationPrenotation.setWorkstation(this);
+	public List<WorkstationPrenotation> getWorkstationPrenotations() {
+		return this.workstationPrenotations;
+	}
 
-    return workstationPrenotation;
-  }
+	public void setWorkstationPrenotations(List<WorkstationPrenotation> workstationPrenotations) {
+		this.workstationPrenotations = workstationPrenotations;
+	}
 
-  public WorkstationPrenotation removeWorkstationPrenotation(WorkstationPrenotation workstationPrenotation) {
-    getWorkstationPrenotations().remove(workstationPrenotation);
-    workstationPrenotation.setWorkstation(null);
+	public WorkstationPrenotation addWorkstationPrenotation(WorkstationPrenotation workstationPrenotation) {
+		getWorkstationPrenotations().add(workstationPrenotation);
+		workstationPrenotation.setWorkstation(this);
 
-    return workstationPrenotation;
-  }
+		return workstationPrenotation;
+	}
+
+	public WorkstationPrenotation removeWorkstationPrenotation(WorkstationPrenotation workstationPrenotation) {
+		getWorkstationPrenotations().remove(workstationPrenotation);
+		workstationPrenotation.setWorkstation(null);
+
+		return workstationPrenotation;
+	}
 
 }

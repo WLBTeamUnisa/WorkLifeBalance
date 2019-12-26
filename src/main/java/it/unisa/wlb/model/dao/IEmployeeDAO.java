@@ -44,7 +44,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * 
 	 * @param email
 	 * @param password
-	 * @return
+	 * @return an Employee
 	 */
 	public Employee retrieveByEmailPassword(String email, String password);
 	
@@ -52,7 +52,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * It is used to retrieve an Employee through his email for suggests
 	 * 
 	 * @param email
-	 * @return
+	 * @return a list of Employees
 	 */
 	public List<Employee> retrieveSuggestsByEmail(String email);
 	

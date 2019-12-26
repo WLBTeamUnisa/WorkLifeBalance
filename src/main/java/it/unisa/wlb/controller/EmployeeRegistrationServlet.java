@@ -3,7 +3,6 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -135,13 +134,17 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 				request.setAttribute("result", "failure");
 			}					
 
-			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
-
+//			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
+//			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+//			dispatcher.forward(request, response);
+			request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
 		}
-		else
-			throw new IllegalArgumentException();
+		else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().write("Inserimento di parametri non validi per la registrazione del dipendente");			
+			response.getWriter().flush();
+			throw new IllegalArgumentException("Inserimento di parametri non validi per la registrazione del dipendente");
+		}
 	}
 
 	/**
