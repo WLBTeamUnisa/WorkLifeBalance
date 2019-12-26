@@ -168,12 +168,12 @@
 										</div>
 									</c:if>
 								</c:otherwise>
-
-
-								<!-- FINE CARD-BODY -->
-
-
 							</c:choose>
+
+							<!-- FINE CARD-BODY -->
+
+
+
 
 							<!-- FINE CARD -->
 						</div>
