@@ -93,7 +93,7 @@
 								class="fas fa-pen-square"></i>
 								<p class="b">Prenota postazione</p></a></li>
 
-						<li class="nav-item"><a href="#forms" class="nav-link"><i
+						<li class="nav-item"><a href="ShowSmartWorkingPrenotation" class="nav-link"><i
 								class="fas fa-pen-square"></i>
 								<p class="b">Smart Working</p></a></li>
 
