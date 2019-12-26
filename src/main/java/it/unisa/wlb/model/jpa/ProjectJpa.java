@@ -77,7 +77,7 @@ public class ProjectJpa implements IProjectDAO {
 
   @Override
   public void insertEmployeeToProject(String email, int id_project) {
-    Query query=entitymanager.createQuery("INSERT INTO works (ID_PROJECT,EMAIL_EMPLOYEE) VALUES (=?1,=?2);");
+    Query query=entitymanager.createQuery("INSERT INTO works (ID_PROJECT,EMAIL_EMPLOYEE) VALUE (=?1,=?2)");
     query.setParameter(1, email);
     query.setParameter(2, id_project);
   }
