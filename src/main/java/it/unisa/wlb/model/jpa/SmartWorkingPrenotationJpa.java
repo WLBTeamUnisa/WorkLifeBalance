@@ -6,7 +6,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
+import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 
@@ -41,20 +43,30 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 
 	@Override
 	public List<SmartWorkingPrenotation> retrieveAll() {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.getTransaction().begin();
+		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findAll", SmartWorkingPrenotation.class);
+		entityManager.getTransaction().commit();
+		return (List<SmartWorkingPrenotation>) query.getResultList();
 	}
 
 	@Override
 	public SmartWorkingPrenotation retrieveByWeeklyPlanning(int calendarWeek, int year, String email) {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.getTransaction().begin();
+		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByWeeklyPlanning", SmartWorkingPrenotation.class);
+		query.setParameter("employee", email);
+		query.setParameter("calendarWeek", calendarWeek);
+		query.setParameter("year", year);
+		entityManager.getTransaction().commit();
+		return query.getSingleResult();
 	}
 
 	@Override
 	public List<SmartWorkingPrenotation> retrieveByEmployee(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager.getTransaction().begin();
+		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByEmployee", SmartWorkingPrenotation.class);
+		query.setParameter("employee", email);
+		entityManager.getTransaction().commit();
+		return (List<SmartWorkingPrenotation>) query.getResultList();
 	}
 
 }

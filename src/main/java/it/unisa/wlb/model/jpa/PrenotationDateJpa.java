@@ -24,18 +24,27 @@ public class PrenotationDateJpa implements IPrenotationDateDAO{
 
 	@Override
 	public void remove(PrenotationDate entityClass) {
-		// TODO Auto-generated method stub
-		
+		entityManager.getTransaction().begin();
+	    entityManager.merge(entityClass);
+	    entityManager.getTransaction().commit();	
 	}
 
 	@Override
 	public PrenotationDate update(PrenotationDate entityClass) {
+		entityManager.getTransaction().begin();
+	    entityManager.persist(entityClass);
+	    entityManager.getTransaction().commit();
+	    return entityClass;
+	}
+
+	@Override
+	public List<PrenotationDate> retrieveAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PrenotationDate> retrieveAll() {
+	public List<PrenotationDate> retrieveBySmartWorking(int idSmartWorking, String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}

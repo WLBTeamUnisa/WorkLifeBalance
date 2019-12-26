@@ -11,7 +11,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="PRENOTATION_DATE")
-@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p")
+@NamedQueries({
+	@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p"),
+	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employeeEmail = :employeeEmail AND p.id.date = :date AND p.id.idPrenotationSw = :idPrenotationSw")
+})
+
 public class PrenotationDate implements Serializable {
   private static final long serialVersionUID = 1L;
 

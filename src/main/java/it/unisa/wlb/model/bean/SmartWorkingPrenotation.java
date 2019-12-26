@@ -13,7 +13,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="SMART_WORKING_PRENOTATION")
-@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s")
+@NamedQueries({
+	@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s"),
+	@NamedQuery(name="SmartWorkingPrenotation.findByEmployee", 
+		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.employee = :employee"),
+	@NamedQuery(name="SmartWorkingPrenotation.findByWeeklyPlanning", 
+		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.employee = :employee AND s.calendarWeek = :calendarWeek AND s.year = :year")
+})
 public class SmartWorkingPrenotation implements Serializable {
   private static final long serialVersionUID = 1L;
 
