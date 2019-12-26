@@ -99,7 +99,7 @@
 									<p class="b">Smart Working</p></a></li>
 						</ul>
 					</c:if>
-					
+
 					<!-- MANAGER LIST -->
 					<c:if test="${user.status == 1}">
 						<ul class="nav nav-primary my-auto">
@@ -125,16 +125,14 @@
 
 							<li class="nav-item"><a href="#base" class="nav-link"><i
 									class="fas fa-th-list"></i>
-									<p class="b">Ricerca storico giornate<br> lavorative</p></a></li>
+									<p class="b">
+										Ricerca storico giornate<br> lavorative
+									</p></a></li>
 
 							<li class="nav-item"><a href="#base" class="nav-link"><i
 									class="fas fa-layer-group"></i>
-									<p class="b">Visualizza tutti i<br> progetti supervisionati</p></a></li>
-
-							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fas fa-layer-group"></i>
-									<p class="b">Visualizza progetto<br> supervisionato</p></a></li>
-
+											<p class="b">Visualizza tutti i<br>progetti supervisionati
+											</p></a></li>	
 						</ul>
 					</c:if>
 
