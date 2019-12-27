@@ -38,16 +38,13 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 
 	@Override
 	public void remove(SmartWorkingPrenotation entity) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-	    entityManager.remove(entity);
-	    entityManager.getTransaction().commit();
+		try{
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+		    entityManager.remove(entity);
+		    entityManager.getTransaction().commit();
 		}
-		
-		finally
-		{
+		finally{
 			entityManager.close();
 		}
 	}
@@ -62,9 +59,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 		    entityManager.getTransaction().commit();
 		    return entity;
 		}
-		
-		finally
-		{
+		finally{
 			entityManager.close();
 		}
 		
@@ -72,54 +67,46 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 
 	@Override
 	public List<SmartWorkingPrenotation> retrieveAll() {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findAll", SmartWorkingPrenotation.class);
-		entityManager.getTransaction().commit();
-		return (List<SmartWorkingPrenotation>) query.getResultList();
+		try{
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findAll", SmartWorkingPrenotation.class);
+			entityManager.getTransaction().commit();
+			return (List<SmartWorkingPrenotation>) query.getResultList();
 		}
-		
-		finally
-		{
+		finally{
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public SmartWorkingPrenotation retrieveByWeeklyPlanning(int calendarWeek, int year, String email) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByWeeklyPlanning", SmartWorkingPrenotation.class);
-		query.setParameter("employee", email);
-		query.setParameter("calendarWeek", calendarWeek);
-		query.setParameter("year", year);
-		entityManager.getTransaction().commit();
-		return query.getSingleResult();
+		try{
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByWeeklyPlanning", SmartWorkingPrenotation.class);
+			query.setParameter("employee", email);
+			query.setParameter("calendarWeek", calendarWeek);
+			query.setParameter("year", year);
+			entityManager.getTransaction().commit();
+			return query.getSingleResult();
 		}
-		finally
-		{
+		finally{
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public List<SmartWorkingPrenotation> retrieveByEmployee(String email) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByEmployee", SmartWorkingPrenotation.class);
-		query.setParameter("employee", email);
-		entityManager.getTransaction().commit();
-		return (List<SmartWorkingPrenotation>) query.getResultList();
+		try{
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findByEmployee", SmartWorkingPrenotation.class);
+			query.setParameter("employee", email);
+			entityManager.getTransaction().commit();
+			return (List<SmartWorkingPrenotation>) query.getResultList();
 		}
-		
-		finally
-		{
+		finally{
 			entityManager.close();
 		}
 	}
