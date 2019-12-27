@@ -16,9 +16,10 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s"),
 	@NamedQuery(name="SmartWorkingPrenotation.findByEmployee", 
-		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.employee = :employee"),
+		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.id.employee = :employee"),
 	@NamedQuery(name="SmartWorkingPrenotation.findByWeeklyPlanning", 
-		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.employee = :employee AND s.calendarWeek = :calendarWeek AND s.year = :year")
+	query="SELECT s FROM SmartWorkingPrenotation s WHERE s.id.employee = :employee AND s.calendarWeek = :calendarWeek AND s.year = :year")
+
 })
 public class SmartWorkingPrenotation implements Serializable {
   private static final long serialVersionUID = 1L;

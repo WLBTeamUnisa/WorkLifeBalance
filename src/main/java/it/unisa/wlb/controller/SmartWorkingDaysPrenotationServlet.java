@@ -3,11 +3,16 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -32,10 +37,6 @@ import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 @WebServlet("/SmartWorkingDaysPrenotationServlet")
 public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Calendar flagCalendar = new GregorianCalendar();    
-	private static final int CurrentCalendarWeek=flagCalendar.get(Calendar.WEEK_OF_YEAR);
-	private static final int LastWeekOfYear=flagCalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
-	private static final int CurrentYear=flagCalendar.YEAR;
 	
 	@EJB
 	private ISmartWorkingPrenotationDAO SmartWorkingDao;
@@ -57,60 +58,53 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		Employee employee=(Employee) session.getAttribute("user");
-		
+		Calendar Localcalendar = Calendar.getInstance();
+		TimeZone tz = Localcalendar.getTimeZone();
+		ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
+		LocalDate localDate = LocalDateTime.ofInstant(Localcalendar.toInstant(), zid).toLocalDate();
+		Localcalendar.setTime(Date.from(localDate.atStartOfDay().atZone(zid).toInstant()));
+		int currentCalendarWeek=Localcalendar.get(Calendar.WEEK_OF_YEAR);
+		int lastWeekOfYear=Localcalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
 		if(employee!=null)
 		{
 			String[] ArrayDate=request.getParameterValues("dates");
-			Date date;
-		
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			List<Date> dateList=new ArrayList<Date>();
-			Calendar Bookingcalendar = new GregorianCalendar();
+			LocalDate Localdate;
+			List<LocalDate> dateList=new ArrayList<LocalDate>();
+			Calendar bookingCalendar;
 			
 			for(int i=0; i<ArrayDate.length; i++)
 			{
 				if(ArrayDate[i]!=null && !ArrayDate[i].equals(""))
 				{
-					try 
+					Localdate=LocalDate.parse(ArrayDate[i]);
+					bookingCalendar=GregorianCalendar.from(Localdate.atStartOfDay(ZoneId.systemDefault()));
+					int bookingCalendarWeek=bookingCalendar.get(Calendar.WEEK_OF_YEAR);
+					if((currentCalendarWeek == lastWeekOfYear) && (bookingCalendarWeek==1))
 					{
-						date=formatter.parse(ArrayDate[i]);
-						System.out.println(date);
-						Bookingcalendar.setTime(date);
-						int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
-					
-						if(CurrentCalendarWeek == LastWeekOfYear && 
-							(BookingCalendarWeek==1 && CurrentYear+1==Bookingcalendar.YEAR))
-						{
-							dateList.add(date);
-						}
-					
-						else if(BookingCalendarWeek-1 == CurrentCalendarWeek && CurrentYear==Bookingcalendar.YEAR)
-						{
-							dateList.add(date);
-						}
-					} 
-			
-					catch (ParseException e) 
-					{
+						dateList.add(Localdate);
 					}
-				}
+					
+					else if(bookingCalendarWeek-1 == currentCalendarWeek && Localcalendar.get(Calendar.YEAR)==bookingCalendar.get(Calendar.YEAR))
+					{
+						dateList.add(Localdate);
+					}
+				} 
 			}
 		
 			SmartWorkingPrenotation sw=new SmartWorkingPrenotation();
-			boolean LastWeekflag=true;
 			
-			if(LastWeekOfYear==CurrentCalendarWeek)
+			if(lastWeekOfYear==currentCalendarWeek)
 			{
 				sw.setCalendarWeek(1);
-				sw.setYear(CurrentYear+1);
+				sw.setYear(Localcalendar.get(Calendar.YEAR)+1);
 			}
 			
 			else
 			{
-				sw.setCalendarWeek(CurrentCalendarWeek+1);
-				sw.setYear(CurrentYear);
-				LastWeekflag=false;
+				sw.setCalendarWeek(currentCalendarWeek+1);
+				sw.setYear(Localcalendar.get(Calendar.YEAR));
 			}
+			
 			
 			sw.setEmployee(employee);
 			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
@@ -124,26 +118,16 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			{
 				PrenotationDate prenotationDate=new PrenotationDate();
 				PrenotationDatePK prenotationDatePK=new PrenotationDatePK();
-				prenotationDatePK.setDate(dateList.get(i));
+				prenotationDatePK.setDate(Date.from(dateList.get(i).atStartOfDay()
+					      .atZone(ZoneId.systemDefault())
+					      .toInstant()));
 				prenotationDatePK.setEmployeeEmail(employee.getEmail());
-				
-				if(LastWeekflag)
-				{
-					prenotationDatePK.setIdPrenotationSw(SmartWorkingDao.retrieveByWeeklyPlanning(1, CurrentYear+1, employee.getEmail()).getId().getId());
-				}
-				
-				else
-				{
-					prenotationDatePK.setIdPrenotationSw(SmartWorkingDao.retrieveByWeeklyPlanning(CurrentCalendarWeek+1, CurrentYear, employee.getEmail()).getId().getId());
-				}
-				
+				prenotationDatePK.setIdPrenotationSw(SmartWorkingDao.retrieveByWeeklyPlanning(sw.getCalendarWeek(), sw.getYear(), sw.getEmployee().getEmail()).getId().getId());
 				prenotationDate.setId(prenotationDatePK);
 				PrenotationDateList.add(prenotationDate);
 				PrenotationDateDao.create(prenotationDate);
 			}
 			
-			sw.setPrenotationDates(PrenotationDateList);
-			SmartWorkingDao.update(sw);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
         	dispatcher.forward(request, response);
 		}
@@ -163,3 +147,4 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	}
 
 }
+

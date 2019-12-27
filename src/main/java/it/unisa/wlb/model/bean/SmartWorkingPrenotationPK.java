@@ -18,7 +18,7 @@ public class SmartWorkingPrenotationPK implements Serializable {
   private int id;
   
   @Column(name="EMPLOYEE_EMAIL",length=37, nullable=false)
-  private String employeeEmail;
+  private String employee;
 
   public SmartWorkingPrenotationPK() {
   }
@@ -29,10 +29,10 @@ public class SmartWorkingPrenotationPK implements Serializable {
     this.id = id;
   }
   public String getEmployeeEmail() {
-    return this.employeeEmail;
+    return this.employee;
   }
   public void setEmployeeEmail(String employeeEmail) {
-    this.employeeEmail = employeeEmail;
+    this.employee = employeeEmail;
   }
 
   public boolean equals(Object other) {
@@ -45,14 +45,14 @@ public class SmartWorkingPrenotationPK implements Serializable {
     SmartWorkingPrenotationPK castOther = (SmartWorkingPrenotationPK)other;
     return 
         (this.id == castOther.id)
-        && this.employeeEmail.equals(castOther.employeeEmail);
+        && this.employee.equals(castOther.employee);
   }
 
   public int hashCode() {
     final int prime = 31;
     int hash = 17;
     hash = hash * prime + this.id;
-    hash = hash * prime + this.employeeEmail.hashCode();
+    hash = hash * prime + this.employee.hashCode();
 
     return hash;
   }
