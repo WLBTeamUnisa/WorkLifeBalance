@@ -60,7 +60,7 @@
 						<div class="card">
 
 							<div class="card-header">
-								<h3 class="my-auto">Lista dei dipendenti</h3>
+								<h3 class="my-auto">Lista dipendenti</h3>
 							</div>
 
 							<div class="card-body">
@@ -106,7 +106,7 @@
 								</ul>
 
 								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
-									role="button">Inserisci dipendente</a>
+									role="button">Inserisci nuovo dipendente</a>
 
 								<!-- FINE CARD-BODY -->
 							</div>

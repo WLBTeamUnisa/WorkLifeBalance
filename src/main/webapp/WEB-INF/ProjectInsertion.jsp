@@ -77,6 +77,7 @@
 												name="name" id="name" onkeyup="verificaNome()"
 												placeholder="Nome..." required>
 										</div>
+										<span id="errorName"> </span>
 
 
 										<!-- SCOPE -->
@@ -89,6 +90,7 @@
 												name="scope" id="scope" onkeyup="verificaScope()"
 												placeholder="Scope..." required>
 										</div>
+										<span id="errorScope"> </span>
 
 
 										<!-- DATA INIZIO -->
@@ -102,6 +104,7 @@
 												onblur="verificaDataInizio()"
 												placeholder="Data di inizio: yyyy-MM-dd" required>
 										</div>
+										<span id="errorDataInizio"> </span>
 
 
 										<!-- DATA FINE -->
@@ -114,6 +117,7 @@
 												name=endDate id="endDate" onblur="verificaDataFine()"
 												placeholder="Data di fine: yyyy-MM-dd" required>
 										</div>
+										<span id="errorDataFine"> </span>
 
 
 										<!-- DESCRIZIONE -->
@@ -127,6 +131,7 @@
 												onblur="verificaDescrizione()" placeholder="Descrizione..."
 												required></textarea>
 										</div>
+										<span id="errorDescrizione"> </span>
 
 
 										<!-- MANAGER -->
@@ -136,11 +141,15 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()" onkeypress="SuggestionsManager(this.value)" placeholder="Manager..."
-												required list="suggestionsManager">
+												onkeyup="verificaManager()"
+												onkeypress="SuggestionsManager(this.value)"
+												placeholder="Manager..." required list="suggestionsManager">
 											<datalist id="suggestionsManager"></datalist>
 										</div>
+										<span id="errorManager"> </span>
 
+
+										<!-- LISTA DIPENDENTI -->
 										<div class="form-group row pb-1">
 											<div class="col-lg-7">
 												<div class="card">
@@ -158,6 +167,8 @@
 												</div>
 											</div>
 
+
+											<!-- INSERISCI DIPENDENTE (BOTTONE TRIGGER) -->
 											<div class="col-lg-5 mx-auto mb-auto">
 												<!-- Button trigger modal -->
 												<button type="button" class="btn btn-warning mx-auto"
@@ -199,7 +210,8 @@
 												<h3>Ricerca dipendente</h3>
 
 												<div class="input-group mb-3">
-													<input type="email" onkeyup="SuggestionsEmployee(this.value)"
+													<input type="email"
+														onkeyup="SuggestionsEmployee(this.value)"
 														class="form-control" placeholder="m.red1@wlb.it"
 														aria-describedby="basic-addon1" name="q" id="lista"
 														list="suggestionsEmployee">
@@ -277,89 +289,158 @@
 		var descrizioneOK = false;
 		var managerOK = false;
 		var dipendentiOK = false;
-		//TEMPLATE
-		var borderOK = '1px solid #080';
-		var borderNO = '1px solid #f00';
+		
 		function verificaNome() {
+			
+			var errorMsg="Il nome può contenere solo lettere minuscole e maiuscole e deve avere una lunghezza tra 4 e 15 caratteri.";
 			var input = $("#name").val();
+			
 			if (input.trim().length >= 4 && input.trim().length <= 15
 					&& input.match(/^[A-Za-z0-9]+$/)) {
-				$("#name").css("border", borderOK);
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#name").hasClass("is-invalid"))
+					$("#name").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#name").addClass("is-valid");
+				document.getElementById("errorName").innerHTML="";
 				nomeOK = true;
 			} else {
-				$("#name").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#name").hasClass("is-valid"))
+					$("#name").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#name").addClass("is-invalid");
+				document.getElementById("errorName").innerHTML=errorMsg;
 				nomeOK = false;
 			}
 			changeInsertButtonState();
 		}
+		
 		function verificaScope() {
+			
+			var errorMsg="Lo scope deve avere una lunghezza tra 3 e 25 caratteri.";
 			var input = $("#scope").val();
 			if (input.trim().length >= 3 && input.trim().length <= 25
 					&& input.match(/^[A-Za-z\s]+$/)) {
-				$("#scope").css("border", borderOK);
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#scope").hasClass("is-invalid"))
+					$("#scope").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#scope").addClass("is-valid");
+				document.getElementById("errorScope").innerHTML="";
 				scopeOK = true;
 			} else {
-				$("#scope").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#scope").hasClass("is-valid"))
+					$("#scope").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#scope").addClass("is-invalid");
+				document.getElementById("errorScope").innerHTML=errorMsg;
 				scopeOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataInizio() {
+			
+			var errorMsg="La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#startDate").val();
-
-			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#startDate").css("border", borderOK);
+			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML="";
 				dataInizioOK = true;
 			} else {
-				$("#startDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#startDate").hasClass("is-valid"))
+					$("#startDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#startDate").addClass("is-invalid");
+				document.getElementById("errorDataInizio").innerHTML=errorMsg;
 				dataInizioOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataFine() {
+			
+			var errorMsg="La data di fine deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#endDate").val();
-
-			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#endDate").css("border", borderOK);
+			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#endDate").hasClass("is-invalid"))
+					$("#endDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#endDate").addClass("is-valid");
+				document.getElementById("errorDataFine").innerHTML="";
 				dataFineOK = true;
 			} else {
-				$("#endDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML=errorMsg;
 				dataFineOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDescrizione() {
+			
+			var errorMsg="La descrizione deve avere una lunghezza minima di 20 caratteri e massima di 250.";
 			var input = $("#description").val();
 
 			if (input.trim().length >= 20 && input.trim().length <= 250
 					&& input.match(/^[\s\S]+$/)) {
-				$("#description").css("border", borderOK);
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#description").hasClass("is-invalid"))
+					$("#description").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#description").addClass("is-valid");
+				document.getElementById("errorDescrizione").innerHTML="";
 				descrizioneOK = true;
 			} else {
-				$("#description").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#description").hasClass("is-valid"))
+					$("#description").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#description").addClass("is-invalid");
+				document.getElementById("errorDescrizione").innerHTML=errorMsg;
 				descrizioneOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaManager() {
+			
+			var errorMsg="L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
 			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
-				$("#managerEmail").css("border", borderOK);
+				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				if($("#managerEmail").hasClass("is-invalid"))
+					$("#managerEmail").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#managerEmail").addClass("is-valid");
+				document.getElementById("errorManager").innerHTML="";
 				managerOK = true;
 			} else {
-				$("#managerEmail").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if($("#managerEmail").hasClass("is-valid"))
+					$("#managerEmail").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#managerEmail").addClass("is-invalid");
+				document.getElementById("errorManager").innerHTML=errorMsg;
 				managerOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function changeInsertButtonState() {
+			
 			var btn = $("#insertButton");
 			if (nomeOK && scopeOK && dataInizioOK && dataFineOK
 					&& descrizioneOK && managerOK && dipendentiOK) {
@@ -374,7 +455,7 @@
 		}
 
 		function SuggestionsEmployee(email) { 
-
+			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
