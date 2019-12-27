@@ -276,6 +276,7 @@
 		var dataFineOK = false;
 		var descrizioneOK = false;
 		var managerOK = false;
+		var dipendentiOK = false;
 		//TEMPLATE
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
@@ -361,7 +362,7 @@
 		function changeInsertButtonState() {
 			var btn = $("#insertButton");
 			if (nomeOK && scopeOK && dataInizioOK && dataFineOK
-					&& descrizioneOK && managerOK) {
+					&& descrizioneOK && managerOK && dipendentiOK) {
 				document.getElementById('insertButton').disabled = false;
 				btn.css("background-color", "#31CE36");
 				btn.css("color", "#ffffff");
@@ -386,6 +387,8 @@
 						options += "<option>" + lista[i].email + "</option>";
 					}
 					document.getElementById("suggestionsEmployee").innerHTML = options;
+					dipendentiOK = true;
+					changeInsertButtonState();
 				}
 			}
 			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0", true);
@@ -414,7 +417,6 @@
 		
 		
 		function insertEmployee(email) {
-			console.log(email);
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
