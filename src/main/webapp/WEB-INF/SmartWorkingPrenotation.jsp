@@ -21,10 +21,6 @@
 <link rel="stylesheet" href="css/atlantis.css">
 <link rel="stylesheet" href="css/calendar.css">
 
-<link href="node_modules/sweetalert2/dist/sweetalert2.css"
-	rel="stylesheet" />
-<link href="style.css" rel="stylesheet" />
-
 <!-- Fonts and icons -->
 <script src="js/plugin/webfont/webfont.min.js"></script>
 <script>

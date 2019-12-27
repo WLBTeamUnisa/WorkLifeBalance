@@ -276,7 +276,5 @@ $(document).ready(function () {
             }
             form.append('<input type="hidden" name="dates" value="' + numGiorni.giorni[i].anno + "-" + numGiorni.giorni[i].mese + "-" + numGiorni.giorni[i].giorno + '">');
         }
-
-        return false;
     });
 });
