@@ -11,7 +11,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Lista dipendenti</title>
+<title>WLB - Smart Working</title>
 
 <!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -76,10 +76,10 @@
 								</div>
 
 							</div>
+							<form action="" id="smartWorkingDays">
 
-							<form action="SmartWorkingDaysPrenotationServlet" method="post" id="smartWorkingDays">
 								<button type="submit" class=" btn btn-success mb-3"
-									id="sendButton">Prenota</button>
+									id="sendButton" disabled>Prenota</button>
 							</form>
 
 							<!-- FINE CARD -->
