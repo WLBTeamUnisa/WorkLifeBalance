@@ -54,27 +54,34 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("user");
-		
+		/**
+		 * Set calendar parameters to take information about last week of year and current calendar week
+		 */
 		Calendar localCalendar = Calendar.getInstance();
 		TimeZone tz = localCalendar.getTimeZone();
 		ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
 		LocalDate today = LocalDateTime.ofInstant(localCalendar.toInstant(), zid).toLocalDate();
 		localCalendar.setTime(Date.from(today.atStartOfDay().atZone(zid).toInstant()));
+		
 		int currentCalendarWeek = localCalendar.get(Calendar.WEEK_OF_YEAR);
 		int lastWeekOfYear = localCalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
-		
+		/**
+		 * Check if employee is null
+		 */
 		if(employee != null) {
 			
 			String[] arrayDates = request.getParameterValues("dates");
+			
 			LocalDate localDate;
 			List<LocalDate> dateList=new ArrayList<LocalDate>();
 			Calendar bookingCalendar;
-			
+			/**
+			 * Check format of dates and add them to the array dateList
+			 */
 			for(int i=0; i < arrayDates.length; i++) {
 				
 				if(arrayDates[i]!=null && !arrayDates[i].equals("")) {
-					try
-					{
+					try {
 						localDate = LocalDate.parse(arrayDates[i]);
 						bookingCalendar = GregorianCalendar.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 						int bookingCalendarWeek = bookingCalendar.get(Calendar.WEEK_OF_YEAR);
@@ -91,22 +98,27 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 					
 					catch(Exception e)
 					{
-						request.setAttribute("result", "error");
+						request.setAttribute("result", "formatError");
 						RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp");
 			        	dispatcher.forward(request, response);
 					}
 				} 
 			}
 		
+			/**
+			 * Check size of dateList
+			 */
 			if(dateList.size()>3)
 			{
-				request.setAttribute("result", "error");
+				request.setAttribute("result", "DateSizeError");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp");
 	        	dispatcher.forward(request, response);
 			}
-			
+			/**
+			 * Create Smart Working Prenotation
+			 */
 			SmartWorkingPrenotation smartWookBooking = new SmartWorkingPrenotation();
-			
+			 
 			if(lastWeekOfYear==currentCalendarWeek){
 					
 				smartWookBooking.setCalendarWeek(1);
@@ -125,6 +137,9 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			smartWookBooking.setId(pk);
 			smartWorkingDao.create(smartWookBooking);
 			
+			/**
+			 * Add Prenotation Dates for inserted Smart Working Prenotation 
+			 */
 			List<PrenotationDate> PrenotationDateList=new ArrayList<PrenotationDate>();
 			
 			for(int i = 0; i < dateList.size(); i++) {
@@ -145,6 +160,9 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
         	dispatcher.forward(request, response);
         	
 		} else {
+			/**
+			 * If user is not logged
+			 */
 			request.setAttribute("result", "NotLogged");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
         	dispatcher.forward(request, response);
