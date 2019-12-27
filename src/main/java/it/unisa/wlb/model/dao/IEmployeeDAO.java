@@ -54,6 +54,14 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * @param email
 	 * @return
 	 */
-	public List<Employee> retrieveSuggestsByEmail(String email);
+	public List<Employee> retrieveSuggestsEmployeeByEmail(String email);
+	
+	/**
+	 * It is used to retrieve a Manager through his email for suggests
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public List<Employee> retrieveSuggestsManagerByEmail(String email);
 	
 }

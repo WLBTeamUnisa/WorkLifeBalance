@@ -15,7 +15,8 @@ import java.util.List;
 	@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e"),
 	@NamedQuery(name="Employee.findByEmail", query="SELECT e FROM Employee e WHERE e.email = :email"),
 	@NamedQuery(name="Employee.findByEmailPassword", query="SELECT e FROM Employee e WHERE e.email = :email and e.password = :password"),
-	@NamedQuery(name="Employee.findSuggestsByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%')")
+	@NamedQuery(name="Employee.findSuggestsEmployeeByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%') AND e.id = 0"),
+	@NamedQuery(name="Employee.findSuggestsManagerByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%') AND e.id = 1")
 })
 public class Employee implements Serializable {
   private static final long serialVersionUID = 1L;

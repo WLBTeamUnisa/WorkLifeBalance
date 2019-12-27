@@ -12,115 +12,102 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 @Stateless
-public class EmployeeJpa implements IEmployeeDAO{
+public class EmployeeJpa implements IEmployeeDAO {
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 
 	@Override
 	public Employee create(Employee entity) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-	    entityManager.persist(entity);
-	    entityManager.getTransaction().commit();
-	    return entity;
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.persist(entity);
+			entityManager.getTransaction().commit();
+			return entity;
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public void remove(Employee entityClass) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-	    entityManager.remove(entityClass);
-	    entityManager.getTransaction().commit();
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.remove(entityClass);
+			entityManager.getTransaction().commit();
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public Employee update(Employee entityClass) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-	    entityManager.merge(entityClass);
-	    entityManager.getTransaction().commit();
-	    return entityClass;
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.merge(entityClass);
+			entityManager.getTransaction().commit();
+			return entityClass;
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public List<Employee> retrieveAll() {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
-		entityManager.getTransaction().commit();
-		return (List<Employee>) query.getResultList();
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
+			entityManager.getTransaction().commit();
+			return (List<Employee>) query.getResultList();
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public Employee retrieveByEmail(String email) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmail", Employee.class);
-		query.setParameter("email", email);
-		entityManager.getTransaction().commit();
-		return (Employee) query.getSingleResult();
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmail", Employee.class);
+			query.setParameter("email", email);
+			entityManager.getTransaction().commit();
+			return (Employee) query.getSingleResult();
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
 	public List<Employee> searchByEmail(String email) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.searchByEmail", Employee.class);
-		query.setParameter("email", email);
-		entityManager.getTransaction().commit();
-		return (List<Employee>) query.getResultList();	
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.searchByEmail", Employee.class);
+			query.setParameter("email", email);
+			entityManager.getTransaction().commit();
+			return (List<Employee>) query.getResultList();
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
-	
 	@Override
 	public List<Employee> retrieveByProjectId(String ProjectId) {
 		// TODO Auto-generated method stub
@@ -129,40 +116,53 @@ public class EmployeeJpa implements IEmployeeDAO{
 
 	@Override
 	public Employee retrieveByEmailPassword(String email, String password) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-	    entityManager=factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmailPassword", Employee.class);
-		query.setParameter("email", email);
-		query.setParameter("password", password);
-		entityManager.getTransaction().commit();
-		return (Employee) query.getSingleResult();
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findByEmailPassword", Employee.class);
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			entityManager.getTransaction().commit();
+			return (Employee) query.getSingleResult();
 		}
-		
-		finally 
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
 	@Override
-	public List<Employee> retrieveSuggestsByEmail(String email) {
-		try
-		{
-		entityManager = factor.createEntityManager();
-		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findSuggestsByEmail", Employee.class);
-		query.setParameter("email", email);
-		entityManager.getTransaction().commit();
-		return (List<Employee>) query.getResultList();
+	public List<Employee> retrieveSuggestsEmployeeByEmail(String email) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findSuggestsEmployeeByEmail",
+					Employee.class);
+			query.setParameter("email", email);
+			entityManager.getTransaction().commit();
+			return (List<Employee>) query.getResultList();
 		}
-		
-		finally
-		{
+
+		finally {
 			entityManager.close();
 		}
 	}
 
+	@Override
+	public List<Employee> retrieveSuggestsManagerByEmail(String email) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findSuggestsManagerByEmail",
+					Employee.class);
+			query.setParameter("email", email);
+			entityManager.getTransaction().commit();
+			return (List<Employee>) query.getResultList();
+		}
+
+		finally {
+			entityManager.close();
+		}
+	}
 }

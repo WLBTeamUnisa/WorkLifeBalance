@@ -28,7 +28,8 @@ public class SuggestionEmployees extends HttpServlet {
     @EJB
     private IEmployeeDAO employeeDao;   
 	
-    private static final String EMAIL_EMPLOYEE = "email"; 
+    private static final String EMAIL_EMPLOYEE = "email";
+    private static final String FLAG = "flag";
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,17 +44,30 @@ public class SuggestionEmployees extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONArray lista_json=new JSONArray();
+        
         String email_employee=request.getParameter(EMAIL_EMPLOYEE);
+        String flagStr = request.getParameter(FLAG);
+        
         List<Employee> listaDipendenti=null;
         
-        if(email_employee!=null || email_employee!="")
+        if((email_employee!=null || email_employee!="") && flagStr!=null)
         {
           /**
            * Restituisco una lista di suggerimenti dei dipendenti tramite l'email
            * 
            * */
-           listaDipendenti=employeeDao.retrieveSuggestsByEmail(email_employee);
+        	
+        	int flag = Integer.parseInt(flagStr);
+        	if(flag==0) {
+        		listaDipendenti=employeeDao.retrieveSuggestsEmployeeByEmail(email_employee);        		
+        	} else if(flag==1) {
+        		listaDipendenti=employeeDao.retrieveSuggestsManagerByEmail(email_employee);
+        	}
            
+        	if(listaDipendenti==null) {
+        		//Eccezione
+        	}
+        	
            for(int i = 0; i<listaDipendenti.size();i++) {
         	   JSONObject obj = new JSONObject();
         	   obj.put("email", listaDipendenti.get(i).getEmail());
