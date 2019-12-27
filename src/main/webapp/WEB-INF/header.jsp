@@ -8,7 +8,7 @@
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="orange">
 
-		<a href="." class="logo"><img src="img/logo.svg"
+		<a href="." class="logo"><img src="img/logoprog8.svg" 
 			alt="navbar brand" class="navbar-brand"></a>
 
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
@@ -131,9 +131,8 @@
 
 							<li class="nav-item"><a data-toggle="collapse"
 								href="#sidebarLayouts"><i class="fas fa-layer-group"></i>
-									<p>
-										Visualizza tutti i<br>progetti supervisionati
-									</p> <span class="caret"></span> </a>
+									<p>Visualizza tutti i<br>progetti supervisionati</p> 
+									<span class="caret"></span> </a>
 								<div class="collapse" id="sidebarLayouts">
 									<ul class="nav nav-collapse">
 										<li><a href=""> <span class="sub-item">Progetto
