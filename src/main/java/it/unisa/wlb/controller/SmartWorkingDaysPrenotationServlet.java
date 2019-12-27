@@ -1,21 +1,16 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
-
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -78,22 +73,38 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			for(int i=0; i < arrayDates.length; i++) {
 				
 				if(arrayDates[i]!=null && !arrayDates[i].equals("")) {
+					try
+					{
+						localDate = LocalDate.parse(arrayDates[i]);
+						bookingCalendar = GregorianCalendar.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+						int bookingCalendarWeek = bookingCalendar.get(Calendar.WEEK_OF_YEAR);
+						if((currentCalendarWeek == lastWeekOfYear) && (bookingCalendarWeek == 1)){
+						
+							dateList.add(localDate);
+						
+						} else if(bookingCalendarWeek-1 == currentCalendarWeek && localCalendar.get(Calendar.YEAR) == bookingCalendar.get(Calendar.YEAR)) {
+						
+							dateList.add(localDate);
 					
-					localDate = LocalDate.parse(arrayDates[i]);
-					bookingCalendar = GregorianCalendar.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-					int bookingCalendarWeek = bookingCalendar.get(Calendar.WEEK_OF_YEAR);
-					if((currentCalendarWeek == lastWeekOfYear) && (bookingCalendarWeek == 1)){
-						
-						dateList.add(localDate);
-						
-					} else if(bookingCalendarWeek-1 == currentCalendarWeek && localCalendar.get(Calendar.YEAR) == bookingCalendar.get(Calendar.YEAR)) {
-						
-						dateList.add(localDate);
+						}
+					}
 					
+					catch(Exception e)
+					{
+						request.setAttribute("result", "error");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp");
+			        	dispatcher.forward(request, response);
 					}
 				} 
 			}
 		
+			if(dateList.size()>3)
+			{
+				request.setAttribute("result", "error");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp");
+	        	dispatcher.forward(request, response);
+			}
+			
 			SmartWorkingPrenotation smartWookBooking = new SmartWorkingPrenotation();
 			
 			if(lastWeekOfYear==currentCalendarWeek){
@@ -107,7 +118,6 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				smartWookBooking.setYear(localCalendar.get(Calendar.YEAR));
 				
 			}
-			
 			
 			smartWookBooking.setEmployee(employee);
 			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
@@ -130,11 +140,12 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				
 			}
 			
+			request.setAttribute("result", "ok");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
         	dispatcher.forward(request, response);
         	
 		} else {
-			
+			request.setAttribute("result", "NotLogged");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
         	dispatcher.forward(request, response);
         	
