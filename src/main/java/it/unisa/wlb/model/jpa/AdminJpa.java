@@ -3,7 +3,6 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,47 +15,91 @@ import it.unisa.wlb.model.dao.IAdminDAO;
 @Stateless
 public class AdminJpa implements IAdminDAO {
   private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-  private EntityManager entityManager = factor.createEntityManager();
+  private EntityManager entityManager;
 
   public Admin create(Admin entity) {
+	try
+	{
+	entityManager= factor.createEntityManager();
     entityManager.getTransaction().begin();
     entityManager.persist(entity);
     entityManager.getTransaction().commit();
     return entity;
+	}
+	
+	finally
+	{
+		entityManager.close();
+	}
   }
 
   @Override
   public void remove(Admin entityClass) {
+	try
+	{
+	entityManager= factor.createEntityManager();
     entityManager.getTransaction().begin();
     entityManager.remove(entityClass);
     entityManager.getTransaction().commit();
+	}
+	
+	finally
+	{
+		entityManager.close();
+	}
   }
 
   @Override
   public Admin update(Admin entityClass) {
+	try
+	{
+	entityManager= factor.createEntityManager();
     entityManager.getTransaction().begin();
     entityManager.merge(entityClass);
     entityManager.getTransaction().commit();
     return entityClass;
+	}
+	
+	finally
+	{
+		entityManager.close();
+	}
   }
 
   @Override
   public List<Admin> retrieveAll() {
+	try
+	{
+	entityManager= factor.createEntityManager();
     entityManager.getTransaction().begin();
     Query q = entityManager.createQuery("SELECT admin FROM Admin admin");
     entityManager.getTransaction().commit();
-
     return (List<Admin>) q.getResultList();
+	}
+
+	finally
+	{
+		entityManager.close();
+	}
   }
 
 @Override
 public Admin retrieveByEmailPassword(String email, String password) {
+	try
+	{
+	entityManager= factor.createEntityManager();
 	entityManager.getTransaction().begin();
 	TypedQuery<Admin> q = entityManager.createNamedQuery("Admin.findByEmailPassword", Admin.class);
 	q.setParameter("email", email);
 	q.setParameter("password", password);
 	entityManager.getTransaction().commit();
 	return (Admin) q.getSingleResult();
-}
+	}
+	
+	finally
+	{
+		entityManager.close();
+	}
+  }
 
 }

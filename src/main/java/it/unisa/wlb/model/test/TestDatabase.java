@@ -36,20 +36,20 @@ public class TestDatabase {
     admin.setPassword("Gigitispezzounamano");
     admin.setSurname("VinnyGay");
     a.create(admin);*/
-    AdminJpa a=new AdminJpa();
-   List<Admin> lista=a.retrieveAll();
+    //AdminJpa a=new AdminJpa();
+   //List<Admin> lista=a.retrieveAll();
    SmartWorkingPrenotation sw=new SmartWorkingPrenotation();
    sw.setCalendarWeek(17);
    sw.setYear(2019);
    Query q=entitymanager.createQuery("SELECT employee FROM Employee employee WHERE employee.email=?1");
-   q.setParameter(1, "a@gmail.com");
+   q.setParameter(1, "v.fabiano1@wlb.it");
    Employee e=(Employee) q.getSingleResult();
    sw.setEmployee(e);
    SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
-   pk.setEmployeeEmail("a@gmail.com");
+   pk.setEmployeeEmail("v.fabiano1@wlb.it");
    sw.setId(pk);
    entitymanager.persist(sw);
-   WorkstationPrenotation wp=new WorkstationPrenotation();
+   /*WorkstationPrenotation wp=new WorkstationPrenotation();
    wp.setEmployee(e);
    wp.setCalendarWeek(17);
    wp.setYear(1998);
@@ -69,7 +69,7 @@ public class TestDatabase {
      }
    }
    wp.setWorkstation(workstation);
-   entitymanager.persist(wp);
+   entitymanager.persist(wp);*/
    entitymanager.getTransaction().commit();
   }
 

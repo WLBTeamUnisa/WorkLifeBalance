@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
 						}
 					} else if(email.endsWith("@wlbadmin.it")) {
-						Admin a = adminDao.retrieveByEmailPassword(email, generatedPwd);
+						Admin a = adminDao.retrieveByEmailPassword(email, password);
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);

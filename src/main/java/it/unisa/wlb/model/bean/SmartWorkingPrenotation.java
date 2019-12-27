@@ -38,8 +38,7 @@ public class SmartWorkingPrenotation implements Serializable {
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
-  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false)
-  @MapsId("employeeEmail")
+  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false, insertable=false, updatable=false)
   private Employee employee;
 
   public SmartWorkingPrenotation() {

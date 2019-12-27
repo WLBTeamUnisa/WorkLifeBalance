@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,7 @@ import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.PrenotationDatePK;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
+import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 
 /**
@@ -36,6 +39,9 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	
 	@EJB
 	private ISmartWorkingPrenotationDAO SmartWorkingDao;
+	
+	@EJB
+	private IPrenotationDateDAO PrenotationDateDao;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,92 +61,42 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		if(employee!=null)
 		{
 			String[] ArrayDate=request.getParameterValues("dates");
-			System.out.println(ArrayDate[0]+"\n"+ArrayDate[1]+"\n"+ArrayDate[2]);
-			Date date1=null;
-			Date date2=null;
-			Date date3=null;
+			Date date;
 		
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			List<Date> dateList=new ArrayList<Date>();
 			Calendar Bookingcalendar = new GregorianCalendar();
 			
-			if(ArrayDate[0]!=null && !ArrayDate[0].equals(""))
+			for(int i=0; i<ArrayDate.length; i++)
 			{
-				try 
+				if(ArrayDate[i]!=null && !ArrayDate[i].equals(""))
 				{
-					date1=formatter.parse(ArrayDate[0]);
-					Bookingcalendar.setTime(date1);
-					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
+					try 
+					{
+						date=formatter.parse(ArrayDate[i]);
+						System.out.println(date);
+						Bookingcalendar.setTime(date);
+						int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
 					
-					if(CurrentCalendarWeek == LastWeekOfYear && 
+						if(CurrentCalendarWeek == LastWeekOfYear && 
 							(BookingCalendarWeek==1 && CurrentYear+1==Bookingcalendar.YEAR))
-					{
-						dateList.add(date1);
-					}
+						{
+							dateList.add(date);
+						}
 					
-					else if(BookingCalendarWeek-1 == CurrentCalendarWeek && CurrentYear==Bookingcalendar.YEAR)
-					{
-						dateList.add(date1);
-					}
-				} 
+						else if(BookingCalendarWeek-1 == CurrentCalendarWeek && CurrentYear==Bookingcalendar.YEAR)
+						{
+							dateList.add(date);
+						}
+					} 
 			
-				catch (ParseException e) 
-				{
+					catch (ParseException e) 
+					{
+					}
 				}
 			}
 		
-			if(ArrayDate[1]!=null && !ArrayDate[1].equals(""))
-			{
-				try 
-				{
-					date2=formatter.parse(ArrayDate[1]);  
-					Bookingcalendar.setTime(date2);
-					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
-					
-					if(CurrentCalendarWeek == LastWeekOfYear && 
-							(BookingCalendarWeek==1 && CurrentYear+1==Bookingcalendar.YEAR))
-					{
-						dateList.add(date2);
-					}
-					
-					else if(BookingCalendarWeek-1 == CurrentCalendarWeek && CurrentYear==Bookingcalendar.YEAR)
-					{
-						dateList.add(date2);
-					}
-				} 
-			
-				catch (ParseException e) 
-				{
-				}
-			}
-		
-			if(ArrayDate[2]!=null && !ArrayDate[2].equals(""))
-			{
-				try 
-				{
-					date3=formatter.parse(ArrayDate[2]);
-					Bookingcalendar.setTime(date3);
-					int BookingCalendarWeek=Bookingcalendar.get(Calendar.WEEK_OF_YEAR);
-					
-					if(CurrentCalendarWeek == LastWeekOfYear && 
-							(BookingCalendarWeek==1 && CurrentYear+1==Bookingcalendar.YEAR))
-					{
-						dateList.add(date3);
-					}
-					
-					else if(BookingCalendarWeek-1 == CurrentCalendarWeek && CurrentYear==Bookingcalendar.YEAR)
-					{
-						dateList.add(date3);
-					}
-				} 
-			
-				catch (ParseException e) 
-				{
-				}
-			}
-			
 			SmartWorkingPrenotation sw=new SmartWorkingPrenotation();
-			
 			boolean LastWeekflag=true;
 			
 			if(LastWeekOfYear==CurrentCalendarWeek)
@@ -156,6 +112,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				LastWeekflag=false;
 			}
 			
+			sw.setEmployee(employee);
 			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
 			pk.setEmployeeEmail(employee.getEmail());
 			sw.setId(pk);
@@ -182,6 +139,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				
 				prenotationDate.setId(prenotationDatePK);
 				PrenotationDateList.add(prenotationDate);
+				PrenotationDateDao.create(prenotationDate);
 			}
 			
 			sw.setPrenotationDates(PrenotationDateList);
@@ -201,6 +159,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
 	}
 
 }
