@@ -63,7 +63,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Admin admin = (Admin) request.getSession().getAttribute("user");
 		
@@ -119,9 +119,9 @@ public class AddPlanimetryServlet extends HttpServlet {
 			 */
 			if(floorNumber<MIN || floorNumber>MAX_FLOOR || roomNumber<MIN || roomNumber>MAX_ROOM || workstationsNumber<MIN || workstationsNumber>MAX_WORKSTATIONS) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("I parametri inseriti non rispettano il formato");			
+				response.getWriter().write("I parametri inseriti non rispettano il formato/lunghezza");			
 				response.getWriter().flush();
-				throw new IllegalArgumentException("I parametri inseriti non rispettano il formato");					
+				throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");					
 			}
 			
 			Floor floor = null;
@@ -167,7 +167,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 			roomPk.setNumRoom(roomNumber);
 			room.setId(roomPk);
 			try {
-				roomDao.create(room);
+				room = roomDao.create(room);
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Errore nell'inserimento della stanza "+roomPk.getNumRoom()+" per il piano " + roomPk.getNumFloor());			
@@ -186,7 +186,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 				workstation.setId(workstationPK);
 				workstation.setRoom(room);
 				try {
-					workstationDao.create(workstation);
+					workstation = workstationDao.create(workstation);
 				}catch(Exception e) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Errore nell'inserimento della postazione "+workstationPK.getWorkstation()+" per la stanza " + workstationPK.getRoom() + " del piano "+workstationPK.getFloor());			
