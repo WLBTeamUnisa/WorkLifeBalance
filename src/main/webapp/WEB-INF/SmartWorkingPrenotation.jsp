@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -54,29 +54,42 @@
 					<div class="col-lg-7 mx-auto">
 
 						<div class="card">
-
-							<div class="calendar-section">
-
-								<div class="calendar calendar-first" id="calendar_first">
-									<div class="calendar_header">
-										<button class="switch-month switch-left">
-											<i class="fas fa-chevron-left"></i>
-										</button>
-										<h2></h2>
-										<button class="switch-month switch-right">
-											<i class="fas fa-chevron-right"></i>
-										</button>
+							
+							<c:choose>
+								<c:when test="${booking=='no'}">
+									<div class="card-header">
+				    					<h3>Prenotazione già effettuata!</h3>    
 									</div>
-									<div class="calendar_weekdays"></div>
-									<div class="calendar_content"></div>
-								</div>
+									<div class="card-body">
+				    					<h1>Hai già effettuato una prenotazione questa settimana.</h1>
+									</div>
+								</c:when>
 
-							</div>
-							<form action="SmartWorkingDaysPrenotationServlet" id="smartWorkingDays" method="post">
+								<c:otherwise>
+									<c:if test="${booking=='yes'}">
+										<div class="calendar-section">
 
-								<button type="submit" class=" btn btn-success mb-3"
-									id="sendButton" disabled>Prenota</button>
-							</form>
+											<div class="calendar calendar-first" id="calendar_first">
+												<div class="calendar_header">
+													<button class="switch-month switch-left">
+														<i class="fas fa-chevron-left"></i>
+													</button>
+													<h2></h2>
+													<button class="switch-month switch-right">
+														<i class="fas fa-chevron-right"></i>
+													</button>
+												</div>
+												<div class="calendar_weekdays"></div>
+												<div class="calendar_content"></div>
+											</div>
+										</div>
+										<form action="SmartWorkingDaysPrenotationServlet" id="smartWorkingDays" method="post">
+											<button type="submit" class=" btn btn-success mb-3" id="sendButton" disabled>Prenota</button>
+										</form>
+									</c:if>
+								</c:otherwise>
+
+							</c:choose>
 
 							<!-- FINE CARD -->
 						</div>
