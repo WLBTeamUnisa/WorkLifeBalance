@@ -72,7 +72,7 @@
 								</div>
 
 							</div>
-							<form action="" id="smartWorkingDays">
+							<form action="SmartWorkingDaysPrenotationServlet" id="smartWorkingDays">
 
 								<button type="submit" class=" btn btn-success mb-3"
 									id="sendButton" disabled>Prenota</button>
