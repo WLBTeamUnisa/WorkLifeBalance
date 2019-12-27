@@ -168,7 +168,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 			room.setId(roomPk);
 			try {
 				roomDao.create(room);
-			} catch (EntityExistsException e) {
+			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Errore nell'inserimento della stanza "+roomPk.getNumRoom()+" per il piano " + roomPk.getNumFloor());			
 				response.getWriter().flush();
