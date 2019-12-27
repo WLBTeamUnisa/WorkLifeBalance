@@ -136,25 +136,27 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			pk.setEmployeeEmail(employee.getEmail());
 			smartWookBooking.setId(pk);
 			smartWorkingDao.create(smartWookBooking);
-			
+			int idSmartWorking =smartWorkingDao.retrieveByWeeklyPlanning(smartWookBooking.getCalendarWeek(), smartWookBooking.getYear(), smartWookBooking.getEmployee().getEmail()).getId().getId();
+			pk.setId(idSmartWorking);
+			smartWookBooking.setId(pk);
 			/**
 			 * Add Prenotation Dates for inserted Smart Working Prenotation 
 			 */
 			List<PrenotationDate> PrenotationDateList=new ArrayList<PrenotationDate>();
-			
 			for(int i = 0; i < dateList.size(); i++) {
 				
 				PrenotationDate prenotationDate=new PrenotationDate();
 				PrenotationDatePK prenotationDatePK=new PrenotationDatePK();
 				prenotationDatePK.setDate(Date.from(dateList.get(i).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
 				prenotationDatePK.setEmployeeEmail(employee.getEmail());
-				prenotationDatePK.setIdPrenotationSw(smartWorkingDao.retrieveByWeeklyPlanning(smartWookBooking.getCalendarWeek(), smartWookBooking.getYear(), smartWookBooking.getEmployee().getEmail()).getId().getId());
+				prenotationDatePK.setIdPrenotationSw(idSmartWorking);
 				prenotationDate.setId(prenotationDatePK);
 				PrenotationDateList.add(prenotationDate);
 				prenotationDateDao.create(prenotationDate);
-				
 			}
 			
+			smartWookBooking.setPrenotationDates(PrenotationDateList);
+			smartWorkingDao.update(smartWookBooking);
 			request.setAttribute("result", "ok");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
         	dispatcher.forward(request, response);
