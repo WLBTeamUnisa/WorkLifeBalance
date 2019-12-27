@@ -136,8 +136,9 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()" placeholder="Manager..."
-												required>
+												onkeyup="verificaManager()" onkeypress="SuggestionsManager(this.value)" placeholder="Manager..."
+												required list="suggestionsManager">
+											<datalist id="suggestionsManager"></datalist>
 										</div>
 
 										<div class="form-group row pb-1">
@@ -198,10 +199,10 @@
 												<h3>Ricerca dipendente</h3>
 
 												<div class="input-group mb-3">
-													<input type="email" onkeyup="Suggestions(this.value)"
+													<input type="email" onkeyup="SuggestionsEmployee(this.value)"
 														class="form-control" placeholder="m.red1@wlb.it"
 														aria-describedby="basic-addon1" name="q" id="lista"
-														list="suggestions">
+														list="suggestionsEmployee">
 													<div class="input-group-append">
 														<button class="input-group-text" type="button"
 															onclick="insertEmployee(lista.value)"
@@ -210,7 +211,7 @@
 														</button>
 													</div>
 												</div>
-												<datalist id="suggestions"></datalist>
+												<datalist id="suggestionsEmployee"></datalist>
 											</div>
 										</div>
 									</div>
@@ -371,7 +372,7 @@
 			}
 		}
 
-		function Suggestions(email) {
+		function SuggestionsEmployee(email) { 
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -384,14 +385,34 @@
 					for (i = 0; i < lista.length; i++) {
 						options += "<option>" + lista[i].email + "</option>";
 					}
-					console.log(options);
-					document.getElementById("suggestions").innerHTML = options;
+					document.getElementById("suggestionsEmployee").innerHTML = options;
 				}
 			}
-			xhttp.open("GET", "SuggestionEmployees?email=" + email, true);
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0", true);
 			xhttp.send();
 		}
 
+		function SuggestionsManager(email) { 
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					document.getElementById("suggestionsManager").innerHTML = options;
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=1", true);
+			xhttp.send();
+		}
+		
+		
 		function insertEmployee(email) {
 			console.log(email);
 			var xhttp = new XMLHttpRequest();

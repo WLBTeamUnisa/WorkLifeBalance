@@ -48,6 +48,8 @@ public class SuggestionEmployees extends HttpServlet {
         String email_employee=request.getParameter(EMAIL_EMPLOYEE);
         String flagStr = request.getParameter(FLAG);
         
+        System.out.println(flagStr);
+        
         List<Employee> listaDipendenti=null;
         
         if((email_employee!=null || email_employee!="") && flagStr!=null)
