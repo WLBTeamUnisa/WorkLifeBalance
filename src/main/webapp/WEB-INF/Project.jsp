@@ -292,6 +292,20 @@
 			changeInsertButtonState();
 		}
 		
+		function changeInsertButtonState() {
+			var btn = $("#insertButton");
+			if (nomeOK && scopeOK && dataInizioOK && dataFineOK
+					&& descrizioneOK && managerOK) {
+				document.getElementById('insertButton').disabled = false;
+				btn.css("background-color", "#31CE36");
+				btn.css("color", "#ffffff");
+			} else {
+				document.getElementById('insertButton').disabled = true;
+				btn.css("background-color", "#d6d6d6");
+				btn.css("color", "#ffffff");
+			}
+		}
+		
 	</script>
 
 </body>
