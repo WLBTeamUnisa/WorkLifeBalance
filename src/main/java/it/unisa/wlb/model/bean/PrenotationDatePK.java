@@ -17,10 +17,10 @@ public class PrenotationDatePK implements Serializable {
   private java.util.Date date;
 
   @Column(name="EMPLOYEE_EMAIL",columnDefinition="varchar(37)", nullable=false)
-  private String employeeEmail;
+  private String employee;
   
   @Column(name="ID_PRENOTATION_SW", columnDefinition="int(20)", nullable=false)
-  private int idPrenotationSw;
+  private int smartWorkingPrenotation;
 
 
   public PrenotationDatePK() {
@@ -32,16 +32,16 @@ public class PrenotationDatePK implements Serializable {
     this.date = date;
   }
   public int getIdPrenotationSw() {
-    return this.idPrenotationSw;
+    return this.smartWorkingPrenotation;
   }
   public void setIdPrenotationSw(int idPrenotationSw) {
-    this.idPrenotationSw = idPrenotationSw;
+    this.smartWorkingPrenotation = idPrenotationSw;
   }
   public String getEmployeeEmail() {
-    return this.employeeEmail;
+    return this.employee;
   }
   public void setEmployeeEmail(String employeeEmail) {
-    this.employeeEmail = employeeEmail;
+    this.employee = employeeEmail;
   }
 
   public boolean equals(Object other) {
@@ -54,16 +54,16 @@ public class PrenotationDatePK implements Serializable {
     PrenotationDatePK castOther = (PrenotationDatePK)other;
     return 
         this.date.equals(castOther.date)
-        && (this.idPrenotationSw == castOther.idPrenotationSw)
-        && this.employeeEmail.equals(castOther.employeeEmail);
+        && (this.smartWorkingPrenotation == castOther.smartWorkingPrenotation)
+        && this.employee.equals(castOther.employee);
   }
 
   public int hashCode() {
     final int prime = 31;
     int hash = 17;
     hash = hash * prime + this.date.hashCode();
-    hash = hash * prime + this.idPrenotationSw;
-    hash = hash * prime + this.employeeEmail.hashCode();
+    hash = hash * prime + this.smartWorkingPrenotation;
+    hash = hash * prime + this.employee.hashCode();
 
     return hash;
   }

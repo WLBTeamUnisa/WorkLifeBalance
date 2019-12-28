@@ -1,4 +1,54 @@
 $(document).ready(function () {
+
+    //-------------VARIABILI-------------
+    var today;
+    var year;
+    var month;
+    var nextMonth;
+    var nextYear;
+
+    var giorniScelti = new Array();
+
+    var numGiorni = {
+        giorni: []
+    };
+
+    var i = ["GENNAIO", "FEBBRAIO", "MARZO", "APRILE", "MAGGIO",
+        "GIUGNO", "LUGLIO", "AGOSTO", "SETTEMBRE", "OTTOBRE",
+        "NOVEMBRE", "DICEMBRE"];
+    var daysArray = ["Domenica", "Lunedì", "Martedì",
+        "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+
+    var cal1 = $("#calendar_first");
+    var calHeader1 = cal1.find(".calendar_header");
+    var weekline1 = cal1.find(".calendar_weekdays");
+    var datesBody1 = cal1.find(".calendar_content");
+
+    var cal2 = $("#calendar_second");
+    var calHeader2 = cal2.find(".calendar_header");
+    var weekline2 = cal2.find(".calendar_weekdays");
+    var datesBody2 = cal2.find(".calendar_content");
+
+    var bothCals = $(".calendar");
+
+    var switchButton = bothCals.find(".calendar_header").find('.switch-month');
+
+    var calendars = {
+        "cal1": {
+            "name": "first",
+            "calHeader": calHeader1,
+            "weekline": weekline1,
+            "datesBody": datesBody1
+        },
+        "cal2": {
+            "name": "second",
+            "calHeader": calHeader2,
+            "weekline": weekline2,
+            "datesBody": datesBody2
+        }
+    }
+    //-------------FINE VARIABILI-------------
+
     function c(passed_month, passed_year, calNum) {
         var calendar = calNum == 0 ? calendars.cal1 : calendars.cal2;
         makeWeek(calendar.weekline);
@@ -33,16 +83,25 @@ $(document).ready(function () {
                 var iter_date = new Date(passed_year, passed_month, shownDate);
                 iter_date.setHours(0, 0, 0, 0);
 
+                //GIORNI NON PRENOTABILI
                 if (iter_date <= lunediProssimo || iter_date > fineSettimana) {
 
+                    //CONTROLLO SE NEI GIORNI NON PRENOTABILI C'E' IL GIORNO CORRENTE
                     if (checkToday(iter_date)) {
                         var m = '<div class="today">';
                     } else {
+                        //ALTRIMENTI LO RENDO NON CLICCABILE
                         var m = '<div class="past-date">';
                     }
                 }
                 else {
                     var m = "<div>";
+                    //CONTROLLO SE LA DATA NON SIA STATA GIA' SCELTA
+                    for (var k = 0; k < giorniScelti.length; k++) {
+                        if (iter_date.getTime() === giorniScelti[k].getTime()) {
+                            var m = '<div class="choose">';
+                        }
+                    }
                 }
                 calendar.datesBody.append(m + shownDate + "</div>");
             }
@@ -56,10 +115,12 @@ $(document).ready(function () {
 
         clickedElement.on("click", function () {
             clicked = $(this);
+            //CLASSI CHE NON SONO PIU' CLICCABILI
             if (clicked.hasClass('past-date')) { return; }
             if (clicked.hasClass('blank')) { return; }
             if (clicked.hasClass('choose')) { return; }
             if (clicked.hasClass('today')) { return; }
+            //SWEETALERT
             Swal.fire({
                 title: 'Sei sicuro?',
                 text: "Stai prenotando un giorno di SW per questa data: " + clicked.html() + "/" + (passed_month + 1) + "/" + passed_year,
@@ -70,14 +131,17 @@ $(document).ready(function () {
                 cancelButtonText: 'Cancella',
                 confirmButtonText: 'Si, voglio prenotare'
             }).then((result) => {
+                //SE PREMO "PRENOTA"
                 if (result.value) {
+                    //CONTROLLO SE HO GIA' FATTO 3 SCELTE
                     if (numGiorni.giorni.length >= 3) {
                         Swal.fire(
                             'Errore!',
-                            'Troppe prenotazioni!',
+                            'Hai effettuato già il massimo numero di prenotazioni.',
                             'error'
                         )
                     } else {
+                        //ALTRIMENTI EFFETTUO LA SCELTA E ABILITO IL PULSANTE
                         Swal.fire(
                             'Successo!',
                             'La prenotazione e\' stata effettuata.',
@@ -90,11 +154,17 @@ $(document).ready(function () {
                             "anno": passed_year
                         })
 
+                        var x = new Date(passed_year, passed_month, clicked.html());
+                        console.log("Giorno scelto: " + x);
+                        giorniScelti.push(x);
+                        console.log("Lenght" + giorniScelti.length);
+
                         //ABILITO IL PULSANTE DI PRENOTAZIONE
                         var btn = $("#sendButton");
                         btn.prop("disabled", false);
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
                     Swal.fire(
                         'Cancellata!',
                         'La prenotazione e\' stata eliminata',
@@ -105,6 +175,31 @@ $(document).ready(function () {
         });
 
     }
+
+    //EVENTO CHE VIENE ESEGUITO QUANDO L'UTENTE CONFERMA LA PRENOTAZIONE
+    $("#sendButton").on("click", function () {
+        var form = $("#smartWorkingDays");
+        for (var i = 0; i < numGiorni.giorni.length; i++) {
+            var x = 0;
+            var y = 0;
+
+            if (numGiorni.giorni[i].giorno < 10) {
+                x = 1;
+            }
+            if (numGiorni.giorni[i].mese < 10) {
+                y = 1;
+            }
+            switch (x) {
+                case 0: break;
+                case 1: numGiorni.giorni[i].giorno = "0" + numGiorni.giorni[i].giorno;
+            }
+            switch (y) {
+                case 0: break;
+                case 1: numGiorni.giorni[i].mese = "0" + numGiorni.giorni[i].mese;
+            }
+            form.append('<input type="hidden" name="dates" value="' + numGiorni.giorni[i].anno + "-" + numGiorni.giorni[i].mese + "-" + numGiorni.giorni[i].giorno + '">');
+        }
+    });
 
     function makeMonthArray(passed_month, passed_year) { // creates Array specifying dates and weekdays
         var e = [];
@@ -117,6 +212,7 @@ $(document).ready(function () {
         }
         return e;
     }
+
     function makeWeek(week) {
         week.empty();
         for (var e = 0; e < 7; e++) {
@@ -127,15 +223,18 @@ $(document).ready(function () {
     function getDaysInMonth(currentYear, currentMon) {
         return (new Date(currentYear, currentMon + 1, 0)).getDate();
     }
+
     function getWeekdayNum(e, t, n) {
         return (new Date(e, t, n)).getDay();
     }
+
     function checkToday(e) {
         var todayDate = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
         var checkingDate = e.getFullYear() + '/' + (e.getMonth() + 1) + '/' + e.getDate();
         return todayDate == checkingDate;
 
     }
+
     function getAdjacentMonth(curr_month, curr_year, direction) {
         var theNextMonth;
         var theNextYear;
@@ -148,6 +247,7 @@ $(document).ready(function () {
         }
         return [theNextMonth, theNextYear];
     }
+
     function b() {
         today = new Date;
         year = today.getFullYear();
@@ -156,58 +256,6 @@ $(document).ready(function () {
         nextMonth = nextDates[0];
         nextYear = nextDates[1];
     }
-
-    var e = 480;
-
-    var today;
-    var year,
-        month,
-        nextMonth,
-        nextYear;
-
-    var numGiorni = {
-        giorni: []
-    };
-
-    var r = [];
-    var i = ["GENNAIO", "FEBBRAIO", "MARZO", "APRILE", "MAGGIO",
-        "GIUGNO", "LUGLIO", "AGOSTO", "SETTEMBRE", "OTTOBRE",
-        "NOVEMBRE", "DICEMBRE"];
-    var daysArray = ["Domemica", "Lunedì", "Martedì",
-        "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
-    var o = ["#16a085", "#1abc9c", "#c0392b", "#27ae60",
-        "#FF6860", "#f39c12", "#f1c40f", "#e67e22",
-        "#2ecc71", "#e74c3c", "#d35400", "#2c3e50"];
-
-    var cal1 = $("#calendar_first");
-    var calHeader1 = cal1.find(".calendar_header");
-    var weekline1 = cal1.find(".calendar_weekdays");
-    var datesBody1 = cal1.find(".calendar_content");
-
-    var cal2 = $("#calendar_second");
-    var calHeader2 = cal2.find(".calendar_header");
-    var weekline2 = cal2.find(".calendar_weekdays");
-    var datesBody2 = cal2.find(".calendar_content");
-
-    var bothCals = $(".calendar");
-
-    var switchButton = bothCals.find(".calendar_header").find('.switch-month');
-
-    var calendars = {
-        "cal1": {
-            "name": "first",
-            "calHeader": calHeader1,
-            "weekline": weekline1,
-            "datesBody": datesBody1
-        },
-        "cal2": {
-            "name": "second",
-            "calHeader": calHeader2,
-            "weekline": weekline2,
-            "datesBody": datesBody2
-        }
-    }
-
 
     var clickedElement;
 
@@ -233,7 +281,6 @@ $(document).ready(function () {
         clickedElement = bothCals.find(".calendar_content").find("div");
     });
 
-
     //  Click picking stuff
     function getClickedInfo(element, calendar) {
         var clickedInfo = {};
@@ -253,28 +300,4 @@ $(document).ready(function () {
         //console.log(clickedInfo);
         return clickedInfo;
     }
-
-    $("#sendButton").on("click", function () {
-        var form = $("#smartWorkingDays");
-        for (var i = 0; i < numGiorni.giorni.length; i++) {
-            var x = 0;
-            var y = 0;
-            
-            if(numGiorni.giorni[i].giorno<10){
-                x=1;
-            }
-            if(numGiorni.giorni[i].mese<10){
-                y = 1;
-            }
-            switch(x){
-                case 0: break;
-                case 1: numGiorni.giorni[i].giorno = "0"+numGiorni.giorni[i].giorno;
-            }
-            switch(y){
-                case 0: break;
-                case 1: numGiorni.giorni[i].mese = "0"+numGiorni.giorni[i].mese;
-            }
-            form.append('<input type="hidden" name="dates" value="' + numGiorni.giorni[i].anno + "-" + numGiorni.giorni[i].mese + "-" + numGiorni.giorni[i].giorno + '">');
-        }
-    });
 });

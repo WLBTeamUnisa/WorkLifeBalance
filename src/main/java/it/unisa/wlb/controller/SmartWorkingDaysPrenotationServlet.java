@@ -139,12 +139,14 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			smartWorkBooking.setEmployee(employee);
 			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
 			pk.setEmployeeEmail(employee.getEmail());
+
 			smartWorkBooking.setId(pk);
 			smartWorkingDao.create(smartWorkBooking);
 			int idSmartWorking = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail()).getId().getId();
 			
 			pk.setId(idSmartWorking);
 			smartWorkBooking.setId(pk);
+
 			/**
 			 * Add Prenotation Dates for inserted Smart Working Prenotation 
 			 */
@@ -161,8 +163,10 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				prenotationDateDao.create(prenotationDate);
 			}
 			
+
 			smartWorkBooking.setPrenotationDates(PrenotationDateList);
 			smartWorkingDao.update(smartWorkBooking);
+
 			request.setAttribute("result", "ok");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
         	dispatcher.forward(request, response);
