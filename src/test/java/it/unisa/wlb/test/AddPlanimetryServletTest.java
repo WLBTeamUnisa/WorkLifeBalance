@@ -13,6 +13,7 @@ import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -363,5 +364,6 @@ public class AddPlanimetryServletTest extends Mockito {
 		request.setParameter(JSON_STRING, string);
 
 		servlet.doGet(request, response);
+		assertEquals("success", request.getAttribute("result"));
 	}
 }
