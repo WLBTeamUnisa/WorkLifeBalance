@@ -291,8 +291,7 @@
 			//jsondata=JSON.stringify('planimetry');
 			document.getElementById("errorWorkstation").innerHTML = JSON.stringify(jsondata);
 
-			document.getElementById("hiddenParameter").innerHTML=JSON.stringify(jsondata);
-
+			document.getElementById("hiddenParameter").value=JSON.stringify(jsondata);
 
 		}
 

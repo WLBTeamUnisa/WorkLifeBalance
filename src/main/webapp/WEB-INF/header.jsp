@@ -59,7 +59,7 @@
 								<i class="fa fa-ellipsis-h"></i>
 						</span>
 							<h4 class="text-section">Admin</h4></li>
-						<li class="nav-item"><a href="#" class="nav-link"><i
+						<li class="nav-item"><a href="PlanimetryInsertionPage" class="nav-link"><i
 								class="fas fa-layer-group"></i>
 								<p class="b">Planimetria</p></a></li>
 

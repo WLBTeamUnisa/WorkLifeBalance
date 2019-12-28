@@ -10,8 +10,6 @@ import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.bean.RoomPK;
 import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
-import it.unisa.wlb.model.dao.IFloorDao;
-import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 
 import static org.junit.Assert.assertTrue;
@@ -73,7 +71,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_1() throws UnsupportedEncodingException,ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
+		String string="[{\"workstation\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -92,7 +90,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_2() throws ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":0,\"room\":1}]";
+		String string="[{\"workstation\":50,\"floor\":0,\"room\":1}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -110,7 +108,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_3() throws ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":201,\"room\":1}]";
+		String string="[{\"workstation\":50,\"floor\":201,\"room\":1}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -129,7 +127,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_4() throws ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":4,\"room\":shjdb}]";
+		String string="[{\"workstation\":50,\"floor\":4,\"room\":shjdb}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -147,7 +145,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_5() throws ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":4,\"room\":0}]";
+		String string="[{\"workstation\":50,\"floor\":4,\"room\":0}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -156,7 +154,6 @@ public class AddPlanimetryServletTest extends Mockito {
 		});
 
 	}
-
 
 	/**
 	 * Number of rooms inserted exceeds the maximum
@@ -167,7 +164,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_6() throws ServletException, IOException {
 
-		String string="[{\"workstations\":50,\"floor\":4,\"room\":25}]";
+		String string="[{\"workstation\":50,\"floor\":4,\"room\":25}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -185,18 +182,36 @@ public class AddPlanimetryServletTest extends Mockito {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void TC_3_1_7() throws ServletException, IOException {
-		String string="[{\"workstations\":50,\"floor\":5,\"room\":15}]";
-		int notExistingFloor = 5;
+		String string="[{\"workstation\":20,\"floor\":5,\"room\":15}]";
+		int existingFloor = 5;
+		int existingRoom = 15;
+		int existingWorkstation = 20;
 
-		IFloorDao floorDao = mock(IFloorDao.class);
+		Floor floor = new Floor();
+		floor.setAdmin(admin);
+		floor.setNumFloor(existingFloor);	
 
-		when(floorDao.create(any(Floor.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);		
-		when(floorDao.retrieveById(notExistingFloor)).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);
+		Room room = new Room();
+		room.setFloor(floor);
+		RoomPK roomPk = new RoomPK();
+		roomPk.setNumFloor(floor.getNumFloor());
+		roomPk.setNumRoom(existingRoom);
+		room.setId(roomPk);
 
-		servlet.setFloorDao(floorDao);
+		IWorkstationDao workstationDao = mock(IWorkstationDao.class);
+		Workstation workstation = new Workstation();
+		WorkstationPK workstationPK = new WorkstationPK();
+		workstationPK.setFloor(room.getId().getNumFloor());
+		workstationPK.setRoom(room.getId().getNumRoom());
+		workstationPK.setWorkstation(existingWorkstation);
+		workstation.setId(workstationPK);
+		workstation.setRoom(room);
+		when(workstationDao.create(any(Workstation.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
+		servlet.setWorkstationDao(workstationDao);
+
 		request.setParameter(JSON_STRING, string);
 
-		String errorMessage = "Errore nell'inserimento del piano " + notExistingFloor +" all'interno del database";
+		String errorMessage = "Errore nell'inserimento della postazione "+workstationPK.getWorkstation()+" per la stanza " + workstationPK.getRoom() + " del piano "+workstationPK.getFloor();
 
 		try {
 			servlet.doGet(request, response);
@@ -204,8 +219,7 @@ public class AddPlanimetryServletTest extends Mockito {
 			;
 		} finally {
 			assertTrue(response.getStatus()==HttpServletResponse.SC_BAD_REQUEST && response.getContentAsString().toString().contains(errorMessage));
-		}	
-
+		}
 	}
 
 	/**
@@ -217,7 +231,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_8() throws ServletException, IOException {
 
-		String string="[{\"workstations\":wdbkdhw,\"floor\":4,\"room\":2}]";
+		String string="[{\"workstation\":wdbkdhw,\"floor\":4,\"room\":2}]";
 
 		request.setParameter(JSON_STRING, string);
 
@@ -235,13 +249,12 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_9() throws ServletException, IOException {
 
-		String string="[{\"workstations\":0,\"floor\":4,\"room\":2}]";
+		String string="[{\"workstation\":0,\"floor\":4,\"room\":2}]";
 
 		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
 	}
 
@@ -254,13 +267,12 @@ public class AddPlanimetryServletTest extends Mockito {
 	@Test
 	public void TC_3_1_10() throws ServletException, IOException {
 
-		String string="[{\"workstations\":104,\"floor\":4,\"room\":2}]";
+		String string="[{\"workstation\":104,\"floor\":4,\"room\":2}]";
 
 		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
 	}
 
@@ -273,27 +285,36 @@ public class AddPlanimetryServletTest extends Mockito {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void TC_3_1_11() throws ServletException, IOException {
-		String string="[{\"workstations\":20,\"floor\":4,\"room\":8}]";
+		String string="[{\"workstation\":20,\"floor\":4,\"room\":8}]";
 		int existingFloor = 4;
-		int notExistingRoom = 8;
+		int existingRoom = 8;
+		int existingWorkstation = 20;
 
-		IFloorDao floorDao = mock(IFloorDao.class);
 		Floor floor = new Floor();
 		floor.setAdmin(admin);
-		floor.setNumFloor(existingFloor);
-		when(floorDao.create(any(Floor.class))).thenReturn(floor);		
-		when(floorDao.retrieveById(existingFloor)).thenReturn(floor);
+		floor.setNumFloor(existingFloor);	
 
-		servlet.setFloorDao(floorDao);
+		Room room = new Room();
+		room.setFloor(floor);
+		RoomPK roomPk = new RoomPK();
+		roomPk.setNumFloor(floor.getNumFloor());
+		roomPk.setNumRoom(existingRoom);
+		room.setId(roomPk);
 
-		IRoomDao roomDao = mock(IRoomDao.class);
+		IWorkstationDao workstationDao = mock(IWorkstationDao.class);
+		Workstation workstation = new Workstation();
+		WorkstationPK workstationPK = new WorkstationPK();
+		workstationPK.setFloor(room.getId().getNumFloor());
+		workstationPK.setRoom(room.getId().getNumRoom());
+		workstationPK.setWorkstation(existingWorkstation);
+		workstation.setId(workstationPK);
+		workstation.setRoom(room);
+		when(workstationDao.create(any(Workstation.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
+		servlet.setWorkstationDao(workstationDao);
 
-		when(roomDao.create(any(Room.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);	
-
-		servlet.setRoomDao(roomDao);
 		request.setParameter(JSON_STRING, string);
 
-		String errorMessage = "Errore nell'inserimento della stanza "+notExistingRoom+" per il piano " + existingFloor;
+		String errorMessage = "Errore nell'inserimento della postazione "+workstationPK.getWorkstation()+" per la stanza " + workstationPK.getRoom() + " del piano "+workstationPK.getFloor();
 
 		try {
 			servlet.doGet(request, response);
@@ -312,28 +333,21 @@ public class AddPlanimetryServletTest extends Mockito {
 	 */
 	@Test
 	public void TC_3_1_12() throws ServletException, IOException {
-		String string="[{\"workstations\":20,\"floor\":4,\"room\":5}]";
+		String string="[{\"workstation\":20,\"floor\":4,\"room\":5}]";
 		int existingFloor = 4;
-		int existingRoom = 8;
+		int existingRoom = 5;
 		int existingWorkstation = 20;
 
-		IFloorDao floorDao = mock(IFloorDao.class);
 		Floor floor = new Floor();
 		floor.setAdmin(admin);
 		floor.setNumFloor(existingFloor);
-		when(floorDao.create(any(Floor.class))).thenReturn(floor);		
-		when(floorDao.retrieveById(existingFloor)).thenReturn(floor);		
-		servlet.setFloorDao(floorDao);
 
-		IRoomDao roomDao = mock(IRoomDao.class);		
 		Room room = new Room();
 		room.setFloor(floor);
 		RoomPK roomPk = new RoomPK();
 		roomPk.setNumFloor(floor.getNumFloor());
 		roomPk.setNumRoom(existingRoom);
 		room.setId(roomPk);
-		when(roomDao.create(any(Room.class))).thenReturn(room);	
-		servlet.setRoomDao(roomDao);
 
 		IWorkstationDao workstationDao = mock(IWorkstationDao.class);
 		Workstation workstation = new Workstation();

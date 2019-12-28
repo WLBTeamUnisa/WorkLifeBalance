@@ -13,16 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mysql.cj.xdevapi.JsonParser;
-
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.bean.RoomPK;
 import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
-import it.unisa.wlb.model.dao.IFloorDao;
-import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 
 /**
@@ -39,17 +35,11 @@ public class AddPlanimetryServlet extends HttpServlet {
 	private final static String JSON_STRING = "jsonObject";
 	private final static String FLOOR = "floor";
 	private final static String ROOM = "room";
-	private final static String WORKSTATIONS = "workstations";	
+	private final static String WORKSTATIONS = "workstation";	
 	private final static int MAX_FLOOR = 200;
 	private final static int MAX_ROOM = 20;
 	private final static int MAX_WORKSTATIONS = 100;
 	private final static int MIN = 1;
-
-	@EJB
-	private IFloorDao floorDao;
-
-	@EJB
-	private IRoomDao roomDao;
 
 	@EJB
 	private IWorkstationDao workstationDao;
@@ -59,14 +49,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 	 */
 	public AddPlanimetryServlet() {
 		super();
-	}
-
-	public void setFloorDao(IFloorDao floorDao) {
-		this.floorDao = floorDao;
-	}
-
-	public void setRoomDao(IRoomDao roomDao) {
-		this.roomDao = roomDao;
 	}
 
 	public void setWorkstationDao(IWorkstationDao workstationDao) {
@@ -83,27 +65,30 @@ public class AddPlanimetryServlet extends HttpServlet {
 		/**
 		 Retrieving of the parameters from a string like this one:	
 
-		 [{"floor"=1,"room"=1,"workstations"=50},
-		 {"floor"=1,"room"=2,"workstations"=40},
-		 {"floor"=1,"room"=3,"workstations"=40},
-		 {"floor"=1,"room"=4,"workstations"=40},
-		 {"floor"=1,"room"=5,"workstations"=40},
-		 {"floor"=2,"room"=1,"workstations"=30},
-		 {"floor"=2,"room"=2,"workstations"=40},
-		 {"floor"=2,"room"=3,"workstations"=40},
-		 {"floor"=2,"room"=4,"workstations"=40},
-		 {"floor"=2,"room"=5,"workstations"=40},		 
+		 [{"floor"=1,"room"=1,"workstation"=50},
+		 {"floor"=1,"room"=2,"workstation"=40},
+		 {"floor"=1,"room"=3,"workstation"=40},
+		 {"floor"=1,"room"=4,"workstation"=40},
+		 {"floor"=1,"room"=5,"workstation"=40},
+		 {"floor"=2,"room"=1,"workstation"=30},
+		 {"floor"=2,"room"=2,"workstation"=40},
+		 {"floor"=2,"room"=3,"workstation"=40},
+		 {"floor"=2,"room"=4,"workstation"=40},
+		 {"floor"=2,"room"=5,"workstation"=40},		 
 		 ...]	 
 		 */
+		
 		String jsonString = request.getParameter(JSON_STRING);
-		System.out.println(jsonString);
-		JSONArray jsonArray =  new JSONArray();
-		//jsonArray.put(JsonParser.parseArray(jsonString));
+		JSONArray jsonArray =  new JSONArray(jsonString);
 
 		/**
 		 * floorsNumber mantains the number of floors currently inserted
 		 */
-		int floorsNumber = 0;				
+		int floorsNumber = 0;	
+		
+		Floor floor = null;
+		Room room = null;
+		Workstation workstation = null;
 
 		/**
 		 * Insertion of workstations of each room and each floor
@@ -114,7 +99,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 			int floorNumber = 0;
 			int roomNumber = 0;
 			int workstationsNumber = 0;
-
+			
 			/**
 			 * Retrieving the elements of the object
 			 */
@@ -124,24 +109,19 @@ public class AddPlanimetryServlet extends HttpServlet {
 				workstationsNumber = jsonObject.getInt(WORKSTATIONS);				
 			} catch (JSONException e) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Errore nel recupero della planimetia inserita");			
+				response.getWriter().write("\nErrore nel recupero della planimetia inserita");			
 				response.getWriter().flush();
 			}
-
-
+			
 			/**
 			 * Checking for the correctness of the parameters inserted
 			 */
 			if(floorNumber<MIN || floorNumber>MAX_FLOOR || roomNumber<MIN || roomNumber>MAX_ROOM || workstationsNumber<MIN || workstationsNumber>MAX_WORKSTATIONS) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("I parametri inseriti non rispettano il formato/lunghezza");			
+				response.getWriter().write("\nI parametri inseriti non rispettano il formato/lunghezza");			
 				response.getWriter().flush();
 				throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");					
 			}
-
-			Floor floor = null;
-			Room room = null;
-			Workstation workstation = null;
 
 			/**
 			 * This branch checks if the floor is already inserted into the database; if it would not exist, it will be inserted
@@ -150,26 +130,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 				floor = new Floor();
 				floor.setNumFloor(floorNumber);
 				floor.setAdmin(admin);
-
-				try {
-					floor = floorDao.create(floor);
-				} catch(Exception e) {
-					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Errore nell'inserimento del piano " + floor.getNumFloor() +" all'interno del database");			
-					response.getWriter().flush();
-				}
-
 				floorsNumber=floorNumber;
-			} else {
-
-				try {
-					floor = floorDao.retrieveById(floorNumber);
-				} catch (Exception e) {
-					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Errore nel recupero del piano " + floor +" dal database");			
-					response.getWriter().flush();
-				}
-
 			}
 
 			/**
@@ -181,13 +142,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 			roomPk.setNumFloor(floor.getNumFloor());
 			roomPk.setNumRoom(roomNumber);
 			room.setId(roomPk);
-			try {
-				room = roomDao.create(room);
-			} catch (Exception e) {
-				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Errore nell'inserimento della stanza "+roomPk.getNumRoom()+" per il piano " + roomPk.getNumFloor());			
-				response.getWriter().flush();
-			}
 
 			/**
 			 * Workstations insertion into the database
@@ -197,21 +151,21 @@ public class AddPlanimetryServlet extends HttpServlet {
 				WorkstationPK workstationPK = new WorkstationPK();
 				workstationPK.setFloor(room.getId().getNumFloor());
 				workstationPK.setRoom(room.getId().getNumRoom());
-				workstationPK.setWorkstation(j);
+				workstationPK.setWorkstation(j+1);
 				workstation.setId(workstationPK);
 				workstation.setRoom(room);
 				try {
 					workstation = workstationDao.create(workstation);
 				}catch(Exception e) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Errore nell'inserimento della postazione "+workstationPK.getWorkstation()+" per la stanza " + workstationPK.getRoom() + " del piano "+workstationPK.getFloor());			
+					response.getWriter().write("\nErrore nell'inserimento della postazione "+workstationPK.getWorkstation()+" per la stanza " + workstationPK.getRoom() + " del piano "+workstationPK.getFloor());			
 					response.getWriter().flush();
 				}		
 			}
-
-			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);			
+			
 		}
-
+		
+		request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 	}
 
 	/**
