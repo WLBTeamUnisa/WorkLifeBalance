@@ -11,31 +11,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IAdminDAO;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
-
-
-
+import it.unisa.wlb.model.bean.Project;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IProjectDAO;
 
 /**
- * Servlet implementation class AddProjectServlet
+ * Servlet implementation class ModifyProjectServlet
  */
-@WebServlet(name = "AddProjectServlet", urlPatterns = "/AddProjectServlet")
-public class AddProjectServlet extends HttpServlet {
+@WebServlet(name="ModifyProjectServlet", urlPatterns="/ModifyProjectServlet")
+public class ModifyProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
 	@EJB
 	private IProjectDAO projectDao;
+	
 	@EJB
 	private IEmployeeDAO employeeDao;
-	@EJB
-	private IAdminDAO adminDao;
 	
 	private static final String PROJECT_NAME = "name"; 
 	private static final String PROJECT_SCOPE = "scope";
@@ -43,30 +37,23 @@ public class AddProjectServlet extends HttpServlet {
 	private static final String PROJECT_END_DATE = "endDate";
 	private static final String PROJECT_DESCRIPTION = "description";
 	private static final String PROJECT_MANAGER = "managerEmail"; 
-	private static final String USER = "user";
 	private static final String USER_ROLE = "userRole";
 	
-    public AddProjectServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ModifyProjectServlet() {
         super();
-    }
-    
-    public AddProjectServlet(IProjectDAO projectDao, IEmployeeDAO employeeDao) {
-    	super();
-    	this.projectDao = projectDao;
-    	this.employeeDao = employeeDao;
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/**
-		 * Project Parameters
-		 */
-		Project project;
-
+		Project oldProject;
 		Employee manager;
-		Admin admin;
+		Employee oldManager;
 		String name;
 		String scope;
 		Date startDate;
@@ -86,7 +73,6 @@ public class AddProjectServlet extends HttpServlet {
 		boolean descriptionOk = false;
 		boolean managerEmailOk = false;
 		boolean roleOk = false;
-		//Ruolo admin 2 userRole attributo della sessione
 		
 		name = request.getParameter(PROJECT_NAME);
 		scope = request.getParameter(PROJECT_SCOPE);
@@ -95,8 +81,9 @@ public class AddProjectServlet extends HttpServlet {
 		endDateString = request.getParameter(PROJECT_END_DATE);
 		description = request.getParameter(PROJECT_DESCRIPTION);
 		managerEmail = request.getParameter(PROJECT_MANAGER);
-		admin = (Admin) request.getSession().getAttribute(USER);
-		userRole = (String) request.getSession().getAttribute(USER_ROLE);		
+		userRole = (String) request.getSession().getAttribute(USER_ROLE);
+		oldProject = (Project) request.getSession().getAttribute("oldProject");
+		oldManager = oldProject.getEmployee();
 		
 		/**
 		 * Project Parameters checks
@@ -133,7 +120,9 @@ public class AddProjectServlet extends HttpServlet {
 		try {
 			manager = employeeDao.retrieveByEmail(managerEmail);
 		} catch(Exception e) {
-			request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
+			String url= response.encodeURL("ProjectInsertion.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			dispatcher.forward(request, response);
 			throw new IllegalArgumentException();
 		}
 		
@@ -155,42 +144,40 @@ public class AddProjectServlet extends HttpServlet {
 				}
 			} catch(Exception e) {
 				// Annulla l'inserimento poichè il formato della data è errato
-				request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
+				String url= response.encodeURL("ProjectInsertion.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+				dispatcher.forward(request, response);
 				throw new IllegalArgumentException();
 			}
 		}
 		
 		if(nameOk && scopeOk && startDateOk && endDateOk && descriptionOk && managerEmailOk && roleOk) {
-			project = new Project();
-			project.setName(name);
-			project.setScope(scope);
-			project.setStartDate(startDate);
-			project.setEndDate(endDate);
-			project.setDescription(description);
-			project.setEmployee(manager);
-			project.setAdmin(admin);
-			manager.addProjects1(project);
-			employeeDao.update(manager);
-			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
-			request.setAttribute("Project", project);
-			request.setAttribute("manager", manager);
+			if(!managerEmail.equals(oldProject.getEmployee().getEmail())) {
+				oldManager.removeProjects1(oldProject);
+				manager.addProjects1(oldProject);
+				employeeDao.update(oldManager);
+			}
+			oldProject.setName(name);
+			oldProject.setScope(scope);
+			oldProject.setStartDate(startDate);
+			oldProject.setEndDate(endDate);
+			oldProject.setDescription(description);
+			oldProject.setEmployee(manager);			
+			projectDao.update(oldProject);
+			
 			request.setAttribute("result", "success");
 			String url = response.encodeURL("/AddEmployeesToProjectServlet");
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
-		} else {
-			request.getSession().removeAttribute("oldProject");
-			request.setAttribute("result", "error");
-			request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
-			throw new IllegalArgumentException();
 		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
-	
+
 }
