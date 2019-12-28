@@ -1,223 +1,353 @@
 package it.unisa.wlb.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import javax.servlet.ServletException;
-
-import org.json.*;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mockito;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import it.unisa.wlb.controller.AddPlanimetryServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.Room;
+import it.unisa.wlb.model.bean.RoomPK;
+import it.unisa.wlb.model.bean.Workstation;
+import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.dao.IFloorDao;
 import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+import javax.persistence.LockTimeoutException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * This test class follows the specification of the section "3.3.1 TC_3.1 Inserisci planimetria" of the document "Test Case Specification"
+ * 
+ * @author Sabato, Aniello
+ *
+ */
 public class AddPlanimetryServletTest extends Mockito {
-	
+
+	private final static String JSON_STRING = "jsonObject";
+
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddPlanimetryServlet servlet;
-	
-	private IFloorDao fDao;
-	private IRoomDao rDao;
-	private IWorkstationDao wDao;
-	
-	
+
+	private Admin admin;
+
 	@BeforeEach
 	public void setUp() {
 		servlet = new AddPlanimetryServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		
-		request.getSession().setAttribute("userRole", "Admin");
-		request.getSession().setAttribute("user", new Admin());
 
-}
-	
-	/*
-	 *  Floor field doesn't respect the specified format
+		admin = new Admin();
+
+		request.getSession().setAttribute("userRole", "Admin");
+		request.getSession().setAttribute("user", admin);
+	}
+
+
+	/**
+	 * Floor field doesn't respect the specified format
+	 * 
+	 * @throws UnsupportedEncodingException
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_1() throws UnsupportedEncodingException,ServletException, IOException {
-	
-		String str="[{\"workstations\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-		
+
 	}
 
-	/*
-	 * Number of floors inserted is less than 1
+	/**
+	 * Number of floors inserted is less than minimum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_2() throws ServletException, IOException {
 
-		String str="[{\"workstations\":50,\"floor\":0,\"room\":1}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+		String string="[{\"workstations\":50,\"floor\":0,\"room\":1}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-}
-	/*
-	 * Number of floors inserted is more than 200
+	}
+
+	/**
+	 * Number of floors inserted exceeds the maximum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_3() throws ServletException, IOException {
-	
-		String str="[{\"workstations\":50,\"floor\":200,\"room\":1}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":50,\"floor\":201,\"room\":1}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-}
-	/*
+	}
+
+
+	/**
 	 * Room field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_4() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":50,\"floor\":4,\"room\":shdha}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":50,\"floor\":4,\"room\":shjdb}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-}
-	/*
-	 * Number of rooms inserted is less than 1
+	}
+
+	/**
+	 * Number of rooms inserted is less than minimum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_5() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":50,\"floor\":4,\"room\":0}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":50,\"floor\":4,\"room\":0}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-	
-}
-	/*
-	 * Number of rooms inserted is more than 20
+
+	}
+
+
+	/**
+	 * Number of rooms inserted exceeds the maximum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_6() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":50,\"floor\":4,\"room\":25}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":50,\"floor\":4,\"room\":25}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-}
-	/*
+	}
+
+	/**
 	 * Floor inserted doesn't exists
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	public void TC_3_1_7() throws ServletException, IOException {
-		
-		Floor fl = new Floor();
-		fl.setNumFloor(4);
-		IFloorDao floordao = mock(IFloorDao.class);
-		when(floordao.countMax()==5).thenThrow(IllegalArgumentException.class);
-	
-			
-}
-	
-	/*
+		String string="[{\"workstations\":50,\"floor\":5,\"room\":15}]";
+		int notExistingFloor = 5;
+
+		IFloorDao floorDao = mock(IFloorDao.class);
+
+		when(floorDao.create(any(Floor.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);		
+		when(floorDao.retrieveById(notExistingFloor)).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);
+
+		servlet.setFloorDao(floorDao);
+		request.setAttribute(JSON_STRING, string);
+
+		String errorMessage = "Errore nell'inserimento del piano " + notExistingFloor +" all'interno del database";
+
+		try {
+			servlet.doGet(request, response);
+		} catch (Exception e) {			
+			;
+		} finally {
+			assertTrue(response.getStatus()==HttpServletResponse.SC_BAD_REQUEST && response.getContentAsString().toString().contains(errorMessage));
+		}	
+
+	}
+
+	/**
 	 * Workstation field doesn't respect the specified format
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_8() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":wdbkdhw,\"floor\":4,\"room\":5}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":wdbkdhw,\"floor\":4,\"room\":2}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
-			System.out.println(response.getContentAsString().toString());
 		});
-}
-	
-	/*
-	 * Number of workstation inserted is less than 0
+	}
+
+	/**
+	 * Number of workstation inserted is less than minimum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_9() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":0,\"floor\":4,\"room\":5}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":0,\"floor\":4,\"room\":2}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
 			System.out.println(response.getContentAsString().toString());
 		});
-}
-	
-	/*
-	 * Number of workstation inserted is more than 100
+	}
+
+	/**
+	 * Number of workstation inserted exceeds the maximum
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_10() throws ServletException, IOException {
-		
-		String str="[{\"workstations\":102,\"floor\":4,\"room\":5}]";
-		
-		request.setAttribute("jsonObject", str);
-		
+
+		String string="[{\"workstations\":104,\"floor\":4,\"room\":2}]";
+
+		request.setAttribute(JSON_STRING, string);
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
 			System.out.println(response.getContentAsString().toString());
 		});
-}
-	
-	/*
+	}
+
+	/**
 	 * Room inserted doesn't exists
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	public void TC_3_1_11() throws ServletException, IOException {
-		
-	
-}
-	
-	/*
+		String string="[{\"workstations\":20,\"floor\":4,\"room\":8}]";
+		int existingFloor = 4;
+		int notExistingRoom = 8;
+
+		IFloorDao floorDao = mock(IFloorDao.class);
+		Floor floor = new Floor();
+		floor.setAdmin(admin);
+		floor.setNumFloor(existingFloor);
+		when(floorDao.create(any(Floor.class))).thenReturn(floor);		
+		when(floorDao.retrieveById(existingFloor)).thenReturn(floor);
+
+		servlet.setFloorDao(floorDao);
+
+		IRoomDao roomDao = mock(IRoomDao.class);
+
+		when(roomDao.create(any(Room.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);	
+
+		servlet.setRoomDao(roomDao);
+		request.setAttribute(JSON_STRING, string);
+
+		String errorMessage = "Errore nell'inserimento della stanza "+notExistingRoom+" per il piano " + existingFloor;
+
+		try {
+			servlet.doGet(request, response);
+		} catch (Exception e) {			
+			;
+		} finally {
+			assertTrue(response.getStatus()==HttpServletResponse.SC_BAD_REQUEST && response.getContentAsString().toString().contains(errorMessage));
+		}
+	}
+
+	/**
 	 * Planimetry insertion ended with success
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_3_1_12() throws ServletException, IOException {
-		
-	
-}
+		String string="[{\"workstations\":20,\"floor\":4,\"room\":5}]";
+		int existingFloor = 4;
+		int existingRoom = 8;
+		int existingWorkstation = 20;
+
+		IFloorDao floorDao = mock(IFloorDao.class);
+		Floor floor = new Floor();
+		floor.setAdmin(admin);
+		floor.setNumFloor(existingFloor);
+		when(floorDao.create(any(Floor.class))).thenReturn(floor);		
+		when(floorDao.retrieveById(existingFloor)).thenReturn(floor);		
+		servlet.setFloorDao(floorDao);
+
+		IRoomDao roomDao = mock(IRoomDao.class);		
+		Room room = new Room();
+		room.setFloor(floor);
+		RoomPK roomPk = new RoomPK();
+		roomPk.setNumFloor(floor.getNumFloor());
+		roomPk.setNumRoom(existingRoom);
+		room.setId(roomPk);
+		when(roomDao.create(any(Room.class))).thenReturn(room);	
+		servlet.setRoomDao(roomDao);
+
+		IWorkstationDao workstationDao = mock(IWorkstationDao.class);
+		Workstation workstation = new Workstation();
+		WorkstationPK workstationPK = new WorkstationPK();
+		workstationPK.setFloor(room.getId().getNumFloor());
+		workstationPK.setRoom(room.getId().getNumRoom());
+		workstationPK.setWorkstation(existingWorkstation);
+		workstation.setId(workstationPK);
+		workstation.setRoom(room);
+		when(workstationDao.create(workstation)).thenReturn(workstation);			
+		servlet.setWorkstationDao(workstationDao);
+
+		request.setAttribute(JSON_STRING, string);
+
+		servlet.doGet(request, response);
+	}
 }

@@ -3,7 +3,6 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.persistence.EntityExistsException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +31,9 @@ import it.unisa.wlb.model.dao.IWorkstationDao;
  */
 @WebServlet(name = "AddPlanimetryServlet", urlPatterns = "/AddPlanimetryServlet")
 public class AddPlanimetryServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private final static String JSON_STRING = "jsonObject";
 	private final static String FLOOR = "floor";
 	private final static String ROOM = "room";
@@ -43,33 +42,45 @@ public class AddPlanimetryServlet extends HttpServlet {
 	private final static int MAX_ROOM = 20;
 	private final static int MAX_WORKSTATIONS = 100;
 	private final static int MIN = 1;
-	
+
 	@EJB
 	private IFloorDao floorDao;
-	
+
 	@EJB
 	private IRoomDao roomDao;
-	
+
 	@EJB
 	private IWorkstationDao workstationDao;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddPlanimetryServlet() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AddPlanimetryServlet() {
+		super();
+	}
+
+	public void setFloorDao(IFloorDao floorDao) {
+		this.floorDao = floorDao;
+	}
+
+	public void setRoomDao(IRoomDao roomDao) {
+		this.roomDao = roomDao;
+	}
+
+	public void setWorkstationDao(IWorkstationDao workstationDao) {
+		this.workstationDao = workstationDao;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		Admin admin = (Admin) request.getSession().getAttribute("user");
-		
+
 		/**
 		 Retrieving of the parameters from a string like this one:	
-		 	 
+
 		 [{"floor"=1,"room"=1,"workstations"=50},
 		 {"floor"=1,"room"=2,"workstations"=40},
 		 {"floor"=1,"room"=3,"workstations"=40},
@@ -84,22 +95,22 @@ public class AddPlanimetryServlet extends HttpServlet {
 		 */
 		String jsonString = (String) request.getAttribute(JSON_STRING);
 		JSONArray jsonArray =  new JSONArray(jsonString);
-		
+
 		/**
 		 * floorsNumber mantains the number of floors currently inserted
 		 */
 		int floorsNumber = 0;				
-		
+
 		/**
 		 * Insertion of workstations of each room and each floor
 		 */
 		for(int i=0; i<jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
-			
+
 			int floorNumber = 0;
 			int roomNumber = 0;
 			int workstationsNumber = 0;
-			
+
 			/**
 			 * Retrieving the elements of the object
 			 */
@@ -112,8 +123,8 @@ public class AddPlanimetryServlet extends HttpServlet {
 				response.getWriter().write("Errore nel recupero della planimetia inserita");			
 				response.getWriter().flush();
 			}
-			
-			
+
+
 			/**
 			 * Checking for the correctness of the parameters inserted
 			 */
@@ -123,11 +134,11 @@ public class AddPlanimetryServlet extends HttpServlet {
 				response.getWriter().flush();
 				throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");					
 			}
-			
+
 			Floor floor = null;
 			Room room = null;
 			Workstation workstation = null;
-			
+
 			/**
 			 * This branch checks if the floor is already inserted into the database; if it would not exist, it will be inserted
 			 */
@@ -135,18 +146,18 @@ public class AddPlanimetryServlet extends HttpServlet {
 				floor = new Floor();
 				floor.setNumFloor(floorNumber);
 				floor.setAdmin(admin);
-				
+
 				try {
-					floor = floorDao.create(floor);					
+					floor = floorDao.create(floor);
 				} catch(Exception e) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Errore nell'inserimento del piano " + floor.getNumFloor() +" all'interno del database");			
 					response.getWriter().flush();
 				}
-				
+
 				floorsNumber=floorNumber;
 			} else {
-				
+
 				try {
 					floor = floorDao.retrieveById(floorNumber);
 				} catch (Exception e) {
@@ -154,9 +165,9 @@ public class AddPlanimetryServlet extends HttpServlet {
 					response.getWriter().write("Errore nel recupero del piano " + floor +" dal database");			
 					response.getWriter().flush();
 				}
-				
+
 			}
-			
+
 			/**
 			 * Room insertions into the database
 			 */
@@ -173,7 +184,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 				response.getWriter().write("Errore nell'inserimento della stanza "+roomPk.getNumRoom()+" per il piano " + roomPk.getNumFloor());			
 				response.getWriter().flush();
 			}
-			
+
 			/**
 			 * Workstations insertion into the database
 			 */
@@ -193,11 +204,10 @@ public class AddPlanimetryServlet extends HttpServlet {
 					response.getWriter().flush();
 				}		
 			}
-			
-			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
-			
+
+			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);			
 		}
-		
+
 	}
 
 	/**
