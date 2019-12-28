@@ -56,7 +56,7 @@ public class ProjectJpa implements IProjectDAO {
 
   @Override
   public List<Project> searchByName(String name) {
-    Query query=entitymanager.createQuery("SELECT project FROM Project project WHERE LIKE :custName%");
+    Query query=entitymanager.createQuery("SELECT project FROM Project project WHERE project.name LIKE :CONCAT(:name,'%')");
     query.setParameter("custName", name);
     return (List<Project>) query.getResultList();
   }
