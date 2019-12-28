@@ -21,4 +21,5 @@ public interface IProjectDAO extends IGenericDAO<Project> {
   public void insertEmployeeToProject(String email, int id_project);
   
   public Project retrieveByName(String name);
+  
 }

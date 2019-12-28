@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
-
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -80,17 +80,11 @@
 									</form>
 								</div>
 
-								<ul class="list-group list-group-bordered" id="suggestionsList">
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
+								<ul class="list-group list-group-bordered" id="suggestionsList" style="overflow-y:scroll; height: 230px;">
+									<c:forEach items="${projectList}" var="project">
+									<li class="list-group-item"><a href="ShowProjectServlet?name=${project.name}"
+										class="mx-auto nav-link" style="color: #2f3640">${project.name}</a></li>							
+									</c:forEach>
 								</ul>
 
 								<a class="btn btn-success mt-3" href="ProjectInsertPage"

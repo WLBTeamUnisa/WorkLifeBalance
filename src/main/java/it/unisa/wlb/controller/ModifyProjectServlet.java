@@ -120,9 +120,7 @@ public class ModifyProjectServlet extends HttpServlet {
 		try {
 			manager = employeeDao.retrieveByEmail(managerEmail);
 		} catch(Exception e) {
-			String url= response.encodeURL("ProjectInsertion.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
+			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 			throw new IllegalArgumentException();
 		}
 		
@@ -144,9 +142,7 @@ public class ModifyProjectServlet extends HttpServlet {
 				}
 			} catch(Exception e) {
 				// Annulla l'inserimento poichè il formato della data è errato
-				String url= response.encodeURL("ProjectInsertion.jsp");
-				RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-				dispatcher.forward(request, response);
+				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 				throw new IllegalArgumentException();
 			}
 		}
@@ -166,16 +162,15 @@ public class ModifyProjectServlet extends HttpServlet {
 			projectDao.update(oldProject);
 			
 			request.setAttribute("result", "success");
-			String url = response.encodeURL("/AddEmployeesToProjectServlet");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
+			request.getSession().removeAttribute("oldProject");
+			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

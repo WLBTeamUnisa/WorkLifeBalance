@@ -39,7 +39,7 @@ public class ShowProjectServlet extends HttpServlet {
 		if(session.getAttribute("userRole").equals("Admin"))
 		{
 			String name=request.getParameter("name");
-			if(name!=null && name=="")
+			if(name!=null && name!="")
 			{
 				try
 				{
@@ -52,21 +52,24 @@ public class ShowProjectServlet extends HttpServlet {
 				catch(Exception ex)
 				{
 					request.setAttribute("result", "error");
-					request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
+					request.removeAttribute("projectList");
+					request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 				}
 			}
 			
 			else
 			{
 				request.setAttribute("result", "error");
-				request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
+				request.removeAttribute("projectList");
+				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 			}
 		}
 		
 		else
 		{
 			request.setAttribute("result", "error");
-			request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
+			request.removeAttribute("projectList");
+			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
 
