@@ -77,7 +77,7 @@
 												<tbody>
 
 													<tr>
-														<td>Giorno 1</td>
+														<td>Giorno 1 </td>
 														<td><span align="center"><i
 																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
 														<td></td>
@@ -114,7 +114,7 @@
 													</div>
 												</tbody>
 											</table>
-
+										<!-- FINE CARD-BODY EMPLOYEE-->
 										</div>
 
 									</c:if>
@@ -165,16 +165,11 @@
 													</div>
 												</tbody>
 											</table>
+										<!-- FINE CARD-BODY MANAGER -->
 										</div>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
-
-							<!-- FINE CARD-BODY -->
-
-
-
-
 							<!-- FINE CARD -->
 						</div>
 
