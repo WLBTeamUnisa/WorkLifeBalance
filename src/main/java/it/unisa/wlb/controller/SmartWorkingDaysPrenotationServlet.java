@@ -27,7 +27,9 @@ import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 
 /**
- * Servlet implementation class SmartWorkingDaysPrenotationServlet
+ * Implementation of SmartWorkingDaysPrenotationServlet
+ * 
+ * @author Luigi Cerrone, Vincenzo Fabiano
  */
 @WebServlet("/SmartWorkingDaysPrenotationServlet")
 public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
@@ -39,18 +41,21 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	@EJB
 	private IPrenotationDateDAO prenotationDateDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public SmartWorkingDaysPrenotationServlet() {
         super();
-        // TODO Auto-generated constructor stub
+    }
+    
+    public void setSmartWorkingPrenotationDao(ISmartWorkingPrenotationDAO swDao) {
+    	this.smartWorkingDao = swDao;
+    }
+   
+    public void setPrenotationDateDao(IPrenotationDateDAO pdDao) {
+    	this.prenotationDateDao = pdDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("user");
@@ -66,17 +71,26 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		int currentCalendarWeek = localCalendar.get(Calendar.WEEK_OF_YEAR);
 		int lastWeekOfYear = localCalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
 		/**
-		 * Check if employee is null
+		 * Checking if employee is null
 		 */
 		if(employee != null) {
 			
 			String[] arrayDates = request.getParameterValues("dates");
 			
+			/**
+			 * Checking size of dateList
+			 */
+			if(arrayDates.length > 3) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().write("Non puoi prenotare più di 3 date");
+				response.getWriter().flush();
+			}
+			
 			LocalDate localDate;
 			List<LocalDate> dateList=new ArrayList<LocalDate>();
 			Calendar bookingCalendar;
 			/**
-			 * Check format of dates and add them to the array dateList
+			 * Checking format of dates and add them to the array dateList
 			 */
 			for(int i=0; i < arrayDates.length; i++) {
 				
@@ -106,62 +120,56 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			}
 		
 			/**
-			 * Check size of dateList
+			 * Creating Smart Working Prenotation
 			 */
-			if(dateList.size()>3)
-			{
-				request.setAttribute("result", "DateSizeError");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp");
-	        	dispatcher.forward(request, response);
-			}
-			/**
-			 * Create Smart Working Prenotation
-			 */
-			SmartWorkingPrenotation smartWookBooking = new SmartWorkingPrenotation();
+			SmartWorkingPrenotation smartWorkBooking = new SmartWorkingPrenotation();
 			 
 			if(lastWeekOfYear==currentCalendarWeek){
 					
-				smartWookBooking.setCalendarWeek(1);
-				smartWookBooking.setYear(localCalendar.get(Calendar.YEAR)+1);
+				smartWorkBooking.setCalendarWeek(1);
+				smartWorkBooking.setYear(localCalendar.get(Calendar.YEAR)+1);
 				
 			} else {
 				
-				smartWookBooking.setCalendarWeek(currentCalendarWeek+1);
-				smartWookBooking.setYear(localCalendar.get(Calendar.YEAR));
+				smartWorkBooking.setCalendarWeek(currentCalendarWeek+1);
+				smartWorkBooking.setYear(localCalendar.get(Calendar.YEAR));
 				
 			}
 			
-			smartWookBooking.setEmployee(employee);
+			smartWorkBooking.setEmployee(employee);
 			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
 			pk.setEmployeeEmail(employee.getEmail());
-			smartWookBooking.setId(pk);
-			smartWorkingDao.create(smartWookBooking);
+			smartWorkBooking.setId(pk);
+			smartWorkingDao.create(smartWorkBooking);
+			int idSmartWorking = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail()).getId().getId();
 			
+			pk.setId(idSmartWorking);
+			smartWorkBooking.setId(pk);
 			/**
 			 * Add Prenotation Dates for inserted Smart Working Prenotation 
 			 */
 			List<PrenotationDate> PrenotationDateList=new ArrayList<PrenotationDate>();
-			
 			for(int i = 0; i < dateList.size(); i++) {
 				
 				PrenotationDate prenotationDate=new PrenotationDate();
 				PrenotationDatePK prenotationDatePK=new PrenotationDatePK();
 				prenotationDatePK.setDate(Date.from(dateList.get(i).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
 				prenotationDatePK.setEmployeeEmail(employee.getEmail());
-				prenotationDatePK.setIdPrenotationSw(smartWorkingDao.retrieveByWeeklyPlanning(smartWookBooking.getCalendarWeek(), smartWookBooking.getYear(), smartWookBooking.getEmployee().getEmail()).getId().getId());
+				prenotationDatePK.setIdPrenotationSw(idSmartWorking);
 				prenotationDate.setId(prenotationDatePK);
 				PrenotationDateList.add(prenotationDate);
 				prenotationDateDao.create(prenotationDate);
-				
 			}
 			
+			smartWorkBooking.setPrenotationDates(PrenotationDateList);
+			smartWorkingDao.update(smartWorkBooking);
 			request.setAttribute("result", "ok");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
         	dispatcher.forward(request, response);
         	
 		} else {
 			/**
-			 * If user is not logged
+			 * Checking if user is not logged
 			 */
 			request.setAttribute("result", "NotLogged");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
@@ -170,12 +178,11 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
 	}
 
 }
+
+
 
