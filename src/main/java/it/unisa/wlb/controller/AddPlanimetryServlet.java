@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mysql.cj.xdevapi.JsonParser;
+
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.Room;
@@ -94,7 +96,9 @@ public class AddPlanimetryServlet extends HttpServlet {
 		 ...]	 
 		 */
 		String jsonString = request.getParameter(JSON_STRING);
-		JSONArray jsonArray =  new JSONArray(jsonString);
+		System.out.println(jsonString);
+		JSONArray jsonArray =  new JSONArray();
+		//jsonArray.put(JsonParser.parseArray(jsonString));
 
 		/**
 		 * floorsNumber mantains the number of floors currently inserted
