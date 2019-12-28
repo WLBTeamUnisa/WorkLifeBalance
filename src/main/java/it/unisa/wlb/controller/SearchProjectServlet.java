@@ -50,24 +50,28 @@ public class SearchProjectServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String projectName;
-		projectName = request.getParameter("projectName");
+		projectName = request.getParameter("name");
+		System.out.println(projectName);
 		List<Project> list = null;
 		
 		JSONArray projectList = new JSONArray();
 		
 		if(projectName != null && !projectName.equals("")) {
 			list = projectDao.searchByName(projectName);
-			for(Project project : list) {
+			System.out.println(list.get(0).getName());
+			for(int i = 0; i < list.size(); i++) {
 				JSONObject object = new JSONObject();
-				object.put("name", project.getName());
+				object.put("name", list.get(i).getName());
 				projectList.put(object);
-			}
+			} 
+			System.out.println(projectList.toString());
+			response.setContentType("application/json");
+	        response.getWriter().append(projectList.toString());
 		}
 		
-		 response.setContentType("application/json");
-         response.getWriter().append(projectList.toString());
+		 
 	}
 
 	/**

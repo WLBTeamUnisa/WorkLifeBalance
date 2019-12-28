@@ -73,13 +73,14 @@
 													<i class="fa fa-search search-icon"></i>
 												</button>
 											</div>
-											<input type="text" placeholder="Search ..."
-												class="form-control">
+											<input type="text" placeholder="Search ... "
+												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
+								<!--  		<datalist id="suggestions"></datalist>  -->
 									</form>
 								</div>
 
-								<ul class="list-group list-group-bordered">
+								<ul class="list-group list-group-bordered" id="suggestionsList">
 									<li class="list-group-item"><a href="#"
 										class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
 									<li class="list-group-item"><a href="#"
@@ -146,6 +147,34 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+	
+	<script>
+	
+		function Suggestions(name) {
+	
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	
+					var lista = JSON.parse(this.responseText);
+	
+					var options = "";
+					var suggestionsList = "";
+					
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].name + "</option>";
+						suggestionsList += "<li class='list-group-item'><a href='#'class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + "</a></li>";
+					}
+					console.log(options);
+				
+					document.getElementById("suggestionsList").innerHTML = suggestionsList;
+				}
+			}
+			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
+			xhttp.send();
+		}
+	
+	</script>
 
 </body>
 </html>

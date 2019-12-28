@@ -13,7 +13,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="PROJECT")
-@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
+@NamedQueries({
+	@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p"),
+	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')")
+})
+
 public class Project implements Serializable {
   private static final long serialVersionUID = 1L;
 
