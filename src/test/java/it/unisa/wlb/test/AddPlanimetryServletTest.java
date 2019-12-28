@@ -75,7 +75,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -94,7 +94,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":0,\"room\":1}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -112,7 +112,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":201,\"room\":1}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -131,7 +131,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":4,\"room\":shjdb}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -149,7 +149,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":4,\"room\":0}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -169,7 +169,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":50,\"floor\":4,\"room\":25}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -194,7 +194,7 @@ public class AddPlanimetryServletTest extends Mockito {
 		when(floorDao.retrieveById(notExistingFloor)).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);
 
 		servlet.setFloorDao(floorDao);
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		String errorMessage = "Errore nell'inserimento del piano " + notExistingFloor +" all'interno del database";
 
@@ -219,7 +219,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":wdbkdhw,\"floor\":4,\"room\":2}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -237,7 +237,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":0,\"floor\":4,\"room\":2}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -256,7 +256,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 		String string="[{\"workstations\":104,\"floor\":4,\"room\":2}]";
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doGet(request, response);
@@ -291,7 +291,7 @@ public class AddPlanimetryServletTest extends Mockito {
 		when(roomDao.create(any(Room.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);	
 
 		servlet.setRoomDao(roomDao);
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		String errorMessage = "Errore nell'inserimento della stanza "+notExistingRoom+" per il piano " + existingFloor;
 
@@ -346,7 +346,7 @@ public class AddPlanimetryServletTest extends Mockito {
 		when(workstationDao.create(workstation)).thenReturn(workstation);			
 		servlet.setWorkstationDao(workstationDao);
 
-		request.setAttribute(JSON_STRING, string);
+		request.setParameter(JSON_STRING, string);
 
 		servlet.doGet(request, response);
 	}

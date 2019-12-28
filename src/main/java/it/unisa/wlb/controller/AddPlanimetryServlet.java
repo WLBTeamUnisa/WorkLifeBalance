@@ -93,7 +93,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 		 {"floor"=2,"room"=5,"workstations"=40},		 
 		 ...]	 
 		 */
-		String jsonString = (String) request.getAttribute(JSON_STRING);
+		String jsonString = request.getParameter(JSON_STRING);
 		JSONArray jsonArray =  new JSONArray(jsonString);
 
 		/**
