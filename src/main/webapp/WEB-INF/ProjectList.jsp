@@ -90,7 +90,7 @@
 											<div class="my-auto text-center p-5">
 												<h3>Non esistono progetti.</h3>
 											</div>
-										</c:if> 
+										</c:if>
 									</ul>
 								</div>
 
