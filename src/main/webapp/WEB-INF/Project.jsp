@@ -99,8 +99,8 @@
 											</div>
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate"
-												onblur="verificaDataInizio()"
-													value="${oldProject.startDate}" required>
+												value="${startDate}" onkeyup="verificaDataInizio()"
+												 required>
 										</div>
 
 
@@ -111,8 +111,8 @@
 													class="fas fa-calendar-minus"></i></span>
 											</div>
 											<input type="date" class="form-control text-center"
-												name=endDate id="endDate" onblur="verificaDataFine()"
-												value="${oldProject.endDate}" required>
+												name=endDate id="endDate" onkeyup="verificaDataFine()"
+												value="${endDate}" required>
 										</div>
 
 
@@ -124,7 +124,7 @@
 											</div>
 											<textarea name="description" id="description"
 												class="form-control text-center"
-												onblur="verificaDescrizione()" 
+												onkeyup="verificaDescrizione()" 
 												required>${oldProject.description}</textarea>
 										</div>
 
@@ -144,7 +144,7 @@
 
 										<div class="col-lg-4 mx-auto">
 											<button type="submit" class="btn btn-success"
-												id="insertButton" disabled>Modifica</button>
+												id="insertButton">Modifica</button>
 										</div>
 
 										<!-- FINE CONTAINER -->
@@ -204,12 +204,12 @@
 	<script src="js/atlantis.min.js"></script>
 
 	<script>
-		var nomeOK = false;
-		var scopeOK = false;
-		var dataInizioOK = false;
-		var dataFineOK = false;
-		var descrizioneOK = false;
-		var managerOK = false;
+		var nomeOK = true;
+		var scopeOK = true;
+		var dataInizioOK = true;
+		var dataFineOK = true;
+		var descrizioneOK = true;
+		var managerOK = true;
 		//TEMPLATE
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
@@ -304,6 +304,20 @@
 				btn.css("background-color", "#d6d6d6");
 				btn.css("color", "#ffffff");
 			}
+		}
+		
+		function setStartDate() {
+			$(document).ready(function() {
+				var date = "${startDate}";
+				$("#startDate").val(date);
+			})
+		}
+		
+		function setEndDate() {
+			$(document).ready(function() {
+				var date = "${startDate}";
+				$("#startDate").val(date);
+			})
 		}
 		
 	</script>

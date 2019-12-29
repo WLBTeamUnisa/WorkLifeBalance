@@ -1,6 +1,6 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -69,9 +69,7 @@
 									<form class="navbar-left navbar-form nav-search">
 										<div class="input-group">
 											<div class="input-group-prepend">
-												<button type="submit" class="btn btn-search pr-1">
-													<i class="fa fa-search search-icon"></i>
-												</button>
+													<i class="fa fa-search search-icon my-auto ml-2"></i>
 											</div>
 											<input type="text" placeholder="Search ... "
 												class="form-control" onkeyup="Suggestions(this.value)">

@@ -1,6 +1,9 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -43,7 +46,23 @@ public class ShowProjectServlet extends HttpServlet {
 			{
 				try
 				{
+					String startDateString;
+					String endDateString;;
+					
 					Project project=projectDao.retrieveByName(name);
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					Calendar calendar = Calendar.getInstance();
+					
+					calendar.setTime(project.getStartDate());
+					calendar.add(Calendar.DAY_OF_MONTH, 1);
+					startDateString = formatter.format(calendar.getTime());
+					
+					calendar.setTime(project.getEndDate());
+					calendar.add(Calendar.DAY_OF_MONTH, 1);
+					endDateString = formatter.format(calendar.getTime());
+					
+					session.setAttribute("startDate", startDateString);
+					session.setAttribute("endDate", endDateString);
 					session.setAttribute("oldProject",project);
 					request.setAttribute("result", "ok");
 					request.getRequestDispatcher("WEB-INF/Project.jsp").forward(request, response);
