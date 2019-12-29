@@ -29,7 +29,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * @param email
 	 * @return a list of Employees whose email contains the email specified
 	 */
-	public List<Employee> searchByEmail(String email);
+	public List<Employee> suggestByEmail(String email);
 
 	/**
 	 * It is used to retrieve the list of Employees who is working to a particular project
@@ -44,7 +44,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * 
 	 * @param email
 	 * @param password
-	 * @return
+	 * @return an Employee
 	 */
 	public Employee retrieveByEmailPassword(String email, String password);
 	
@@ -52,7 +52,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * It is used to retrieve an Employee through his email for suggests
 	 * 
 	 * @param email
-	 * @return
+	 * @return a list of Employees
 	 */
 	public List<Employee> retrieveSuggestsEmployeeByEmail(String email);
 	

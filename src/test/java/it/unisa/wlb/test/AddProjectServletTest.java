@@ -3,8 +3,11 @@ package it.unisa.wlb.test;
 import java.io.IOException;
 import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
+import it.unisa.wlb.controller.EmployeeRegistrationServlet;
+import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.model.jpa.ProjectJpa;
 
@@ -27,6 +30,7 @@ public class AddProjectServletTest extends Mockito {
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
 	private IProjectDAO pDao;
+	private IEmployeeDAO eDao;
 
 
 
@@ -36,6 +40,8 @@ public class AddProjectServletTest extends Mockito {
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		pDao = mock(IProjectDAO.class);
+		request.getSession().setAttribute("userRole", "Admin");
+		request.getSession().setAttribute("user", new Admin());
 	}
 
 
@@ -91,6 +97,7 @@ public class AddProjectServletTest extends Mockito {
 	@Test
 	public void TC_2_2_4() throws ServletException, IOException {
 		
+		String commonName = "WLB13PO";
 		Project pr = new Project();
 		Date dateS = new Date(2019,11,02);
 		Date dateE = new Date(2019,12,02);
@@ -98,18 +105,21 @@ public class AddProjectServletTest extends Mockito {
 		List<Employee> li = new ArrayList<Employee>();
 		li.add(em);
 		
-	    pr.setName("WLB13PO");
+		pr.setName("WLB13PO");
 	    pr.setScope("SmartWorking");
 	    pr.setStartDate(dateS);
 	    pr.setEndDate(dateE);
 	    pr.setDescription("Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
 	    pr.setEmployees(li);
 	    pr.setEmployee(em);
+		
+		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(projectDao.retrieveByName(commonName)).thenReturn(pr);		
+		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
+	   
 	    
-	    
-	    pr = pDao.create(pr);
-	    
-		request.addParameter("name", "WLB13PO");
+		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
 		request.addParameter("endDate", "2019-12-02");
@@ -119,10 +129,9 @@ public class AddProjectServletTest extends Mockito {
 		request.addParameter("employee", "m.bianchi1@wlb.it");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
-			servlet.doPost(request, response);
+			tmp.doPost(request, response);
 		});
-		
-		pDao.remove(pr);
+
 	}
 
 	// scope field not inserted  -  TC_2.2_5
@@ -321,7 +330,26 @@ public class AddProjectServletTest extends Mockito {
 	// Project inserted with succcess  -  TC_2.2_17
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
-		request.addParameter("name", "WLB13PO");
+		
+		String commonName = "WLB13PO";
+		Project pr = new Project();
+		String managerEmail = "m.rossi1@wlb.it";
+		Employee manager = new Employee();
+		manager.setEmail(managerEmail);
+		manager.setStatus(1);
+		Date dateS = new Date(2019,11,02);
+		Date dateE = new Date(2019,12,02);
+		Employee em = new Employee();
+		List<Employee> li = new ArrayList<Employee>();
+		li.add(em);
+		
+		IProjectDAO projectDao = mock(IProjectDAO.class);
+		when(projectDao.retrieveByName(commonName)).thenReturn(pr);	
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.retrieveByEmail(managerEmail)).thenReturn(manager);
+		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
+		
+		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
 		request.addParameter("endDate", "2019-12-02");
@@ -329,7 +357,7 @@ public class AddProjectServletTest extends Mockito {
 		request.addParameter("description", "Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
 		request.addParameter("employeesList", "1");
 		request.addParameter("employee", "m.bianchi1@wlb.it");
-		servlet.doPost(request, response);
+		tmp.doPost(request, response);
 		assertEquals("success", request.getAttribute("result"));
 	}
 	

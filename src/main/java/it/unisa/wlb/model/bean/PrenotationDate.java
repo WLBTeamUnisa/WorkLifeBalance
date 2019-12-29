@@ -20,6 +20,7 @@ import org.hibernate.annotations.NotFoundAction;
 })
 
 public class PrenotationDate implements Serializable {
+
   private static final long serialVersionUID = 1L;
 
   @EmbeddedId

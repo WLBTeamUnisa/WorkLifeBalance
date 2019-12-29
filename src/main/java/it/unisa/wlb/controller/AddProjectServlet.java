@@ -47,6 +47,12 @@ public class AddProjectServlet extends HttpServlet {
     public AddProjectServlet() {
         super();
     }
+    
+    public AddProjectServlet(IProjectDAO projectDao, IEmployeeDAO employeeDao) {
+    	super();
+    	this.projectDao = projectDao;
+    	this.employeeDao = employeeDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -168,7 +174,13 @@ public class AddProjectServlet extends HttpServlet {
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
 			request.setAttribute("manager", manager);
+/*<<<<<<< HEAD
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
+=======*/
+			request.setAttribute("result", "success");
+			String url = response.encodeURL("/AddEmployeesToProjectServlet");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+//>>>>>>> 56e98cc77cfd7d8f59d934d0f364226a7a786b26
 			dispatcher.forward(request, response);
 		} else {
 			request.getSession().removeAttribute("lista_dipendenti");

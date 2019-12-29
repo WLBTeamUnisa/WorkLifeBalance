@@ -82,11 +82,12 @@
 												</button>
 											</div>
 											<input type="text" placeholder="Search ..."
-												class="form-control">
+												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
 									</form>
 								</div>
 
+								<!--  LISTA STATICA
 								<ul class="list-group list-group-bordered">
 									<li class="list-group-item"><a href="#"
 										class="mx-auto nav-link" style="color: #2f3640">Dipendente
@@ -104,7 +105,15 @@
 										class="mx-auto nav-link" style="color: #2f3640">Dipendente
 											5</a></li>
 								</ul>
+									-->
 
+									<ul class="list-group list-group-bordered" id="suggestionsList" style="overflow-y:scroll; height: 230px;">
+										<c:forEach items="${employeeList}" var="employee">
+										<li class="list-group-item"><a href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
+											class="mx-auto nav-link" style="color: #2f3640">${employee.email}</a></li>							
+										</c:forEach>
+									</ul>
+	
 								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
 									role="button">Inserisci nuovo dipendente</a>
 
@@ -169,6 +178,35 @@
 			window.onload = sweetalertclick;
 		</script>
 	</c:if>
+
+	<script>
+	
+		function Suggestions(email) {
+	
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	
+					var lista = JSON.parse(this.responseText);
+	
+					var options = "";
+					var suggestionsList = "";
+					
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + "</a></li>";
+					}
+					console.log(options);
+				
+					document.getElementById("suggestionsList").innerHTML = suggestionsList;
+				}
+			}
+			xhttp.open("GET", "SearchEmployeeServlet?email=" + email, true);
+			xhttp.send();
+		}
+	
+	</script>
+
 
 </body>
 </html>

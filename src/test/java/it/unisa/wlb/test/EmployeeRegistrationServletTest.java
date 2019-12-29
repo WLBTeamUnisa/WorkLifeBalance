@@ -6,7 +6,6 @@ import it.unisa.wlb.controller.EmployeeRegistrationServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -25,24 +24,22 @@ import javax.servlet.ServletException;
  *
  */
 public class EmployeeRegistrationServletTest extends Mockito {
-	
+
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private EmployeeRegistrationServlet servlet;
-	
-	private IEmployeeDAO pDao;
-	
+
 	@BeforeEach
 	public void setUp() {
 		servlet = new EmployeeRegistrationServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		pDao = mock(IEmployeeDAO.class);
 	}
-	
-	
+
+
 	/**
 	 * "name" field doesn't respect the specified lenght
+	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
@@ -58,7 +55,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "name" field doesn't respect the specified lenght
 	 * 
@@ -77,7 +74,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "name" field doesn't respect the specified format
 	 * 
@@ -96,7 +93,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "surname" field doesn't respect the specified lenght
 	 * 
@@ -115,7 +112,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "surname" field doesn't respect the specified lenght
 	 * 
@@ -134,8 +131,8 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
-	 
+
+
 	/**
 	 * "surname" field doesn't respect the specified format
 	 * 
@@ -154,8 +151,8 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
-	
+
+
 	/**
 	 * "email" field doesn't respect the specified lenght
 	 * 
@@ -174,7 +171,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "email" field doesn't respect the specified lenght
 	 * 
@@ -193,8 +190,8 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
-	
+
+
 	/**
 	 * "email" field doesn't respect the specified format
 	 * 
@@ -213,39 +210,44 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
-	 * "email" field doesn't exist into database
+	 * "email" field already exists in the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test 
-	public void TC_1_1_10() throws ServletException, IOException {
+	public void TC_1_1_10() throws ServletException, IOException {		
+		
+		String commonEmail = "m.rossi1@wlb.it";
 		
 		Employee employee = new Employee();
 		employee.setName("Marco");
 		employee.setSurname("Rossi");
-		employee.setEmail("m.rossi1@wlb.it");
+		employee.setEmail(commonEmail);
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(1);
 		
-		pDao.create(employee);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.retrieveByEmail(commonEmail)).thenReturn(employee);		
 		
+		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);
+
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
-		request.addParameter("email", "m.ross1@wlb.it");
+		request.addParameter("email", commonEmail);
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
-			servlet.doGet(request, response);
+			tmp.doGet(request, response);
 		});
-		
-		 pDao.remove(employee);
 	}
 	
+
+
 	/**
 	 * "password" field doesn't respect the specified lenght
 	 * 
@@ -264,7 +266,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "password" field doesn't respect the specified lenght
 	 * 
@@ -283,7 +285,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "password" field doesn't respect the specified lenght
 	 * 
@@ -302,7 +304,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "password" field doesn't respect the specified format
 	 * 
@@ -321,7 +323,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "verify password" field doesn't respect the specified lenght
 	 * 
@@ -340,7 +342,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "verify password" field doesn't respect the specified format
 	 * 
@@ -359,7 +361,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "password" field and verify password field doesn't correspond
 	 * 
@@ -378,7 +380,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * "status" field not inserted
 	 * 
@@ -397,7 +399,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 			servlet.doGet(request, response);
 		});
 	}
-	
+
 	/**
 	 * Employee/Manager registration ended with success
 	 * 
@@ -405,17 +407,29 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	 * @throws IOException
 	 */
 	@Test 
-	public void TC_1_1_19() throws ServletException, IOException {
+	public void TC_1_1_19() throws ServletException, IOException {	
 		
+		Employee employee = new Employee();
+		employee.setName("Marco");
+		employee.setSurname("Rossi");
+		employee.setEmail("m.rossi1@wlb.it");
+		employee.setPassword("MarcoRossi1.");
+		employee.setStatus(1);
+		
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		when(employeeDao.create(employee)).thenReturn(employee);		
+		
+		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);
+
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi");
 		request.addParameter("email", "m.rossi1@wlb.it");
 		request.addParameter("password", "MarcoRossi1.");
 		request.addParameter("verifyPassword","MarcoRossi1.");
 		request.addParameter("status", "Manager");
-		servlet.doGet(request, response);
+		tmp.doGet(request, response);
 		assertEquals("success", request.getAttribute("result"));
-		
+
 	}
 
 }

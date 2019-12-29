@@ -93,21 +93,21 @@ public class EmployeeJpa implements IEmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> searchByEmail(String email) {
+	public List<Employee> suggestByEmail(String email) {
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.searchByEmail", Employee.class);
+			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findSuggestsByEmail", Employee.class);
 			query.setParameter("email", email);
 			entityManager.getTransaction().commit();
 			return (List<Employee>) query.getResultList();
 		}
-
+		
 		finally {
 			entityManager.close();
 		}
 	}
-
+	
 	@Override
 	public List<Employee> retrieveByProjectId(String ProjectId) {
 		// TODO Auto-generated method stub

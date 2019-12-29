@@ -9,49 +9,57 @@ import javax.persistence.*;
  */
 @Embeddable
 public class RoomPK implements Serializable {
-  //default serial version id, required for serializable classes.
-  private static final long serialVersionUID = 1L;
-  
-  @Column(name="NUM_ROOM", columnDefinition="int(2)", nullable=false)
-  private int numRoom;
 
-  @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
-  private int numFloor;
+	//default serial version id, required for serializable classes.
+	private static final long serialVersionUID = 1L;
 
-  public RoomPK() {
-  }
-  public int getNumRoom() {
-    return this.numRoom;
-  }
-  public void setNumRoom(int numRoom) {
-    this.numRoom = numRoom;
-  }
-  public int getNumFloor() {
-    return this.numFloor;
-  }
-  public void setNumFloor(int numFloor) {
-    this.numFloor = numFloor;
-  }
+	@Column(name="NUM_ROOM", columnDefinition="int(2)", nullable=false)
+	private int numRoom;
 
-  public boolean equals(Object other) {
-    if (this == other) {
-      return true;
-    }
-    if (!(other instanceof RoomPK)) {
-      return false;
-    }
-    RoomPK castOther = (RoomPK)other;
-    return 
-        (this.numRoom == castOther.numRoom)
-        && (this.numFloor == castOther.numFloor);
-  }
+	@Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
+	private int numFloor;
 
-  public int hashCode() {
-    final int prime = 31;
-    int hash = 17;
-    hash = hash * prime + this.numRoom;
-    hash = hash * prime + this.numFloor;
+	public RoomPK() {
+	}
+	public int getNumRoom() {
+		return this.numRoom;
+	}
+	public void setNumRoom(int numRoom) {
+		this.numRoom = numRoom;
+	}
+	public int getNumFloor() {
+		return this.numFloor;
+	}
+	public void setNumFloor(int numFloor) {
+		this.numFloor = numFloor;
+	}
 
-    return hash;
-  }
+	@Override
+	public String toString() {
+		return "RoomPK [numRoom=" + numRoom + ", numFloor=" + numFloor + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + numFloor;
+		result = prime * result + numRoom;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RoomPK other = (RoomPK) obj;
+		if (numFloor != other.numFloor)
+			return false;
+		if (numRoom != other.numRoom)
+			return false;
+		return true;
+	}
+
 }

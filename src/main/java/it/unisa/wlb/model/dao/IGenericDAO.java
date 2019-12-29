@@ -40,7 +40,7 @@ public interface IGenericDAO<E> {
 	/**
 	 * It is used to retrieve all the instances of an entity from the database
 	 * 
-	 * @return
+	 * @return a list of E
 	 */
 	public List<E> retrieveAll();
 	
