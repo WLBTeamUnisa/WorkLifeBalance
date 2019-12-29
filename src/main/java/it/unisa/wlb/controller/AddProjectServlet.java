@@ -167,8 +167,6 @@ public class AddProjectServlet extends HttpServlet {
 			project.setDescription(description);
 			project.setEmployee(manager);
 			project.setAdmin(admin);
-			manager.addProjects1(project);
-			employeeDao.update(manager);
 			
 			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);

@@ -99,7 +99,28 @@ public class ModifyProjectTest extends Mockito {
 
 	@Test
 	public void TC_2_3_2() throws ServletException, IOException {
+		
+		IProjectDAO projectDao = mock(IProjectDAO.class);
+		
+		request.addParameter("name", "WLBWLBWLBWLBWLBWLV");
+		request.addParameter("scope", "SmartWorkingasd");
+		request.addParameter("startDate", "2019-10-31");
+		request.addParameter("endDate", "2020-01-10");
+		request.addParameter("description",
+				"Il progetto si occupera della realizzazione di una piattaforma che consentira ai dipendenti di organizzare le proprie giornate lavorative.");
+		request.addParameter("managerEmail", "l.rossi1@wlb.it");
 
+		Project newProject = (Project) request.getSession().getAttribute("oldProject");
+
+		when(projectDao.update(oldProject)).thenReturn(newProject);
+
+		servlet.setProjectDao(projectDao);
+		servlet.setEmployeeDao(employeeDao);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			servlet.doPost(request, response);
+
+		});
 	}
 
 	/**
@@ -377,6 +398,7 @@ public class ModifyProjectTest extends Mockito {
 	public void TC_2_3_14() throws ServletException, IOException {
 
 		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
 
 		request.addParameter("name", "WLB13BA");
 		request.addParameter("scope", "SmartWorkingasd");
@@ -389,9 +411,12 @@ public class ModifyProjectTest extends Mockito {
 		Project newProject = (Project) request.getSession().getAttribute("oldProject");
 
 		when(projectDao.update(oldProject)).thenReturn(newProject);
-
+		when(employeeDao.retrieveByEmail(manager.getEmail())).thenReturn(manager);
+		
 		servlet.setProjectDao(projectDao);
 		servlet.setEmployeeDao(employeeDao);
+		
+		servlet.doPost(request, response);
 
 		assertEquals("success", request.getAttribute("result"));
 
