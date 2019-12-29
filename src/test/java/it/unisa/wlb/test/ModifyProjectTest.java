@@ -1,21 +1,19 @@
 package it.unisa.wlb.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.ServletException;
-
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-
 import it.unisa.wlb.controller.AddProjectServlet;
 import it.unisa.wlb.controller.ModifyProjectServlet;
 import it.unisa.wlb.model.bean.Admin;
@@ -31,7 +29,8 @@ public class ModifyProjectTest extends Mockito {
 		private ModifyProjectServlet servlet;
 		private IProjectDAO projectDao;
 		private IEmployeeDAO employeeDao;
-		
+		private Employee manager;
+		private Project oldProject;
 		
 		@BeforeEach
 		public void setUp() {
@@ -41,7 +40,20 @@ public class ModifyProjectTest extends Mockito {
 			servlet = new ModifyProjectServlet();
 			request.getSession().setAttribute("userRole", "Admin");
 			request.getSession().setAttribute("user", new Admin());
-					
+			manager = new Employee();
+			manager.setName("Luca");
+			manager.setSurname("Rossi");
+			manager.setEmail("l.rossi1@wlb.it");
+			manager.setStatus(1);
+			manager.setPassword("Ciao123.");
+			oldProject = new Project();
+			oldProject.setName("WLB13PO");
+			oldProject.setScope("SmartWorking");
+			oldProject.setStartDate(new Date(2019,11,02));
+			oldProject.setEndDate(new Date(2019,12,02));
+			oldProject.setDescription("Il progetto si occuperà della realizzazione di una piattaforma che consentir ? ai dipendenti di organizzare le proprie giornate lavorative.");
+			oldProject.setEmployee(manager);
+			request.getSession().setAttribute("oldProject", oldProject);
 		}
 		
 		/**
@@ -54,16 +66,29 @@ public class ModifyProjectTest extends Mockito {
 		@Test
 		public void TC_2_3_1() throws ServletException,IOException{
 			
-			request.addParameter("name", "");
-			request.addParameter("scope", "SmartWorking");
-			request.addParameter("startDate", "2019-11-02");
-			request.addParameter("endDate", "2019-12-02");
-			request.addParameter("manager","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			IProjectDAO projectDao = mock(IProjectDAO.class);
+			
+			request.addParameter("name","");
+			request.addParameter("scope","SmartWorkingasd");
+			request.addParameter("startDate","2019-10-02");
+			request.addParameter("endDate","2019-11-02");
+			request.addParameter("description","Il progetto si occuperà della realizzazione di una piattaforma che consentira ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("managerEmail", "l.rossi1@wlb.it");
+			
+			Project newProject = (Project) request.getSession().getAttribute("oldProject");
+			
+			
+			when(projectDao.update(oldProject)).thenReturn(newProject);
+			
+			servlet.setProjectDao(projectDao);
+			servlet.setEmployeeDao(employeeDao);
+			
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
+				
 		});
-}
+		}
+
 		/**
 		 *  name field inserted doesn't respect the specified lenght  - TC_2.2_2
 		 *  
@@ -72,16 +97,9 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_2() throws ServletException, IOException {
-			request.addParameter("name", "WLBWLBWLBWLBWLBWLV");
-			request.addParameter("scope", "SmartWorking");
-			request.addParameter("startDate", "2019-11-02");
-			request.addParameter("endDate", "2019-12-02");
-			request.addParameter("manager","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
-			assertThrows(IllegalArgumentException.class, () -> {
-				servlet.doPost(request, response);
-			});
+		public void TC_2_3_2() throws ServletException, IOException {
+			
+	
 		}
 
 		/**
@@ -92,13 +110,13 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_3() throws ServletException, IOException {
+		public void TC_2_3_3() throws ServletException, IOException {
 			request.addParameter("name", "WLBè");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("manager","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -112,7 +130,7 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_4() throws ServletException, IOException {
+		public void TC_2_3_4() throws ServletException, IOException {
 
 			String commonName = "WLB13PO";
 			Project pr = new Project();
@@ -126,7 +144,7 @@ public class ModifyProjectTest extends Mockito {
 			pr.setScope("SmartWorking");
 			pr.setStartDate(dateS);
 			pr.setEndDate(dateE);
-			pr.setDescription("Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			pr.setDescription("Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			pr.setEmployees(li);
 			pr.setEmployee(em);
 
@@ -141,7 +159,7 @@ public class ModifyProjectTest extends Mockito {
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				tmp.doPost(request, response);
 			});
@@ -156,13 +174,13 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_5() throws ServletException, IOException {
+		public void TC_2_3_5() throws ServletException, IOException {
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -176,13 +194,13 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_6() throws ServletException, IOException {
+		public void TC_2_3_6() throws ServletException, IOException {
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "VBFHBVHDVBDFHJBVDFVFVHFVH FHFBVHDJBFDK");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -196,13 +214,13 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_7() throws ServletException, IOException {
+		public void TC_2_3_7() throws ServletException, IOException {
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWòrking");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -216,13 +234,13 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_8() throws ServletException, IOException {
+		public void TC_2_3_8() throws ServletException, IOException {
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2-29-200");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -236,13 +254,14 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_9() throws ServletException, IOException {
+		public void TC_2_3_9() throws ServletException, IOException {
+			
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2-29-2000");
 			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
 			});
@@ -256,13 +275,14 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_10() throws ServletException, IOException {
+		public void TC_2_3_10() throws ServletException, IOException {
+			
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","m.rossi2@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
@@ -277,13 +297,14 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_11() throws ServletException, IOException {
+		public void TC_2_3_11() throws ServletException, IOException {
+			
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
 			request.addParameter("endDate", "2019-12-02");
 			request.addParameter("managerEmail","");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
 			
 			assertThrows(IllegalArgumentException.class, () -> {
 				servlet.doPost(request, response);
@@ -298,7 +319,8 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_12() throws ServletException, IOException {
+		public void TC_2_3_12() throws ServletException, IOException {
+			
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
@@ -319,7 +341,8 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_13() throws ServletException, IOException {
+		public void TC_2_3_13() throws ServletException, IOException {
+			
 			request.addParameter("name", "WLB13PO");
 			request.addParameter("scope", "SmartWorking");
 			request.addParameter("startDate", "2019-11-02");
@@ -341,32 +364,26 @@ public class ModifyProjectTest extends Mockito {
 		 */
 		
 		@Test
-		public void TC_2_2_14() throws ServletException, IOException {
+		public void TC_2_3_14() throws ServletException, IOException {
 
 			
-			Project project = new Project();
-			Date dateS = new Date(2019,11,02);
-			Date dateE = new Date(2019,12,02);
-			Employee employee = new Employee();
-			List<Employee> lista = new ArrayList<Employee>();
-			lista.add(employee);
-
-			project.setName("WLB13PO");
-			project.setScope("SmartWorking");
-			project.setStartDate(dateS);
-			project.setEndDate(dateE);
-			project.setDescription("Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
-			project.setEmployees(lista);
-			project.setEmployee(employee);
-
-
-			request.addParameter("name","WLB13AB");
-			request.addParameter("scope", "SmartWork");
-			request.addParameter("startDate", "2019-08-02");
-			request.addParameter("endDate", "2019-10-02");
-			request.addParameter("managerEmail","m.rossi1@wlb.it");
-			request.addParameter("description", "Il progetto si occupera della realizzazione di una piattaforma che consentir?��? ai dipendenti di organizzare le proprie giornate lavorative.");
-
+			IProjectDAO projectDao = mock(IProjectDAO.class);
+			
+			request.addParameter("name","WLB13BA");
+			request.addParameter("scope","SmartWorkingasd");
+			request.addParameter("startDate","2019-10-02");
+			request.addParameter("endDate","2019-11-02");
+			request.addParameter("description","Il progetto si occuperà della realizzazione di una piattaforma che consentir ? ai dipendenti di organizzare le proprie giornate lavorative.");
+			request.addParameter("managerEmail", "l.rossi1@wlb.it");
+			
+			Project newProject = (Project) request.getSession().getAttribute("oldProject");
+			
+			when(projectDao.update(oldProject)).thenReturn(newProject);
+			
+			servlet.setProjectDao(projectDao);
+			servlet.setEmployeeDao(employeeDao);
+			
+			
 			assertEquals("success", request.getAttribute("result"));
 			
 }
