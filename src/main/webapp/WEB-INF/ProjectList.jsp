@@ -79,18 +79,20 @@
 									</form>
 								</div>
 
-								<ul class="list-group list-group-bordered">
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
-								</ul>
+								<div style="overflow-y:scroll; height: 230px;">
+									<ul class="list-group list-group-bordered">
+										<li class="list-group-item"><a href="#"
+											class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
+										<li class="list-group-item"><a href="#"
+											class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
+										<li class="list-group-item"><a href="#"
+											class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
+										<li class="list-group-item"><a href="#"
+											class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
+										<li class="list-group-item"><a href="#"
+											class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
+									</ul>
+								</div>
 
 								<a class="btn btn-success mt-3" href="ProjectInsertPage"
 									role="button">Inserisci nuovo progetto</a>

@@ -48,20 +48,28 @@ public class SearchEmployeeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
 		employeeEmail = request.getParameter("email");
+		System.out.println(employeeEmail);
 		List<Employee> list = null;
 		
 		JSONArray employeeEmailList = new JSONArray();
 		
-		if(employeeEmail != null && !employeeEmail.equals("")) {
-			list = employeeDao.suggestByEmail(employeeEmail);
+		if(employeeEmail != null) {
+			
+			if(employeeEmail.equals(""))
+				list=employeeDao.retrieveAll();
+			else
+				list = employeeDao.suggestByEmail(employeeEmail);
+			
 			for(int i = 0; i < list.size(); i++) {
 				JSONObject object = new JSONObject();
 				object.put("email", list.get(i).getEmail());
+				object.put("name", list.get(i).getName());
+				object.put("surname", list.get(i).getSurname());
 				employeeEmailList.put(object);
 			} 
 			
 			response.setContentType("application/json");
-	        response.getWriter().append(employeeEmail.toString());
+	        response.getWriter().append(employeeEmailList.toString());
 		}
 		
 		 

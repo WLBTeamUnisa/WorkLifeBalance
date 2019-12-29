@@ -86,33 +86,15 @@
 										</div>
 									</form>
 								</div>
-
-								<!--  LISTA STATICA
-								<ul class="list-group list-group-bordered">
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente
-											1</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente
-											2</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente
-											3</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente
-											4</a></li>
-									<li class="list-group-item"><a href="#"
-										class="mx-auto nav-link" style="color: #2f3640">Dipendente
-											5</a></li>
-								</ul>
-									-->
-
-									<ul class="list-group list-group-bordered" id="suggestionsList" style="overflow-y:scroll; height: 230px;">
+								
+								<div style="overflow-y:scroll; height: 230px;">
+									<ul class="list-group list-group-bordered" id="suggestionsList">
 										<c:forEach items="${employeeList}" var="employee">
 										<li class="list-group-item"><a href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
-											class="mx-auto nav-link" style="color: #2f3640">${employee.email}</a></li>							
+											class="mx-auto nav-link" style="color: #2f3640">${employee.name} ${employee.surname} - ${employee.email}</a></li>							
 										</c:forEach>
 									</ul>
+								</div>
 	
 								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
 									role="button">Inserisci nuovo dipendente</a>
@@ -189,14 +171,11 @@
 	
 					var lista = JSON.parse(this.responseText);
 	
-					var options = "";
 					var suggestionsList = "";
 					
 					for (i = 0; i < lista.length; i++) {
-						options += "<option>" + lista[i].email + "</option>";
-						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + "</a></li>";
+						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + " " + lista[i].surname + " - " + lista[i].email + "</a></li>";
 					}
-					console.log(options);
 				
 					document.getElementById("suggestionsList").innerHTML = suggestionsList;
 				}

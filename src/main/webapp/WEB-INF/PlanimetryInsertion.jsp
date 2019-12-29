@@ -123,8 +123,8 @@
 														<h3 class="my-auto">Planimetria attualmente inserita</h3>
 													</div>
 
-													<div class="card-body ">
-														<div class="form-group text-center mx-auto  ">
+													<div class="card-body">
+														<div class="form-group text-center mx-auto" style="overflow-y:scroll; height: 200px;">
 															<ul class="list-group list-group-bordered "
 																id="PlanimetryList">
 															</ul>
@@ -232,7 +232,7 @@
 			jsondata.push(planimetry);
 
             //TABLE CREATION
-			result = "<table><tr><th>Piano</th><th>Stanza</th><th>Postazioni</th></tr>";
+			result = "<table class='table table-striped'><tr><th>Piano</th><th>Stanza</th><th>Postazioni</th></tr>";
 			for (i = 0; i < jsondata.length; i++) {
 
 				result += "<tr><td>" + jsondata[i].floor + "</td><td>" + jsondata[i].room + "</td><td>" + jsondata[i].workstation + "</td></tr>";
@@ -253,7 +253,7 @@
 			document.getElementById("PlanimetryList").innerHTML = result;
 
 			//jsondata=JSON.stringify('planimetry');
-			document.getElementById("errorWorkstation").innerHTML = JSON.stringify(jsondata);
+			//document.getElementById("errorWorkstation").innerHTML = JSON.stringify(jsondata);
 
             //UPDATE JSON 
 			document.getElementById("hiddenParameter").value=JSON.stringify(jsondata);
