@@ -54,9 +54,10 @@ public class LoginServlet extends HttpServlet {
 				    if(email.endsWith("@wlb.it") && checkEmailEmployee(email)) {
 				    	Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
 						if(e != null) {
+							System.out.println("Entro nell'if");
 							session.setAttribute("user", e);
 							request.setAttribute("result", "success");
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
 					/**
 					 * Checking if email respects admin email format
@@ -66,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
 					} else {
 						
@@ -75,10 +76,10 @@ public class LoginServlet extends HttpServlet {
 						response.getWriter().flush();
 					}
 				}catch(Exception e) {
-					e.printStackTrace();
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi2");
 					response.getWriter().flush();
+					return ;
 				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

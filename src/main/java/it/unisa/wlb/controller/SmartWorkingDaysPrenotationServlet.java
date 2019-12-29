@@ -70,6 +70,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		
 		int currentCalendarWeek = localCalendar.get(Calendar.WEEK_OF_YEAR);
 		int lastWeekOfYear = localCalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
+		System.out.println(currentCalendarWeek+" "+lastWeekOfYear);
 		/**
 		 * Checking if employee is null
 		 */
@@ -142,6 +143,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 
 			smartWorkBooking.setId(pk);
 			smartWorkingDao.create(smartWorkBooking);
+			System.out.println(smartWorkBooking.getCalendarWeek() +" "+ smartWorkBooking.getYear()+" "+ smartWorkBooking.getEmployee().getEmail());
 			int idSmartWorking = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail()).getId().getId();
 			
 			pk.setId(idSmartWorking);

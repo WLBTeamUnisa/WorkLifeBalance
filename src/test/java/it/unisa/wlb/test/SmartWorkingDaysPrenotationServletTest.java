@@ -123,8 +123,9 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 		sw.setEmployee(e);
 		sw.setId(swPk);
 		
-		when(smartWorkingDao.create(any(SmartWorkingPrenotation.class))).thenReturn(sw);
-		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, sw.getEmployee().getEmail()).getId().getId()).thenReturn(swId);
+		when(smartWorkingDao.create(sw)).thenReturn(sw);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, sw.getEmployee().getEmail())).thenReturn(sw);
+		System.out.println(calendarWeek + " " +year+ " " + sw.getEmployee().getEmail());
 		when(smartWorkingDao.update(sw)).thenReturn(sw);
 		
 		servlet.setSmartWorkingPrenotationDao(smartWorkingDao);
