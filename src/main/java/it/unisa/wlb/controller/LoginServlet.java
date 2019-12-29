@@ -18,7 +18,10 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.utils.Utils;
 
 /**
- * Servlet implementation class LoginServlet
+ * The aim of this servlet is to manage system access for users
+ * 
+ * @author Vincenzo Fabiano
+ * 
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -33,14 +36,10 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
-	public LoginServlet(IEmployeeDAO employeeDAO) {
-		super();
-		this.employeeDao = employeeDao;
+	public void setEmployeeDao(IEmployeeDAO empDao) {
+		this.employeeDao = empDao;
 	}
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if((request.getParameter("email")!=null) && (request.getParameter("password")!=null)) {
 			HttpSession session = request.getSession();
@@ -48,19 +47,26 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			if(email != null && password != null && checkPasswordLogin(password)) {
 				try {
-					String generatedPwd = Utils.generatePwd(password);
-					if(email.endsWith("@wlb.it")) {
-						Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
+				    String generatedPwd = Utils.generatePwd(password);
+					/**
+					 * Checking if email respects employee email format
+					 */
+				    if(email.endsWith("@wlb.it") && checkEmailEmployee(email)) {
+				    	Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
 						if(e != null) {
 							session.setAttribute("user", e);
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
+							request.setAttribute("result", "success");
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
-					} else if(email.endsWith("@wlbadmin.it")) {
-						Admin a = adminDao.retrieveByEmailPassword(email, password);
+					/**
+					 * Checking if email respects admin email format
+					 */
+					} else if(email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
+						Admin a = adminDao.retrieveByEmailPassword(email, generatedPwd);
 						if(a != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", a);
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
+							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
 					} else {
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -68,10 +74,10 @@ public class LoginServlet extends HttpServlet {
 						response.getWriter().flush();
 					}
 				}catch(Exception e) {
-					e.printStackTrace();
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
+					return ;
 				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -81,11 +87,7 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
@@ -95,6 +97,22 @@ public class LoginServlet extends HttpServlet {
 			return true;
 		}
 		return false;
+	}
+	
+	public static boolean checkEmailEmployee(String email) {
+		if(email==null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30) {
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	public static boolean checkEmailAdmin(String email) {
+		if(email==null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlbadmin.it$") || email.equals("") || (email.length()-12)<5 || (email.length()-12)>30) {
+			return false;
+		}
+		else
+			return true;
 	}
 
 }

@@ -21,17 +21,13 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 	
 	@Override
 	public SmartWorkingPrenotation create(SmartWorkingPrenotation entity) {
-		try
-		{
+		try{
 			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.persist(entity);
 			entityManager.getTransaction().commit();
 			return entity;
-		}
-		
-		finally
-		{
+		} finally {
 			entityManager.close();
 		}
 	}
