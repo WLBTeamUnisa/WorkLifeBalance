@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -65,67 +66,37 @@
 								<form method="post" action="AddPlanimetryServlet">
 
 									<!-- CONTAINER -->
-									<div class="container col-lg-8 mx-auto">
+									<div class="container col-lg-10 mx-auto">
 
 										<!-- FLOOR -->
-										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend">
+										<div class="form-group input-group mx-auto ">
+											<div class="input-group-prepend offset-md-1">
 												<span class="input-group-text"><i class="fas fa-layer-group"></i></span>
 											</div>
 											<input name="floor" id="Floor" oninput="validFloor()"
 												class="form-control text-center col-sm-7" value='1'
-												placeholder="Piano*" type="text" disabled>
-												<div class="input-group-append">
-													<button class="input-group-text btn btn-warning" type="button"
-													id="nextbtn" onclick="updateFloor()" disabled>Nuovo</button>
-												</div>
-										</div>
-
-										<!-- FLOOR -->
-										<!--<div class="form-group input-group offset-md-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text "><i
-														class="fas fa-layer-group"></i></span>
-											</div>
-											<input name="floor" id="Floor" oninput="validFloor()"
-												class="form-control text-center col-4 float-left" value='1'
-												placeholder="Piano*" type="text" disabled>
-											&nbsp &nbsp &nbsp&nbsp
-											 "NEXT" BUTTON-->
-
-											<!--<button type="button" id="nextbtn" onclick="updateFloor()"
-												class="btn btn-dark" disabled>Next</button>
-
-										</div>-->
-
-
+                                                placeholder="Piano*" type="text" disabled>
+                                               <!-- "NEXT" BUTTON-->
+                                            &nbsp;	&nbsp;
+                                            <button type="button" id="nextbtn" onclick="updateFloor()" class="btn btn-dark" disabled>Nuovo</button>
+                                        </div>
+                                        
 
 										<!-- ROOM -->
 										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend">
+											<div class="input-group-prepend offset-md-1">
 												<span class="input-group-text"><i class="fas fa-door-closed"></i></span>
 											</div>
 												<input name="room" id="Room" oninput="validRoom()"
 												class="form-control text-center col-sm-7" value='1'
 												placeholder="Stanza*" type="text" disabled>
 											</div>
-										
-
-										<!-- ROOM 
-										<div class="form-group input-group offset-md-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text "><i
-														class="fas fa-door-closed"></i></span>
-											</div>
-											<input name="room" id="Room" oninput="validRoom()"
-												class="form-control text-center col-4 float-left" value='1'
-												placeholder="Stanza*" type="text" disabled>
-										</div> -->
+								
 
 
 										<!-- WORKSTATION  -->
 										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend">
+											<div class="input-group-prepend offset-md-1">
 												<span class="input-group-text"><i class="fas fa-box"></i></span>
 											</div>
 											<input name="workstation" id="Workstation" oninput="validWorkstation()"
@@ -134,33 +105,22 @@
 											</div>
 											<span id="errorWorkstation"></span>
 
-										<!-- WORKSTATION 
-										<div class="form-group input-group offset-md-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text "><i class="fas fa-box"></i></span>
-											</div>
-											<input name="workstation" id="Workstation" oninput="validWorkstation()"
-												class="form-control text-center col-4 " placeholder="Postazioni*"
-												type="text">
-										</div>
-										<span id="errorWorkstation"></span>
-										-->
-
 										
-										<!-- "INSERISCI" BUTTON-->
-										<div class="form-group  ">
-											<button style="background-color:#f59e42" type="button" id="insertButtton"
-												class="btn mx-auto col-4 " onclick="updatePlanimetryArray()" disabled>
+                                        
+                                        <!-- "INSERISCI" BUTTON-->
+										<div class="form-group   mr-auto col-5 offset-md-3">
+											<button type="button" id="insertButtton"
+												class="btn btn-dark mx-auto " onclick="updatePlanimetryArray()" disabled>
 												Inserisci</button>
 										</div>
 
 
-										<!-- lista planimetry-->
+										<!-- LIST PLANIMETRY-->
 										<div class="form-group row justify-content-md-center  ">
 											<div class="col-lg-12">
 												<div class="card ">
 													<div class="card-header p-2 ">
-														<h3 class="my-auto">Planimetria</h3>
+														<h3 class="my-auto">Planimetria attualmente inserita</h3>
 													</div>
 
 													<div class="card-body ">
@@ -169,14 +129,15 @@
 																id="PlanimetryList">
 															</ul>
 														</div>
-
-													</div>
+                                                    </div>
+													
 
 												</div>
 
+                                               <!-- INPUT HIDDEN FOR JSON--> 
 												<input type="hidden" id="hiddenParameter" name="jsonObject"/>
 
-												<!-- conferma e reset BUTTON-->
+												<!-- "conferma" and "reset" BUTTON-->
 												<div class="form-group ">
 													<button type="submit" id="confirmForm"
 														class="btn btn btn-dark  col-5">
@@ -265,11 +226,12 @@
 		var planimetry, i, result = "";
 
 
-
-		if (checkForm() == true) {
+        
+		if (checkForm() == true) {//IF THE INPUT PARAMETERS ARE CORRECT
 			planimetry = { "floor": parseInt(NumFloor.value), "room": parseInt(NumRoom.value), "workstation": parseInt(NumWorkstation.value) };
 			jsondata.push(planimetry);
 
+            //TABLE CREATION
 			result = "<table><tr><th>Piano</th><th>Stanza</th><th>Postazioni</th></tr>";
 			for (i = 0; i < jsondata.length; i++) {
 
@@ -278,6 +240,7 @@
 			}
 			result += "</table>";
 
+            //Button able/disable update
 			document.getElementById("Workstation").value = "";
 			document.getElementById("insertButtton").disabled = true;
 			document.getElementById("nextbtn").disabled = false;
@@ -286,11 +249,13 @@
 			var nextNum = parseInt(document.getElementById("Room").value) + 1;
 			document.getElementById("Room").value = nextNum;
 
+            //Set result in the planimetry table
 			document.getElementById("PlanimetryList").innerHTML = result;
 
 			//jsondata=JSON.stringify('planimetry');
 			document.getElementById("errorWorkstation").innerHTML = JSON.stringify(jsondata);
 
+            //UPDATE JSON 
 			document.getElementById("hiddenParameter").value=JSON.stringify(jsondata);
 
 		}
@@ -299,7 +264,7 @@
 
 
 
-	//FUNZIONE CHE INSERISCE IL NUOVO PIANO ()
+	//ADD NEW FLOOR FUNCTION
 	function updateFloor() {
 
 		var nextNum = parseInt(document.getElementById("Floor").value) + 1;
@@ -310,7 +275,7 @@
 
 	
 
-	//FUNZIONE CHE RESETTA IL FORM
+	//RESET FORM FUNCTION
 	function clearPlanimetry() {
 		jsondata = [];
 		document.getElementById("PlanimetryList").innerHTML = "";
@@ -328,12 +293,14 @@
 			document.getElementById("insertButtton").disabled = false;
 			workstationOk = true;
 			document.getElementById("errorWorkstation").innerHTML = "";
+            
 
 		}
 		else {
 			workstationOk = false;
 			document.getElementById("errorWorkstation").innerHTML = "Errore! inserire un numero di postazioni corretto";
 			document.getElementById("Workstation").onfocus;
+            document.getElementById("insertButtton").disabled=true;
 		}
 
 
@@ -359,7 +326,7 @@
 			floorOk = false;
 
 	}
-
+//function that control if the input parmeters are correct
 	function checkForm() {
 		validFloor();
 		validRoom();
