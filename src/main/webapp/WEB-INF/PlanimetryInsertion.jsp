@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
-
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>WLB - Inserimento planimetria</title>
+
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
+
+<!-- Title -->
+<title>WLB - Inserimento planimetria</title>
+
+<!-- Icon -->
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
 
 <!-- CSS Files -->
@@ -341,4 +343,5 @@
 
 	}
 </script>
+
 </html>

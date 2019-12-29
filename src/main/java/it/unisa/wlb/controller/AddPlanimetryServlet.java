@@ -64,7 +64,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 
 		/**
 		 Retrieving of the parameters from a string like this one:	
-
 		 [{"floor"=1,"room"=1,"workstation"=50},
 		 {"floor"=1,"room"=2,"workstation"=40},
 		 {"floor"=1,"room"=3,"workstation"=40},

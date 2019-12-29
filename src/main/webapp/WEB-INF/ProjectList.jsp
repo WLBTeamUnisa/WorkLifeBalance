@@ -1,6 +1,6 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -69,30 +69,21 @@
 									<form class="navbar-left navbar-form nav-search">
 										<div class="input-group">
 											<div class="input-group-prepend">
-												<button type="submit" class="btn btn-search pr-1">
-													<i class="fa fa-search search-icon"></i>
-												</button>
+													<i class="fa fa-search search-icon my-auto ml-2"></i>
 											</div>
-											<input type="text" placeholder="Search ..."
-												class="form-control">
+											<input type="text" placeholder="Search ... "
+												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
+								<!--  		<datalist id="suggestions"></datalist>  -->
 									</form>
 								</div>
 
-								<div style="overflow-y:scroll; height: 230px;">
-									<ul class="list-group list-group-bordered">
-										<li class="list-group-item"><a href="#"
-											class="mx-auto nav-link" style="color: #2f3640">Progetto 1</a></li>
-										<li class="list-group-item"><a href="#"
-											class="mx-auto nav-link" style="color: #2f3640">Progetto 2</a></li>
-										<li class="list-group-item"><a href="#"
-											class="mx-auto nav-link" style="color: #2f3640">Progetto 3</a></li>
-										<li class="list-group-item"><a href="#"
-											class="mx-auto nav-link" style="color: #2f3640">Progetto 4</a></li>
-										<li class="list-group-item"><a href="#"
-											class="mx-auto nav-link" style="color: #2f3640">Progetto 5</a></li>
-									</ul>
-								</div>
+								<ul class="list-group list-group-bordered" id="suggestionsList" style="overflow-y:scroll; height: 230px;">
+									<c:forEach items="${projectList}" var="project">
+									<li class="list-group-item"><a href="ShowProjectServlet?name=${project.name}"
+										class="mx-auto nav-link" style="color: #2f3640">${project.name}</a></li>							
+									</c:forEach>
+								</ul>
 
 								<a class="btn btn-success mt-3" href="ProjectInsertPage"
 									role="button">Inserisci nuovo progetto</a>
@@ -148,6 +139,34 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+	
+	<script>
+	
+		function Suggestions(name) {
+	
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+	
+					var lista = JSON.parse(this.responseText);
+	
+					var options = "";
+					var suggestionsList = "";
+					
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].name + "</option>";
+						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="+lista[i].name+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + "</a></li>";
+					}
+					console.log(options);
+				
+					document.getElementById("suggestionsList").innerHTML = suggestionsList;
+				}
+			}
+			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
+			xhttp.send();
+		}
+	
+	</script>
 
 </body>
 </html>

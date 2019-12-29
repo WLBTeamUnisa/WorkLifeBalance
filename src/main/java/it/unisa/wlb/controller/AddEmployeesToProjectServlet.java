@@ -89,16 +89,17 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	employeeDao.update(manager);
 		        	session.removeAttribute("lista_dipendenti");
 					request.setAttribute("result", "success");
-		        	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/ProjectList.jsp");
+					
+		        	String url= response.encodeURL("/ProjectsListPage");
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		        	dispatcher.forward(request, response);
-		        	
 		        }
 		        
 		        else
 		        {
 		        	request.setAttribute("result", "error");
-		        	response.getWriter().write("Progetto non inserito correttamente");
 		        	session.removeAttribute("lista_dipendenti");
+		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		        }
 		      
 		   }
