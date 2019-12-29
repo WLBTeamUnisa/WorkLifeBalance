@@ -289,158 +289,160 @@
 		var descrizioneOK = false;
 		var managerOK = false;
 		var dipendentiOK = false;
-		
+
 		function verificaNome() {
-			
-			var errorMsg="Il nome può contenere solo lettere minuscole e maiuscole e deve avere una lunghezza tra 4 e 15 caratteri.";
+
+			var errorMsg = "Il nome può contenere solo lettere minuscole e maiuscole e deve avere una lunghezza tra 4 e 15 caratteri.";
 			var input = $("#name").val();
-			
+
 			if (input.trim().length >= 4 && input.trim().length <= 15
 					&& input.match(/^[A-Za-z0-9]+$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#name").hasClass("is-invalid"))
+				if ($("#name").hasClass("is-invalid"))
 					$("#name").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#name").addClass("is-valid");
-				document.getElementById("errorName").innerHTML="";
+				document.getElementById("errorName").innerHTML = "";
 				nomeOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#name").hasClass("is-valid"))
+				if ($("#name").hasClass("is-valid"))
 					$("#name").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#name").addClass("is-invalid");
-				document.getElementById("errorName").innerHTML=errorMsg;
+				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
 			}
 			changeInsertButtonState();
 		}
-		
+
 		function verificaScope() {
-			
-			var errorMsg="Lo scope deve avere una lunghezza tra 3 e 25 caratteri.";
+
+			var errorMsg = "Lo scope deve avere una lunghezza tra 3 e 25 caratteri.";
 			var input = $("#scope").val();
 			if (input.trim().length >= 3 && input.trim().length <= 25
 					&& input.match(/^[A-Za-z\s]+$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#scope").hasClass("is-invalid"))
+				if ($("#scope").hasClass("is-invalid"))
 					$("#scope").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#scope").addClass("is-valid");
-				document.getElementById("errorScope").innerHTML="";
+				document.getElementById("errorScope").innerHTML = "";
 				scopeOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#scope").hasClass("is-valid"))
+				if ($("#scope").hasClass("is-valid"))
 					$("#scope").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#scope").addClass("is-invalid");
-				document.getElementById("errorScope").innerHTML=errorMsg;
+				document.getElementById("errorScope").innerHTML = errorMsg;
 				scopeOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataInizio() {
-			
-			var errorMsg="La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+
+			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#startDate").val();
-			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+			if (input
+					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#startDate").hasClass("is-invalid"))
+				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#startDate").addClass("is-valid");
-				document.getElementById("errorDataInizio").innerHTML="";
+				document.getElementById("errorDataInizio").innerHTML = "";
 				dataInizioOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#startDate").hasClass("is-valid"))
+				if ($("#startDate").hasClass("is-valid"))
 					$("#startDate").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#startDate").addClass("is-invalid");
-				document.getElementById("errorDataInizio").innerHTML=errorMsg;
+				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataFine() {
-			
-			var errorMsg="La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+
+			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#endDate").val();
-			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+			if (input
+					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#endDate").hasClass("is-invalid"))
+				if ($("#endDate").hasClass("is-invalid"))
 					$("#endDate").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#endDate").addClass("is-valid");
-				document.getElementById("errorDataFine").innerHTML="";
+				document.getElementById("errorDataFine").innerHTML = "";
 				dataFineOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#endDate").hasClass("is-valid"))
+				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#endDate").addClass("is-invalid");
-				document.getElementById("errorDataFine").innerHTML=errorMsg;
+				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDescrizione() {
-			
-			var errorMsg="La descrizione deve avere una lunghezza minima di 20 caratteri e massima di 250.";
+
+			var errorMsg = "La descrizione deve avere una lunghezza minima di 20 caratteri e massima di 250.";
 			var input = $("#description").val();
 
 			if (input.trim().length >= 20 && input.trim().length <= 250
 					&& input.match(/^[\s\S]+$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#description").hasClass("is-invalid"))
+				if ($("#description").hasClass("is-invalid"))
 					$("#description").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#description").addClass("is-valid");
-				document.getElementById("errorDescrizione").innerHTML="";
+				document.getElementById("errorDescrizione").innerHTML = "";
 				descrizioneOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#description").hasClass("is-valid"))
+				if ($("#description").hasClass("is-valid"))
 					$("#description").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#description").addClass("is-invalid");
-				document.getElementById("errorDescrizione").innerHTML=errorMsg;
+				document.getElementById("errorDescrizione").innerHTML = errorMsg;
 				descrizioneOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaManager() {
-			
-			var errorMsg="L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
+
+			var errorMsg = "L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
 			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
 				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if($("#managerEmail").hasClass("is-invalid"))
+				if ($("#managerEmail").hasClass("is-invalid"))
 					$("#managerEmail").removeClass("is-invalid");
 				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#managerEmail").addClass("is-valid");
-				document.getElementById("errorManager").innerHTML="";
+				document.getElementById("errorManager").innerHTML = "";
 				managerOK = true;
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
-				if($("#managerEmail").hasClass("is-valid"))
+				if ($("#managerEmail").hasClass("is-valid"))
 					$("#managerEmail").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#managerEmail").addClass("is-invalid");
-				document.getElementById("errorManager").innerHTML=errorMsg;
+				document.getElementById("errorManager").innerHTML = errorMsg;
 				managerOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function changeInsertButtonState() {
-			
+
 			var btn = $("#insertButton");
 			if (nomeOK && scopeOK && dataInizioOK && dataFineOK
 					&& descrizioneOK && managerOK && dipendentiOK) {
@@ -454,8 +456,8 @@
 			}
 		}
 
-		function SuggestionsEmployee(email) { 
-			
+		function SuggestionsEmployee(email) {
+
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -472,11 +474,12 @@
 					changeInsertButtonState();
 				}
 			}
-			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0", true);
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0",
+					true);
 			xhttp.send();
 		}
 
-		function SuggestionsManager(email) { 
+		function SuggestionsManager(email) {
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -492,11 +495,11 @@
 					document.getElementById("suggestionsManager").innerHTML = options;
 				}
 			}
-			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=1", true);
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=1",
+					true);
 			xhttp.send();
 		}
-		
-		
+
 		function insertEmployee(email) {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -504,7 +507,8 @@
 					var lista = JSON.parse(this.responseText);
 					var li = "";
 
-					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>" + lista.emailEmployee + "</li>";
+					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>"
+							+ lista.emailEmployee + "</li>";
 					console.log(li);
 					document.getElementById("employeeList").innerHTML += li;
 

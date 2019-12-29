@@ -9,7 +9,7 @@
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="orange">
 
-		<a href="." class="logo"><img src="img/logo.svg"
+		<a href="." class="logo"><img src="img/logoWLB.svg"
 			alt="navbar brand" class="navbar-brand"></a>
 
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
@@ -36,12 +36,14 @@
 
 		<div class="container-fluid">
 			<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-				<li class="nav-item dropdown hidden-caret">
-					<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<li class="nav-item dropdown hidden-caret"><a
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">
 						<div class="avatar-sm">
 							<svg height="100%" width="100%">
 								<circle cx="50%" cy="50%" r="19" fill="white" />
-								<text x="50%" y="50%" text-anchor="middle" fill="black" font-family="Lato" dy=".3em" font-weight="bold">
+								<text x="50%" y="50%" text-anchor="middle" fill="black"
+									font-family="Lato" dy=".3em" font-weight="bold">
 									<c:set var="name" value="${user.name}" />
 									<c:set var="surname" value="${user.surname}" />
 									${fn:substring(name, 0, 1)}
@@ -49,7 +51,7 @@
 								</text>
 							</svg>
 						</div>
-					</a>
+				</a>
 
 					<div class="dropdown-menu animated fadeIn text-center">
 						<div class="dropdown-item">
@@ -77,8 +79,8 @@
 								<i class="fa fa-ellipsis-h"></i>
 						</span>
 							<h4 class="text-section">Admin</h4></li>
-						<li class="nav-item"><a href="PlanimetryInsertionPage" class="nav-link"><i
-								class="fas fa-layer-group"></i>
+						<li class="nav-item"><a href="PlanimetryInsertionPage"
+							class="nav-link"><i class="fas fa-layer-group"></i>
 								<p class="b">Planimetria</p></a></li>
 
 						<li class="nav-item"><a href="EmployeesListPage"
@@ -144,15 +146,14 @@
 							<li class="nav-item"><a href="#base" class="nav-link"><i
 									class="fas fa-th-list"></i>
 									<p class="b">
-										Ricerca storico giornate<br> lavorative
+										Storico giornate<br> lavorative
 									</p></a></li>
 
 							<li class="nav-item"><a data-toggle="collapse"
-								class="nav-link" href="#sidebarLayouts"><i
+								class="nav-link" href="#sidebarLayouts"> <i
 									class="fas fa-layer-group"></i>
-									<p>
-										Visualizza tutti i<br>progetti supervisionati
-									</p> <span class="caret"></span> </a>
+									<p class="b">Progetti supervisionati</p> <span class="caret"></span>
+							</a>
 								<div class="collapse" id="sidebarLayouts">
 									<ul class="nav nav-collapse">
 										<li><a href=""> <span class="sub-item">Progetto

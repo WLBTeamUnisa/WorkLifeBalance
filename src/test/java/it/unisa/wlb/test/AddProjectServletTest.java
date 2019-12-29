@@ -29,8 +29,6 @@ public class AddProjectServletTest extends Mockito {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
-	private IProjectDAO pDao;
-	private IEmployeeDAO eDao;
 
 
 
@@ -39,7 +37,6 @@ public class AddProjectServletTest extends Mockito {
 		servlet = new AddProjectServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		pDao = mock(IProjectDAO.class);
 		request.getSession().setAttribute("userRole", "Admin");
 		request.getSession().setAttribute("user", new Admin());
 	}
@@ -328,6 +325,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	// Project inserted with succcess  -  TC_2.2_17
+	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
 		

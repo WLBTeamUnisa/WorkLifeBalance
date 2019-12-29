@@ -54,14 +54,14 @@
 					<div class="col-lg-7 mx-auto">
 
 						<div class="card">
-							
+
 							<c:choose>
 								<c:when test="${booking=='no'}">
 									<div class="card-header">
-				    					<h3>Prenotazione già effettuata!</h3>    
+										<h3>Prenotazione già effettuata!</h3>
 									</div>
 									<div class="card-body">
-				    					<h1>Hai già effettuato una prenotazione questa settimana.</h1>
+										<h1>Hai già effettuato una prenotazione questa settimana.</h1>
 									</div>
 								</c:when>
 
@@ -83,8 +83,10 @@
 												<div class="calendar_content"></div>
 											</div>
 										</div>
-										<form action="SmartWorkingDaysPrenotationServlet" id="smartWorkingDays" method="post">
-											<button type="submit" class=" btn btn-success mb-3" id="sendButton" disabled>Prenota</button>
+										<form action="SmartWorkingDaysPrenotationServlet"
+											id="smartWorkingDays" method="post">
+											<button type="submit" class=" btn btn-success mb-3"
+												id="sendButton" disabled>Prenota</button>
 										</form>
 									</c:if>
 								</c:otherwise>

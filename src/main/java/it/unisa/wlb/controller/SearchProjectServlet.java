@@ -58,9 +58,12 @@ public class SearchProjectServlet extends HttpServlet {
 		
 		JSONArray projectList = new JSONArray();
 		
-		if(projectName != null && !projectName.equals("")) {
-			list = projectDao.searchByName(projectName);
-			System.out.println(list.get(0).getName());
+		if(projectName != null) {
+			if(projectName.equals(""))
+				list=projectDao.retrieveAll();
+			else
+				list = projectDao.searchByName(projectName);
+			
 			for(int i = 0; i < list.size(); i++) {
 				JSONObject object = new JSONObject();
 				object.put("name", list.get(i).getName());

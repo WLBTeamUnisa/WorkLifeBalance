@@ -1,4 +1,4 @@
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -69,21 +69,30 @@
 									<form class="navbar-left navbar-form nav-search">
 										<div class="input-group">
 											<div class="input-group-prepend">
-													<i class="fa fa-search search-icon my-auto ml-2"></i>
+												<i class="fa fa-search search-icon my-auto ml-2"></i>
 											</div>
 											<input type="text" placeholder="Search ... "
 												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
-								<!--  		<datalist id="suggestions"></datalist>  -->
+										<!--  		<datalist id="suggestions"></datalist>  -->
 									</form>
 								</div>
 
-								<ul class="list-group list-group-bordered" id="suggestionsList" style="overflow-y:scroll; height: 230px;">
-									<c:forEach items="${projectList}" var="project">
-									<li class="list-group-item"><a href="ShowProjectServlet?name=${project.name}"
-										class="mx-auto nav-link" style="color: #2f3640">${project.name}</a></li>							
-									</c:forEach>
-								</ul>
+								<div style="overflow-y: scroll; height: 230px;">
+									<ul class="list-group list-group-bordered" id="suggestionsList">
+										<c:forEach items="${projectList}" var="project">
+											<li class="list-group-item"><a
+												href="ShowProjectServlet?name=${project.name}"
+												class="mx-auto nav-link" style="color: #2f3640">${project.name}</a></li>
+										</c:forEach>
+
+										<c:if test="${empty projectList}">
+											<div class="my-auto text-center p-5">
+												<h3>Non esistono progetti.</h3>
+											</div>
+										</c:if>
+									</ul>
+								</div>
 
 								<a class="btn btn-success mt-3" href="ProjectInsertPage"
 									role="button">Inserisci nuovo progetto</a>
@@ -139,33 +148,34 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
-	
+
 	<script>
-	
 		function Suggestions(name) {
-	
+
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	
+
 					var lista = JSON.parse(this.responseText);
-	
+
 					var options = "";
 					var suggestionsList = "";
-					
+
 					for (i = 0; i < lista.length; i++) {
 						options += "<option>" + lista[i].name + "</option>";
-						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="+lista[i].name+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + "</a></li>";
+						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="
+								+ lista[i].name
+								+ "' class='mx-auto nav-link' style='color: #2f3640'>"
+								+ lista[i].name + "</a></li>";
 					}
 					console.log(options);
-				
+
 					document.getElementById("suggestionsList").innerHTML = suggestionsList;
 				}
 			}
 			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
 			xhttp.send();
 		}
-	
 	</script>
 
 </body>

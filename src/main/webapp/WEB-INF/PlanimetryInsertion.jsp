@@ -73,27 +73,30 @@
 										<!-- FLOOR -->
 										<div class="form-group input-group mx-auto ">
 											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i class="fas fa-layer-group"></i></span>
+												<span class="input-group-text"><i
+													class="fas fa-layer-group"></i></span>
 											</div>
 											<input name="floor" id="Floor" oninput="validFloor()"
 												class="form-control text-center col-sm-7" value='1'
-                                                placeholder="Piano*" type="text" disabled>
-                                               <!-- "NEXT" BUTTON-->
-                                            &nbsp;	&nbsp;
-                                            <button type="button" id="nextbtn" onclick="updateFloor()" class="btn btn-dark" disabled>Nuovo</button>
-                                        </div>
-                                        
+												placeholder="Piano*" type="text" disabled>
+											<!-- "NEXT" BUTTON-->
+											&nbsp; &nbsp;
+											<button type="button" id="nextbtn" onclick="updateFloor()"
+												class="btn btn-dark" disabled>Nuovo</button>
+										</div>
+
 
 										<!-- ROOM -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i class="fas fa-door-closed"></i></span>
+												<span class="input-group-text"><i
+													class="fas fa-door-closed"></i></span>
 											</div>
-												<input name="room" id="Room" oninput="validRoom()"
+											<input name="room" id="Room" oninput="validRoom()"
 												class="form-control text-center col-sm-7" value='1'
 												placeholder="Stanza*" type="text" disabled>
-											</div>
-								
+										</div>
+
 
 
 										<!-- WORKSTATION  -->
@@ -101,18 +104,20 @@
 											<div class="input-group-prepend offset-md-1">
 												<span class="input-group-text"><i class="fas fa-box"></i></span>
 											</div>
-											<input name="workstation" id="Workstation" oninput="validWorkstation()"
-											class="form-control text-center col-sm-7 " placeholder="Postazioni*"
-											type="text">
-											</div>
-											<span id="errorWorkstation"></span>
+											<input name="workstation" id="Workstation"
+												oninput="validWorkstation()"
+												class="form-control text-center col-sm-7 "
+												placeholder="Postazioni*" type="text">
+										</div>
+										<span id="errorWorkstation"></span>
 
-										
-                                        
-                                        <!-- "INSERISCI" BUTTON-->
+
+
+										<!-- "INSERISCI" BUTTON-->
 										<div class="form-group   mr-auto col-5 offset-md-3">
 											<button type="button" id="insertButtton"
-												class="btn btn-dark mx-auto " onclick="updatePlanimetryArray()" disabled>
+												class="btn btn-success mx-auto "
+												onclick="updatePlanimetryArray()" disabled>
 												Inserisci</button>
 										</div>
 
@@ -126,26 +131,26 @@
 													</div>
 
 													<div class="card-body">
-														<div class="form-group text-center mx-auto" style="overflow-y:scroll; height: 200px;">
+														<div class="form-group text-center mx-auto"
+															style="overflow-y: scroll; height: 200px;">
 															<ul class="list-group list-group-bordered "
 																id="PlanimetryList">
 															</ul>
 														</div>
-                                                    </div>
-													
+													</div>
+
 
 												</div>
 
-                                               <!-- INPUT HIDDEN FOR JSON--> 
-												<input type="hidden" id="hiddenParameter" name="jsonObject"/>
+												<!-- INPUT HIDDEN FOR JSON-->
+												<input type="hidden" id="hiddenParameter" name="jsonObject" />
 
 												<!-- "conferma" and "reset" BUTTON-->
 												<div class="form-group ">
 													<button type="submit" id="confirmForm"
-														class="btn btn btn-dark  col-5">
-														Conferma</button>
-													<button type="button" id="resetForm" onclick="clearPlanimetry()"
-														class="btn btn-danger  col-5">Reset</button>
+														class="btn btn-success  col-5">Conferma</button>
+													<button type="button" id="resetForm"
+														onclick="clearPlanimetry()" class="btn btn-danger  col-5">Reset</button>
 												</div>
 											</div>
 										</div>
@@ -187,7 +192,8 @@
 
 	<!-- jQuery UI -->
 	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+	<script
+		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
 	<!-- jQuery Scrollbar -->
 	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>

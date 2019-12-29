@@ -43,29 +43,29 @@
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 		<div class="main-panel">
-		
+
 			<!-- CORPO PAGINA-->
 			<div class="content" style="display: flex; align-items: center;">
-			
+
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
-				
+
 					<!-- COLONNA -->
 					<div class="col-lg-7 mx-auto">
-					
+
 						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
 								<h3>Registrazione dipendente</h3>
 							</div>
-							
+
 							<!-- CARD-BODY -->
 							<div class="card-body registration-fields">
-							
+
 								<!-- FORM -->
 								<form name="registration" method="post"
 									action="EmployeeRegistrationServlet">
-									
+
 									<!-- CONTAINER -->
 									<div class="container">
 
@@ -157,33 +157,33 @@
 												Registra</button>
 										</div>
 										<!-- form-group//  Register button-->
-										
-									<!-- FINE CONTAINER -->
+
+										<!-- FINE CONTAINER -->
 									</div>
-									
-								<!-- FINE FORM -->
+
+									<!-- FINE FORM -->
 								</form>
-								
-							<!-- FINE CARD-BODY -->
+
+								<!-- FINE CARD-BODY -->
 							</div>
-							
-						<!-- FINE CARD -->
+
+							<!-- FINE CARD -->
 						</div>
-						
-					<!-- FINE COLONNA -->
+
+						<!-- FINE COLONNA -->
 					</div>
-					
-				<!-- FINE CONTAINER -->
+
+					<!-- FINE CONTAINER -->
 				</div>
-				
-			<!-- FINE CONTENT -->
+
+				<!-- FINE CONTENT -->
 			</div>
-		<jsp:include page="footer.jsp" />
-		
-		<!-- FINE MAIN PANEL -->
+			<jsp:include page="footer.jsp" />
+
+			<!-- FINE MAIN PANEL -->
 		</div>
-		
-	<!-- FINE WRAPPER -->
+
+		<!-- FINE WRAPPER -->
 	</div>
 
 	<!--   Core JS Files   -->

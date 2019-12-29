@@ -50,12 +50,15 @@ public class ShowProjectServlet extends HttpServlet {
 					String endDateString;;
 					
 					Project project=projectDao.retrieveByName(name);
+					//System.out.println("Fine: " + project.getEndDate());
+					//System.out.println("Inizio: " + project.getStartDate());
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 					Calendar calendar = Calendar.getInstance();
 					
 					calendar.setTime(project.getStartDate());
 					calendar.add(Calendar.DAY_OF_MONTH, 1);
 					startDateString = formatter.format(calendar.getTime());
+					//System.out.println("Str: " + startDateString);
 					
 					calendar.setTime(project.getEndDate());
 					calendar.add(Calendar.DAY_OF_MONTH, 1);

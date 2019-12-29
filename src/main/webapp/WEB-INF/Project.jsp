@@ -87,7 +87,7 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="scope" id="scope" onkeyup="verificaScope()"
-													value="${oldProject.scope}" required>
+												value="${oldProject.scope}" required>
 										</div>
 
 
@@ -98,9 +98,8 @@
 													class="fas fa-calendar-plus"></i></span>
 											</div>
 											<input type="date" class="form-control text-center"
-												name="startDate" id="startDate"
-												value="${startDate}" onkeyup="verificaDataInizio()"
-												 required>
+												name="startDate" id="startDate" value="${startDate}"
+												onkeyup="verificaDataInizio()" required>
 										</div>
 
 
@@ -124,8 +123,7 @@
 											</div>
 											<textarea name="description" id="description"
 												class="form-control text-center"
-												onkeyup="verificaDescrizione()" 
-												required>${oldProject.description}</textarea>
+												onkeyup="verificaDescrizione()" required>${oldProject.description}</textarea>
 										</div>
 
 
@@ -136,8 +134,8 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()" value="${oldProject.employee.email}"
-												required>
+												onkeyup="verificaManager()"
+												value="${oldProject.employee.email}" required>
 										</div>
 
 										<hr>
@@ -151,7 +149,7 @@
 									</div>
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
 								</form>
-									<!-- FINE CARD BODY -->
+								<!-- FINE CARD BODY -->
 							</div>
 
 							<!-- FINE CARD -->
@@ -282,7 +280,7 @@
 
 		function verificaManager() {
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
 				$("#managerEmail").css("border", borderOK);
 				managerOK = true;
 			} else {
@@ -304,20 +302,6 @@
 				btn.css("background-color", "#d6d6d6");
 				btn.css("color", "#ffffff");
 			}
-		}
-		
-		function setStartDate() {
-			$(document).ready(function() {
-				var date = "${startDate}";
-				$("#startDate").val(date);
-			})
-		}
-		
-		function setEndDate() {
-			$(document).ready(function() {
-				var date = "${startDate}";
-				$("#startDate").val(date);
-			})
 		}
 		
 	</script>

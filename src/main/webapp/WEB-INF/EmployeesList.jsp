@@ -86,16 +86,24 @@
 										</div>
 									</form>
 								</div>
-								
-								<div style="overflow-y:scroll; height: 230px;">
+
+								<div style="overflow-y: scroll; height: 230px;">
 									<ul class="list-group list-group-bordered" id="suggestionsList">
 										<c:forEach items="${employeeList}" var="employee">
-										<li class="list-group-item"><a href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
-											class="mx-auto nav-link" style="color: #2f3640">${employee.name} ${employee.surname} - ${employee.email}</a></li>							
+											<li class="list-group-item"><a
+												href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
+												class="mx-auto nav-link" style="color: #2f3640">${employee.name}
+													${employee.surname} - ${employee.email}</a></li>
 										</c:forEach>
+
+										<c:if test="${empty employeeList}">
+											<div class="my-auto text-center p-5">
+												<h3>Non esistono progetti.</h3>
+											</div>
+										</c:if>
 									</ul>
 								</div>
-	
+
 								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
 									role="button">Inserisci nuovo dipendente</a>
 
@@ -155,35 +163,38 @@
 	<c:if test="${not empty result}">
 		<script>
 			function sweetalertclick() {
-				swal("Ottimo!", "Registrazione avvenuta con successo!", "success")
+				swal("Ottimo!", "Registrazione avvenuta con successo!",
+						"success")
 			}
 			window.onload = sweetalertclick;
 		</script>
 	</c:if>
 
 	<script>
-	
 		function Suggestions(email) {
-	
+
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-	
+
 					var lista = JSON.parse(this.responseText);
-	
+
 					var suggestionsList = "";
-					
+
 					for (i = 0; i < lista.length; i++) {
-						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>" + lista[i].name + " " + lista[i].surname + " - " + lista[i].email + "</a></li>";
+						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>"
+								+ lista[i].name
+								+ " "
+								+ lista[i].surname
+								+ " - " + lista[i].email + "</a></li>";
 					}
-				
+
 					document.getElementById("suggestionsList").innerHTML = suggestionsList;
 				}
 			}
 			xhttp.open("GET", "SearchEmployeeServlet?email=" + email, true);
 			xhttp.send();
 		}
-	
 	</script>
 
 
