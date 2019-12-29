@@ -1,4 +1,5 @@
- [![Build Status](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance.svg?branch=master)](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance)
+[![Build Status](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance.svg?branch=master)](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance)
+ [![codecov](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance/branch/master/graphs/badge.svg)](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance)
  
 <H1>Work Life Balance </H1 
 ------
