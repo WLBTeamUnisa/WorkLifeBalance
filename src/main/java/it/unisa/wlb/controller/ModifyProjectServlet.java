@@ -163,6 +163,8 @@ public class ModifyProjectServlet extends HttpServlet {
 			
 			request.setAttribute("result", "success");
 			request.getSession().removeAttribute("oldProject");
+			request.getSession().removeAttribute("startDate");
+			request.getSession().removeAttribute("endDate");
 			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
