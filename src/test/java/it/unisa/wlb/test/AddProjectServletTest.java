@@ -332,22 +332,22 @@ public class AddProjectServletTest extends Mockito {
 	public void TC_2_2_17() throws ServletException, IOException {
 		
 		String commonName = "WLB13PO";
-		Project pr = new Project();
+		Project project = new Project();
 		String managerEmail = "m.rossi1@wlb.it";
 		Employee manager = new Employee();
 		manager.setEmail(managerEmail);
 		manager.setStatus(1);
 		Date dateS = new Date(2019,11,02);
 		Date dateE = new Date(2019,12,02);
-		Employee em = new Employee();
-		List<Employee> li = new ArrayList<Employee>();
-		li.add(em);
+		Employee employee = new Employee();
+		List<Employee> list = new ArrayList<Employee>();
+		list.add(employee);
 		
 		IProjectDAO projectDao = mock(IProjectDAO.class);
-		when(projectDao.retrieveByName(commonName)).thenReturn(pr);	
+		when(projectDao.retrieveByName(commonName)).thenReturn(project);	
 		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
 		when(employeeDao.retrieveByEmail(managerEmail)).thenReturn(manager);
-		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
+		AddProjectServlet temp = new AddProjectServlet(projectDao, employeeDao);
 		
 		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
@@ -357,7 +357,7 @@ public class AddProjectServletTest extends Mockito {
 		request.addParameter("description", "Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
 		request.addParameter("employeesList", "1");
 		request.addParameter("employee", "m.bianchi1@wlb.it");
-		tmp.doPost(request, response);
+		temp.doPost(request, response);
 		assertEquals("success", request.getAttribute("result"));
 	}
 	
