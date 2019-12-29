@@ -207,7 +207,7 @@ public class AddPlanimetryServletTest extends Mockito {
 		workstationPK.setWorkstation(existingWorkstation);
 		workstation.setId(workstationPK);
 		workstation.setRoom(room);
-		when(workstationDao.create(any(Workstation.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
+		when(workstationDao.create(workstation)).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
 		servlet.setWorkstationDao(workstationDao);
 
 		request.setParameter(JSON_STRING, string);
@@ -310,7 +310,7 @@ public class AddPlanimetryServletTest extends Mockito {
 		workstationPK.setWorkstation(existingWorkstation);
 		workstation.setId(workstationPK);
 		workstation.setRoom(room);
-		when(workstationDao.create(any(Workstation.class))).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
+		when(workstationDao.create(workstation)).thenThrow(IllegalArgumentException.class, NoResultException.class, NonUniqueResultException.class, IllegalStateException.class, QueryTimeoutException.class, TransactionRequiredException.class, PessimisticLockException.class, LockTimeoutException.class, PersistenceException.class);				
 		servlet.setWorkstationDao(workstationDao);
 
 		request.setParameter(JSON_STRING, string);
