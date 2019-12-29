@@ -2,4 +2,4 @@ coverage:
   round: up
   range: 0..75
 codecov:
-  branch: develop
+  branch: master
