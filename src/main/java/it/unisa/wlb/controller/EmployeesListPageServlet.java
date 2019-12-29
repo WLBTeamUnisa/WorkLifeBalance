@@ -1,11 +1,17 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import it.unisa.wlb.model.bean.Employee;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 /**
  * Servlet implementation class EmployeeListPageServlet
@@ -14,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 public class EmployeesListPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@EJB
+	IEmployeeDAO employeeDao;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,8 +37,14 @@ public class EmployeesListPageServlet extends HttpServlet {
 		if(!(request.getSession().getAttribute("user")==null) || !(request.getSession().getAttribute("userRole").equals("Admin"))) {
 			//exception
 		}
-		
-		request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
+		try {
+			List<Employee> list = null;
+			list = employeeDao.retrieveAll();
+			request.setAttribute("employeeList", list);
+			request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
+		}catch(Exception e) {
+			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -42,3 +56,4 @@ public class EmployeesListPageServlet extends HttpServlet {
 	}
 
 }
+

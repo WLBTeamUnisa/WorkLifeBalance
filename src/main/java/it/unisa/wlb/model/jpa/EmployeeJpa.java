@@ -57,9 +57,9 @@ public class EmployeeJpa implements IEmployeeDAO{
 	}
 
 	@Override
-	public List<Employee> searchByEmail(String email) {
+	public List<Employee> suggestByEmail(String email) {
 		entityManager.getTransaction().begin();
-		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.searchByEmail", Employee.class);
+		TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.suggestByEmail", Employee.class);
 		query.setParameter("email", email);
 		entityManager.getTransaction().commit();
 		return (List<Employee>) query.getResultList();		

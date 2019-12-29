@@ -29,7 +29,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * @param email
 	 * @return a list of Employees whose email contains the email specified
 	 */
-	public List<Employee> searchByEmail(String email);
+	public List<Employee> suggestByEmail(String email);
 
 	/**
 	 * It is used to retrieve the list of Employees who is working to a particular project
