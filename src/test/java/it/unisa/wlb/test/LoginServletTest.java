@@ -115,7 +115,7 @@ public class LoginServletTest {
 	 */
 	@Test
 	public void TC_4_1_6() throws Exception {
-		final String message = "Email e/o password non validi";
+		final String message = "Email e/o password non validi2";
 		request.setParameter("email", "m.rossi1@wlb.it");
 		request.setParameter("password", "MarcoRossi2.");
 		servlet.doPost(request, response);
@@ -127,7 +127,7 @@ public class LoginServletTest {
 	 */
 	@Test
 	public void TC_4_1_7() throws Exception {
-		final String message = "Email e/o password non validi";
+		final String message = "Email e/o password non validi2";
 		request.setParameter("email", "m.rossi1@wlb.it");
 		request.setParameter("password", "MarcoRossi2.");
 		servlet.doPost(request, response);

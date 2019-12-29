@@ -69,13 +69,11 @@ public class LoginServlet extends HttpServlet {
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);;
 						}
 					} else {
-						
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 						response.getWriter().write("Email e/o password non validi1");
 						response.getWriter().flush();
 					}
 				}catch(Exception e) {
-					e.printStackTrace();
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi2");
 					response.getWriter().flush();
