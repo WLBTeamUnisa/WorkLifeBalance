@@ -18,17 +18,14 @@ public class ProjectJpa implements IProjectDAO {
 	
   @Override
   public Project create(Project entity) {
-	try
-	{
-	entityManager = factor.createEntityManager();
-    entityManager.getTransaction().begin();
-    entityManager.persist(entity);
-    entityManager.getTransaction().commit();
-    return entity;
-	}
-	
-	finally
-	{
+	try {
+		entityManager = factor.createEntityManager();
+	    entityManager.getTransaction().begin();
+	    entityManager.persist(entity);
+	    entityManager.getTransaction().commit();
+	    return entity;
+	    
+	} finally {
 		entityManager.close();
 	}
   }

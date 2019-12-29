@@ -27,7 +27,7 @@ import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 
 /**
- * Implementation of SmartWorkingDaysPrenotationServlet
+ * Servlet aims to manage the Smart Working reservation made by the user.
  * 
  * @author Luigi Cerrone, Vincenzo Fabiano
  */
@@ -99,12 +99,13 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 						localDate = LocalDate.parse(arrayDates[i]);
 						bookingCalendar = GregorianCalendar.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 						int bookingCalendarWeek = bookingCalendar.get(Calendar.WEEK_OF_YEAR);
+						/**
+						 * Checking if currentCalendarWeek is the last week of year and bookingCalendarWeek is the first of next year
+						 */
 						if((currentCalendarWeek == lastWeekOfYear) && (bookingCalendarWeek == 1)){
-						
 							dateList.add(localDate);
 						
 						} else if(bookingCalendarWeek-1 == currentCalendarWeek && localCalendar.get(Calendar.YEAR) == bookingCalendar.get(Calendar.YEAR)) {
-						
 							dateList.add(localDate);
 					
 						}
@@ -142,8 +143,9 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 
 			smartWorkBooking.setId(pk);
 			smartWorkingDao.create(smartWorkBooking);
-			int idSmartWorking = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail()).getId().getId();
 			
+			SmartWorkingPrenotation smartWork = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail());
+			int idSmartWorking = smartWork.getId().getId();
 			pk.setId(idSmartWorking);
 			smartWorkBooking.setId(pk);
 
