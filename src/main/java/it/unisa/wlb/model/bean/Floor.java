@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -12,62 +11,105 @@ import java.util.List;
  */
 @Entity
 @Table(name="FLOOR")
-@NamedQuery(name="Floor.findAll", query="SELECT f FROM Floor f")
+@NamedQueries({
+	@NamedQuery(name="Floor.findAll", query="SELECT f FROM Floor f"),
+	@NamedQuery(name="Floor.findById", query="SELECT f FROM Floor f WHERE f.numFloor=?1"),
+	@NamedQuery(name="Floor.countMax", query="SELECT COUNT(f) FROM Floor f")	
+})
 public class Floor implements Serializable {
-  private static final long serialVersionUID = 1L;
 
-  @Id
-  @Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
-  private int numFloor;
+	private static final long serialVersionUID = 1L;
 
-  //bi-directional many-to-one association to Admin
-  @ManyToOne
-  @JoinColumn(name="EMAIL_ADMIN",columnDefinition="varchar(37)", nullable=false)
-  private Admin admin;
+	@Id
+	@Column(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
+	private int numFloor;
 
-  //bi-directional many-to-one association to Room
-  @OneToMany(mappedBy="floor")
-  private List<Room> rooms;
+	//bi-directional many-to-one association to Admin
+	@ManyToOne
+	@JoinColumn(name="EMAIL_ADMIN",columnDefinition="varchar(37)", nullable=false)
+	private Admin admin;
 
-  public Floor() {
-  }
+	//bi-directional many-to-one association to Room
+	@OneToMany(mappedBy="floor")
+	private List<Room> rooms;
 
-  public int getNumFloor() {
-    return this.numFloor;
-  }
+	public Floor() {
+	}
 
-  public void setNumFloor(int numFloor) {
-    this.numFloor = numFloor;
-  }
+	public int getNumFloor() {
+		return this.numFloor;
+	}
 
-  public Admin getAdmin() {
-    return this.admin;
-  }
+	public void setNumFloor(int numFloor) {
+		this.numFloor = numFloor;
+	}
 
-  public void setAdmin(Admin admin) {
-    this.admin = admin;
-  }
+	public Admin getAdmin() {
+		return this.admin;
+	}
 
-  public List<Room> getRooms() {
-    return this.rooms;
-  }
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
 
-  public void setRooms(List<Room> rooms) {
-    this.rooms = rooms;
-  }
+	public List<Room> getRooms() {
+		return this.rooms;
+	}
 
-  public Room addRoom(Room room) {
-    getRooms().add(room);
-    room.setFloor(this);
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
 
-    return room;
-  }
+	public Room addRoom(Room room) {
+		getRooms().add(room);
+		room.setFloor(this);
 
-  public Room removeRoom(Room room) {
-    getRooms().remove(room);
-    room.setFloor(null);
+		return room;
+	}
 
-    return room;
-  }
+	public Room removeRoom(Room room) {
+		getRooms().remove(room);
+		room.setFloor(null);
 
+		return room;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
+		result = prime * result + numFloor;
+		result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Floor other = (Floor) obj;
+		if (admin == null) {
+			if (other.admin != null)
+				return false;
+		} else if (!admin.equals(other.admin))
+			return false;
+		if (numFloor != other.numFloor)
+			return false;
+		if (rooms == null) {
+			if (other.rooms != null)
+				return false;
+		} else if (!rooms.equals(other.rooms))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Floor [numFloor=" + numFloor + ", admin=" + admin + ", rooms=" + rooms + "]";
+	}
 }

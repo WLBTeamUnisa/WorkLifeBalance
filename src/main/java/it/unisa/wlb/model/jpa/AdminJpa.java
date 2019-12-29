@@ -3,7 +3,6 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,48 +14,82 @@ import it.unisa.wlb.model.dao.IAdminDAO;
 
 @Stateless
 public class AdminJpa implements IAdminDAO {
-  private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-  private EntityManager entityManager = factor.createEntityManager();
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private EntityManager entityManager;
 
-  public Admin create(Admin entity) {
-    entityManager.getTransaction().begin();
-    entityManager.persist(entity);
-    entityManager.getTransaction().commit();
-    return entity;
-  }
+	public Admin create(Admin entity) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.persist(entity);
+			entityManager.getTransaction().commit();
+			return entity;
+		}
 
-  @Override
-  public void remove(Admin entityClass) {
-    entityManager.getTransaction().begin();
-    entityManager.remove(entityClass);
-    entityManager.getTransaction().commit();
-  }
+		finally {
+			entityManager.close();
+		}
+	}
 
-  @Override
-  public Admin update(Admin entityClass) {
-    entityManager.getTransaction().begin();
-    entityManager.merge(entityClass);
-    entityManager.getTransaction().commit();
-    return entityClass;
-  }
+	@Override
+	public void remove(Admin entityClass) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.remove(entityClass);
+			entityManager.getTransaction().commit();
+		}
 
-  @Override
-  public List<Admin> retrieveAll() {
-    entityManager.getTransaction().begin();
-    Query q = entityManager.createQuery("SELECT admin FROM Admin admin");
-    entityManager.getTransaction().commit();
+		finally {
+			entityManager.close();
+		}
+	}
 
-    return (List<Admin>) q.getResultList();
-  }
+	@Override
+	public Admin update(Admin entityClass) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.merge(entityClass);
+			entityManager.getTransaction().commit();
+			return entityClass;
+		}
 
-@Override
-public Admin retrieveByEmailPassword(String email, String password) {
-	entityManager.getTransaction().begin();
-	TypedQuery<Admin> q = entityManager.createNamedQuery("Admin.findByEmailPassword", Admin.class);
-	q.setParameter("email", email);
-	q.setParameter("password", password);
-	entityManager.getTransaction().commit();
-	return (Admin) q.getSingleResult();
-}
+		finally {
+			entityManager.close();
+		}
+	}
+
+	@Override
+	public List<Admin> retrieveAll() {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			Query q = entityManager.createQuery("SELECT admin FROM Admin admin");
+			entityManager.getTransaction().commit();
+			return (List<Admin>) q.getResultList();
+		}
+
+		finally {
+			entityManager.close();
+		}
+	}
+
+	@Override
+	public Admin retrieveByEmailPassword(String email, String password) {
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Admin> q = entityManager.createNamedQuery("Admin.findByEmailPassword", Admin.class);
+			q.setParameter("email", email);
+			q.setParameter("password", password);
+			entityManager.getTransaction().commit();
+			return (Admin) q.getSingleResult();
+		}
+
+		finally {
+			entityManager.close();
+		}
+	}
 
 }

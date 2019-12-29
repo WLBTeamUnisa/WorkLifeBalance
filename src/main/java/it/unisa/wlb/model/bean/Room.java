@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 
@@ -12,62 +11,107 @@ import java.util.List;
  */
 @Entity
 @Table(name="ROOM")
-@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
+@NamedQueries({
+	@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r"),
+	@NamedQuery(name="Room.countMaxByFloor", query="SELECT COUNT(r) FROM Room r WHERE r.id.numFloor =?1"),
+	@NamedQuery(name="Room.retrieveByFloor", query="SELECT r FROM Room r WHERE r.id.numFloor =?1"),
+})
 public class Room implements Serializable {
-  private static final long serialVersionUID = 1L;
 
-  @EmbeddedId
-  private RoomPK id;
+	private static final long serialVersionUID = 1L;
 
-  //bi-directional many-to-one association to Floor
-  @ManyToOne
-  @JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
-  @MapsId("numFloor")
-  private Floor floor;
+	@EmbeddedId
+	private RoomPK id;
 
-  //bi-directional many-to-one association to Workstation
-  @OneToMany(mappedBy="room")
-  private List<Workstation> workstations;
+	//bi-directional many-to-one association to Floor
+	@ManyToOne
+	@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
+	@MapsId("numFloor")
+	private Floor floor;
 
-  public Room() {
-  }
+	//bi-directional many-to-one association to Workstation
+	@OneToMany(mappedBy="room")
+	private List<Workstation> workstations;
 
-  public RoomPK getId() {
-    return this.id;
-  }
+	public Room() {
+	}
 
-  public void setId(RoomPK id) {
-    this.id = id;
-  }
+	public RoomPK getId() {
+		return this.id;
+	}
 
-  public Floor getFloor() {
-    return this.floor;
-  }
+	public void setId(RoomPK id) {
+		this.id = id;
+	}
 
-  public void setFloor(Floor floor) {
-    this.floor = floor;
-  }
+	public Floor getFloor() {
+		return this.floor;
+	}
 
-  public List<Workstation> getWorkstations() {
-    return this.workstations;
-  }
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
 
-  public void setWorkstations(List<Workstation> workstations) {
-    this.workstations = workstations;
-  }
+	public List<Workstation> getWorkstations() {
+		return this.workstations;
+	}
 
-  public Workstation addWorkstation(Workstation workstation) {
-    getWorkstations().add(workstation);
-    workstation.setRoom(this);
+	public void setWorkstations(List<Workstation> workstations) {
+		this.workstations = workstations;
+	}
 
-    return workstation;
-  }
+	public Workstation addWorkstation(Workstation workstation) {
+		getWorkstations().add(workstation);
+		workstation.setRoom(this);
 
-  public Workstation removeWorkstation(Workstation workstation) {
-    getWorkstations().remove(workstation);
-    workstation.setRoom(null);
+		return workstation;
+	}
 
-    return workstation;
-  }
+	public Workstation removeWorkstation(Workstation workstation) {
+		getWorkstations().remove(workstation);
+		workstation.setRoom(null);
 
+		return workstation;
+	}
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", floor=" + floor + ", workstations=" + workstations + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((floor == null) ? 0 : floor.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((workstations == null) ? 0 : workstations.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Room other = (Room) obj;
+		if (floor == null) {
+			if (other.floor != null)
+				return false;
+		} else if (!floor.equals(other.floor))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (workstations == null) {
+			if (other.workstations != null)
+				return false;
+		} else if (!workstations.equals(other.workstations))
+			return false;
+		return true;
+	}
 }

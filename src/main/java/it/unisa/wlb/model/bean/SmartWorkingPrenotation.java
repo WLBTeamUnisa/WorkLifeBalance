@@ -13,7 +13,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="SMART_WORKING_PRENOTATION")
-@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s")
+@NamedQueries({
+	@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s"),
+	@NamedQuery(name="SmartWorkingPrenotation.findByEmployee", 
+		query="SELECT s FROM SmartWorkingPrenotation s WHERE s.id.employee = :employee"),
+	@NamedQuery(name="SmartWorkingPrenotation.findByWeeklyPlanning", 
+	query="SELECT s FROM SmartWorkingPrenotation s WHERE s.id.employee = :employee AND s.calendarWeek = :calendarWeek AND s.year = :year")
+
+})
 public class SmartWorkingPrenotation implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -32,8 +39,7 @@ public class SmartWorkingPrenotation implements Serializable {
 
   //bi-directional many-to-one association to Employee
   @ManyToOne
-  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false)
-  @MapsId("employeeEmail")
+  @JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false, insertable=false, updatable=false)
   private Employee employee;
 
   public SmartWorkingPrenotation() {
