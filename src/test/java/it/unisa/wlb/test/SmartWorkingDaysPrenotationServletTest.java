@@ -109,16 +109,15 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 	@Test
 	public void TC_5_2_3() throws ServletException, IOException {
 		Calendar CALENDAR = Calendar.getInstance();
-		SmartWorkingPrenotation smartWorkingPrenotation;
-		TimeZone tz = CALENDAR.getTimeZone();
-		ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
-		LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zid).toLocalDate();
+		TimeZone timeZone = CALENDAR.getTimeZone();
+		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
+		LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zoneId).toLocalDate();
 		LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
 		LocalDate newDate;
 		newDate= nextMonday.plusDays(7);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String date = newDate.format(formatter);
-		CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
+		CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
 		int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
 		int year = CALENDAR.get(Calendar.YEAR);
 		String[] dates = {date};

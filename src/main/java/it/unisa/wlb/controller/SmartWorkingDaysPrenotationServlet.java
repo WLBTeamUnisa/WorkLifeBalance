@@ -97,7 +97,6 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				
 				if(arrayDates[i]!=null && !arrayDates[i].equals("")) {
 					try {
-						System.out.println(arrayDates[i]);
 						localDate = LocalDate.parse(arrayDates[i]);
 						bookingCalendar = GregorianCalendar.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 						int bookingCalendarWeek = bookingCalendar.get(Calendar.WEEK_OF_YEAR);

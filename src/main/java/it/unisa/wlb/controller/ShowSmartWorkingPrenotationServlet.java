@@ -57,15 +57,11 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zid).toLocalDate();
 			
 			LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
-			System.out.println(nextMonday);
 			LocalDate newDate;
 			newDate= nextMonday.plusDays(7);
-			System.out.println(newDate);
 			CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
 			int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
-			System.out.println(nextCalendarWeek);
 			int year = CALENDAR.get(Calendar.YEAR);
-			System.out.println(year);
 				try {
 					/**
 					 * If the user has made a reservation for the next week he will not be able to make a new reservation
