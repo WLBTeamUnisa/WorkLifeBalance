@@ -91,7 +91,7 @@
 									<ul class="list-group list-group-bordered" id="suggestionsList">
 										<c:forEach items="${employeeList}" var="employee">
 											<li class="list-group-item"><a
-												href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
+												href="Nome_Servlet_Visualizza_Profilo"
 												class="mx-auto nav-link" style="color: #2f3640">${employee.name}
 													${employee.surname} - ${employee.email}</a></li>
 										</c:forEach>

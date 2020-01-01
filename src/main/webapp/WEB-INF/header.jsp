@@ -42,13 +42,7 @@
 						<div class="avatar-sm">
 							<svg height="100%" width="100%">
 								<circle cx="50%" cy="50%" r="19" fill="white" />
-								<text x="50%" y="50%" text-anchor="middle" fill="black"
-									font-family="Lato" dy=".3em" font-weight="bold">
-									<c:set var="name" value="${user.name}" />
-									<c:set var="surname" value="${user.surname}" />
-									${fn:substring(name, 0, 1)}
-									${fn:substring(surname, 0, 1)}
-								</text>
+								
 							</svg>
 						</div>
 				</a>

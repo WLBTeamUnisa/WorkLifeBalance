@@ -47,7 +47,7 @@ public class ShowProjectServlet extends HttpServlet {
 				try
 				{
 					String startDateString;
-					String endDateString;;
+					String endDateString;
 					
 					Project project=projectDao.retrieveByName(name);
 					//System.out.println("Fine: " + project.getEndDate());

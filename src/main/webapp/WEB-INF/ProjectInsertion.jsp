@@ -56,14 +56,13 @@
 						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
-								<h3>Inserimento progetto</h3>
 							</div>
 
 							<!-- CARD-BODY -->
 							<div class="card-body">
 
 								<!-- FORM -->
-								<form action="AddProjectServlet" method="post">
+								<form action="AddProjctServlet" method="post">
 
 									<!-- CONTAINER -->
 									<div class="container">
@@ -75,7 +74,7 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="name" id="name" onkeyup="verificaNome()"
-												placeholder="Nome..." required>
+												placeholder="Nome..." required >
 										</div>
 										<span id="errorName"> </span>
 
@@ -88,7 +87,7 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="scope" id="scope" onkeyup="verificaScope()"
-												placeholder="Scope..." required>
+												placeholder="Scope..."  required>
 										</div>
 										<span id="errorScope"> </span>
 
