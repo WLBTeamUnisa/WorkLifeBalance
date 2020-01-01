@@ -137,7 +137,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 //			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
 //			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 //			dispatcher.forward(request, response);
-			request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
+			request.getRequestDispatcher("EmployeesListPage").forward(request, response);
 		}
 		else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

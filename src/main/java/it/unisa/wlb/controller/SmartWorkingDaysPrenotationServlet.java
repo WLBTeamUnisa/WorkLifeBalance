@@ -80,6 +80,10 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			/**
 			 * Checking size of dateList
 			 */
+			if(arrayDates == null) {
+				
+			}
+			
 			if(arrayDates.length > 3) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Non puoi prenotare più di 3 date");

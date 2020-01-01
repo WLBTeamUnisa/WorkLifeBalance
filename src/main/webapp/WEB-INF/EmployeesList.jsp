@@ -98,7 +98,7 @@
 
 										<c:if test="${empty employeeList}">
 											<div class="my-auto text-center p-5">
-												<h3>Non esistono progetti.</h3>
+												<h3>Non esistono dipendenti.</h3>
 											</div>
 										</c:if>
 									</ul>
