@@ -46,12 +46,12 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
         super();
     }
     
-    public void setSmartWorkingPrenotationDao(ISmartWorkingPrenotationDAO swDao) {
-    	this.smartWorkingDao = swDao;
+    public void setSmartWorkingPrenotationDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+    	this.smartWorkingDao = smartWorkingDao;
     }
    
-    public void setPrenotationDateDao(IPrenotationDateDAO pdDao) {
-    	this.prenotationDateDao = pdDao;
+    public void setPrenotationDateDao(IPrenotationDateDAO prenotationDateDao) {
+    	this.prenotationDateDao = prenotationDateDao;
     }
 
 
@@ -63,10 +63,10 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 		 * Set calendar parameters to take information about last week of year and current calendar week
 		 */
 		Calendar localCalendar = Calendar.getInstance();
-		TimeZone tz = localCalendar.getTimeZone();
-		ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
-		LocalDate today = LocalDateTime.ofInstant(localCalendar.toInstant(), zid).toLocalDate();
-		localCalendar.setTime(Date.from(today.atStartOfDay().atZone(zid).toInstant()));
+		TimeZone timeZone = localCalendar.getTimeZone();
+		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
+		LocalDate today = LocalDateTime.ofInstant(localCalendar.toInstant(), zoneId).toLocalDate();
+		localCalendar.setTime(Date.from(today.atStartOfDay().atZone(zoneId).toInstant()));
 		
 		int currentCalendarWeek = localCalendar.get(Calendar.WEEK_OF_YEAR);
 		int lastWeekOfYear = localCalendar.getActualMaximum(Calendar.WEEK_OF_YEAR);
@@ -150,15 +150,15 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			}
 			
 			smartWorkBooking.setEmployee(employee);
-			SmartWorkingPrenotationPK pk=new SmartWorkingPrenotationPK();
-			pk.setEmployeeEmail(employee.getEmail());
+			SmartWorkingPrenotationPK smartWorkingPrenotationPk=new SmartWorkingPrenotationPK();
+			smartWorkingPrenotationPk.setEmployeeEmail(employee.getEmail());
 
-			smartWorkBooking.setId(pk);
+			smartWorkBooking.setId(smartWorkingPrenotationPk);
 			smartWorkingDao.create(smartWorkBooking);
 			SmartWorkingPrenotation smartWork = smartWorkingDao.retrieveByWeeklyPlanning(smartWorkBooking.getCalendarWeek(), smartWorkBooking.getYear(), smartWorkBooking.getEmployee().getEmail());
 			int idSmartWorking = smartWork.getId().getId();
-			pk.setId(idSmartWorking);
-			smartWorkBooking.setId(pk);
+			smartWorkingPrenotationPk.setId(idSmartWorking);
+			smartWorkBooking.setId(smartWorkingPrenotationPk);
 
 			/**
 			 * Add Prenotation Dates for inserted Smart Working Prenotation 
