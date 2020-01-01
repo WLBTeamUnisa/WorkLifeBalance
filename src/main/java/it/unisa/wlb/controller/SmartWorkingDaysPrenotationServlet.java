@@ -1,6 +1,7 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -80,6 +81,27 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			/**
 			 * Checking size of dateList
 			 */
+			
+			if(arrayDates == null) {
+				Calendar CALENDAR = Calendar.getInstance();
+				SmartWorkingPrenotation smartWorkingZeroPrenotation = new SmartWorkingPrenotation();
+				LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
+				LocalDate newDate;
+				newDate= nextMonday.plusDays(7);
+				CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
+				int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
+				int year = CALENDAR.get(Calendar.YEAR);
+				smartWorkingZeroPrenotation.setCalendarWeek(nextCalendarWeek);
+				smartWorkingZeroPrenotation.setYear(year);
+				smartWorkingZeroPrenotation.setEmployee(employee);
+				SmartWorkingPrenotationPK smartWorkingZeroPrenotationPk = new SmartWorkingPrenotationPK();
+				smartWorkingZeroPrenotationPk.setEmployeeEmail(employee.getEmail());
+				smartWorkingZeroPrenotation.setId(smartWorkingZeroPrenotationPk);
+				smartWorkingDao.create(smartWorkingZeroPrenotation);
+				request.setAttribute("result", "ok");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
+	        	dispatcher.forward(request, response);
+			}
 			if(arrayDates.length > 3) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Non puoi prenotare più di 3 date");
