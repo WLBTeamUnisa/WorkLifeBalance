@@ -4,10 +4,14 @@ package it.unisa.wlb.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
-
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
@@ -104,23 +108,33 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 	 */
 	@Test
 	public void TC_5_2_3() throws ServletException, IOException {
-		String[] dates = {"2020-01-01"};
-		int idSmartWorking = 1;
-		int calendarWeek = 1;
-		int year = 2020;
+		Calendar CALENDAR = Calendar.getInstance();
+		TimeZone timeZone = CALENDAR.getTimeZone();
+		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
+		LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zoneId).toLocalDate();
+		LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
+		LocalDate newDate;
+		newDate= nextMonday.plusDays(7);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String date = newDate.format(formatter);
+		CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
+		int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
+		int year = CALENDAR.get(Calendar.YEAR);
+		String[] dates = {date};
 		request.setParameter("dates", dates);
+		int idSmartWorking = 1;
 		ISmartWorkingPrenotationDAO smartWorkingDao = mock(ISmartWorkingPrenotationDAO.class);
 		IPrenotationDateDAO prenotationDateDao = mock(IPrenotationDateDAO.class);
 		SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
 		SmartWorkingPrenotationPK smartWorkingPk = new SmartWorkingPrenotationPK();
 		smartWorkingPk.setEmployeeEmail(employee.getEmail());
-		smartWorking.setCalendarWeek(calendarWeek);
+		smartWorking.setCalendarWeek(nextCalendarWeek);
 		smartWorkingPk.setId(idSmartWorking);
 		smartWorking.setYear(year);
 		smartWorking.setEmployee(employee);
 		smartWorking.setId(smartWorkingPk);
 		when(smartWorkingDao.create(smartWorking)).thenReturn(smartWorking);
-		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, smartWorking.getEmployee().getEmail())).thenReturn(smartWorking);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, smartWorking.getEmployee().getEmail())).thenReturn(smartWorking);
 		when(smartWorkingDao.update(smartWorking)).thenReturn(smartWorking);
 		servlet.setSmartWorkingPrenotationDao(smartWorkingDao);
 		PrenotationDate prenotationDate = new PrenotationDate();

@@ -28,14 +28,12 @@ public class LoginServletTest {
 	MockHttpServletResponse response;
 	LoginServlet servlet;
 
-	private Employee e;
-
 	@BeforeEach
 	public void setUp() {
+	
 		servlet= new LoginServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		request.getSession().setAttribute("user", e);
 	}
 
 	/**
@@ -132,9 +130,9 @@ public class LoginServletTest {
 		String password = "MarcoRossi2.";		
 		request.setParameter("email", email);
 		request.setParameter("password", password);		
-		IEmployeeDAO eDao = mock(IEmployeeDAO.class);
-		Mockito.when(eDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
-		servlet.setEmployeeDao(eDao);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		Mockito.when(employeeDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
+		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);		
 		assertEquals(message, response.getContentAsString());
 	}
@@ -151,9 +149,9 @@ public class LoginServletTest {
 		String password = "MarcoRossi2.";		
 		request.setParameter("email", email);
 		request.setParameter("password", password);		
-		IEmployeeDAO eDao = mock(IEmployeeDAO.class);
-		Mockito.when(eDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
-		servlet.setEmployeeDao(eDao);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		Mockito.when(employeeDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
+		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);
 		assertEquals(message, response.getContentAsString());
 	}
@@ -166,17 +164,17 @@ public class LoginServletTest {
 	@Test
 	public void TC_4_1_8() throws Exception {
 		String message = "success";
-		Employee e = new Employee();
-		e.setEmail("m.rossi1@wlb.it");
-		e.setPassword(Utils.generatePwd("MarcoRossi1."));
-		e.setName("Marco");
-		e.setSurname("Rossi");
-		e.setStatus(0);
+		Employee employee = new Employee();
+		employee.setEmail("m.rossi1@wlb.it");
+		employee.setPassword(Utils.generatePwd("MarcoRossi1."));
+		employee.setName("Marco");
+		employee.setSurname("Rossi");
+		employee.setStatus(0);
 
-		IEmployeeDAO eDao = mock(IEmployeeDAO.class);
-		Mockito.when(eDao.retrieveByEmailPassword(e.getEmail(), e.getPassword())).thenReturn(e);
+		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		Mockito.when(employeeDao.retrieveByEmailPassword(employee.getEmail(), employee.getPassword())).thenReturn(employee);
 
-		servlet.setEmployeeDao(eDao);
+		servlet.setEmployeeDao(employeeDao);
 
 		request.setParameter("email", "m.rossi1@wlb.it");
 		request.setParameter("password", "MarcoRossi1.");

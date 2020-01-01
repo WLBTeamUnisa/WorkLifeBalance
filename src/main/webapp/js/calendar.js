@@ -158,10 +158,6 @@ $(document).ready(function () {
                         console.log("Giorno scelto: " + x);
                         giorniScelti.push(x);
                         console.log("Lenght" + giorniScelti.length);
-
-                        //ABILITO IL PULSANTE DI PRENOTAZIONE
-                        var btn = $("#sendButton");
-                        btn.prop("disabled", false);
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO

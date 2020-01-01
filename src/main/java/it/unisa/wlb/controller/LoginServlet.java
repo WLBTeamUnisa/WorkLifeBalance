@@ -36,8 +36,8 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
-	public void setEmployeeDao(IEmployeeDAO empDao) {
-		this.employeeDao = empDao;
+	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+		this.employeeDao = employeeDao;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,14 +47,14 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			if(email != null && password != null && checkPasswordLogin(password)) {
 				try {
-				    String generatedPwd = Utils.generatePwd(password);
+				    String generatedPassword = Utils.generatePwd(password);
 					/**
 					 * Checking if email respects employee email format
 					 */
 				    if(email.endsWith("@wlb.it") && checkEmailEmployee(email)) {
-				    	Employee e = employeeDao.retrieveByEmailPassword(email, generatedPwd);
-						if(e != null) {
-							session.setAttribute("user", e);
+				    	Employee employee = employeeDao.retrieveByEmailPassword(email, generatedPassword);
+						if(employee != null) {
+							session.setAttribute("user", employee);
 							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
@@ -62,10 +62,10 @@ public class LoginServlet extends HttpServlet {
 					 * Checking if email respects admin email format
 					 */
 					} else if(email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
-						Admin a = adminDao.retrieveByEmailPassword(email, generatedPwd);
-						if(a != null) {
+						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
+						if(admin != null) {
 							session.setAttribute("userRole", "Admin");
-							session.setAttribute("user", a);
+							session.setAttribute("user", admin);
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
 					} else {
@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 						response.getWriter().write("Email e/o password non validi");
 						response.getWriter().flush();
 					}
-				}catch(Exception e) {
+				}catch(Exception exception) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
