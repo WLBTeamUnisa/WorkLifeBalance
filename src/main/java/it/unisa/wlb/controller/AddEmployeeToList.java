@@ -19,7 +19,11 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
 
 /**
- * Servlet implementation class AddEmployeeToList
+ * The aim of this Servlet is to insert an employee into a dynamic list thanks 
+ * to JSON Object
+ * 
+ * @author Luigi Cerrone, Emmanuel Tesauro
+ *
  */
 @WebServlet("/AddEmployeeToList")
 public class AddEmployeeToList extends HttpServlet {
@@ -31,7 +35,7 @@ public class AddEmployeeToList extends HttpServlet {
     @EJB
     private IEmployeeDAO employeeDao; 
     
-    private static final String EMAIL_EMPLOYEE = "email";
+    private static final String EMAIL = "email";
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,13 +49,13 @@ public class AddEmployeeToList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String email_employee=request.getParameter(EMAIL_EMPLOYEE);
+	    String emailEmployee=request.getParameter(EMAIL);
 	    
 	    /**
-	     * Controllo che il dipendente effettivamente esista
+	     * Check about the existence of submitted email in the database 
 	     * 
 	     * */
-	    Employee employee=employeeDao.retrieveByEmail(email_employee);
+	    Employee employee=employeeDao.retrieveByEmail(emailEmployee);
 	    if(employee==null)
 	    {
 	        response.getWriter().append("Non hai inserito un dipendente valido");
@@ -63,12 +67,16 @@ public class AddEmployeeToList extends HttpServlet {
 	    	obj.put("emailEmployee", employee.getEmail());
 	        
 	        /**
-	         * Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
+	         * If employee exists, the employee will be inserted into the arraylist
 	         * 
 	         * */
 	    	HttpSession session=request.getSession();
 	        ArrayList<Employee> lista=(ArrayList<Employee>) session.getAttribute("lista_dipendenti");
 	        
+	        /**
+	         * If the list, initially is empty, it will be created
+	         * 
+	         */
 	        if(lista==null)
 	        {
 	        	lista=new ArrayList<Employee>();
@@ -80,7 +88,7 @@ public class AddEmployeeToList extends HttpServlet {
 	        
 	        
 	        /**
-	         * Controllo che il dipendente non faccia già parte della lista
+	         * Only if the employee there isn't yet into the list, it will be added 
 	         * 
 	         * */
 	        else

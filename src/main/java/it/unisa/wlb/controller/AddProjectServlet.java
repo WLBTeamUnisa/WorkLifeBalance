@@ -19,8 +19,6 @@ import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 
 
-
-
 /**
  * Servlet implementation class AddProjectServlet
  */

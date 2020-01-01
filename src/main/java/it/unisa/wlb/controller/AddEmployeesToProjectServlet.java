@@ -18,8 +18,13 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
 
 /**
- * Servlet implementation class AddEmployeesToProjectServlet
+ * The aim of this Servlet is to create effectively the project and to add
+ * employees that belong to it
+ * 
+ * @author Luigi Cerrone
+ *
  */
+
 @WebServlet("/AddEmployeesToProjectServlet")
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,13 +51,13 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		  String userRole=(String) session.getAttribute("userRole");
 		  
 		  /**
-		   * Ruolo dell'admin
+		   * Check about admin role
 		   * 
 		   * */
 		  if(userRole.equalsIgnoreCase("Admin"))
 		  {
 		      /**
-		       * Acquisisco il progetto tramite un attributo
+		       * Taking the project setted thanks to request's attribute
 		       * */
 		      Project project=(Project) request.getAttribute("Project");
 		      if(project==null)
@@ -70,7 +75,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        if(lista_dipendenti!=null && lista_dipendenti.size()>=1 )
 		        {
 		        	/**
-		        	 * Insertion of employees into Works table
+		        	 * Insertion of employees into works table
 		        	 * 
 		        	 * */
 		        	project.setEmployees(lista_dipendenti);
@@ -84,7 +89,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	manager.addProjects1(project);
 		        
 		        	/**
-		        	 * Updating manager with the insertion of the project
+		        	 * Updating the relationship between manager and project
 		        	 */
 		        	employeeDao.update(manager);
 		        	session.removeAttribute("lista_dipendenti");
