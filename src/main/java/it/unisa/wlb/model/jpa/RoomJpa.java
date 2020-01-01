@@ -17,6 +17,7 @@ public class RoomJpa implements IRoomDao{
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager = factor.createEntityManager();
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Room> retrieveByFloor(int idFloor) {
 		entityManager.getTransaction().begin();

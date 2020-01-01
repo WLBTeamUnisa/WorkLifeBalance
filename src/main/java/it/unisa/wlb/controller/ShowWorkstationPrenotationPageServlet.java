@@ -29,7 +29,7 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  * Servlet implementation class ShowWorkstationPrenotationPage
  */
 @WebServlet("/ShowWorkstationPrenotationPage")
-public class ShowWorkstationPrenotationPage extends HttpServlet {
+public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
@@ -41,7 +41,7 @@ public class ShowWorkstationPrenotationPage extends HttpServlet {
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
-    public ShowWorkstationPrenotationPage() {
+    public ShowWorkstationPrenotationPageServlet() {
         super();
     }
 
