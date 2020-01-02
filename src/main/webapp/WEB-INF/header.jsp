@@ -110,7 +110,7 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
-							<li class="nav-item"><a href="#forms" class="nav-link"><i
+							<li class="nav-item"><a href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
 
@@ -135,7 +135,7 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
-							<li class="nav-item"><a href="#forms" class="nav-link"><i
+							<li class="nav-item"><a href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
 
