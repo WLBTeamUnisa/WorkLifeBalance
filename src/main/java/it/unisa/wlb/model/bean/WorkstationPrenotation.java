@@ -10,7 +10,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="WORKSTATION_PRENOTATION")
-@NamedQuery(name="WorkstationPrenotation.findAll", query="SELECT w FROM WorkstationPrenotation w")
+@NamedQueries({
+	@NamedQuery(name="WorkstationPrenotation.findAll", query="SELECT w FROM WorkstationPrenotation w"),
+	@NamedQuery(name="WorkstationPrenotation.findByWeeklyPlanning", query="SELECT w FROM WorkstationPrenotation w WHERE w.calendarWeek=?! AND w.year=?2 and w.id.emailEmployee=?3"),
+	@NamedQuery(name="WorkstationPrenotation.findByEmail", query="SELECT w FROM WorkstationPrenotation w WHERE w.id.emailEmployee=?1")
+})
 public class WorkstationPrenotation implements Serializable {
 	private static final long serialVersionUID = 1L;
 

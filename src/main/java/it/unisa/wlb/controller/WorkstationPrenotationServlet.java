@@ -28,7 +28,7 @@ import it.unisa.wlb.model.dao.IWorkstationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
 /**
- * The aim of this Servlet ....
+ * The aim of this Servlet is to insert a workstation prenotation into the database
  * 
  * @author Vincenzo Fabiano, Luigi Cerrone, Sabato Nocera
  *
@@ -78,8 +78,9 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 		Workstation workstation = null;
 		WorkstationPrenotation workstationPrenotation = null;
 		
-		//{"data":"2019-12-30", "workstation":4, "room":1, "floor":1}
-		
+		/**
+		 * Expected JSONObject: {"date":"2019-12-30", "workstation":4, "room":1, "floor":1}
+		 */		
 		int floorNumber = 0;
 		int roomNumber = 0;
 		int workstationNumber = 0;
@@ -113,7 +114,6 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");					
 		}
 		
-		//IMPLEMENTA DATE
 		LocalDate date = LocalDate.parse(datePrenotation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		Calendar calendar = Calendar.getInstance();
 		TimeZone timeZone = calendar.getTimeZone();

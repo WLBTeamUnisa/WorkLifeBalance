@@ -8,8 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
@@ -72,7 +70,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 		try{ 
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByEmail", WorkstationPrenotation.class);
-			query.setParameter("email", email);
+			query.setParameter(1, email);
 			entityManager.getTransaction().commit();
 			return query.getResultList();
 		} finally {
@@ -85,9 +83,9 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 		try{ 
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByWeeklyPlanning", WorkstationPrenotation.class);
-			query.setParameter("calendarWeek", calendarWeek);
-			query.setParameter("year", year);
-			query.setParameter("email", email);
+			query.setParameter(1, calendarWeek);
+			query.setParameter(2, year);
+			query.setParameter(3, email);
 			entityManager.getTransaction().commit();
 			return query.getResultList();
 		} finally {
