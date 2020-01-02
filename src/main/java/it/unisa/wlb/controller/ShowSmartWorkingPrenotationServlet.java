@@ -48,20 +48,20 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			/**
 			 * Get information about the next calendar week (number and year)
 			 */
-			Calendar CALENDAR = Calendar.getInstance();
+			Calendar calendar = Calendar.getInstance();
 			SmartWorkingPrenotation smartWorkingPrenotation;
 			Employee employee;
 			employee = (Employee) request.getSession().getAttribute("user");
-			TimeZone tz = CALENDAR.getTimeZone();
+			TimeZone tz = calendar.getTimeZone();
 			ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
-			LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zid).toLocalDate();
-			
+			LocalDate today = LocalDateTime.ofInstant(calendar.toInstant(), zid).toLocalDate();
+		
 			LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
 			LocalDate newDate;
 			newDate= nextMonday.plusDays(7);
-			CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
-			int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
-			int year = CALENDAR.get(Calendar.YEAR);
+			calendar.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
+			int nextCalendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+			int year = calendar.get(Calendar.YEAR);
 				try {
 					/**
 					 * If the user has made a reservation for the next week he will not be able to make a new reservation

@@ -1,7 +1,12 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -109,9 +114,15 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 		}
 		
 		//IMPLEMENTA DATE
-		Date date = new Date();
-		int calendarWeek = 69;
-		int year = 2020;
+		LocalDate date = LocalDate.parse(datePrenotation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		Calendar calendar = Calendar.getInstance();
+		TimeZone timeZone = calendar.getTimeZone();
+		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
+		Date workstationPrenotationDate = Date.from(date.atStartOfDay().atZone(zoneId).toInstant());
+		calendar.setTime(workstationPrenotationDate);
+		
+		int calendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+		int year = calendar.get(Calendar.YEAR);
 		
 		try {
 			workstation = workstationDao.retrieveById(floorNumber, roomNumber, workstationNumber);			
@@ -123,7 +134,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			
 		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
 		workstationPrenotationPK.setEmailEmployee(employee.getEmail());
-		workstationPrenotationPK.setPrenotationDate(date);
+		workstationPrenotationPK.setPrenotationDate(workstationPrenotationDate);
 		
 		workstationPrenotation = new WorkstationPrenotation();
 		
