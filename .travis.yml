@@ -8,8 +8,8 @@ sudo: false
 before_install:
   - mvn checkstyle:check
 
-script: 
-  - mvn test
+script: |
+  mvn test
   
 script: "mvn cobertura:cobertura"
 
