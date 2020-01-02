@@ -170,8 +170,8 @@ public class AddProjectServlet extends HttpServlet {
 			request.setAttribute("Project", project);
 			request.setAttribute("manager", manager);
 			request.setAttribute("result", "success");
-			String url = response.encodeURL("/AddEmployeesToProjectServlet");
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			request.setAttribute("status", "creating");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
 			dispatcher.forward(request, response);
 		} else {
 			request.getSession().removeAttribute("oldProject");

@@ -49,64 +49,68 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  HttpSession session = request.getSession();
 		  String userRole=(String) session.getAttribute("userRole");
-		  
+		  Project project=(Project) request.getAttribute("Project");
+		  List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		  List<Employee> currentEmployees;
+		  String status;
+		  status = (String)request.getAttribute("status");
 		  /**
 		   * Check about admin role
 		   * 
 		   * */
-		  if(userRole.equalsIgnoreCase("Admin"))
-		  {
+		  
+		  if(userRole.equalsIgnoreCase("Admin")) {			  
 		      /**
 		       * Taking the project setted thanks to request's attribute
 		       * */
-		      Project project=(Project) request.getAttribute("Project");
-		      if(project==null)
-		      {
-		        String url= response.encodeURL("/AddEmployeesToProjectServlet");
-		        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		      
+		      if(project==null) {
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
 		        dispatcher.forward(request, response);
-		      }
-		    
-		      else
-		      {
-		        
-		        List<Employee> lista_dipendenti=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
-		        
-		        if(lista_dipendenti!=null && lista_dipendenti.size()>=1 )
-		        {
-		        	/**
-		        	 * Insertion of employees into works table
-		        	 * 
-		        	 * */
-		        	project.setEmployees(lista_dipendenti);
-		        
-		        	/**
-		        	 * Creation of the new project
-		        	 */
-		        	projectDao.create(project);
-		        
-		        	Employee manager=(Employee) request.getAttribute("manager");
-		        	manager.addProjects1(project);
-		        
-		        	/**
-		        	 * Updating the relationship between manager and project
-		        	 */
-		        	employeeDao.update(manager);
+		      } else {
+		    	  
+		        if(employeesList!=null && employeesList.size()>=1) {
+		        	if(status.equals("modifying")) {
+						  currentEmployees = project.getEmployees();
+						  for(Employee anEmployee : employeesList) {
+							  System.out.println("Aggiungo dipendente: " + anEmployee.getEmail());
+							  currentEmployees.add(anEmployee);
+						  }
+						  project.setEmployees(currentEmployees);
+						  projectDao.update(project);
+						  
+					  } else {
+						  /**
+				        	 * Insertion of employees into works table
+				        	 * 
+				        	 * */
+				        	project.setEmployees(employeesList);
+				        
+				        	/**
+				        	 * Creation of the new project
+				        	 */
+				        	projectDao.create(project);
+				        
+				        	Employee manager=(Employee) request.getAttribute("manager");
+				        	manager.addProjects1(project);
+				        
+				        	/**
+				        	 * Updating the relationship between manager and project
+				        	 */
+				        	employeeDao.update(manager);
+					  }
+		        	
 		        	session.removeAttribute("lista_dipendenti");
 					request.setAttribute("result", "success");
+					request.removeAttribute("Project");
 					
-		        	String url= response.encodeURL("/ProjectsListPage");
-		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher("/ProjectsListPage");
 		        	dispatcher.forward(request, response);
-		        }
-		        
-		        else
-		        {
+		        } else {
 		        	request.setAttribute("result", "error");
 		        	session.removeAttribute("lista_dipendenti");
 		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
-		        }
-		      
+		          }
 		   }
 		}
 	

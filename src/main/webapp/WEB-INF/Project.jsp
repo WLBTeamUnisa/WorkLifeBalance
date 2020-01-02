@@ -138,6 +138,35 @@
 												value="${oldProject.employee.email}" required>
 										</div>
 
+										<!-- LISTA DIPENDENTI -->
+										<div class="form-group row pb-1">
+											<div class="col-lg-7">
+												<div class="card">
+													<div class="card-header p-2">
+														<h3 class="my-auto">Lista dipendenti:</h3>
+													</div>
+													<div class="card-body">
+														<div class="form-group text-center mx-auto">
+															<ul class="list-group list-group-bordered"
+																id="employeeList">
+
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<!-- INSERISCI DIPENDENTE (BOTTONE TRIGGER) -->
+											<div class="col-lg-5 mx-auto mb-auto">
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-warning mx-auto"
+													data-toggle="modal" data-target="#exampleModal">
+													Inserisci dipendente <i class="fas fa-plus ml-2 my-auto"></i>
+												</button>
+											</div>
+										</div>
+
 										<hr>
 
 										<div class="col-lg-4 mx-auto">
@@ -149,6 +178,45 @@
 									</div>
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
 								</form>
+								
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header text-center">
+												<h5 class="modal-title" id="exampleModalLabel">Inserisci
+													dipendente</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<h3>Ricerca dipendente</h3>
+
+												<div class="input-group mb-3">
+													<input type="email"
+														onkeyup="SuggestionsEmployee(this.value)"
+														class="form-control" placeholder="m.red1@wlb.it"
+														aria-describedby="basic-addon1" name="q" id="lista"
+														list="suggestionsEmployee">
+													<div class="input-group-append">
+														<button class="input-group-text" type="button"
+															onclick="insertEmployee(lista.value)"
+															data-dismiss="modal">
+															<i class="fas fa-plus-square"></i>
+														</button>
+													</div>
+												</div>
+												<datalist id="suggestionsEmployee"></datalist>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 								<!-- FINE CARD BODY -->
 							</div>
 
@@ -303,6 +371,68 @@
 				btn.css("color", "#ffffff");
 			}
 		}
+		
+		function SuggestionsEmployee(email) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					document.getElementById("suggestionsEmployee").innerHTML = options;
+					dipendentiOK = true;
+					changeInsertButtonState();
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0",
+					true);
+			xhttp.send();
+		}
+
+		function SuggestionsManager(email) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					document.getElementById("suggestionsManager").innerHTML = options;
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=1",
+					true);
+			xhttp.send();
+		}
+
+		function insertEmployee(email) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var lista = JSON.parse(this.responseText);
+					var li = "";
+
+					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>"
+							+ lista.emailEmployee + "</li>";
+					console.log(li);
+					document.getElementById("employeeList").innerHTML += li;
+
+				}
+			}
+			xhttp.open("GET", "AddEmployeeToList?email=" + email, true);
+			xhttp.send();
+		}		
 		
 	</script>
 
