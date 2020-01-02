@@ -114,16 +114,18 @@
 													class="fas fa-user-tie"></i></span>
 											</div>
 											<select name="status" class="custom-select text-center"
-												id="inputGroupSelect03" required>
+												id="Status" onchange="changeStatusFunction()" required>
 												<option value="Employee">Dipendente</option>
 												<option value="Manager">Manager</option>
 											</select>
 										</div>
+										
 										<!-- form-group// Status choose -->
 
-										<span id="errorRegistrationForm"></span>
+										<span id="errorName"> </span>
+
 										<div class="form-group col-sm-6 mx-auto">
-											<button type="submit" id="registrationButton"
+											<button type="submit" id="changeStatusButton"
 												class="btn btn btn-success btn-block mx-auto" disabled>
 												Modifica</button>
 										</div>
@@ -187,7 +189,40 @@
 	<script src="js/atlantis.min.js"></script>
 
 </body>
+<script>
 
+window.onload = function() {
+	if("${employee.status}"==0)
+	 	document.getElementById("Status").selectedIndex = "0";
+	else
+		document.getElementById("Status").selectedIndex = "1";
+}
+
+
+function changeStatusFunction()
+{
+	var statusEmployee =document.querySelector("#Status");
+	var statusInt;
+	if(statusEmployee.value=="Manager")
+		statusInt=1;
+	else
+		statusInt=0;
+
+	//document.getElementById("errorName").innerHTML = "${employee.status}";
+	if("${employee.status}"!=statusInt)
+		{
+			document.getElementById("changeStatusButton").disabled=false;
+			
+		}
+	else
+		{
+			document.getElementById("changeStatusButton").disabled=true;
+			
+		}
+	
+}
+
+</script>
 
 
 </html>

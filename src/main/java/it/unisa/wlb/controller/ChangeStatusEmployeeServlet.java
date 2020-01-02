@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
 /**
@@ -36,15 +37,15 @@ public class ChangeStatusEmployeeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String email=request.getParameter("email");
 		 String status=request.getParameter("status");
-		 int statusInt;
+		 int statusInt=2;
 		 if(status.equals("Employee") || status.equals("Manager") ) {
 				if(status.equals("Employee"))
-				statusInt=0;
-				if(status.equals("Manager")) {
+					statusInt=0;
+				else
 					statusInt=1;
-				}
+				Employee employee=employeeDao.retrieveByEmail(email);
+				
 			}
-		 
 		 else
 		 {
 			 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
