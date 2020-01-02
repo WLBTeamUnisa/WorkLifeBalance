@@ -87,7 +87,6 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 				{
 					Date tempDate = (Date) smartWorkingPrenotationDateList.get(i).getId().getDate();
 					LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
-					tempDateConverted=tempDateConverted.plusDays(1);
 					listDates.remove(tempDateConverted);
 				}
 			}
