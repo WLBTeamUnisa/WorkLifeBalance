@@ -70,15 +70,15 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		      else
 		      {
 		        
-		        List<Employee> lista_dipendenti=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		        List<Employee> employeeList=(List<Employee>) request.getSession().getAttribute("employeeList");
 		        
-		        if(lista_dipendenti!=null && lista_dipendenti.size()>=1 )
+		        if(employeeList!=null && employeeList.size()>=1 )
 		        {
 		        	/**
 		        	 * Insertion of employees into works table
 		        	 * 
 		        	 * */
-		        	project.setEmployees(lista_dipendenti);
+		        	project.setEmployees(employeeList);
 		        
 		        	/**
 		        	 * Creation of the new project
@@ -92,7 +92,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	 * Updating the relationship between manager and project
 		        	 */
 		        	employeeDao.update(manager);
-		        	session.removeAttribute("lista_dipendenti");
+		        	session.removeAttribute("employeeList");
 					request.setAttribute("result", "success");
 					
 		        	String url= response.encodeURL("/ProjectsListPage");
@@ -103,7 +103,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        else
 		        {
 		        	request.setAttribute("result", "error");
-		        	session.removeAttribute("lista_dipendenti");
+		        	session.removeAttribute("employeeList");
 		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		        }
 		      

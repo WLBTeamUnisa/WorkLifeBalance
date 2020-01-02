@@ -58,7 +58,7 @@ public class AddEmployeeToList extends HttpServlet {
 	    Employee employee=employeeDao.retrieveByEmail(emailEmployee);
 	    if(employee==null)
 	    {
-	        response.getWriter().append("Non hai inserito un dipendente valido");
+	        response.getWriter().append("The employee is not valid");
 	    }
 	    
 	    else
@@ -71,17 +71,17 @@ public class AddEmployeeToList extends HttpServlet {
 	         * 
 	         * */
 	    	HttpSession session=request.getSession();
-	        ArrayList<Employee> lista=(ArrayList<Employee>) session.getAttribute("lista_dipendenti");
+	        ArrayList<Employee> list=(ArrayList<Employee>) session.getAttribute("employeeList");
 	        
 	        /**
 	         * If the list, initially is empty, it will be created
 	         * 
 	         */
-	        if(lista==null)
+	        if(list==null)
 	        {
-	        	lista=new ArrayList<Employee>();
-	        	lista.add(employee);
-	        	session.setAttribute("lista_dipendenti", lista);
+	        	list=new ArrayList<Employee>();
+	        	list.add(employee);
+	        	session.setAttribute("employeeList", list);
 		        response.getWriter().append(obj.toString());
 		        response.setContentType("application/json");
 	        }
@@ -94,9 +94,9 @@ public class AddEmployeeToList extends HttpServlet {
 	        else
 	        {
 	          int flag=0;
-	          for(int i=0; i<lista.size() && flag==0; i++)
+	          for(int i=0; i<list.size() && flag==0; i++)
 	          {
-	        	  if(lista.get(i).getEmail()==employee.getEmail())
+	        	  if(list.get(i).getEmail()==employee.getEmail())
 	        	  {
 	        		  flag=1;
 	        	  }
@@ -104,8 +104,8 @@ public class AddEmployeeToList extends HttpServlet {
 	          
 	          if(flag==0)
 	          {
-	        	  lista.add(employee);
-        		  session.setAttribute("lista_dipendenti", lista);
+	        	  list.add(employee);
+        		  session.setAttribute("employeeList", list);
         		  response.getWriter().append(obj.toString());
         		  response.setContentType("application/json");
 	          }
