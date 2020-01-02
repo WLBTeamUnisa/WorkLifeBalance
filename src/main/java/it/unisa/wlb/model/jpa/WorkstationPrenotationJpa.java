@@ -82,6 +82,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 	@Override
 	public List<WorkstationPrenotation> retrieveByWeeklyPlanning(int calendarWeek, int year, String email) {
 		try{ 
+			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByWeeklyPlanning", WorkstationPrenotation.class);
 			query.setParameter(1, calendarWeek);

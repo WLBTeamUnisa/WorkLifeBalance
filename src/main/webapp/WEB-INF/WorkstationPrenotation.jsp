@@ -176,13 +176,11 @@
 			//CONTAINER DEGLI OGGETTI SVG
 			var container = $(".flex-container");
 			
-			//INIZIALIZZO LE VARIBILI
-			floorSelect.html(1);
-			roomSelect.html(1);
-			
+			//INIZIALIZZO ALLA PRIMA STANZA
+			loadRoom(1);
+
 			
 			//LOAD PIANI
-			function loadFloor(){				
 				if(insertedPlanimetry.length > 0){
 					var arrayJson = JSON.parse(insertedPlanimetry);
 					var arrayFloor = [];
@@ -190,28 +188,25 @@
 						if(!(arrayFloor.includes(arrayJson[i].floor))){
 							arrayFloor.push(arrayJson[i].floor);
 						}
-						console.log(arrayJson[i]);	
 					}
 				}
 				floorSelect.html("");
 				for(var j=0; j<arrayFloor.length; j++){
-					console.log(arrayFloor[j]);
 					floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
-				}	
-			}
+				}
+				
+				loadPlanimetry();
 			
 			
 			//LOAD STANZE
-			function loadRoom(){
-			
+			function loadRoom(piano){
 				if(insertedPlanimetry.length > 0){
 					var arrayJson = JSON.parse(insertedPlanimetry);
 					var arrayRoom = [];
 					for(var i = 0; i<arrayJson.length; i++){
-						if(arrayJson[i].floor==x){
+						if(arrayJson[i].floor==piano){
 							arrayRoom.push(arrayJson[i].room);
 						}
-						console.log("Stanza: " + arrayJson[i].room);	
 					}
 				}
 				roomSelect.html("");
@@ -227,18 +222,19 @@
 				var date = dateSelect.val();
 				var floor = floorSelect.val();
 				var room = roomSelect.val();
-				
-				console.log(date + " - " + floor + " - " + room);
-				console.log("WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room);
-				
+								
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function(){
 					if(this.readyState == 4 && this.status == 200){
-						console.log("arrivata");
 						var lista = JSON.parse(this.responseText);
-						
+						container.html("");
 						for(var i = 0; i<lista.length; i++){
-							console.log(lista[i]);
+							if(lista[i].status == 0){
+								container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + lista[i].workstation + "</text> </svg>");
+							} else if (lista[i].status == 1){
+								console.log(lista[i]);
+								container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
+							}
 						}
 					}
 				}
@@ -247,50 +243,23 @@
 			}
 			
 			
-			
 			//SETTO GLI EVENTI ONCHANGE ALLE SELECT
 			roomSelect.on("change", function () {
 				loadPlanimetry();
 			});
 			floorSelect.on("change", function () {
+				loadRoom(floorSelect.val());
 				loadPlanimetry();
 			});
 			dateSelect.on("change", function () {
 				loadPlanimetry();
 			});
-
+			
+			//-------FIN QUI VA BENE--------
 			
 			
-			//INIZIALIZZO STATICAMENTE LA VIEW
-			var container = $(".flex-container");
-			for (var i = 0; i < 40; i++) {
-				if (i % 3 == 0) {
-					container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + i + "</text> </svg>");
-				} else {
-					container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + i + "</text> </svg>");
-				}
-			}
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			clickedElement = $(".flex-container > svg");
+			//ONCLICK DA CONTINUARE E RIVEDERE
+			clickedElement = $("svg");
 			var clicked = "";
 			
 			clickedElement.on("click", function () {

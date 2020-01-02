@@ -117,7 +117,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			if(workstationPrenotations!=null) {
 				for(int i=0; i<workstationPrenotations.size(); i++) {
 					Date tempDate = (Date) workstationPrenotations.get(i).getId().getPrenotationDate();
-					LocalDate tempDateConverted = tempDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
 					listDates.remove(tempDateConverted);
 				}
 			}

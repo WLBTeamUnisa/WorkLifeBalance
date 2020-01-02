@@ -71,16 +71,11 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 		int floor = Integer.parseInt(request.getParameter(FLOOR));
 		int room = Integer.parseInt(request.getParameter(ROOM));
 		String datePrenotation = request.getParameter(DATE);
-
-		System.out.println("Floor: " + floor);
-		System.out.println("Room: " + room);
-		System.out.println("DatePrenotation: " + datePrenotation);
+		
 		try {			
 			maxFloor = floorDao.countMax();
 			maxRoom = roomDao.countMaxByFloor(floor);
 			
-			System.out.println("Max Floor: " + maxFloor);
-			System.out.println("Max Room: " + maxRoom);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero delle informazioni relative al piano massimo, alla stanza massima e alla postazione massima");			
@@ -134,13 +129,12 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 		if(workstationPrenotations!=null) {
 			for(WorkstationPrenotation workstationPrenotation : workstationPrenotations) {
 				Workstation workstation = workstationPrenotation.getWorkstation();
-				JSONObject jsonObject = jsonArray.getJSONObject(workstation.getId().getWorkstation());
+				JSONObject jsonObject = jsonArray.getJSONObject(workstation.getId().getWorkstation()-1);
 				jsonObject.remove(STATUS);
 				jsonObject.put(STATUS, 1);
 			}			
 		}
 
-		System.out.println("FINE WORKSTATIONAVAIL...");
 		response.setContentType("application/json");
 		response.getWriter().append(jsonArray.toString());
 	}
