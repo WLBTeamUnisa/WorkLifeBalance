@@ -1,5 +1,6 @@
 package it.unisa.wlb.model.jpa;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -86,6 +87,21 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 			query.setParameter(1, calendarWeek);
 			query.setParameter(2, year);
 			query.setParameter(3, email);
+			entityManager.getTransaction().commit();
+			return query.getResultList();
+		} finally {
+			entityManager.close();
+		}
+	}
+
+	@Override
+	public List<WorkstationPrenotation> retrieveByWorkstationDate(Date date, int floor, int room) {
+		try{ 
+			entityManager.getTransaction().begin();
+			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByWorkstationWeeklyPlanning", WorkstationPrenotation.class);
+			query.setParameter(1, date);
+			query.setParameter(2, floor);
+			query.setParameter(3, room);
 			entityManager.getTransaction().commit();
 			return query.getResultList();
 		} finally {
