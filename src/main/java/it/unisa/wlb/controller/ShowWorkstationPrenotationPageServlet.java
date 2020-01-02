@@ -18,11 +18,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.PrenotationDate;
+import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
@@ -34,7 +39,14 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  */
 @WebServlet("/ShowWorkstationPrenotationPage")
 public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
+
+	private final static String FLOOR = "floor";
+	private final static String ROOM = "room";
+	private final static String PLANIMETRY = "insertedPlanimetry";
+	
+	@EJB
+	private IRoomDao roomDao;
 	
 	@EJB
 	private ISmartWorkingPrenotationDAO smartWorkingDao;
@@ -108,6 +120,25 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 					LocalDate tempDateConverted = tempDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 					listDates.remove(tempDateConverted);
 				}
+			}
+			
+			try {
+				List<Room> rooms = roomDao.retrieveAll();
+				if(rooms!=null && rooms.size()>0) {
+					JSONArray jsonArray = new JSONArray();
+					for(Room room :  rooms) {
+						JSONObject jsonObject = new JSONObject();
+						jsonObject.put(FLOOR, room.getId().getNumFloor());
+						jsonObject.put(ROOM, room.getId().getNumRoom());						
+						jsonArray.put(jsonObject);				
+					}
+
+					request.setAttribute(PLANIMETRY, jsonArray.toString());				
+				}			
+			} catch (Exception e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().write("Planimetria assente nel database");	
+				response.getWriter().flush();
 			}
 						
 			request.setAttribute("availableDates", listDates);
