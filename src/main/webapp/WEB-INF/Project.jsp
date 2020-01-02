@@ -1,4 +1,5 @@
 <%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -149,7 +150,10 @@
 														<div class="form-group text-center mx-auto">
 															<ul class="list-group list-group-bordered"
 																id="employeeList">
-
+																<c:forEach items="${currentEmployees}" var="employee">
+																	<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>
+																	${employee.email}</li>
+																</c:forEach>
 															</ul>
 														</div>
 													</div>
