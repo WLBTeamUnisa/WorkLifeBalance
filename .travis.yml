@@ -8,8 +8,11 @@ sudo: false
 before_install:
   - mvn checkstyle:check
 
+script: "mvn test && mvn verify"
+  
+script: "mvn cobertura:cobertura"
+
 after_success:
-  - mvn cobertura:cobertura
   - bash <(curl -s https://codecov.io/bash)
 
 notifications: never
