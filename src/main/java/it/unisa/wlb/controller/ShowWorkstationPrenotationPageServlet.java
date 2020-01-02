@@ -103,7 +103,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			if(smartWorkingPrenotationDateList!=null) {
 				for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
 					Date tempDate = (Date) smartWorkingPrenotationDateList.get(i).getId().getDate();
-					LocalDate tempDateConverted = tempDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
 					listDates.remove(tempDateConverted);
 				}				
 			} 

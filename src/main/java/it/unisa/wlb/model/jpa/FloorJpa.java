@@ -20,9 +20,9 @@ public class FloorJpa implements IFloorDao{
 	@Override
 	public int countMax() {
 		entityManager.getTransaction().begin();
-		TypedQuery<Integer> query = entityManager.createNamedQuery("Floor.countMax", Integer.class);
+		TypedQuery<Long> query = entityManager.createNamedQuery("Floor.countMax", Long.class);
 		entityManager.getTransaction().commit();
-		return (Integer) query.getSingleResult();
+		return query.getSingleResult().intValue();
 	}
 
 	@Override

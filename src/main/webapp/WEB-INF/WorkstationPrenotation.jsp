@@ -86,11 +86,7 @@
 										<div class="form-group">
 											<label for="floorSelect">Piano:</label> <select
 												class="form-control form-control-sm" id="floorSelect">
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
+
 											</select>
 										</div>
 									</div>
@@ -169,10 +165,102 @@
 	<script>
 		$(document).ready(function () {
 			
+			//INIZIALIZZO LE VARIE SELECT
 			var dateSelect = $("#dateSelect");
 			var floorSelect = $("#floorSelect");
 			var roomSelect = $("#roomSelect");
+			
+			//OGGETTO DELLA REQUEST
+			var insertedPlanimetry = '${insertedPlanimetry}';
+			
+			//CONTAINER DEGLI OGGETTI SVG
+			var container = $(".flex-container");
+			
+			//INIZIALIZZO LE VARIBILI
+			floorSelect.html(1);
+			roomSelect.html(1);
+			
+			
+			//LOAD PIANI
+			function loadFloor(){				
+				if(insertedPlanimetry.length > 0){
+					var arrayJson = JSON.parse(insertedPlanimetry);
+					var arrayFloor = [];
+					for(var i = 0; i<arrayJson.length; i++){
+						if(!(arrayFloor.includes(arrayJson[i].floor))){
+							arrayFloor.push(arrayJson[i].floor);
+						}
+						console.log(arrayJson[i]);	
+					}
+				}
+				floorSelect.html("");
+				for(var j=0; j<arrayFloor.length; j++){
+					console.log(arrayFloor[j]);
+					floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
+				}	
+			}
+			
+			
+			//LOAD STANZE
+			function loadRoom(){
+			
+				if(insertedPlanimetry.length > 0){
+					var arrayJson = JSON.parse(insertedPlanimetry);
+					var arrayRoom = [];
+					for(var i = 0; i<arrayJson.length; i++){
+						if(arrayJson[i].floor==x){
+							arrayRoom.push(arrayJson[i].room);
+						}
+						console.log("Stanza: " + arrayJson[i].room);	
+					}
+				}
+				roomSelect.html("");
+				for(var j=0; j<arrayRoom.length; j++){
+					roomSelect.append("<option value=" + arrayRoom[j] + ">" + arrayRoom[j] + "</option>");
+				}
+			}
+			
+			
+			//LOAD PLANIMETRY
+			function loadPlanimetry(){
+				
+				var date = dateSelect.val();
+				var floor = floorSelect.val();
+				var room = roomSelect.val();
+				
+				console.log(date + " - " + floor + " - " + room);
+				console.log("WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room);
+				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						console.log("arrivata");
+						var lista = JSON.parse(this.responseText);
+						
+						for(var i = 0; i<lista.length; i++){
+							console.log(lista[i]);
+						}
+					}
+				}
+				xhttp.open("GET", "WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room, true);
+				xhttp.send();
+			}
+			
+			
+			
+			//SETTO GLI EVENTI ONCHANGE ALLE SELECT
+			roomSelect.on("change", function () {
+				loadPlanimetry();
+			});
+			floorSelect.on("change", function () {
+				loadPlanimetry();
+			});
+			dateSelect.on("change", function () {
+				loadPlanimetry();
+			});
 
+			
+			
 			//INIZIALIZZO STATICAMENTE LA VIEW
 			var container = $(".flex-container");
 			for (var i = 0; i < 40; i++) {
@@ -183,6 +271,25 @@
 				}
 			}
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			clickedElement = $(".flex-container > svg");
 			var clicked = "";
 			
@@ -217,12 +324,6 @@
 						clicked.children("rect").addClass("unavailable");
 						clicked.children("text").attr("fill", "black");
 						clicked.children("text").prop("style", "opacity:0.6");
-						//clicked.children("rect").fadeIn();
-						//clicked.children("text").fadeIn();
-						//});
-						//clicked.children("text").fadeOut();
-						//COME GESTISCO I DATI DA PASSARE ALLA SERVLET?
-						//Inserisci comportamento qui
 					}	//Fine if
 					else if (result.dismiss === Swal.DismissReason.cancel) {
 						//PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
