@@ -8,7 +8,7 @@
 <head>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>WLB - Registrazione Dipendente</title>
+<title>WLB - Profilo Dipendente</title>
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
 <link rel="icon" href="img/icon.ico" type="image/x-icon" />
@@ -63,8 +63,8 @@
 							<div class="card-body registration-fields">
 
 								<!-- FORM -->
-								<form name="registration" method="post"
-									action="EmployeeRegistrationServlet">
+								<form name="Profile" method="post"
+									action="ShowEmployeeProfileServlet">
 
 									<!-- CONTAINER -->
 									<div class="container">
@@ -76,11 +76,10 @@
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
 											</div>
 											<input name="name" id="Name"
-												class="form-control text-center" value="Stefano"
+												class="form-control text-center" value="${employee.name}"
 												type="text" readonly required>
 										</div>
-										<!-- form-group// Name -->
-										<span id="errorName"> </span>
+										
 
 
 										<!-- COGNOME -->
@@ -88,12 +87,11 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
 											</div>
-											<input name="surname" id="Surname" value="Di Benedetto"
+											<input name="surname" id="Surname" value="${employee.surname}"
 												class="form-control text-center" 
 												type="text" readonly required>
 										</div>
-										<!-- form-group// Last name -->
-										<span id="errorSurname"></span>
+										
 
 
 										<!-- EMAIL -->
@@ -102,12 +100,11 @@
 												<span class="input-group-text"><i
 													class="fa fa-envelope"></i></span>
 											</div>
-											<input name="email" id="Email" value="s.dibenedetto1@wlb.it"
+											<input name="email" id="Email" value="${employee.email}"
 												class="form-control text-center" 
 												type="email" readonly required>
 										</div>
-										<!-- form-group// Email -->
-										<span id="errorEmail"></span>
+									
 
 
 										<!-- SELECT RUOLO -->
