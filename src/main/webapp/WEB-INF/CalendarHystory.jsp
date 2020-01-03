@@ -61,8 +61,53 @@
 
 						<!-- CARD -->
 						<div class="card">
+							&nbsp;
+							<div class="card-header">Storico Prenotazioni</div>
+							&nbsp;
+							<div class="container">
+								<div class="row">
+									<div class="col-sm">
+										<select name="" class="custom-select text-center" id=""
+											style="height: 40px; weight: 150px" required>
+											<option value="Gennaio">Gennaio</option>
+											<option value="Febbraio">Febbraio</option>
+											<option value="Marzo">Marzo</option>
+											<option value="Aprile">Aprile</option>
+											<option value="Maggio">Maggio</option>
+											<option value="Giugno">Giugno</option>
+											<option value="Luglio">Luglio</option>
+											<option value="Agosto">Agosto</option>
+											<option value="Settembre">Settembre</option>
+											<option value="Ottobre">Ottobre</option>
+											<option value="Novembre">Novembre</option>
+											<option value="Dicembre">Dicembre</option>
+										</select>
+									</div>
+									<div class="col-sm">
 
-							<div class="card-header">STORICO PRENOTAZIONI</div>
+										<select class="custom-select text-center"
+											style="height: 40px; weight: 150px" required>
+											<option value="2010">2010</option>
+											<option value="2011">2011</option>
+											<option value="2012">2012</option>
+											<option value="2013">2013</option>
+											<option value="2014">2014</option>
+											<option value="2015">2015</option>
+											<option value="2016">2016</option>
+											<option value="2017">2017</option>
+											<option value="2018">2018</option>
+											<option value="2019">2019</option>
+											<option value="2020">2020</option>
+										</select>
+									</div>
+									<div class="col-sm">
+										<button style="height: 40px; width: 150px" type="submit" id=""
+											class="btn btn btn-success btn-block mx-auto" disabled>
+											Cerca</button>
+									</div>
+								</div>
+							</div>
+							&nbsp; &nbsp;
 							<div style="overflow-y: scroll; height: 230px;">
 
 								<table class="table table-bordered table-striped mb-0">
@@ -128,25 +173,26 @@
 									</tbody>
 									<!-- FINE TABLE -->
 								</table>
-								
+
 								<!-- FINE CARD-BODY -->
 							</div>
 							<!-- FINE CARD -->
 						</div>
-						<!-- FINE COLONNA -->
 					</div>
-					<!-- FINE CONTAINER -->
+					<!-- FINE COLONNA -->
 				</div>
-				<!-- FINE CONTENT -->
+				<!-- FINE CONTAINER -->
 			</div>
-			<jsp:include page="footer.jsp" />
-			
-			<!-- FINE MAIN PANEL -->
+			<!-- FINE CONTENT -->
 		</div>
-		
-		<!-- FINE WRAPPER -->
+		<jsp:include page="footer.jsp" />
+
+		<!-- FINE MAIN PANEL -->
 	</div>
-<!--   Core JS Files   -->
+
+	<!-- FINE WRAPPER -->
+	</div>
+	<!--   Core JS Files   -->
 	<script src="js/core/jquery.3.2.1.min.js"></script>
 	<script src="js/core/popper.min.js"></script>
 	<script src="js/core/bootstrap.min.js"></script>
