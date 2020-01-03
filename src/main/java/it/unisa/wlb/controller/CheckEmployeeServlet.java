@@ -19,7 +19,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * @author Sabato
  *
  */
-@WebServlet("/CheckEmployeeServlet")
+@WebServlet(name="CheckEmployeeServlet", urlPatterns="/CheckEmployeeServlet")
 @Interceptors({LoggerSingleton.class})
 public class CheckEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

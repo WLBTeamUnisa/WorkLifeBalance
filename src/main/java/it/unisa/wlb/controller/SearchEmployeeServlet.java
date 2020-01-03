@@ -51,7 +51,6 @@ public class SearchEmployeeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
 		employeeEmail = request.getParameter("email");
-		System.out.println(employeeEmail);
 		List<Employee> list = null;
 		
 		JSONArray employeeEmailList = new JSONArray();

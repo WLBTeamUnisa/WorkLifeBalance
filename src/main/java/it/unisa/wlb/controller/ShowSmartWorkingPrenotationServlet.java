@@ -30,7 +30,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * Servlet implementation class ShowSmartWorkingPrenotationServlet
  */
-@WebServlet("/ShowSmartWorkingPrenotation")
+@WebServlet(name="ShowSmartWorkingPrenotationServlet", urlPatterns="/ShowSmartWorkingPrenotation")
 @Interceptors({LoggerSingleton.class})
 public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	

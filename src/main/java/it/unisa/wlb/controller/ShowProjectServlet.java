@@ -19,7 +19,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * Servlet implementation class ShowProjectServlet
  */
-@WebServlet("/ShowProjectServlet")
+@WebServlet(name="ShowProjectServlet", urlPatterns="/ShowProjectServlet")
 @Interceptors({LoggerSingleton.class})
 public class ShowProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

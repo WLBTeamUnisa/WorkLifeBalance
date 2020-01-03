@@ -16,7 +16,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  * @author Vincenzo Fabiano
  */
-@WebServlet("/LogoutServlet")
+@WebServlet(name="LogoutServlet", urlPatterns="/LogoutServlet")
 @Interceptors({LoggerSingleton.class})
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

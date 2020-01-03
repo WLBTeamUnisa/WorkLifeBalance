@@ -25,13 +25,13 @@ import it.unisa.wlb.utils.Utils;
  * @author Vincenzo Fabiano
  * 
  */
-@WebServlet("/LoginServlet")
-@Interceptors({LoggerSingleton.class})
+@WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
+@Interceptors({ LoggerSingleton.class })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	IAdminDAO adminDao;		
+	IAdminDAO adminDao;
 	@EJB
 	IEmployeeDAO employeeDao;
 
@@ -43,30 +43,35 @@ public class LoginServlet extends HttpServlet {
 		this.employeeDao = employeeDao;
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if((request.getParameter("email")!=null) && (request.getParameter("password")!=null)) {
-			HttpSession session = request.getSession();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null) {
+			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+		}
+
+		else {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			if(email != null && password != null && checkPasswordLogin(password)) {
+			if (email != null && password != null && checkPasswordLogin(password)) {
 				try {
-				    String generatedPassword = Utils.generatePwd(password);
+					String generatedPassword = Utils.generatePwd(password);
 					/**
 					 * Checking if email respects employee email format
 					 */
-				    if(email.endsWith("@wlb.it") && checkEmailEmployee(email)) {
-				    	Employee employee = employeeDao.retrieveByEmailPassword(email, generatedPassword);
-						if(employee != null) {
+					if (email.endsWith("@wlb.it") && checkEmailEmployee(email)) {
+						Employee employee = employeeDao.retrieveByEmailPassword(email, generatedPassword);
+						if (employee != null) {
 							session.setAttribute("user", employee);
 							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
-					/**
-					 * Checking if email respects admin email format
-					 */
-					} else if(email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
+						/**
+						 * Checking if email respects admin email format
+						 */
+					} else if (email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
 						Admin admin = adminDao.retrieveByEmailPassword(email, password);
-						if(admin != null) {
+						if (admin != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", admin);
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
@@ -76,11 +81,11 @@ public class LoginServlet extends HttpServlet {
 						response.getWriter().write("Email e/o password non validi");
 						response.getWriter().flush();
 					}
-				}catch(Exception exception) {
+				} catch (Exception exception) {
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					response.getWriter().write("Email e/o password non validi");
 					response.getWriter().flush();
-					return ;
+					return;
 				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -94,27 +99,27 @@ public class LoginServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-
 	public static boolean checkPasswordLogin(String password) {
-		if(password.length() >= 8 && password.length() <= 20 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
+		if (password.length() >= 8 && password.length() <= 20
+				&& password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public static boolean checkEmailEmployee(String email) {
-		if(email==null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30) {
+		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") || email.equals("")
+				|| (email.length() - 7) < 5 || (email.length() - 7) > 30) {
 			return false;
-		}
-		else
+		} else
 			return true;
 	}
-	
+
 	public static boolean checkEmailAdmin(String email) {
-		if(email==null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlbadmin.it$") || email.equals("") || (email.length()-12)<5 || (email.length()-12)>30) {
+		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlbadmin.it$") || email.equals("")
+				|| (email.length() - 12) < 5 || (email.length() - 12) > 30) {
 			return false;
-		}
-		else
+		} else
 			return true;
 	}
 

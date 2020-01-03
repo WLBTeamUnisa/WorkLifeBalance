@@ -14,7 +14,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * Servlet implementation class PlanimetryInsertionPageServlet
  */
-@WebServlet("/PlanimetryInsertionPage")
+@WebServlet(name="PlanimetryInsertionPageServlet", urlPatterns="/PlanimetryInsertionPage")
 @Interceptors({LoggerSingleton.class})
 public class PlanimetryInsertionPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

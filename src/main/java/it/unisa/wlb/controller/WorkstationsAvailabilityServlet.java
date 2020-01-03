@@ -30,7 +30,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * @author Sabato Nocera, Luigi Cerrone
  *
  */
-@WebServlet("/WorkstationsAvailability")
+@WebServlet(name="WorkstationAvailability", urlPatterns="/WorkstationsAvailability")
 @Interceptors({LoggerSingleton.class})
 public class WorkstationsAvailabilityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -34,7 +34,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  * @author Luigi Cerrone, Vincenzo Fabiano
  */
-@WebServlet("/SmartWorkingDaysPrenotationServlet")
+@WebServlet(name="SmartWorkingDaysPrenotationServlet", urlPatterns="/SmartWorkingDaysPrenotationServlet")
 @Interceptors({LoggerSingleton.class})
 public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

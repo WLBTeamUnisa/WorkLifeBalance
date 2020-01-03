@@ -14,7 +14,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * Servlet implementation class EmployeeInsertPageServlet
  */
-@WebServlet("/EmployeeInsertPage")
+@WebServlet(name="EmployeeInsertPage", urlPatterns="/EmployeeInsertPage")
 @Interceptors({LoggerSingleton.class})
 public class EmployeeInsertPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
