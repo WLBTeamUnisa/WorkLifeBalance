@@ -14,6 +14,7 @@ import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,11 +25,13 @@ import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowSmartWorkingPrenotationServlet
  */
 @WebServlet("/ShowSmartWorkingPrenotation")
+@Interceptors({LoggerSingleton.class})
 public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	
 	/**

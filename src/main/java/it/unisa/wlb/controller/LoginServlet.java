@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -24,6 +26,7 @@ import it.unisa.wlb.utils.Utils;
  * 
  */
 @WebServlet("/LoginServlet")
+@Interceptors({LoggerSingleton.class})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -62,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 					 * Checking if email respects admin email format
 					 */
 					} else if(email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
-						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
+						Admin admin = adminDao.retrieveByEmailPassword(email, password);
 						if(admin != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", admin);

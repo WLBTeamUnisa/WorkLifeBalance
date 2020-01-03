@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +22,7 @@ import java.util.List;
 	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee=:email"),
 	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')")
 })
-
+@Interceptors({LoggerSingleton.class})
 public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 

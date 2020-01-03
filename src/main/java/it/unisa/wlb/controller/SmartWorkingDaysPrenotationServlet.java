@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,7 @@ import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
 import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet aims to manage the Smart Working reservation made by the user.
@@ -33,6 +35,7 @@ import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
  * @author Luigi Cerrone, Vincenzo Fabiano
  */
 @WebServlet("/SmartWorkingDaysPrenotationServlet")
+@Interceptors({LoggerSingleton.class})
 public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

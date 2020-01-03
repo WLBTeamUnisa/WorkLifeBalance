@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -16,6 +21,7 @@ import java.util.List;
 	@NamedQuery(name="Room.countMaxByFloor", query="SELECT COUNT(r) FROM Room r WHERE r.id.numFloor =?1"),
 	@NamedQuery(name="Room.retrieveByFloor", query="SELECT r FROM Room r WHERE r.id.numFloor =?1"),
 })
+@Interceptors({LoggerSingleton.class})
 public class Room implements Serializable {
 
 	private static final long serialVersionUID = 1L;

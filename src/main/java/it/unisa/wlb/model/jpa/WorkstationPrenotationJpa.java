@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,8 +12,10 @@ import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");

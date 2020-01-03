@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -10,8 +11,10 @@ import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.dao.IFloorDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class FloorJpa implements IFloorDao{
 	
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");

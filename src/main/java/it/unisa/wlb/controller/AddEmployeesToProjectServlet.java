@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to create effectively the project and to add
@@ -26,6 +28,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
  */
 
 @WebServlet("/AddEmployeesToProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

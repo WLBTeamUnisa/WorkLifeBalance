@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.Date;
 
 
@@ -12,6 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="MESSAGE")
 @NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
+@Interceptors({LoggerSingleton.class})
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 

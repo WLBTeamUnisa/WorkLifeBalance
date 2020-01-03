@@ -1,10 +1,14 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 
 /**
@@ -18,7 +22,7 @@ import org.hibernate.annotations.NotFoundAction;
 	@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p"),
 	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employee = :employeeEmail AND p.id.smartWorkingPrenotation = :idPrenotationSw")
 })
-
+@Interceptors({LoggerSingleton.class})
 public class PrenotationDate implements Serializable {
 
   private static final long serialVersionUID = 1L;

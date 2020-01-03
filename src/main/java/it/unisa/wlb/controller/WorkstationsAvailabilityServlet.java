@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,7 @@ import it.unisa.wlb.model.dao.IFloorDao;
 import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to return the availability of the workstations of a room of a certain floor
@@ -29,6 +31,7 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  *
  */
 @WebServlet("/WorkstationsAvailability")
+@Interceptors({LoggerSingleton.class})
 public class WorkstationsAvailabilityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
