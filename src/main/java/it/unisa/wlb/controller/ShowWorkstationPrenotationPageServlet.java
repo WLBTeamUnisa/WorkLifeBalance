@@ -91,14 +91,15 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			try {
 				smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
 			} catch(Exception exception) {
-				;
+				request.setAttribute("error", "Prima devi prenotare i giorni di Smart Working!");
+				request.getRequestDispatcher("/ShowSmartWorkingPrenotation").forward(request, response);;
 			}
 
 			List<PrenotationDate> smartWorkingPrenotationDateList=null;
 			try {
 				smartWorkingPrenotationDateList = smartWorkingPrenotation.getPrenotationDates();
 			} catch(Exception exception) {
-				;
+				
 			}			 
 			if(smartWorkingPrenotationDateList!=null) {
 				for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {

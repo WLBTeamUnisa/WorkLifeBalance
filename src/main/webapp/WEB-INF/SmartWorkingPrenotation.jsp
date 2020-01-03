@@ -58,10 +58,10 @@
 							<c:choose>
 								<c:when test="${booking=='no'}">
 									<div class="card-header">
-										<h3>Prenotazione già effettuata!</h3>
+										<h3 class="my-auto">Avviso:</h3>
 									</div>
 									<div class="card-body">
-										<h1>Hai già effettuato una prenotazione questa settimana.</h1>
+										<h2 class="my-auto mx-auto">Hai già effettuato una prenotazione questa settimana.</h2>
 									</div>
 								</c:when>
 
@@ -144,5 +144,16 @@
 
 	<!-- Calendar -->
 	<script src="js/calendar.js"></script>
+	
+	<c:if test="${not empty error}">
+		<script>
+				//SWEETALERT
+				Swal.fire({
+				  icon: 'warning',
+				  title: 'Oops...',
+				  text: "${error}"})
+		</script>
+	</c:if>
+	
 </body>
 </html>

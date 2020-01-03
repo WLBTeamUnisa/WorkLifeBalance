@@ -163,139 +163,142 @@
 	<script src="js/atlantis.min.js"></script>
 
 	<script>
-		$(document).ready(function () {
-			
-			//INIZIALIZZO LE VARIE SELECT
-			var dateSelect = $("#dateSelect");
-			var floorSelect = $("#floorSelect");
-			var roomSelect = $("#roomSelect");
-			
-			//OGGETTO DELLA REQUEST
-			var insertedPlanimetry = '${insertedPlanimetry}';
-			
-			//CONTAINER DEGLI OGGETTI SVG
-			var container = $(".flex-container");
-			
-			//INIZIALIZZO ALLA PRIMA STANZA
-			loadRoom(1);
+	$(document).ready(function () {
 
-			
-			//LOAD PIANI
-				if(insertedPlanimetry.length > 0){
-					var arrayJson = JSON.parse(insertedPlanimetry);
-					var arrayFloor = [];
-					for(var i = 0; i<arrayJson.length; i++){
-						if(!(arrayFloor.includes(arrayJson[i].floor))){
-							arrayFloor.push(arrayJson[i].floor);
-						}
-					}
-				}
-				floorSelect.html("");
-				for(var j=0; j<arrayFloor.length; j++){
-					floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
-				}
-				
-				loadPlanimetry();
-			
-			
-			//LOAD STANZE
-			function loadRoom(piano){
-				if(insertedPlanimetry.length > 0){
-					var arrayJson = JSON.parse(insertedPlanimetry);
-					var arrayRoom = [];
-					for(var i = 0; i<arrayJson.length; i++){
-						if(arrayJson[i].floor==piano){
-							arrayRoom.push(arrayJson[i].room);
-						}
-					}
-				}
-				roomSelect.html("");
-				for(var j=0; j<arrayRoom.length; j++){
-					roomSelect.append("<option value=" + arrayRoom[j] + ">" + arrayRoom[j] + "</option>");
-				}
-			}
-			
-			
-			//LOAD PLANIMETRY
-			function loadPlanimetry(){
-				
-				var date = dateSelect.val();
-				var floor = floorSelect.val();
-				var room = roomSelect.val();
-								
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function(){
-					if(this.readyState == 4 && this.status == 200){
-						var lista = JSON.parse(this.responseText);
-						container.html("");
-						for(var i = 0; i<lista.length; i++){
-							if(lista[i].status == 0){
-								container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + lista[i].workstation + "</text> </svg>");
-							} else if (lista[i].status == 1){
-								console.log(lista[i]);
-								container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
-							}
-						}
-						//ONCLICK DA CONTINUARE E RIVEDERE
-						clickedElement = $("svg");
-						var clicked = "";
-						
-						clickedElement.on("click", function () {
-							clicked = $(this);
+	    //INIZIALIZZO LE VARIE SELECT
+	    var dateSelect = $("#dateSelect");
+	    var floorSelect = $("#floorSelect");
+	    var roomSelect = $("#roomSelect");
 
-							if (clicked.children("rect").hasClass("unavailable")) { return; }
+	    //OGGETTO DELLA REQUEST
+	    var insertedPlanimetry = '${insertedPlanimetry}';
 
-							//SWEETALERT
-							Swal.fire({
-								title: 'Sei sicuro?',
-								text: "Stai prenotando questa postazione:\nPiano: " + floorSelect.val() + "\nStanza:" + roomSelect.val() + "\nPostazione: " + clicked.children("text").html(),
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								cancelButtonText: 'Cancella',
-								confirmButtonText: 'Si, voglio prenotare'
-							}).then((result) => {
-								//SE PREMO "PRENOTA"
-								if (result.value) {
-									Swal.fire(
-										'Successo!',
-										'La prenotazione e\' stata effettuata.',
-										'success'
-									)
+	    //CONTAINER DEGLI OGGETTI SVG
+	    var container = $(".flex-container");
 
-									$("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation': " + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
-									$("#finalForm").submit();
-								}	//Fine if
-								else if (result.dismiss === Swal.DismissReason.cancel) {
-									//PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
-									Swal.fire(
-										'Cancellata!',
-										'La prenotazione e\' stata eliminata',
-										'error'
-									)
-								}	//Fine else
-							});
-						});
-					}
-				}
-				xhttp.open("GET", "WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room, true);
-				xhttp.send();
-			}
-			
-			
-			//SETTO GLI EVENTI ONCHANGE ALLE SELECT
-			roomSelect.on("change", function () {
-				loadPlanimetry();
-			});
-			floorSelect.on("change", function () {
-				loadRoom(floorSelect.val());
-				loadPlanimetry();
-			});
-			dateSelect.on("change", function () {
-				loadPlanimetry();
-			});
-		});
+	    //INIZIALIZZO ALLA PRIMA STANZA
+	    loadRoom(1);
+	    console.log(insertedPlanimetry.length);
+
+	    //LOAD PIANI
+	    if (insertedPlanimetry.length > 0) {
+	        var arrayJson = JSON.parse(insertedPlanimetry);
+	        var arrayFloor = [];
+	        for (var i = 0; i < arrayJson.length; i++) {
+	            if (!(arrayFloor.includes(arrayJson[i].floor))) {
+	                arrayFloor.push(arrayJson[i].floor);
+	            }
+	        }
+	    }
+	    floorSelect.html("");
+	    for (var j = 0; j < arrayFloor.length; j++) {
+	        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
+	    }
+
+	    loadPlanimetry();
+
+
+	    //LOAD STANZE
+	    function loadRoom(piano) {
+	        if (insertedPlanimetry.length > 0) {
+	            var arrayJson = JSON.parse(insertedPlanimetry);
+	            var arrayRoom = [];
+	            for (var i = 0; i < arrayJson.length; i++) {
+	                if (arrayJson[i].floor == piano) {
+	                    arrayRoom.push(arrayJson[i].room);
+	                }
+	            }
+	        }
+	        roomSelect.html("");
+	        for (var j = 0; j < arrayRoom.length; j++) {
+	            roomSelect.append("<option value=" + arrayRoom[j] + ">" + arrayRoom[j] + "</option>");
+	        }
+	    }
+
+
+	    //LOAD PLANIMETRY
+	    function loadPlanimetry() {
+
+	        var date = dateSelect.val();
+	        var floor = floorSelect.val();
+	        var room = roomSelect.val();
+
+	        if (((dateSelect.val() != null) && (floorSelect.val() != null) && (roomSelect.val() != null))) {
+
+	            var xhttp = new XMLHttpRequest();
+	            xhttp.onreadystatechange = function () {
+	                if (this.readyState == 4 && this.status == 200) {
+	                    var lista = JSON.parse(this.responseText);
+	                    container.html("");
+	                    for (var i = 0; i < lista.length; i++) {
+	                        if (lista[i].status == 0) {
+	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + lista[i].workstation + "</text> </svg>");
+	                        } else if (lista[i].status == 1) {
+	                            console.log(lista[i]);
+	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
+	                        }
+	                    }
+	                    //ONCLICK DA CONTINUARE E RIVEDERE
+	                    clickedElement = $(".flex-container > svg");
+	                    var clicked = "";
+
+	                    clickedElement.on("click", function () {
+	                        clicked = $(this);
+
+	                        if (clicked.children("rect").hasClass("unavailable")) { return; }
+
+	                        //SWEETALERT
+	                        Swal.fire({
+	                            title: 'Sei sicuro?',
+	                            text: "Stai prenotando questa postazione:\nPiano: " + floorSelect.val() + "\nStanza:" + roomSelect.val() + "\nPostazione: " + clicked.children("text").html(),
+	                            icon: 'warning',
+	                            showCancelButton: true,
+	                            confirmButtonColor: '#3085d6',
+	                            cancelButtonColor: '#d33',
+	                            cancelButtonText: 'Cancella',
+	                            confirmButtonText: 'Si, voglio prenotare'
+	                        }).then((result) => {
+	                            //SE PREMO "PRENOTA"
+	                            if (result.value) {
+	                                $("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation':" + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
+	                                $("#finalForm").submit();
+	                            }	//Fine if
+	                            else if (result.dismiss === Swal.DismissReason.cancel) {
+	                                //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
+	                                Swal.fire(
+	                                    'Cancellata!',
+	                                    'La prenotazione e\' stata annullata',
+	                                    'error'
+	                                )
+	                            }	//Fine else
+	                        });
+	                    });
+	                }
+	            }
+	            xhttp.open("GET", "WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room, true);
+	            xhttp.send();
+	        } else {
+	            $(".card-header").html("");
+	            $(".card-header").append("<h3 class='my-auto'>Avviso:</h3>");
+	            $(".card-body").html("");
+	            $(".card-body").prop("height:250px; display: flex; align-items: center;");
+	            $(".card-body").append("<h2 class='my-auto mx-auto'>Hai già prenotato il numero massimo di postazioni.</h2>");
+	        }
+	    }
+
+
+	    //SETTO GLI EVENTI ONCHANGE ALLE SELECT
+	    roomSelect.on("change", function () {
+	        loadPlanimetry();
+	    });
+	    floorSelect.on("change", function () {
+	        loadRoom(floorSelect.val());
+	        loadPlanimetry();
+	    });
+	    dateSelect.on("change", function () {
+	        loadPlanimetry();
+	    });
+	});
 	</script>
 
 </body>
