@@ -48,6 +48,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  HttpSession session = request.getSession();
+		  Employee manager;
 		  String userRole=(String) session.getAttribute("userRole");
 		  Project project=(Project) request.getAttribute("Project");
 		  List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
@@ -67,6 +68,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		      if(project==null) {
 		        RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
 		        dispatcher.forward(request, response);
+		        throw new IllegalArgumentException();
 		      } else {
 		    	  
 		        if(employeesList!=null && employeesList.size()>=1) {
@@ -91,7 +93,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 				        	 */
 				        	projectDao.create(project);
 				        
-				        	Employee manager=(Employee) request.getAttribute("manager");
+				        	manager=(Employee) request.getAttribute("manager");
 				        	manager.addProjects1(project);
 				        
 				        	/**
@@ -110,6 +112,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	request.setAttribute("result", "error");
 		        	session.removeAttribute("lista_dipendenti");
 		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+		        	throw new IllegalArgumentException();
 		          }
 		   }
 		}
