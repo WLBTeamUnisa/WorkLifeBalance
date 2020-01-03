@@ -29,14 +29,14 @@ public class WorkstationJpa implements IWorkstationDao{
 		entityManager.getTransaction().begin();
 		TypedQuery<Workstation> query = entityManager.createNamedQuery("Workstation.retrieveById", Workstation.class).setParameter(1, idWorkstation).setParameter(2, idFloor).setParameter(3, idRoom);
 		entityManager.getTransaction().commit();
-		return (Workstation) query.getResultList();
+		return query.getSingleResult();
 	}
 	@Override
 	public int countMaxByFloorAndRoom(int idFloor, int idRoom) {
 		entityManager.getTransaction().begin();
-		TypedQuery<Integer> query = entityManager.createNamedQuery("Workstation.countMaxByFloorAndRoom", Integer.class).setParameter(1, idFloor).setParameter(2, idRoom);
+		TypedQuery<Long> query = entityManager.createNamedQuery("Workstation.countMaxByFloorAndRoom", Long.class).setParameter(1, idFloor).setParameter(2, idRoom);
 		entityManager.getTransaction().commit();
-		return (Integer) query.getSingleResult();
+		return query.getSingleResult().intValue();
 	}
 	@Override
 	public Workstation create(Workstation entity) {

@@ -201,8 +201,8 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			smartWorkBooking.setPrenotationDates(PrenotationDateList);
 			smartWorkingDao.update(smartWorkBooking);
 
-			request.setAttribute("result", "ok");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
+			request.setAttribute("result", "success");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/HomeServlet");
         	dispatcher.forward(request, response);
         	
 		} else {

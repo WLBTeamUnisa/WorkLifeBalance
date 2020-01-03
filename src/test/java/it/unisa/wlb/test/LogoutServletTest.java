@@ -1,4 +1,4 @@
-package it.unisa.wlb.controller;
+package it.unisa.wlb.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpSession;
+
+import it.unisa.wlb.controller.LogoutServlet;
 
 /**
  * This class tests logout functionality

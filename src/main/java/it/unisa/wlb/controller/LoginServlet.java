@@ -55,7 +55,6 @@ public class LoginServlet extends HttpServlet {
 				    	Employee employee = employeeDao.retrieveByEmailPassword(email, generatedPassword);
 						if(employee != null) {
 							session.setAttribute("user", employee);
-							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
 						}
 					/**
