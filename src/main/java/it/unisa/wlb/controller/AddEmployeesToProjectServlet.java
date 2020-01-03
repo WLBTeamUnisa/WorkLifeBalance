@@ -101,11 +101,11 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 				        	 */
 				        	employeeDao.update(manager);
 					  }
-		        	
+		        
 		        	session.removeAttribute("lista_dipendenti");
 					request.setAttribute("result", "success");
 					request.removeAttribute("Project");
-					
+				
 		        	RequestDispatcher dispatcher = request.getRequestDispatcher("/ProjectsListPage");
 		        	dispatcher.forward(request, response);
 		        } else {

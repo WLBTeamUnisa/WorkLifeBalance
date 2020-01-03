@@ -328,7 +328,7 @@ public class AddProjectServletTest extends Mockito {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
-		
+	
 		String commonName = "WLB13PO";
 
 		Project project = new Project();
