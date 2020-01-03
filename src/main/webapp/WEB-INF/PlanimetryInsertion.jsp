@@ -68,7 +68,7 @@
 								<form method="post" action="AddPlanimetryServlet">
 
 									<!-- CONTAINER -->
-									<div class="container col-lg-10 mx-auto">
+									<div class="container col-lg-10 mx-auto" id="containerPlanimetry">
 
 										<!-- FLOOR -->
 										<div class="form-group input-group mx-auto ">
@@ -123,11 +123,11 @@
 
 
 										<!-- LIST PLANIMETRY-->
-										<div class="form-group row justify-content-md-center  ">
-											<div class="col-lg-12">
-												<div class="card ">
-													<div class="card-header p-2 ">
-														<h3 class="my-auto">Planimetria attualmente inserita</h3>
+										<div class="form-group row justify-content-md-center" id="PlanimetryActuallyInserted">
+											<div class="col-lg-12" >
+												<div class="card " > 
+													<div class="card-header p-2 " id="TitlePlanimetryActuallyInserted">
+														<h3 class="my-auto" >Planimetria attualmente inserita</h3>
 													</div>
 
 													<div class="card-body">
@@ -146,7 +146,7 @@
 												<input type="hidden" id="hiddenParameter" name="jsonObject" />
 
 												<!-- "conferma" and "reset" BUTTON-->
-												<div class="form-group ">
+												<div class="form-group">
 													<button type="submit" id="confirmForm"
 														class="btn btn-success  col-5">Conferma</button>
 													<button type="button" id="resetForm"
@@ -199,6 +199,35 @@
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
+	
+	<script>
+		var insertedPlanimetry = '${insertedPlanimetry}';
+		console.log(insertedPlanimetry.length);
+		
+		if(insertedPlanimetry.length>0){
+			console.log(insertedPlanimetry);
+			var jsonArray = JSON.parse(insertedPlanimetry);
+			
+			console.log(jsonArray);
+			
+			var result = "<table class='table table-striped'><tr><th>Piano</th><th>Stanza</th><th>Postazioni</th></tr>";
+			
+			for(var i=0; i<jsonArray.length; i++){
+				console.log(jsonArray[i]);				
+				result += "<tr><td>" + jsonArray[i].floor + "</td><td>" + jsonArray[i].room + "</td><td>" + jsonArray[i].workstation + "</td></tr>";
+			}
+			result += "</table>";
+			document.getElementById("PlanimetryList").innerHTML = result;
+			
+			$(".card-header").hide();			
+			$("#containerPlanimetry").children().hide(); 
+			$("#PlanimetryActuallyInserted").show();
+			$("#TitlePlanimetryActuallyInserted").show();			
+			$("#confirmForm").hide();
+			$("#resetForm").hide();			
+		}
+		
+	</script>
 
 </body>
 
@@ -218,8 +247,6 @@
 		var NumWorkstation = document.getElementById("Workstation");
 
 		var planimetry, i, result = "";
-
-
         
 		if (checkForm() == true) {//IF THE INPUT PARAMETERS ARE CORRECT
 			planimetry = { "floor": parseInt(NumFloor.value), "room": parseInt(NumRoom.value), "workstation": parseInt(NumWorkstation.value) };
@@ -228,9 +255,7 @@
             //TABLE CREATION
 			result = "<table class='table table-striped'><tr><th>Piano</th><th>Stanza</th><th>Postazioni</th></tr>";
 			for (i = 0; i < jsondata.length; i++) {
-
 				result += "<tr><td>" + jsondata[i].floor + "</td><td>" + jsondata[i].room + "</td><td>" + jsondata[i].workstation + "</td></tr>";
-
 			}
 			result += "</table>";
 
@@ -255,19 +280,14 @@
 		}
 
 	}
-
-
-
+	
 	//ADD NEW FLOOR FUNCTION
 	function updateFloor() {
-
 		var nextNum = parseInt(document.getElementById("Floor").value) + 1;
 		document.getElementById("Floor").value = nextNum;
 		document.getElementById("Room").value = '1';
 		document.getElementById("nextbtn").disabled = true;
 	}
-
-	
 
 	//RESET FORM FUNCTION
 	function clearPlanimetry() {
@@ -276,19 +296,14 @@
 		document.getElementById("Room").value = '1';
 		document.getElementById("Floor").value = '1';
 		document.getElementById("Workstation").value = "";
-
-
 	}
-
-
+	
 	///Input Controls
 	function validWorkstation() {
 		if (document.getElementById("Workstation").value >= 1 && document.getElementById("Workstation").value <= 100) {
 			document.getElementById("insertButtton").disabled = false;
 			workstationOk = true;
 			document.getElementById("errorWorkstation").innerHTML = "";
-            
-
 		}
 		else {
 			workstationOk = false;
@@ -296,10 +311,6 @@
 			document.getElementById("Workstation").onfocus;
             document.getElementById("insertButtton").disabled=true;
 		}
-
-
-
-
 	}
 
 	function validRoom() {
@@ -308,8 +319,6 @@
 		}
 		else
 			roomOK = false;
-
-
 	}
 
 	function validFloor() {
@@ -318,8 +327,8 @@
 		}
 		else
 			floorOk = false;
-
 	}
+	
 //function that control if the input parmeters are correct
 	function checkForm() {
 		validFloor();
@@ -332,7 +341,6 @@
 			clearPlanimetry();
 			return false;
 		}
-
 	}
 </script>
 
