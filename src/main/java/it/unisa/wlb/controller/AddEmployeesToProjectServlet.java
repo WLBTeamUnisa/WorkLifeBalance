@@ -59,7 +59,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		   * Check about admin role
 		   * 
 		   * */
-		  
+		 
 		  if(userRole.equalsIgnoreCase("Admin")) {			  
 		      /**
 		       * Taking the project setted thanks to request's attribute
