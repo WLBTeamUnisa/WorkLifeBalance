@@ -38,7 +38,6 @@ public class FloorJpa implements IFloorDao{
 		entityManager.getTransaction().begin();
 	    entityManager.remove(entityClass);
 	    entityManager.getTransaction().commit();
-		
 	}
 
 	@Override
