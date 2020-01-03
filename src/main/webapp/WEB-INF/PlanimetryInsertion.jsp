@@ -125,7 +125,7 @@
 										<!-- LIST PLANIMETRY-->
 										<div class="form-group row justify-content-md-center" id="PlanimetryActuallyInserted">
 											<div class="col-lg-12" >
-												<div class="card " > 
+												<div class="card my-auto" > 
 													<div class="card-header p-2 " id="TitlePlanimetryActuallyInserted">
 														<h3 class="my-auto" >Planimetria attualmente inserita</h3>
 													</div>
@@ -184,21 +184,6 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-	
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-		
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
 	
 	<script>
 		var insertedPlanimetry = '${insertedPlanimetry}';
