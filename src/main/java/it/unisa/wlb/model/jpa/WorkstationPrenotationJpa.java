@@ -16,11 +16,12 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-	private EntityManager entityManager = factor.createEntityManager();
+	private EntityManager entityManager;
 
 	@Override
 	public WorkstationPrenotation create(WorkstationPrenotation entity) {
 		try {
+			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.persist(entity);
 			entityManager.getTransaction().commit();
@@ -33,6 +34,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 	@Override
 	public void remove(WorkstationPrenotation entityClass) {
 		try {
+			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.remove(entityClass);
 			entityManager.getTransaction().commit();
@@ -44,6 +46,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 	@Override
 	public WorkstationPrenotation update(WorkstationPrenotation entityClass) {
 		try {
+			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.merge(entityClass);
 			entityManager.getTransaction().commit();
@@ -56,6 +59,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 	@Override
 	public List<WorkstationPrenotation> retrieveAll() {
 		try {
+			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findAll", WorkstationPrenotation.class);
 			entityManager.getTransaction().commit();
@@ -67,8 +71,8 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 
 	@Override
 	public List<WorkstationPrenotation> retrieveByEmployee(String email) {
-
 		try{ 
+			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByEmail", WorkstationPrenotation.class);
 			query.setParameter(1, email);
@@ -81,7 +85,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 	
 	@Override
 	public List<WorkstationPrenotation> retrieveByWeeklyPlanning(int calendarWeek, int year, String email) {
-		try{ 
+		try{
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			TypedQuery<WorkstationPrenotation> query=entityManager.createNamedQuery("WorkstationPrenotation.findByWeeklyPlanning", WorkstationPrenotation.class);

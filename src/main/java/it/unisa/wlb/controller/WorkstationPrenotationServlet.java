@@ -98,6 +98,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero della prenotazione");			
 			response.getWriter().flush();
+			return ;
 		}
 		
 		try {			
@@ -114,7 +115,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nI parametri inseriti non rispettano il formato/lunghezza");			
 			response.getWriter().flush();
-			throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");					
+			throw new IllegalArgumentException("I parametri inseriti non rispettano il formato/lugnhezza");
 		}
 		
 		LocalDate date = LocalDate.parse(datePrenotation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -133,6 +134,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero della postazione di lavoro dal database");			
 			response.getWriter().flush();
+			return ;
 		}
 			
 		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
@@ -153,6 +155,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nella prenotazione della postazione: "+workstationPrenotation.toString());			
 			response.getWriter().flush();
+			return ;
 		}
 		
 		request.setAttribute("result", "success");		

@@ -29,7 +29,7 @@ public class WorkstationJpa implements IWorkstationDao{
 		entityManager.getTransaction().begin();
 		TypedQuery<Workstation> query = entityManager.createNamedQuery("Workstation.retrieveById", Workstation.class).setParameter(1, idWorkstation).setParameter(2, idFloor).setParameter(3, idRoom);
 		entityManager.getTransaction().commit();
-		return (Workstation) query.getResultList();
+		return query.getSingleResult();
 	}
 	@Override
 	public int countMaxByFloorAndRoom(int idFloor, int idRoom) {
