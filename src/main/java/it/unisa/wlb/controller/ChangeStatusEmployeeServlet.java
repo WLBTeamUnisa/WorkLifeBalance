@@ -1,7 +1,8 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-
+import it.unisa.wlb.model.bean.Employee;
+import it.unisa.wlb.model.dao.IEmployeeDAO;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+
 
 /**
- * Servlet implementation class ChangeStatusEmployeeServlet
+ * The aim of this Servlet is change the Employee's status into the system.
+ * 
+ * @author Simranjit
+ *
  */
-@WebServlet("/ChangeStatusEmployeeServlet")
+@WebServlet(name="ChangeStatusEmployee", urlPatterns="/ChangeStatusEmployee" )
 public class ChangeStatusEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,38 +33,49 @@ public class ChangeStatusEmployeeServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+		this.employeeDao=employeeDao;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String email=request.getParameter("email");
+		String email=request.getParameter("email");
 		 String status=request.getParameter("status");
 		 int statusInt=2;
+		Employee employee;
 		 if(status.equals("Employee") || status.equals("Manager") ) {
 				if(status.equals("Employee"))
 					statusInt=0;
 				else
 					statusInt=1;
-				Employee employee=employeeDao.retrieveByEmail(email);
+				
+				try {
+					 employee=employeeDao.retrieveByEmail(email);
+					 employee.setStatus(statusInt);
+					 employeeDao.update(employee);
+					 request.setAttribute("statusResult", "success");
+				} catch(Exception e) {
+					request.getRequestDispatcher("EmployeesListPage").forward(request, response);
+					 request.setAttribute("statusResult", "failure");
+					throw new IllegalArgumentException();
+				}
+
+				request.getRequestDispatcher("EmployeesListPage").forward(request, response);
+				
 				
 			}
 		 else
 		 {
-			 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			 response.getWriter().write("Parametro status non valido");			
 			 response.getWriter().flush();
 			 throw new IllegalArgumentException("Parametro status non valido");
 		 }
 		 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

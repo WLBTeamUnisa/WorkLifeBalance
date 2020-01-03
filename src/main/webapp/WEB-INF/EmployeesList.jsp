@@ -169,7 +169,15 @@
 			window.onload = sweetalertclick;
 		</script>
 	</c:if>
-
+	
+	<c:if test="${not empty statusResult}">
+		<script>
+			function sweetalertclick() {
+				swal("Ottimo!", "Status modificato con successo!","success")
+			}
+			window.onload = sweetalertclick;
+		</script>
+	</c:if>
 	<script>
 		function Suggestions(email) {
 

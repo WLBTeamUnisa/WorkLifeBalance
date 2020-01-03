@@ -64,7 +64,7 @@
 
 								<!-- FORM -->
 								<form name="Profile" method="post"
-									action="ShowEmployeeProfileServlet">
+									action="ChangeStatusEmployee">
 
 									<!-- CONTAINER -->
 									<div class="container">
@@ -122,7 +122,7 @@
 										
 										<!-- form-group// Status choose -->
 
-										<span id="errorName"> </span>
+										
 
 										<div class="form-group col-sm-6 mx-auto">
 											<button type="submit" id="changeStatusButton"
@@ -189,6 +189,10 @@
 	<script src="js/atlantis.min.js"></script>
 
 </body>
+
+	
+	
+	
 <script>
 
 window.onload = function() {
@@ -196,6 +200,7 @@ window.onload = function() {
 	 	document.getElementById("Status").selectedIndex = "0";
 	else
 		document.getElementById("Status").selectedIndex = "1";
+
 }
 
 
