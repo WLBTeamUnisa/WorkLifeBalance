@@ -28,7 +28,7 @@ import it.unisa.wlb.model.dao.IWorkstationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
 /**
- * The aim of this Servlet is to insert a workstation prenotation into the database
+ * The aim of this Servlet is to insert a workstation prenotation into the database.
  * 
  * @author Vincenzo Fabiano, Luigi Cerrone, Sabato Nocera
  *
@@ -68,6 +68,8 @@ public class WorkstationPrenotationServlet extends HttpServlet {
     }
 
 	/**
+	 * The aim of this method is to insert a workstation prenotation into the database.
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -90,13 +92,10 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			floorNumber = jsonObject.getInt(FLOOR);
 			roomNumber = jsonObject.getInt(ROOM);
 			workstationNumber = jsonObject.getInt(WORKSTATION);	
-			datePrenotation = jsonObject.getString(DATE);		
-			System.out.println(floorNumber);
-			System.out.println(roomNumber);
-			System.out.println(workstationNumber);
+			datePrenotation = jsonObject.getString(DATE);	
 		} catch (JSONException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().write("\nErrore nel recupero della prenotazione");			
+			response.getWriter().write("\nErrore nel recupero della prenotazione");
 			response.getWriter().flush();
 			return ;
 		}
@@ -153,7 +152,7 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			workstationPrenotation = workstationPrenotationDao.create(workstationPrenotation);
 		}catch(Exception e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().write("\nErrore nella prenotazione della postazione: "+workstationPrenotation.toString());			
+			response.getWriter().write("\nErrore nella prenotazione della postazione: "+workstationPrenotation.toString());		
 			response.getWriter().flush();
 			return ;
 		}
@@ -165,8 +164,44 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	/**
+	 * This method is used to change the current workstationDao
+	 * 
+	 * @param workstationDao
+	 */
+	public void setWorkstationDao(IWorkstationDao workstationDao) {
+		this.workstationDao = workstationDao;		
+	}
+
+	/**
+	 * This method is used to change the current floorDao
+	 * 
+	 * @param floorDao
+	 */
+	public void setFloorDao(IFloorDao floorDao) {
+		this.floorDao = floorDao;		
+	}
+
+	/**
+	 * This method is used to change the current floorDao
+	 * 
+	 * @param roomDao
+	 */
+	public void setRoomDao(IRoomDao roomDao) {
+		this.roomDao = roomDao;
+	}
+
+	/**
+	 * This method is used to change the current workstationPrenotationDao
+	 * 
+	 * @param workstationPrenotationDao
+	 */
+	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
+		this.workstationPrenotationDao = workstationPrenotationDao;
 	}
 
 }
