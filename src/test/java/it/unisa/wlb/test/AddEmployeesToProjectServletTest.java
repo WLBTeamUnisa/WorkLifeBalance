@@ -153,15 +153,13 @@ class AddEmployeesToProjectServletTest extends Mockito {
 	
 	@Test
 	void TC_2_4_4() throws ServletException, IOException {
-		
+	
 		Project project = new Project();
 		
 		project.setName("WorkLifeBalance");
 		project.setScope("SmartWorking");
 		project.setStartDate(new Date(2019-11-02));
 		project.setEndDate(new Date(2019-12-02));
-		
-		IProjectDAO projectDao = mock(IProjectDAO.class);
 		
 		Employee employee = new Employee();
 		employee.setEmail("l.rossi1@wlb.it");
@@ -170,7 +168,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		employee.setPassword("Ciao123.");
 		
 		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
-		
+		IProjectDAO projectDao = mock(IProjectDAO.class);
 		when(projectDao.retrieveByName("WorkLifeBalance")).thenReturn(project);	
 		when(employeeDao.retrieveByEmail("l.rossi1@wlb.it")).thenReturn(employee);
 		
@@ -178,10 +176,12 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		
 		List<Employee> employeeList = new ArrayList<Employee>();
 		employeeList.add(employee);
+		employeeList.add(employee);
 		
 		request.setAttribute("lista_dipendenti", employeeList);
-		request.setAttribute("employee",employee);
+		request.setAttribute("employee", "l.rossi1@wlb.it");
 		
+		servlet.doPost(request, response);
 		assertEquals("success", request.getAttribute("result"));
 	}
 
