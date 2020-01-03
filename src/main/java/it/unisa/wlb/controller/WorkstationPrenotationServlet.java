@@ -90,7 +90,10 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 			floorNumber = jsonObject.getInt(FLOOR);
 			roomNumber = jsonObject.getInt(ROOM);
 			workstationNumber = jsonObject.getInt(WORKSTATION);	
-			datePrenotation = jsonObject.getString(DATE);			
+			datePrenotation = jsonObject.getString(DATE);		
+			System.out.println(floorNumber);
+			System.out.println(roomNumber);
+			System.out.println(workstationNumber);
 		} catch (JSONException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero della prenotazione");			

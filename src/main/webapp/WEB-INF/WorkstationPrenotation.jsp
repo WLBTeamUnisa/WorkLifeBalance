@@ -108,7 +108,7 @@
 							<div class="card-body">
 								<div style="overflow-y: scroll; height: 230px;">
 									<div class="flex-container"></div>
-									<form action="" id="finalForm"></form>
+									<form action="WorkstationPrenotationServlet" id="finalForm"></form>
 								</div>
 							</div>
 
@@ -236,6 +236,47 @@
 								container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
 							}
 						}
+						//ONCLICK DA CONTINUARE E RIVEDERE
+						clickedElement = $("svg");
+						var clicked = "";
+						
+						clickedElement.on("click", function () {
+							clicked = $(this);
+
+							if (clicked.children("rect").hasClass("unavailable")) { return; }
+
+							//SWEETALERT
+							Swal.fire({
+								title: 'Sei sicuro?',
+								text: "Stai prenotando questa postazione:\nPiano: " + floorSelect.val() + "\nStanza:" + roomSelect.val() + "\nPostazione: " + clicked.children("text").html(),
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								cancelButtonText: 'Cancella',
+								confirmButtonText: 'Si, voglio prenotare'
+							}).then((result) => {
+								//SE PREMO "PRENOTA"
+								if (result.value) {
+									Swal.fire(
+										'Successo!',
+										'La prenotazione e\' stata effettuata.',
+										'success'
+									)
+
+									$("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation': " + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
+									$("#finalForm").submit();
+								}	//Fine if
+								else if (result.dismiss === Swal.DismissReason.cancel) {
+									//PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
+									Swal.fire(
+										'Cancellata!',
+										'La prenotazione e\' stata eliminata',
+										'error'
+									)
+								}	//Fine else
+							});
+						});
 					}
 				}
 				xhttp.open("GET", "WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room, true);
@@ -253,56 +294,6 @@
 			});
 			dateSelect.on("change", function () {
 				loadPlanimetry();
-			});
-			
-			//-------FIN QUI VA BENE--------
-			
-			
-			//ONCLICK DA CONTINUARE E RIVEDERE
-			clickedElement = $("svg");
-			var clicked = "";
-			
-			clickedElement.on("click", function () {
-				clicked = $(this);
-
-				if (clicked.children("rect").hasClass("unavailable")) { return; }
-
-				//SWEETALERT
-				Swal.fire({
-					title: 'Sei sicuro?',
-					text: "Stai prenotando una postazione per questa data: " + clicked.children("text").html() + "/01/2020",
-					icon: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					cancelButtonText: 'Cancella',
-					confirmButtonText: 'Si, voglio prenotare'
-				}).then((result) => {
-					//SE PREMO "PRENOTA"
-					if (result.value) {
-						Swal.fire(
-							'Successo!',
-							'La prenotazione e\' stata effettuata.',
-							'success'
-						)
-
-						$("#finalForm").html("<input type='hidden' name='prenotation' value=\"{'data':'" + dateSelect.find(":selected").text() + "', 'workstation': " + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
-
-						//clicked.children("rect").fadeOut(function(){
-						clicked.children("rect").attr("style", "fill:red;stroke:black;stroke-width:5;opacity:0.5");
-						clicked.children("rect").addClass("unavailable");
-						clicked.children("text").attr("fill", "black");
-						clicked.children("text").prop("style", "opacity:0.6");
-					}	//Fine if
-					else if (result.dismiss === Swal.DismissReason.cancel) {
-						//PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
-						Swal.fire(
-							'Cancellata!',
-							'La prenotazione e\' stata eliminata',
-							'error'
-						)
-					}	//Fine else
-				});
 			});
 		});
 	</script>
