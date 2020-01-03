@@ -9,8 +9,8 @@
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="orange">
 
-		<a href="." class="logo"><img src="img/logoWLB.svg"
-			alt="navbar brand" class="navbar-brand"></a>
+		<a href="." class="logo ml-3" id="logoNavbar"><img src="img/logoWLB.png"
+			alt="navbar brand" class="navbar-brand" height="40"></a>
 
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
 			data-toggle="collapse" data-target="collapse" aria-expanded="false"
