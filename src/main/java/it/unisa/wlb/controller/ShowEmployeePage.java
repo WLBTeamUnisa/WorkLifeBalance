@@ -59,13 +59,13 @@ public class ShowEmployeePage extends HttpServlet {
 						request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
 					}
 				}
-				else
+				else //if email is null or email is empty
 				{
 					request.setAttribute("result", "error");
 					request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
 				}
 			}
-			else
+			else//if the user is different to admin
 			{
 				request.setAttribute("result", "error");
 				request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
