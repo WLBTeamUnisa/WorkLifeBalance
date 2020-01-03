@@ -71,7 +71,7 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 		String[] dates = {"2019-11-25", "2019-11-26", "2019-11-27", "2019-11-28"};
 		request.setParameter("dates", dates);
 		try {
-			servlet.doGet(request, response);
+			servlet.doPost(request, response);
 		} catch (Exception employee) {			
 			
 		} finally {
@@ -91,7 +91,7 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 		String[] dates = {"22-11-2019"};
 		request.setParameter("dates", dates);
 		try {
-			servlet.doGet(request, response);
+			servlet.doPost(request, response);
 		} catch (Exception employee) {
 			
 		} finally {
@@ -146,7 +146,7 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 		prenotationDatePk.setIdPrenotationSw(smartWorking.getId().getId());
 		when(prenotationDateDao.create(any(PrenotationDate.class))).thenReturn(prenotationDate);
 		servlet.setPrenotationDateDao(prenotationDateDao);
-		servlet.doGet(request, response);
+		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals("ok",attribute);
 	
