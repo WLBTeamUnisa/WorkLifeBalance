@@ -2,10 +2,14 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 
+import javax.interceptor.Interceptors;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import it.unisa.wlb.utils.LoggerSingleton;
+
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;

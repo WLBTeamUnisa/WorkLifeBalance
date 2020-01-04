@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +16,14 @@ import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet is used to retrieve project suggestions.
  * @author Michele
  */
 @WebServlet(name = "SearchProjectServlet", urlPatterns = "/SearchProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class SearchProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

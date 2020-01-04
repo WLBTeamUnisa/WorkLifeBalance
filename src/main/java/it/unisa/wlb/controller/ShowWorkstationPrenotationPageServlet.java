@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +31,7 @@ import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet aims to redirect to Workstation Prenotation Page
@@ -37,7 +39,8 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  * @author Vincenzo Fabiano, Luigi Cerrone, Sabato Nocera
  *
  */
-@WebServlet("/ShowWorkstationPrenotationPage")
+@WebServlet(name="ShowWorkstationPrenotationPageServlet", urlPatterns="/ShowWorkstationPrenotationPage")
+@Interceptors({LoggerSingleton.class})
 public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
 

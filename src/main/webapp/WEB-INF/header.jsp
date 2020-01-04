@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!-- Navbar -->
 <div class="main-header">
 
@@ -161,26 +162,13 @@
 										Storico giornate<br> lavorative
 									</p></a></li>
 
-							<li class="nav-item"><a data-toggle="collapse"
-								class="nav-link" href="#sidebarLayouts"> <i
+							<li class="nav-item" id="Projects" onclick="showProject()"><a data-toggle="collapse"
+								class="nav-link" href=""> <i
 									class="fas fa-layer-group"></i>
 									<p class="b">Progetti supervisionati</p> <span class="caret"></span>
 							</a>
-								<div class="collapse" id="sidebarLayouts">
-									<ul class="nav nav-collapse">
-										<li><a href=""> <span class="sub-item">Progetto
-													1</span>
-										</a></li>
-										<li><a href=""> <span class="sub-item">Progetto
-													2</span>
-										</a></li>
-										<li><a href=""> <span class="sub-item">Progetto
-													3</span>
-										</a></li>
-										<li><a href=""> <span class="sub-item">Progetto
-													4</span>
-										</a></li>
-
+								<div class="collapse">
+									<ul class="nav nav-collapse" id="projectList" style="display: none;">
 									</ul>
 								</div></li>
 						</ul>
@@ -192,4 +180,37 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+$(document).ready(function(){
+	  $("#Projects").click(function(){
+	  if($("#projectList").is(":visible")){
+	    $("#projectList").hide(1000);}
+	  else
+	  {
+	  	$("#projectList").show(1000);
+	  }
+	  });
+	});
+
+function showProject() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var lista = JSON.parse(this.responseText);
+					var li = "";
+					
+					for (i = 0; i < lista.length; i++){
+						li += "<li><a href=''><span class='sub-item'>"+lista[i].projectName+"</span></a></li>"
+						console.log(li);
+						document.getElementById("projectList").innerHTML = li;
+					}
+				}
+			}
+			xhttp.open("GET", "ShowAllSupervisedProjectsServlet", true);
+			xhttp.send();
+		}
+
+</script>
 <!-- End Sidebar -->

@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -15,6 +20,7 @@ import java.util.List;
 	@NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a"),
 	@NamedQuery(name = "Admin.findByEmailPassword", query = "SELECT a FROM Admin a WHERE a.email = :email AND a.password = :password")
 })
+@Interceptors({LoggerSingleton.class})
 public class Admin implements Serializable {
 	private static final long serialVersionUID = 1L;
 

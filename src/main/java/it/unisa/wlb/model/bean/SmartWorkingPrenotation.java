@@ -1,7 +1,11 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -18,6 +22,7 @@ import java.util.List;
 	@NamedQuery(name="SmartWorkingPrenotation.findByWeeklyPlanning", 
 	query="SELECT s FROM SmartWorkingPrenotation s WHERE s.id.employee = :employee AND s.calendarWeek = :calendarWeek AND s.year = :year")
 })
+@Interceptors({LoggerSingleton.class})
 public class SmartWorkingPrenotation implements Serializable {
 	private static final long serialVersionUID = 1L;
 

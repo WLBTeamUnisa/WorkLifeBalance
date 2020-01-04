@@ -2,13 +2,18 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The primary key class for the WORKSTATION_PRENOTATION database table.
  * 
  */
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotationPK implements Serializable {
 
 	//default serial version id, required for serializable classes.

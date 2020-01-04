@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to insert an employee into a dynamic list thanks 
@@ -25,7 +27,8 @@ import it.unisa.wlb.model.dao.IProjectDAO;
  * @author Luigi Cerrone, Emmanuel Tesauro
  *
  */
-@WebServlet("/AddEmployeeToList")
+@WebServlet(name="AddEmployeeToList", urlPatterns="/AddEmployeeToList")
+@Interceptors({LoggerSingleton.class})
 public class AddEmployeeToList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

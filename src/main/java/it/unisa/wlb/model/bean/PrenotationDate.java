@@ -1,7 +1,11 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The persistent class for the PRENOTATION_DATE database table.
@@ -13,6 +17,7 @@ import javax.persistence.*;
 	@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p"),
 	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employee = :employeeEmail AND p.id.smartWorkingPrenotation = :idPrenotationSw")
 })
+@Interceptors({LoggerSingleton.class})
 public class PrenotationDate implements Serializable {
 
 	private static final long serialVersionUID = 1L;

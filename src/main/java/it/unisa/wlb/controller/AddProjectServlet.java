@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 
@@ -23,6 +25,7 @@ import it.unisa.wlb.model.bean.Employee;
  * Servlet implementation class AddProjectServlet
  */
 @WebServlet(name = "AddProjectServlet", urlPatterns = "/AddProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class AddProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

@@ -1,13 +1,18 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The primary key class for the SMART_WORKING_PRENOTATION database table.
  * 
  */
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class SmartWorkingPrenotationPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to modify a project created
@@ -26,6 +28,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
  */
 
 @WebServlet(name="ModifyProjectServlet", urlPatterns="/ModifyProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class ModifyProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

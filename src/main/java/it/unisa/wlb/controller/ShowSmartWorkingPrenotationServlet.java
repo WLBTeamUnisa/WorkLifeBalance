@@ -5,16 +5,12 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.persistence.NoResultException;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowSmartWorkingPrenotationServlet
  */
-@WebServlet("/ShowSmartWorkingPrenotation")
+@WebServlet(name="ShowSmartWorkingPrenotationServlet", urlPatterns="/ShowSmartWorkingPrenotation")
+@Interceptors({LoggerSingleton.class})
 public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	
 	/**
@@ -81,6 +79,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
 					
 				} catch(Exception e) {
+					System.out.println("Posso effettuare la prenotazione");
 					request.setAttribute("booking", "yes");
 					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
 				} 

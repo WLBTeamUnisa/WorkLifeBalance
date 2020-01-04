@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ import it.unisa.wlb.model.bean.RoomPK;
 import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.dao.IWorkstationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to insert the planimetry into the database
@@ -28,6 +30,7 @@ import it.unisa.wlb.model.dao.IWorkstationDao;
  *
  */
 @WebServlet(name = "AddPlanimetryServlet", urlPatterns = "/AddPlanimetryServlet")
+@Interceptors({LoggerSingleton.class})
 public class AddPlanimetryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -78,6 +81,10 @@ public class AddPlanimetryServlet extends HttpServlet {
 		 */
 		
 		String jsonString = request.getParameter(JSON_STRING);
+		if(jsonString==null)
+		{	
+			request.getRequestDispatcher("WEB-INF/PlanimetryInsertion.jsp").forward(request, response);
+		}
 		JSONArray jsonArray =  new JSONArray(jsonString);
 
 		/**

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.dao.IRoomDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class PlanimetryInsertionPageServlet. It is used to access to PlanimetryInsertion.jsp.
@@ -23,7 +26,8 @@ import it.unisa.wlb.model.dao.IRoomDao;
  * @author Sabato
  *
  */
-@WebServlet("/PlanimetryInsertionPage")
+@WebServlet(name="PlanimetryInsertionPageServlet", urlPatterns="/PlanimetryInsertionPage")
+@Interceptors({LoggerSingleton.class})
 public class PlanimetryInsertionPageServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

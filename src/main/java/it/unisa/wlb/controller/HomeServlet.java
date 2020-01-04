@@ -12,11 +12,14 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;
+
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +30,7 @@ import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet aims to redirect to the Homepage
@@ -34,6 +38,7 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  * @author Emmanuel Tesauro
  */
 @WebServlet("")
+@Interceptors({LoggerSingleton.class})
 public class HomeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

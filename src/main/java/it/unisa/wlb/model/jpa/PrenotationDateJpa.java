@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,22 +13,25 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class PrenotationDateJpa implements IPrenotationDateDAO{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
-	private EntityManager entityManager = factor.createEntityManager();
+	private EntityManager entityManager;
 	
 	@Override
 	public PrenotationDate create(PrenotationDate entity) {
+		
 		try
 		{
-		entityManager= factor.createEntityManager();
-		entityManager.getTransaction().begin();
-	    entityManager.merge(entity);
-	    entityManager.getTransaction().commit();
-	    return entity;
+			entityManager= factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.merge(entity);
+			entityManager.getTransaction().commit();
+			return entity;
 		}
 		
 		finally

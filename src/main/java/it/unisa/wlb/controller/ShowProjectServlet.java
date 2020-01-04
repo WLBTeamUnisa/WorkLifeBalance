@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowProjectServlet
  */
-@WebServlet("/ShowProjectServlet")
+@WebServlet(name="ShowProjectServlet", urlPatterns="/ShowProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class ShowProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
