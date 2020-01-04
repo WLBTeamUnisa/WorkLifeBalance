@@ -40,7 +40,11 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	@EJB
 	private ISmartWorkingPrenotationDAO smartWorkingDao;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+		this.smartWorkingDao = smartWorkingDao;
+	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("user")==null) {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
 		}
@@ -58,7 +62,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 		
 			LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
 			LocalDate newDate;
-			newDate= nextMonday.plusDays(7);
+			newDate = nextMonday.plusDays(7);
 			calendar.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
 			int nextCalendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 			int year = calendar.get(Calendar.YEAR);
@@ -77,7 +81,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
