@@ -4,7 +4,12 @@ package it.unisa.wlb.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.NoResultException;
+import javax.servlet.ServletException;
+
 import static org.mockito.Mockito.mock;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -40,10 +45,10 @@ public class LoginServletTest {
 	 * TC_4.1_1: email.length() < 5. 
 	 * It should be email.length >= 5 and email.length <=30 - FAIL
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_1() throws Exception {
+	public void TC_4_1_1() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";
 		request.setParameter("email", "");
 		request.setParameter("password", "MarcoRossi1.");
@@ -55,10 +60,10 @@ public class LoginServletTest {
 	 * TC_4.1_2: email.length() > 30. 
 	 * It should be email.length >= 5 and email.length <=30 - FAIL
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_2() throws Exception {
+	public void TC_4_1_2() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";
 		request.setParameter("email", "m.rossiiiiiiiiiiiiiiiiiiiiiiiii@wlb.it");
 		request.setParameter("password", "MarcoRossi1.");
@@ -72,10 +77,10 @@ public class LoginServletTest {
 	 * 	- [a-z]{1}\.[a-z]+[0-9]*\@wlb.it 
 	 * 	- [a-z]{1}\.[a-z]+[0-9]*\@wlbadmin.it) - FAIL
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_3() throws Exception {
+	public void TC_4_1_3() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";
 		request.setParameter("email", "m.rossi1@email.it");
 		request.setParameter("password", "MarcoRossi1.");
@@ -86,10 +91,10 @@ public class LoginServletTest {
 	/**
 	 * TC_4.1_4: email doesn't exist in database. - FAIL
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_4() throws Exception {
+	public void TC_4_1_4() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";		
 		String email = "m.rossi1@wlb.it";
 		String password = "MarcoRossi1.";		
@@ -107,10 +112,10 @@ public class LoginServletTest {
 	 * The format that should be respected is:
 	 * (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\.!@#\$%\^&\*])(?=.{8,20}) - FAIL
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_5() throws Exception {
+	public void TC_4_1_5() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";
 		request.setParameter("email", "m.rossi1@wlb.it");
 		request.setParameter("password", "MarcoRos");
@@ -124,7 +129,7 @@ public class LoginServletTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void TC_4_1_6() throws Exception {
+	public void TC_4_1_6() throws ServletException,IOException {
 		final String message = "Email e/o password non validi";		
 		String email = "m.rossi1@wlb.it";
 		String password = "MarcoRossi2.";		
@@ -140,10 +145,10 @@ public class LoginServletTest {
 	/**
 	 * TC_4.1_7: password doesn't correspond to the email inserted. - FAIL 
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_7() throws Exception {
+	public void TC_4_1_7() throws ServletException,IOException{
 		final String message = "Email e/o password non validi";		
 		String email = "m.rossi1@wlb.it";
 		String password = "MarcoRossi2.";		
@@ -159,10 +164,10 @@ public class LoginServletTest {
 	/**
 	 * TC_4.1_8: SUCCESS.
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
 	 */
 	@Test
-	public void TC_4_1_8() throws Exception {
+	public void TC_4_1_8() throws ServletException,IOException {
 		String message = "success";
 		Employee employee = new Employee();
 		employee.setEmail("m.rossi1@wlb.it");

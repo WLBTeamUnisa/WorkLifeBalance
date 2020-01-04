@@ -21,7 +21,12 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
-
+/**
+ * This test class follows the specification of the section "3.2.4 TC_2.4 Inserisci dipendente ad un progetto" of the document "Test Case Specification"
+ * 
+ * @author nello
+ *
+ */
 class AddEmployeesToProjectServletTest extends Mockito {
 
 	private MockHttpServletRequest request;

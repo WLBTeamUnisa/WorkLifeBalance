@@ -38,7 +38,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * "name" field doesn't respect the specified lenght
+	 * Name field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -57,7 +57,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "name" field doesn't respect the specified lenght
+	 * Name field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -76,7 +76,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "name" field doesn't respect the specified format
+	 * Name field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -95,7 +95,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "surname" field doesn't respect the specified lenght
+	 * Surname field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -114,7 +114,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "surname" field doesn't respect the specified lenght
+	 * Surname field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -134,7 +134,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * "surname" field doesn't respect the specified format
+	 * Surname field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -154,7 +154,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * "email" field doesn't respect the specified lenght
+	 * Surname field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -173,7 +173,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "email" field doesn't respect the specified lenght
+	 * Email field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -193,7 +193,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * "email" field doesn't respect the specified format
+	 * Email field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -212,7 +212,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "email" field already exists in the database
+	 * Email field already exists in the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -249,7 +249,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * "password" field doesn't respect the specified lenght
+	 * Password field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -268,7 +268,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "password" field doesn't respect the specified lenght
+	 * Password field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -287,7 +287,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "password" field doesn't respect the specified lenght
+	 * Password field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -306,7 +306,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "password" field doesn't respect the specified format
+	 * Password field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -325,7 +325,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "verify password" field doesn't respect the specified lenght
+	 * Verify Password field doesn't respect the specified lenght
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -344,7 +344,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "verify password" field doesn't respect the specified format
+	 * Verify Password field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -363,7 +363,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "password" field and verify password field doesn't correspond
+	 * Password field and verify password field doesn't correspond
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -382,7 +382,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * "status" field not inserted
+	 * Status field not inserted
 	 * 
 	 * @throws ServletException
 	 * @throws IOException

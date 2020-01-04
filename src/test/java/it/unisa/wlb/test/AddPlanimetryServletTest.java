@@ -65,12 +65,12 @@ public class AddPlanimetryServletTest extends Mockito {
 	/**
 	 * Floor field doesn't respect the specified format
 	 * 
-	 * @throws UnsupportedEncodingException
+	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test
-	public void TC_3_1_1() throws UnsupportedEncodingException,ServletException, IOException {
+	public void TC_3_1_1() throws ServletException, IOException {
 
 		String string="[{\"workstation\":50,\"floor\":\"jsbdkj\",\"room\":1}]";
 
