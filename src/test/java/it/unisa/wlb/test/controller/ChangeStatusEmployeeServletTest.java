@@ -1,4 +1,4 @@
-package it.unisa.wlb.test;
+package it.unisa.wlb.test.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
