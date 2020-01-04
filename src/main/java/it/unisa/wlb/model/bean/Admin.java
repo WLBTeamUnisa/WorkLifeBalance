@@ -119,19 +119,6 @@ public class Admin implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((floors == null) ? 0 : floors.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -176,7 +163,7 @@ public class Admin implements Serializable {
 	@Override
 	public String toString() {
 		return "Admin [email=" + email + ", name=" + name + ", password=" + password + ", surname=" + surname
-				+ ", floors=" + floors + ", projects=" + projects + "]";
+				+ "]";
 	}
 
 }
