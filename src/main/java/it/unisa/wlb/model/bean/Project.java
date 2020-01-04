@@ -15,7 +15,8 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p"),
 	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee.email=:email"),
-	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')")
+	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')"),
+	@NamedQuery(name="Project.findByName", query="SELECT project FROM Project project WHERE project.name=?1")
 })
 
 public class Project implements Serializable {

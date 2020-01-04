@@ -111,7 +111,7 @@ public class ProjectJpa implements IProjectDAO {
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-			Query query = entityManager.createQuery("SELECT project FROM Project project WHERE project.name=?1");
+			TypedQuery<Project> query = entityManager.createNamedQuery("Project.findByName", Project.class);
 			query.setParameter(1, name);
 			entityManager.getTransaction().commit();
 			return (Project) query.getSingleResult();
