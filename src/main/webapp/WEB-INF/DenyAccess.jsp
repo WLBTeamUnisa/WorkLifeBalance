@@ -19,6 +19,12 @@
 <link rel="stylesheet" href="css/calendar.css">
 
 <style>
+
+.card-header
+{
+	border-radius:5px;
+}
+
 .main-panel
 {
 	width: calc(100%);
@@ -59,11 +65,11 @@
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container text-center">
 
-					<div class="col-lg-12 mx-auto">
+					<div class="col-lg-5 mx-auto">
 
 						<div class="card">
-									<div class="card-header">
-										<h3 class="my-auto">Avviso:</h3>
+									<div class="card-header" style="background-color:red">
+										<i class="fa fa-times-circle fa-3x" aria-hidden="true" style="color:white"></i>
 									</div>
 									<div class="card-body">
 										<h2 class="my-auto mx-auto">Accesso negato per questa pagina.</h2>

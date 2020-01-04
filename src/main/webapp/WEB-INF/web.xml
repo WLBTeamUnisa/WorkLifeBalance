@@ -42,6 +42,7 @@
 		<servlet-name>SuggestionEmployees</servlet-name>
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
+		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
 	</filter-mapping>
 	
 	<filter>
@@ -69,6 +70,7 @@
 		<servlet-name>SearchProjectServlet</servlet-name>
 		<servlet-name>ShowProjectServlet</servlet-name>
 		<servlet-name>SuggestionEmployees</servlet-name>
+		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
 	</filter-mapping>
 	
 	<filter>
@@ -85,6 +87,7 @@
 		<servlet-name>SmartWorkingDaysPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
+		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
 	</filter-mapping>
 	
 	<filter>

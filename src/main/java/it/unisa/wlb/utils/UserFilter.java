@@ -42,7 +42,7 @@ public class UserFilter implements Filter {
       chain.doFilter(request, response);
     } else {
       String path = ((HttpServletRequest) request).getRequestURI();
-      if (path.endsWith("/WorkLifeBalance/") || path.endsWith("/LoginServlet")) {
+      if (path.endsWith("/WorkLifeBalance/") || path.endsWith("/LoginServlet") || path.endsWith("/LogoutServlet")) {
         chain.doFilter(request, response);
       } else {
         ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
