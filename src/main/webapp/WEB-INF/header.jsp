@@ -9,8 +9,9 @@
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="orange">
 
-		<a href="." class="logo ml-3" id="logoNavbar"><img src="img/logoWLB.png"
-			alt="navbar brand" class="navbar-brand" height="40"></a>
+		<a href="." class="logo ml-3" id="logoNavbar"><img
+			src="img/logoWLB.png" alt="navbar brand" class="navbar-brand"
+			height="40"></a>
 
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
 			data-toggle="collapse" data-target="collapse" aria-expanded="false"
@@ -79,6 +80,11 @@
 								<i class="fa fa-ellipsis-h"></i>
 						</span>
 							<h4 class="text-section">Admin</h4></li>
+
+						<li class="nav-item"><a href="."
+							class="nav-link"><i class="fas fa-home"></i>
+								<p class="b">Homepage</p></a></li>
+
 						<li class="nav-item"><a href="PlanimetryInsertionPage"
 							class="nav-link"><i class="fas fa-layer-group"></i>
 								<p class="b">Planimetria</p></a></li>
@@ -102,6 +108,11 @@
 									<i class="fa fa-ellipsis-h"></i>
 							</span>
 								<h4 class="text-section">Dipendente</h4></li>
+								
+							<li class="nav-item"><a href="."
+							class="nav-link"><i class="fas fa-home"></i>
+								<p class="b">Homepage</p></a></li>
+								
 							<li class="nav-item"><a href="#base" class="nav-link"><i
 									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
@@ -110,7 +121,8 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
-							<li class="nav-item"><a href="ShowWorkstationPrenotationPage" class="nav-link"><i
+							<li class="nav-item"><a
+								href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
 
@@ -127,6 +139,11 @@
 									<i class="fa fa-ellipsis-h"></i>
 							</span>
 								<h4 class="text-section">Manager</h4></li>
+								
+							<li class="nav-item"><a href="."
+							class="nav-link"><i class="fas fa-home"></i>
+								<p class="b">Homepage</p></a></li>
+								
 							<li class="nav-item"><a href="#base" class="nav-link"><i
 									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
@@ -135,7 +152,8 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
-							<li class="nav-item"><a href="ShowWorkstationPrenotationPage" class="nav-link"><i
+							<li class="nav-item"><a
+								href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
 

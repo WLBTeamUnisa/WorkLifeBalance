@@ -99,7 +99,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				smartWorkingZeroPrenotation.setId(smartWorkingZeroPrenotationPk);
 				smartWorkingDao.create(smartWorkingZeroPrenotation);
 				request.setAttribute("result", "ok");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Homepage.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(".");
 	        	dispatcher.forward(request, response);
 			}
 			if(arrayDates.length > 3) {
@@ -202,7 +202,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			smartWorkingDao.update(smartWorkBooking);
 
 			request.setAttribute("result", "success");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/HomeServlet");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(".");
         	dispatcher.forward(request, response);
         	
 		} else {
@@ -210,7 +210,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 			 * Checking if user is not logged
 			 */
 			request.setAttribute("result", "NotLogged");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(".");
         	dispatcher.forward(request, response);
         	
 		}

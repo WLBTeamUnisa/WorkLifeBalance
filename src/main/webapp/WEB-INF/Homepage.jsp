@@ -68,112 +68,20 @@
 
 								<c:otherwise>
 
-									<c:if test="${user.status == 0}">
+									<div class="card-body p-0">
+										
 										<div class="card-header">
-											<h3 class="my-auto">3° Settimana</h3>
+											<h3 class="my-auto">Pianificazione settimanale</h3>
 										</div>
-
-										<div class="card-body p-0 pt-3">
+										
 											<table class="table table-striped">
-												<tbody>
-
-													<tr>
-														<td>Giorno 1</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-
-													</tr>
-
-													<tr>
-														<td>Giorno 2</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-
-													<tr>
-														<td>Giorno 3</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-													<tr>
-														<td>Giorno 4</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-													<tr>
-														<td>Giorno 5</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
+												<tbody id="tbody">
 												</tbody>
 											</table>
-											<!-- FINE CARD-BODY EMPLOYEE-->
-										</div>
 
-										<!-- CARD FOOTER -->
-										<div class="card-footer">
-											<h5 class="mx-auto">Employee</h5>
-										</div>
-									</c:if>
-
-
-									<c:if test="${user.status == 1}">
-										<div class="card-header">
-											<h3 class="my-auto">3° Settimana</h3>
-										</div>
-
-										<div class="card-body p-0 pt-3">
-											<table class="table table-striped">
-												<tbody>
-
-													<tr>
-														<td>Giorno 1</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-
-													</tr>
-
-													<tr>
-														<td>Giorno 2</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-
-													<tr>
-														<td>Giorno 3</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-													<tr>
-														<td>Giorno 4</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-													<tr>
-														<td>Giorno 5</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-												</tbody>
-											</table>
-											<!-- FINE CARD-BODY MANAGER -->
-										</div>
-
-										<!-- CARD FOOTER -->
-										<div class="card-footer">
-											<h5 class="mx-auto">Manager</h5>
-										</div>
-									</c:if>
+										<!-- FINE CARD-BODY MANAGER -->
+									</div>
+									
 								</c:otherwise>
 							</c:choose>
 							<!-- FINE CARD -->
@@ -196,7 +104,33 @@
 		<!-- FINE WRAPPER -->
 	</div>
 	
-		<c:if test="${not empty result}">
+	<script>
+		var tbody = $("#tbody");
+		
+		tbody.html("");
+		
+		var lista = '${jsonList}';
+		
+		var listaJson = JSON.parse(lista);
+		
+		if(listaJson.length==0){
+			tbody.html("<div class='card-body my-auto mx-auto'>	<h2>Non hai prenotato niente.</h2></div>");
+		}
+		
+		for(var i = 0; i<listaJson.length; i++){
+			var obj = listaJson[i];
+			console.log[obj];
+
+			if(obj.type=="smartWorking"){
+				tbody.append("<tr><td>" + obj.date + "</td> <td><span align='center'><i class='fas fa-home' style='font-size: 1.73em;'></i></span></td> <td>Smart Working</td></tr>");
+			} else {
+				tbody.append("<tr><td>" + obj.date + "</td> <td><span align='center'><i class='fas fa-building' style='font-size: 1.73em;'></i></span></td> <td>P" + obj.floor + " - S" + obj.room + " - W" + obj.workstation + "</td></tr>");
+			}
+		}
+	
+	</script>
+
+	<c:if test="${not empty result}">
 		<script>
 				//SWEETALERT
 				if("${result}"=="success"){
