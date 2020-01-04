@@ -34,25 +34,18 @@ public class UserFilter implements Filter {
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-	 
-    ((HttpServletResponse) response).setHeader("Cache-Control",
-        "no-cache,no-store,must-revalidate");
-    ((HttpServletResponse) response).setHeader("Pragma", "no-cache");
-    ((HttpServletResponse) response).setDateHeader("Expires", 0);
-    
+	  
     if (((HttpServletRequest) request).getSession().getAttribute("user")!=null) {
     	/**
     	 * User logged
     	 */
       chain.doFilter(request, response);
-      return;
     } else {
       String path = ((HttpServletRequest) request).getRequestURI();
       if (path.endsWith("/WorkLifeBalance/") || path.endsWith("/LoginServlet")) {
         chain.doFilter(request, response);
-        return;
       } else {
-        ((HttpServletResponse) response).getWriter().println("Accesso negato");
+        ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
         return;
       }
     }

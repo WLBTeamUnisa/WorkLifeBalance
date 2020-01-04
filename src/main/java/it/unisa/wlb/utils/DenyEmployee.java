@@ -10,6 +10,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.wlb.model.bean.Employee;
+
 /**
  * @author Luigi Cerrone
  * 
@@ -37,10 +39,11 @@ public class DenyEmployee implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 		      throws IOException, ServletException {
 		    Object user=((HttpServletRequest) request).getSession().getAttribute("user");
-		    if(user.getClass().getSimpleName().equals("Employee")) {
-		        ((HttpServletResponse) response).getWriter().println("Accesso Negato");
+		    if(user.getClass().getSimpleName().equals("Employee") && ((Employee) user).getStatus()==0) {
+		    	((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
 		        return;
 		      }
+		    chain.doFilter(request, response);
 		    }
 	/**
 	 * @see Filter#init(FilterConfig)

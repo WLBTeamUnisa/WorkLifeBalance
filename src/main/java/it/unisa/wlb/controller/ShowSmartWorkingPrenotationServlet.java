@@ -58,7 +58,6 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			TimeZone tz = calendar.getTimeZone();
 			ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
 			LocalDate today = LocalDateTime.ofInstant(calendar.toInstant(), zid).toLocalDate();
-		
 			LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
 			LocalDate newDate;
 			newDate= nextMonday.plusDays(7);
@@ -74,6 +73,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
 					
 				} catch(Exception e) {
+					System.out.println("Posso effettuare la prenotazione");
 					request.setAttribute("booking", "yes");
 					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
 				} 

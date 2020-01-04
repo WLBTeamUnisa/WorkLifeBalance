@@ -103,10 +103,12 @@
 		<servlet-name>CheckEmployeeServlet</servlet-name>
 		<servlet-name>EmployeeInsertPageServlet</servlet-name>
 		<servlet-name>EmployeeRegistrationServlet</servlet-name>
+		<servlet-name>EmployeeListPageServlet</servlet-name>
 		<servlet-name>ModifyProjectServlet</servlet-name>
 		<servlet-name>PlanimetryInsertionPageServlet</servlet-name>
 		<servlet-name>ProjectInsertPageServlet</servlet-name>
-		<servlet-name>ShowProjectServlet</servlet-name>
+		<servlet-name>SearchEmployeeServlet</servlet-name>
+		<servlet-name>SearchProjectServlet</servlet-name>
 		<servlet-name>SuggestionEmployees</servlet-name>
 	</filter-mapping>
 	

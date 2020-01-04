@@ -39,9 +39,9 @@ public class DenyAdmin implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		Object user=((HttpServletRequest) request).getSession().getAttribute("user");
 	    if(user.getClass().getSimpleName().equals("Admin")) {
-	        ((HttpServletResponse) response).getWriter().println("Accesso Negato");
-	        return;
+	    	((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
 	      }
+	    chain.doFilter(request, response);
 	    }
 
 	/**
