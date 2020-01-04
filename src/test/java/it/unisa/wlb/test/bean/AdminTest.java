@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +14,12 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.Project;
 
+/**
+ * The aim of this class is testing Admin.java
+ * 
+ * @author Sabato Nocera
+ *
+ */
 class AdminTest {
 	
 	private String email;
@@ -77,10 +82,6 @@ class AdminTest {
 				
 		admin.setFloors(floors);
 		admin.setProjects(projects);
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 	
 	@Test
@@ -154,7 +155,9 @@ class AdminTest {
 		
 		floors.add(floor4);
 		
-		if(!floors.contains(floor4) || !floors.contains(floor3)) {
+		admin.setFloors(floors);
+		
+		if(!admin.getFloors().contains(floor4) || !admin.getFloors().contains(floor3)) {
 			assertTrue(false);
 			return ;
 		}
@@ -527,10 +530,40 @@ class AdminTest {
 		admin2.setProjects(projects);
 		assertNotEquals(admin, admin2);
 	}
+	
+	@Test
+	public void equalsTest20() {
+		String error = "";
+		assertNotEquals(admin, error);
+	}
+	@Test
+	public void equalsTest21() {
+		admin=null;
+		Admin admin2 = new Admin();
+		admin2.setEmail(email);
+		admin2.setName(name);
+		admin2.setSurname(surname);
+		admin2.setPassword(password);
+		admin2.setFloors(floors);
+		admin2.setProjects(projects);
+		assertNotEquals(admin, admin2);
+	}
+	@Test
+	public void equalsTest22() {
+		Admin admin2 = null;
+		assertNotEquals(admin, admin2);
+	}
+	@Test
+	public void equalsTest23() {
+		Admin admin2 = admin;
+		assertEquals(admin2, admin);
+	}
 
 	@Test
 	public void toStringTest() {
-		System.out.println(admin.toString());
+		String string = "Admin [email=" + email + ", name=" + name + ", password=" + password + ", surname=" + surname
+				+ "]";
+		assertEquals(string, admin.toString());
 	}
 
 }

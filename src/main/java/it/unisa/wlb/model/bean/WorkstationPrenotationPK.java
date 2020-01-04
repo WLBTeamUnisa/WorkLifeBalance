@@ -42,6 +42,30 @@ public class WorkstationPrenotationPK implements Serializable {
 	public void setPrenotationDate(Date prenotationDate) {
 		this.prenotationDate = prenotationDate;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WorkstationPrenotationPK other = (WorkstationPrenotationPK) obj;
+		if (emailEmployee == null) {
+			if (other.emailEmployee != null)
+				return false;
+		} else if (!emailEmployee.equals(other.emailEmployee))
+			return false;
+		if (id != other.id)
+			return false;
+		if (prenotationDate == null) {
+			if (other.prenotationDate != null)
+				return false;
+		} else if (!prenotationDate.equals(other.prenotationDate))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {

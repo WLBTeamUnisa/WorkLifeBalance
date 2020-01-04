@@ -148,7 +148,7 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 		servlet.setPrenotationDateDao(prenotationDateDao);
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
-		assertEquals("ok",attribute);
+		assertEquals("success",attribute);
 	
 	}
 
