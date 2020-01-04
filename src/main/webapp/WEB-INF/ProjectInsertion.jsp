@@ -62,7 +62,7 @@
 							<div class="card-body">
 
 								<!-- FORM -->
-								<form action="AddProjctServlet" method="post">
+								<form action="AddProjectServlet" method="post">
 
 									<!-- CONTAINER -->
 									<div class="container">
