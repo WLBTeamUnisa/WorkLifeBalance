@@ -44,37 +44,6 @@ public class WorkstationPrenotationPK implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((emailEmployee == null) ? 0 : emailEmployee.hashCode());
-		result = prime * result + ((prenotationDate == null) ? 0 : prenotationDate.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		WorkstationPrenotationPK other = (WorkstationPrenotationPK) obj;
-		if (emailEmployee == null) {
-			if (other.emailEmployee != null)
-				return false;
-		} else if (!emailEmployee.equals(other.emailEmployee))
-			return false;
-		if (prenotationDate == null) {
-			if (other.prenotationDate != null)
-				return false;
-		} else if (!prenotationDate.equals(other.prenotationDate))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		return "WorkstationPrenotationPK [emailEmployee=" + emailEmployee + ", prenotationDate=" + prenotationDate
 				+ ", id=" + id + "]";

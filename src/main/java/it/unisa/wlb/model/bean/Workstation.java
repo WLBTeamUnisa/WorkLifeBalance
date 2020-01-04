@@ -77,19 +77,8 @@ public class Workstation implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "Workstation [id=" + id + ", room=" + room + ", workstationPrenotations=" + workstationPrenotations
-				+ "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((room == null) ? 0 : room.hashCode());
-		result = prime * result + ((workstationPrenotations == null) ? 0 : workstationPrenotations.hashCode());
-		return result;
+	public String toString() {		
+		return "Workstation [id=" + id + ", room=" + room + "]";
 	}
 
 	@Override
