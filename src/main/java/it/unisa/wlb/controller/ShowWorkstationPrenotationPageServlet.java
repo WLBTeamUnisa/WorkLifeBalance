@@ -96,6 +96,9 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			calendar.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
 			int nextCalendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 			int year = calendar.get(Calendar.YEAR);
+			if((nextMonday.getYear() == newDate.getYear()) && nextCalendarWeek==1) {
+				year = year + 1;
+			}
 			List<LocalDate> listDates = new ArrayList<>();
 			listDates.add(newDate);
 			listDates.add(newDate.plusDays(1));

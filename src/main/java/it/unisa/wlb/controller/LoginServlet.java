@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 	IAdminDAO adminDao;
 	@EJB
 	IEmployeeDAO employeeDao;
+	
 
 	public LoginServlet() {
 		super();
@@ -59,8 +60,8 @@ public class LoginServlet extends HttpServlet {
 						Employee employee = employeeDao.retrieveByEmailPassword(email, generatedPassword);
 						if (employee != null) {
 							session.setAttribute("user", employee);
-							request.setAttribute("result", "success");
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+							request.setAttribute("login", "success");
+							request.getRequestDispatcher(".").forward(request, response);
 						}
 						/**
 						 * Checking if email respects admin email format
@@ -70,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 						if (admin != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", admin);
-							request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+							request.getRequestDispatcher(".").forward(request, response);
 						}
 					} else {
 						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

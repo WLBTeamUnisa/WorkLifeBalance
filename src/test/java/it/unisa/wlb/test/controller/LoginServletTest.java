@@ -181,7 +181,7 @@ public class LoginServletTest {
 
 		servlet.doPost(request, response);
 
-		assertEquals(message, (String) request.getAttribute("result"));
+		assertEquals(message, (String) request.getAttribute("login"));
 	}
 }
 
