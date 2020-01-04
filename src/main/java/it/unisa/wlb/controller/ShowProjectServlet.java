@@ -57,6 +57,7 @@ public class ShowProjectServlet extends HttpServlet {
 					session.setAttribute("startDate", startDateString);
 					session.setAttribute("endDate", endDateString);
 					session.setAttribute("oldProject",project);
+					session.setAttribute("currentEmployees", project.getEmployees());
 					request.setAttribute("result", "ok");
 					request.getRequestDispatcher("WEB-INF/Project.jsp").forward(request, response);
 				}

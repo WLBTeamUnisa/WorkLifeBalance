@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -102,6 +103,7 @@ public class ModifyProjectServlet extends HttpServlet {
 		managerEmail = request.getParameter(PROJECT_MANAGER);
 		userRole = (String) request.getSession().getAttribute(USER_ROLE);
 		oldProject = (Project) request.getSession().getAttribute("oldProject");
+		List<Employee> employeesList = (List<Employee>) request.getSession().getAttribute("lista_dipendenti");
 		oldManager = oldProject.getEmployee();
 
 		/**
@@ -189,10 +191,17 @@ public class ModifyProjectServlet extends HttpServlet {
 			projectDao.update(oldProject);
 
 			request.setAttribute("result", "success");
+			request.setAttribute("status", "modifying");
+			request.setAttribute("Project", oldProject);
 			request.getSession().removeAttribute("oldProject");
 			request.getSession().removeAttribute("startDate");
 			request.getSession().removeAttribute("endDate");
-			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+			
+			if(employeesList == null || employeesList.isEmpty()) {
+				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/AddEmployeesToProjectServlet").forward(request, response);
+			}
 		}
 	}
 

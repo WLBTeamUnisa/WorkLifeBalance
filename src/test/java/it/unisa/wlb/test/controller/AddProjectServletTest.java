@@ -1,6 +1,7 @@
 package it.unisa.wlb.test.controller;
 
 import java.io.IOException;
+
 import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
 import it.unisa.wlb.controller.EmployeeRegistrationServlet;
@@ -22,7 +23,12 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.ServletException;
-
+/**
+ * This test class follows the specification of the section "3.2.1 TC_2.1 Inserisci progetto" of the document "Test Case Specification"
+ * 
+ * @author nello
+ *
+ */
 public class AddProjectServletTest extends Mockito {
 
 
@@ -42,7 +48,12 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 
-	// name field not inserted - TC_2.1_1
+	/**
+	 *  Name field not inserted - TC_2.1_1
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_1_1() throws ServletException, IOException {
 		request.addParameter("name", "");
@@ -58,7 +69,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// name field inserted doesn't respect the specified lenght  - TC_2.2_2
+	/**
+	 *  Name field inserted doesn't respect the specified lenght  - TC_2.2_2
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_2() throws ServletException, IOException {
 		request.addParameter("name", "WLBCHG341DMAW29QWE");
@@ -74,7 +90,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 	
-	// name field doesn't respect the specified format  -  TC_2.2_3
+	/**
+	 *  Name field doesn't respect the specified format  -  TC_2.2_3
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_3() throws ServletException, IOException {
 		request.addParameter("name", "WLBè");
@@ -90,7 +111,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// name field already exists  -  TC_2.2_4
+	/**
+	 *  Name field already exists  -  TC_2.2_4
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_4() throws ServletException, IOException {
 		
@@ -131,7 +157,12 @@ public class AddProjectServletTest extends Mockito {
 
 	}
 
-	// scope field not inserted  -  TC_2.2_5
+	/**
+	 *  Scope field not inserted  -  TC_2.2_5
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_5() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -147,7 +178,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// scope field doesn't respect the specified lenght -  TC_2.2_6
+	/**
+	 *  Scope field doesn't respect the specified lenght -  TC_2.2_6
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_6() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -163,7 +199,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// scope field doesn't respect the specified format  -  TC_2.2_7
+	/**
+	 *  Scope field doesn't respect the specified format  -  TC_2.2_7
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_7() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -179,7 +220,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// start date field doesn't respect the specified format  -  TC_2.2_8
+	/**
+	 *  Start date field doesn't respect the specified format  -  TC_2.2_8
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_8() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -195,7 +241,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// end date field doesn't respect the specified format   -  TC_2.2_9
+	/**
+	 *  End date field doesn't respect the specified format   -  TC_2.2_9
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_9() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -211,7 +262,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// Manager E-mail doesn't exist into database -  TC_2.2_10
+	/**
+	 *  Manager E-mail doesn't exist into database -  TC_2.2_10
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_10() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -227,7 +283,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// inserted email doesn't correspond to any manager -  TC_2.2_11
+	/**
+	 *  Email inserted doesn't correspond to any manager -  TC_2.2_11
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_11() throws ServletException, IOException {
 		request.addParameter("name", "");
@@ -243,7 +304,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// description field doesn't respect the specified lenght -  TC_2.2_12
+	/**
+	 *  Description field doesn't respect the specified lenght -  TC_2.2_12
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_12() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -259,7 +325,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// description field doesn't respect the specified lenght  -  TC_2.2_13
+	/**
+	 *  Description field doesn't respect the specified lenght  -  TC_2.2_13
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_13() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -276,7 +347,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// Employees list field is empty -  TC_2.2_14
+	/**
+	 *  Employees list field is empty -  TC_2.2_14
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_14() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -292,7 +368,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 
-	// Employee's email doens't exist into database  -  TC_2.2_15
+	/**
+	 *  Employee's email doens't exist into database  -  TC_2.2_15
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_15() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -308,7 +389,12 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 	
-	// Inserted email doesn't correspond to any manager  -  TC_2.2_16
+	/**
+	 *  Inserted email doesn't correspond to any manager  -  TC_2.2_16
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void TC_2_2_16() throws ServletException, IOException {
 		request.addParameter("name", "WLB13PO");
@@ -324,11 +410,16 @@ public class AddProjectServletTest extends Mockito {
 		});
 	}
 	
-	// Project inserted with succcess  -  TC_2.2_17
+	/**
+	 *  Project inserted with succcess  -  TC_2.2_17
+	 *  
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
-		
+	
 		String commonName = "WLB13PO";
 
 		Project project = new Project();

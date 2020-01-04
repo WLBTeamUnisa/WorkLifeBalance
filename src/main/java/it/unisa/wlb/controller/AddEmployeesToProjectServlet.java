@@ -3,7 +3,6 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
-import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to create effectively the project and to add
@@ -27,8 +25,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  *
  */
 
-@WebServlet(name="AddEmployeesToProjectServlet",urlPatterns="/AddEmployeesToProjectServlet")
-@Interceptors({LoggerSingleton.class})
+@WebServlet("/AddEmployeesToProjectServlet")
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,65 +48,72 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  HttpSession session = request.getSession();
+		  Employee manager;
 		  String userRole=(String) session.getAttribute("userRole");
-		  
+		  Project project=(Project) request.getAttribute("Project");
+		  List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		  List<Employee> currentEmployees;
+		  String status;
+		  status = (String)request.getAttribute("status");
 		  /**
 		   * Check about admin role
 		   * 
 		   * */
-		  if(userRole.equalsIgnoreCase("Admin"))
-		  {
+		 
+		  if(userRole.equalsIgnoreCase("Admin")) {			  
 		      /**
 		       * Taking the project setted thanks to request's attribute
 		       * */
-		      Project project=(Project) request.getAttribute("Project");
-		      if(project==null)
-		      {
-		        String url= response.encodeURL("/AddEmployeesToProjectServlet");
-		        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-		        dispatcher.forward(request, response);
-		      }
-		    
-		      else
-		      {
-		        
-		        List<Employee> employeeList=(List<Employee>) request.getSession().getAttribute("employeeList");
-		        
-		        if(employeeList!=null && employeeList.size()>=1 )
-		        {
-		        	/**
-		        	 * Insertion of employees into works table
-		        	 * 
-		        	 * */
-		        	project.setEmployees(employeeList);
-		        
-		        	/**
-		        	 * Creation of the new project
-		        	 */
-		        	projectDao.create(project);
-		        
-		        	Employee manager=(Employee) request.getAttribute("manager");
-		        	manager.addProjects1(project);
-		        
-		        	/**
-		        	 * Updating the relationship between manager and project
-		        	 */
-		        	employeeDao.update(manager);
-		        	session.removeAttribute("employeeList");
-					request.setAttribute("result", "success");
-					
-		        	String url= response.encodeURL("/ProjectsListPage");
-		        	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-		        	dispatcher.forward(request, response);
-		        }
-		        
-		        else
-		        {
-		        	request.setAttribute("result", "error");
-		        	session.removeAttribute("employeeList");
-		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
-		        }
 		      
+		      if(project==null) {
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
+		        dispatcher.forward(request, response);
+		        throw new IllegalArgumentException();
+		      } else {
+		    	  
+		        if(employeesList!=null && employeesList.size()>=1) {
+		        	if(status.equals("modifying")) {
+						  currentEmployees = project.getEmployees();
+						  for(Employee anEmployee : employeesList) {
+							  System.out.println("Aggiungo dipendente: " + anEmployee.getEmail());
+							  currentEmployees.add(anEmployee);
+						  }
+						  project.setEmployees(currentEmployees);
+						  projectDao.update(project);
+						  
+					  } else {
+						  /**
+				        	 * Insertion of employees into works table
+				        	 * 
+				        	 * */
+				        	project.setEmployees(employeesList);
+				        
+				        	/**
+				        	 * Creation of the new project
+				        	 */
+				        	projectDao.create(project);
+				        
+				        	manager=(Employee) request.getAttribute("manager");
+				        	manager.addProjects1(project);
+				        
+				        	/**
+				        	 * Updating the relationship between manager and project
+				        	 */
+				        	employeeDao.update(manager);
+					  }
+		        
+		        	session.removeAttribute("lista_dipendenti");
+					request.setAttribute("result", "success");
+					request.removeAttribute("Project");
+				
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher("/ProjectsListPage");
+		        	dispatcher.forward(request, response);
+		        } else {
+		        	request.setAttribute("result", "error");
+		        	session.removeAttribute("lista_dipendenti");
+		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+		        	throw new IllegalArgumentException();
+		          }
 		   }
 		}
 	
@@ -119,7 +123,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

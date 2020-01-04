@@ -21,7 +21,12 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
-
+/**
+ * This test class follows the specification of the section "3.2.3 TC_2.3 Modifica progetto" of the document "Test Case Specification"
+ * 
+ * @author nello
+ *
+ */
 public class ModifyProjectTest extends Mockito {
 
 	private MockHttpServletRequest request;
@@ -58,7 +63,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * name field not inserted - TC_2.1_1
+	 * Name field not inserted - TC_2.1_1
 	 *
 	 * @throws ServletException
 	 * @throws IOException
@@ -91,7 +96,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * name field inserted doesn't respect the specified lenght - TC_2.2_2
+	 * Name field inserted doesn't respect the specified lenght - TC_2.2_2
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -124,7 +129,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * name field doesn't respect the specified format - TC_2.2_3
+	 * Name field doesn't respect the specified format - TC_2.2_3
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -145,7 +150,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * name field already exists - TC_2.2_4
+	 * Name field already exists - TC_2.2_4
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -155,25 +160,25 @@ public class ModifyProjectTest extends Mockito {
 	public void TC_2_3_4() throws ServletException, IOException {
 
 		String commonName = "WLB13PO";
-		Project pr = new Project();
+		Project project = new Project();
 		Date dateS = new Date(2019, 11, 02);
 		Date dateE = new Date(2019, 12, 02);
-		Employee em = new Employee();
-		List<Employee> li = new ArrayList<Employee>();
-		li.add(em);
+		Employee employee = new Employee();
+		List<Employee> lista = new ArrayList<Employee>();
+		lista.add(employee);
 
-		pr.setName("WLB13PO");
-		pr.setScope("SmartWorking");
-		pr.setStartDate(dateS);
-		pr.setEndDate(dateE);
-		pr.setDescription(
+		project.setName("WLB13PO");
+		project.setScope("SmartWorking");
+		project.setStartDate(dateS);
+		project.setEndDate(dateE);
+		project.setDescription(
 				"Il progetto si occupera della realizzazione di una piattaforma che consentir??  ?  ? ai dipendenti di organizzare le proprie giornate lavorative.");
-		pr.setEmployees(li);
-		pr.setEmployee(em);
+		project.setEmployees(lista);
+		project.setEmployee(employee);
 
 		IProjectDAO projectDao = mock(IProjectDAO.class);
 		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
-		when(projectDao.retrieveByName(commonName)).thenReturn(pr);
+		when(projectDao.retrieveByName(commonName)).thenReturn(project);
 		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
 
 		request.addParameter("name", commonName);
@@ -190,7 +195,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * scope field not inserted - TC_2.2_5
+	 * Scope field not inserted - TC_2.2_5
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -211,7 +216,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * scope field doesn't respect the specified lenght - TC_2.2_6
+	 * Scope field doesn't respect the specified lenght - TC_2.2_6
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -232,7 +237,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * scope field doesn't respect the specified format - TC_2.2_7
+	 * Scope field doesn't respect the specified format - TC_2.2_7
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -253,7 +258,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * start date field doesn't respect the specified format - TC_2.2_8
+	 * Start date field doesn't respect the specified format - TC_2.2_8
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -274,7 +279,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * end date field doesn't respect the specified format - TC_2.2_9
+	 * End date field doesn't respect the specified format - TC_2.2_9
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -319,7 +324,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * inserted email doesn't correspond to any manager - TC_2.2_11
+	 * Inserted email doesn't correspond to any manager - TC_2.2_11
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -342,7 +347,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * description field doesn't respect the specified lenght - TC_2.2_12
+	 * Description field doesn't respect the specified lenght - TC_2.2_12
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -364,7 +369,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * description field doesn't respect the specified lenght - TC_2.2_13
+	 * Description field doesn't respect the specified lenght - TC_2.2_13
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
