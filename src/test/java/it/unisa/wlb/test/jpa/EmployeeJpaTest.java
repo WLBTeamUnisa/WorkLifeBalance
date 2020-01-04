@@ -1,4 +1,4 @@
-package it.unisa.wlb.test;
+package it.unisa.wlb.test.jpa;
 
 import static org.junit.jupiter.api.Assertions.*;
 

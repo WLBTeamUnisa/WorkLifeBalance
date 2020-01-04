@@ -1,4 +1,4 @@
-package it.unisa.wlb.test;
+package it.unisa.wlb.test.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
