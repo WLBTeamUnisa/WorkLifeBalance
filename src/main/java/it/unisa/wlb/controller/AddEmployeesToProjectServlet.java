@@ -42,6 +42,14 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+		this.employeeDao = employeeDao;
+	}
+
+	public void setProjectDao(IProjectDAO projectDao) {
+		this.projectDao = projectDao;
+	}
 
 	/**
 		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
