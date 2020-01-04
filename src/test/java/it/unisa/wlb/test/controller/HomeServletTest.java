@@ -30,14 +30,15 @@ import it.unisa.wlb.model.bean.Employee;
 class HomeServletTest {
 	
 	@Mock
-	HttpServletRequest request;
+	private HttpServletRequest request;
 	@Mock
-	HttpServletResponse response;
+	private HttpServletResponse response;
 	@Mock
-	HttpSession session;
+	private HttpSession session;
 	@Mock
-	RequestDispatcher dispatcher;
-	HomeServlet servlet;
+	private RequestDispatcher dispatcher;
+	
+	private HomeServlet servlet;
 	
 	private Employee employee;
 	
@@ -63,7 +64,6 @@ class HomeServletTest {
 		servlet.doPost(request, response);
 		verify(request).getRequestDispatcher(captor.capture());
 		assertEquals(path, captor.getValue());
-		
 	}
 	
 	/**
@@ -82,6 +82,5 @@ class HomeServletTest {
 		servlet.doPost(request, response);
 		verify(request).getRequestDispatcher(captor.capture());
 		assertEquals(path, captor.getValue());
-		
 	}
 }

@@ -33,7 +33,6 @@ public class SearchEmployeeServlet extends HttpServlet {
         super();
     }
     
-
     /**
      * This contructor is used during the testing to simulate the behaviour of the dao class
      *  
@@ -48,7 +47,6 @@ public class SearchEmployeeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
 		employeeEmail = request.getParameter("email");
-		System.out.println(employeeEmail);
 		List<Employee> list = null;
 		
 		JSONArray employeeEmailList = new JSONArray();
@@ -56,7 +54,7 @@ public class SearchEmployeeServlet extends HttpServlet {
 		if(employeeEmail != null) {
 			
 			if(employeeEmail.equals(""))
-				list=employeeDao.retrieveAll();
+				list = employeeDao.retrieveAll();
 			else
 				list = employeeDao.suggestByEmail(employeeEmail);
 			
@@ -78,7 +76,7 @@ public class SearchEmployeeServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

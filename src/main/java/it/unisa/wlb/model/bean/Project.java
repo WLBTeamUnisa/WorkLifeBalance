@@ -168,23 +168,6 @@ public class Project implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
-		result = prime * result + ((employees == null) ? 0 : employees.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -246,8 +229,8 @@ public class Project implements Serializable {
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", description=" + description + ", endDate=" + endDate + ", name=" + name
-				+ ", scope=" + scope + ", startDate=" + startDate + ", messages=" + messages + ", admin=" + admin
-				+ ", employee=" + employee + ", employees=" + employees + "]";
+				+ ", scope=" + scope + ", startDate=" + startDate + ", admin=" + admin
+				+ ", employee=" + employee + "]";
 	}
 
 }

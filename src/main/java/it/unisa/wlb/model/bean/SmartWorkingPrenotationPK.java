@@ -2,7 +2,6 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * The primary key class for the SMART_WORKING_PRENOTATION database table.
@@ -50,12 +49,9 @@ public class SmartWorkingPrenotationPK implements Serializable {
 		return (this.id == castOther.id) && this.employee.equals(castOther.employee);
 	}
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.id;
-		hash = hash * prime + this.employee.hashCode();
-
-		return hash;
+	@Override
+	public String toString() {
+		return "SmartWorkingPrenotationPK [id=" + id + ", employee=" + employee + "]";
 	}
+	
 }

@@ -32,7 +32,7 @@ import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
 /**
- * 
+ * This servlet aims to redirect to Workstation Prenotation Page
  * 
  * @author Vincenzo Fabiano, Luigi Cerrone, Sabato Nocera
  *
@@ -57,6 +57,22 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
+	public void setRoomDao(IRoomDao roomDao) {
+		this.roomDao = roomDao;
+	}
+	
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+		this.smartWorkingDao = smartWorkingDao;
+	}
+	
+	public void setPrenotationDateDao(IPrenotationDateDAO prenotationDateDao) {
+		this.prenotationDateDao = prenotationDateDao;
+	}
+	
+	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
+		this.workstationPrenotationDao = workstationPrenotationDao;
+	}
+	
     public ShowWorkstationPrenotationPageServlet() {
         super();
     }
@@ -65,7 +81,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 		Employee employee = (Employee) request.getSession().getAttribute("user");
 		
 		if(request.getSession().getAttribute("user")==null) {
-			//request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
 		}
 		else {
 			/**
@@ -147,7 +163,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

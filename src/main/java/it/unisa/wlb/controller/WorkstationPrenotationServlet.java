@@ -150,9 +150,9 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 		
 		try {
 			workstationPrenotation = workstationPrenotationDao.create(workstationPrenotation);
-		}catch(Exception e) {
+		}catch(Exception e) {			
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().write("\nErrore nella prenotazione della postazione: "+workstationPrenotation.toString());		
+			response.getWriter().write("\nErrore nella prenotazione della postazione: "+workstationPrenotation.toString());	
 			response.getWriter().flush();
 			return ;
 		}
