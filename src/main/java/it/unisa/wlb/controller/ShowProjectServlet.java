@@ -45,7 +45,7 @@ public class ShowProjectServlet extends HttpServlet {
 				try
 				{
 					String startDateString;
-					String endDateString;;
+					String endDateString;
 					
 					Project project=projectDao.retrieveByName(name);
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -87,7 +87,7 @@
 									<ul class="list-group list-group-bordered" id="suggestionsList">
 										<c:forEach items="${employeeList}" var="employee">
 											<li class="list-group-item"><a
-												href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
+												href="ShowEmployeePage?email=${employee.email}"
 												class="mx-auto nav-link" style="color: #2f3640">${employee.name}
 													${employee.surname} - ${employee.email}</a></li>
 										</c:forEach>
@@ -140,7 +140,15 @@
 				
 		</script>
 	</c:if>
-
+	
+	<c:if test="${not empty statusResult}">
+		<script>
+			function sweetalertclick() {
+				swal("Ottimo!", "Status modificato con successo!","success")
+			}
+			window.onload = sweetalertclick;
+		</script>
+	</c:if>
 	<script>
 		function Suggestions(email) {
 
@@ -153,7 +161,7 @@
 					var suggestionsList = "";
 
 					for (i = 0; i < lista.length; i++) {
-						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>"
+						suggestionsList += "<li class='list-group-item'><a  href='ShowEmployeePage?email="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>"
 								+ lista[i].name
 								+ " "
 								+ lista[i].surname

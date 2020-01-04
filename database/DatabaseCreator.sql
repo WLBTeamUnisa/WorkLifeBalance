@@ -28,7 +28,7 @@ CREATE TABLE `admin` (
   `PASSWORD` varchar(40) NOT NULL,
   `SURNAME` varchar(20) NOT NULL,
   PRIMARY KEY (`EMAIL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `employee` (
   `STATUS` int(1) NOT NULL,
   `SURNAME` varchar(20) NOT NULL,
   PRIMARY KEY (`EMAIL`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE `floor` (
   `EMAIL_ADMIN` varchar(37) NOT NULL,
   PRIMARY KEY (`NUM_FLOOR`),
   KEY `FKls8l9itrc1m8ruifm4bu5qa1j` (`EMAIL_ADMIN`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`ID`),
   KEY `FK7m5bnpns31qoynvt02ktsoixt` (`EMPLOYEE_EMAIL`),
   KEY `FKsv51b55gibk6icr1yb1kdqm` (`ID_PROJECT`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `prenotation_date` (
   `ID_PRENOTATION_SW` int(20) NOT NULL,
   PRIMARY KEY (`DATE`,`EMPLOYEE_EMAIL`,`ID_PRENOTATION_SW`),
   KEY `FKmm3hcdligupegsi2quwsh46ns` (`EMPLOYEE_EMAIL`,`ID_PRENOTATION_SW`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`ID`),
   KEY `FKjhn4q6kabu60je4gskcwjsm9` (`EMAIL_ADMIN`),
   KEY `FKsqtaqsgapeoasfjm7n017rxf` (`EMAIL_MANAGER`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `room` (
   `NUM_FLOOR` int(3) NOT NULL,
   `NUM_ROOM` int(2) NOT NULL,
   PRIMARY KEY (`NUM_FLOOR`,`NUM_ROOM`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `smart_working_prenotation` (
   `YEAR` int(4) NOT NULL,
   PRIMARY KEY (`ID`,`EMPLOYEE_EMAIL`),
   KEY `FKf000vk7j11pepxpspmihah4xs` (`EMPLOYEE_EMAIL`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `works` (
   `EMAIL_EMPLOYEE` varchar(37) NOT NULL,
   KEY `FK85aubsk8o6ai0ccabdiwi30yy` (`EMAIL_EMPLOYEE`),
   KEY `FK8k9rfpstgug5j5nxlixfguvee` (`ID_PROJECT`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `workstation` (
   `NUM_ROOM` int(2) NOT NULL,
   `NUM_WORKSTATION` int(3) NOT NULL,
   PRIMARY KEY (`NUM_FLOOR`,`NUM_ROOM`,`NUM_WORKSTATION`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +200,7 @@ CREATE TABLE `workstation_prenotation` (
   PRIMARY KEY (`ID`,`EMPLOYEE_EMAIL`,`PRENOTATION_DATE`),
   KEY `FKmi6h2vjcaslo1e7ogx6u6q24a` (`EMPLOYEE_EMAIL`),
   KEY `FKoo3dj4i4vois6bwmh0eeamy99` (`NUM_FLOOR`,`NUM_ROOM`,`NUM_WORKSTATION`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
