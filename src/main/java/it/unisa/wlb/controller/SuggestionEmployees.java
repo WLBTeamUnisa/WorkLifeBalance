@@ -18,7 +18,10 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class SuggestionEmployees
+ * This Servlet aims to suggest employees 
+ * 
+ * @author Emmanuel Tesauro
+ * 
  */
 @WebServlet(name="SuggestionEmployees", urlPatterns="/SuggestionEmployees")
 @Interceptors({LoggerSingleton.class})
@@ -78,21 +81,6 @@ public class SuggestionEmployees extends HttpServlet {
         	   obj.put("email", listaDipendenti.get(i).getEmail());
         	   lista_json.put(obj);
            }
-           
-           /**if(listaDipendenti!=null && listaDipendenti.size()>0)
-           {
-             List<Employee> lista=(List<Employee>) request.getAttribute("listaDipendenti");
-             for(int i=0; i<listaDipendenti.size(); i++)
-             {
-               
-                * Facendo questo controllo, evito che l'admin scelga un dipendente che fa già parte della lista
-                * 
-                *
-               if(!lista.contains(listaDipendenti.get(i)));
-               lista_json.put(listaDipendenti.get(i).getEmail());
-             }
-           }
-            */
            
            response.setContentType("application/json");
            response.getWriter().append(lista_json.toString());

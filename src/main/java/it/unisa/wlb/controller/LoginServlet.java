@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 						 * Checking if email respects admin email format
 						 */
 					} else if (email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
-						Admin admin = adminDao.retrieveByEmailPassword(email, password);
+						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
 						if (admin != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", admin);

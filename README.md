@@ -117,3 +117,12 @@ Di seguito i requisiti rilasciati per il secondo sprint  10/32 (19 con priorità
 - Search Employee
 - Smart Working Prenotation (94,1%)
 
+<h3> 3° Sprint - Consegna 05 Gennaio </h3>
+
+Di seguito i requisiti rilasciati per il terzo sprint 15/32 (19 con priorità alta, 9 con priorità media, 4 con priorità bassa)
+
+- Change Status Employee (80,4%)
+- View Employee Profile 
+- Add Employees To Project (feature on Modify Project) (69,7%)
+- Workstation Prenotation (99,3%)
+- View Weekly Planning (98%)

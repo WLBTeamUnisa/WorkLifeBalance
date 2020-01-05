@@ -55,7 +55,9 @@
 
 						<!-- CARD -->
 						<div class="card">
-							<div class="card-header"></div>
+							<div class="card-header">
+								<h3 class="my-auto">Inserimento progetto</h3>
+							</div>
 
 							<!-- CARD-BODY -->
 							<div class="card-body">

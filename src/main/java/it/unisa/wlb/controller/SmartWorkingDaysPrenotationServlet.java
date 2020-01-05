@@ -101,7 +101,7 @@ public class SmartWorkingDaysPrenotationServlet extends HttpServlet {
 				smartWorkingZeroPrenotationPk.setEmployeeEmail(employee.getEmail());
 				smartWorkingZeroPrenotation.setId(smartWorkingZeroPrenotationPk);
 				smartWorkingDao.create(smartWorkingZeroPrenotation);
-				request.setAttribute("result", "ok");
+				request.setAttribute("result", "success");
 				RequestDispatcher dispatcher = request.getRequestDispatcher(".");
 	        	dispatcher.forward(request, response);
 			}
