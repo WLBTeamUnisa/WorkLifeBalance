@@ -69,19 +69,19 @@
 								<c:otherwise>
 
 									<div class="card-body p-0">
-										
+
 										<div class="card-header">
 											<h3 class="my-auto">Pianificazione settimanale</h3>
 										</div>
-										
-											<table class="table table-striped">
-												<tbody id="tbody">
-												</tbody>
-											</table>
+
+										<table class="table table-striped">
+											<tbody id="tbody">
+											</tbody>
+										</table>
 
 										<!-- FINE CARD-BODY MANAGER -->
 									</div>
-									
+
 								</c:otherwise>
 							</c:choose>
 							<!-- FINE CARD -->
@@ -103,7 +103,7 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 	<script>
 		var tbody = $("#tbody");
 		

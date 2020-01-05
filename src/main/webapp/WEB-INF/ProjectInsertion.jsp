@@ -139,7 +139,7 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()"
+												onchange="verificaManager()"
 												onkeypress="SuggestionsManager(this.value)"
 												placeholder="Manager..." required list="suggestionsManager">
 											<datalist id="suggestionsManager"></datalist>
@@ -266,13 +266,37 @@
 
 			if (input.trim().length >= 4 && input.trim().length <= 15
 					&& input.match(/^[A-Za-z0-9]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#name").hasClass("is-invalid"))
-					$("#name").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#name").addClass("is-valid");
-				document.getElementById("errorName").innerHTML = "";
-				nomeOK = true;
+
+				var xmlHttpReq = new XMLHttpRequest();
+				xmlHttpReq.onreadystatechange = function() {
+					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
+						var json = JSON.parse(xmlHttpReq.responseText);
+						console.log(json);
+						if (json != null) {
+							if (json.available == "yes") {
+								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+								if ($("#name").hasClass("is-invalid"))
+									$("#name").removeClass("is-invalid");
+								//AGGIUNGO LA CLASSE 'IS-VALID'
+								$("#name").addClass("is-valid");
+								document.getElementById("errorName").innerHTML = "";
+								nomeOK = true;
+							} else {
+								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								if ($("#name").hasClass("is-valid"))
+									$("#name").removeClass("is-valid");
+								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								$("#name").addClass("is-invalid");
+								document.getElementById("errorName").innerHTML = "Attenzione! Questo nome è già associato ad un altro progetto.";
+								nomeOK = false;
+							}
+						}
+					}
+					changeInsertButtonState();
+				}
+				xmlHttpReq.open("GET", "CheckProject?name="
+						+ encodeURIComponent(input), true);
+				xmlHttpReq.send();
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#name").hasClass("is-valid"))
@@ -282,7 +306,6 @@
 				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
 			}
-			changeInsertButtonState();
 		}
 
 		function verificaScope() {
