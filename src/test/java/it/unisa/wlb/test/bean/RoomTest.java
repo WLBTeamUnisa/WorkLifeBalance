@@ -135,7 +135,15 @@ class RoomTest {
 	}
 	@Test
 	public void getWorkstationsTest() {
-		assertEquals(workstations,room.getWorkstations());
+		List<Workstation> list = room.getWorkstations();
+		if(list.size()!=workstations.size())
+			assertTrue(false);
+		for(Workstation workstation : list)
+			if(!workstations.contains(workstation)) {
+				assertTrue(false);
+				return ;
+			}
+		assertTrue(true);
 	}
 	@Test
 	public void setWorkstationsTest() {

@@ -162,6 +162,8 @@ class WorkstationTest {
 	@Test
 	public void getWorkstationPrenotationsTest() {
 		List<WorkstationPrenotation> list = workstation.getWorkstationPrenotations();
+		if(list.size()!=workstationPrenotations.size())
+			assertTrue(false);
 		for(WorkstationPrenotation temp:list)
 			if(!workstationPrenotations.contains(temp)) {
 				assertTrue(false);
@@ -171,9 +173,7 @@ class WorkstationTest {
 	}
 
 	@Test
-	public void setWorkstationPrenotationsTest() {
-		workstationPrenotations.clear();
-		
+	public void setWorkstationPrenotationsTest() {		
 		Calendar localCalendar = Calendar.getInstance();
 		TimeZone timeZone = localCalendar.getTimeZone();
 		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
@@ -198,9 +198,10 @@ class WorkstationTest {
 		workstationPrenotation.setYear(localCalendar.get(Calendar.YEAR));
 		workstationPrenotation.setWorkstation(workstation);
 		
-		workstationPrenotations.add(workstationPrenotation);
+		List<WorkstationPrenotation> workstationPrenotationsList = new ArrayList<WorkstationPrenotation>();
+		workstationPrenotationsList.add(workstationPrenotation);
 		
-		workstation.setWorkstationPrenotations(workstationPrenotations);
+		workstation.setWorkstationPrenotations(workstationPrenotationsList);
 			
 		if(!workstation.getWorkstationPrenotations().contains(workstationPrenotation)) {
 			assertTrue(false);

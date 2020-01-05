@@ -356,4 +356,71 @@ class WorkstationPrenotationTest {
 		assertNotEquals(id, idPk);
 	}
 	
+	@Test
+	public void equalsTest18() {
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		assertEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest19() {
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		assertEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest20() {
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee("g.verdana@wlb.it");
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		assertNotEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest21() {
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		Date date = new Date();
+		date.setTime(id.getPrenotationDate().getTime()+15);
+		workstationPrenotationPK.setPrenotationDate(date);
+		assertNotEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest23() {		
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(null);
+		assertNotEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest24() {		
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		id.setPrenotationDate(null);
+		assertNotEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest25() {		
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(null);
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		assertNotEquals(id, workstationPrenotationPK);
+	}
+	
+	@Test
+	public void equalsTest26() {		
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		id.setEmailEmployee(null);
+		assertNotEquals(id, workstationPrenotationPK);
+	}
 }
