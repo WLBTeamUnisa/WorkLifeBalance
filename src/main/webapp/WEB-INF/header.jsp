@@ -82,8 +82,8 @@
 						</span>
 							<h4 class="text-section">Admin</h4></li>
 
-						<li class="nav-item"><a href="."
-							class="nav-link"><i class="fas fa-home"></i>
+						<li class="nav-item"><a href="." class="nav-link"><i
+								class="fas fa-home"></i>
 								<p class="b">Homepage</p></a></li>
 
 						<li class="nav-item"><a href="PlanimetryInsertionPage"
@@ -109,13 +109,13 @@
 									<i class="fa fa-ellipsis-h"></i>
 							</span>
 								<h4 class="text-section">Dipendente</h4></li>
-								
-							<li class="nav-item"><a href="."
-							class="nav-link"><i class="fas fa-home"></i>
-								<p class="b">Homepage</p></a></li>
-								
-							<li class="nav-item"><a href="ShowPlanimetryPage" class="nav-link"><i
-									class="fas fa-layer-group"></i>
+
+							<li class="nav-item"><a href="." class="nav-link"><i
+									class="fas fa-home"></i>
+									<p class="b">Homepage</p></a></li>
+
+							<li class="nav-item"><a href="ShowPlanimetryPage"
+								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
 							<li class="nav-item"><a href="#sidebarLayouts"
@@ -140,13 +140,13 @@
 									<i class="fa fa-ellipsis-h"></i>
 							</span>
 								<h4 class="text-section">Manager</h4></li>
-								
-							<li class="nav-item"><a href="."
-							class="nav-link"><i class="fas fa-home"></i>
-								<p class="b">Homepage</p></a></li>
-								
-							<li class="nav-item"><a href="ShowPlanimetryPage" class="nav-link"><i
-									class="fas fa-layer-group"></i>
+
+							<li class="nav-item"><a href="." class="nav-link"><i
+									class="fas fa-home"></i>
+									<p class="b">Homepage</p></a></li>
+
+							<li class="nav-item"><a href="ShowPlanimetryPage"
+								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
 							<li class="nav-item"><a href="#sidebarLayouts"
@@ -168,13 +168,14 @@
 										Storico giornate<br> lavorative
 									</p></a></li>
 
-							<li class="nav-item" id="Projects" onclick="showProject()"><a data-toggle="collapse"
-								class="nav-link" href=""> <i
+							<li class="nav-item" id="Projects" onclick="showProject()"><a
+								data-toggle="collapse" class="nav-link" href=""> <i
 									class="fas fa-layer-group"></i>
 									<p class="b">Progetti supervisionati</p> <span class="caret"></span>
 							</a>
 								<div class="collapse">
-									<ul class="nav nav-collapse" id="projectList" style="display: none;">
+									<ul class="nav nav-collapse" id="projectList"
+										style="display: none;">
 									</ul>
 								</div></li>
 						</ul>

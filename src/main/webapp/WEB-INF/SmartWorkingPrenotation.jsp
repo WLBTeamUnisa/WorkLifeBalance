@@ -61,7 +61,8 @@
 										<h3 class="my-auto">Avviso:</h3>
 									</div>
 									<div class="card-body">
-										<h2 class="my-auto mx-auto">Hai già effettuato una prenotazione questa settimana.</h2>
+										<h2 class="my-auto mx-auto">Hai già effettuato una
+											prenotazione questa settimana.</h2>
 									</div>
 								</c:when>
 
@@ -115,7 +116,7 @@
 
 	<!-- Calendar -->
 	<script src="js/calendar.js"></script>
-	
+
 	<c:if test="${not empty error}">
 		<script>
 				//SWEETALERT
@@ -125,6 +126,6 @@
 				  text: "${error}"})
 		</script>
 	</c:if>
-	
+
 </body>
 </html>

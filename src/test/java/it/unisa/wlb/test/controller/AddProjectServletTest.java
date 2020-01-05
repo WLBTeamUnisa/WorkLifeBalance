@@ -4,18 +4,15 @@ import java.io.IOException;
 
 import java.util.*;
 import it.unisa.wlb.controller.AddProjectServlet;
-import it.unisa.wlb.controller.EmployeeRegistrationServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
-import it.unisa.wlb.model.jpa.ProjectJpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -117,6 +114,7 @@ public class AddProjectServletTest extends Mockito {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_2_2_4() throws ServletException, IOException {
 		
@@ -416,7 +414,7 @@ public class AddProjectServletTest extends Mockito {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "unused" })
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
 	

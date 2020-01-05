@@ -19,19 +19,15 @@
 <link rel="stylesheet" href="css/calendar.css">
 
 <style>
-
-.card-header
-{
-	border-radius:5px;
+.card-header {
+	border-radius: 5px;
 }
 
-.main-panel
-{
+.main-panel {
 	width: calc(100%);
 }
 
-.main-panel>.content
-{
+.main-panel>.content {
 	margin-top: 0px;
 	min-height: calc(100%);
 }
@@ -68,12 +64,14 @@
 					<div class="col-lg-5 mx-auto">
 
 						<div class="card">
-									<div class="card-header" style="background-color:red">
-										<i class="fa fa-times-circle fa-3x" aria-hidden="true" style="color:white"></i>
-									</div>
-									<div class="card-body">
-										<h2 class="my-auto mx-auto">Accesso negato per questa pagina.</h2>
-									</div>
+							<div class="card-header" style="background-color: red">
+								<i class="fa fa-times-circle fa-3x" aria-hidden="true"
+									style="color: white"></i>
+							</div>
+							<div class="card-body">
+								<h2 class="my-auto mx-auto">Accesso negato per questa
+									pagina.</h2>
+							</div>
 
 							<!-- FINE CARD -->
 						</div>
@@ -94,6 +92,6 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 </body>
 </html>

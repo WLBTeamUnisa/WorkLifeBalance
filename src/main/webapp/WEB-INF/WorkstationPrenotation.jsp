@@ -93,8 +93,8 @@
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
-											<label for="roomSelect">Stanza:</label>
-											<select class="form-control form-control-sm" id="roomSelect">
+											<label for="roomSelect">Stanza:</label> <select
+												class="form-control form-control-sm" id="roomSelect">
 											</select>
 										</div>
 									</div>
@@ -128,7 +128,7 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 	<c:if test="${not empty result}">
 		<script>
 				//SWEETALERT

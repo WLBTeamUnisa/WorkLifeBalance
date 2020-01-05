@@ -161,33 +161,75 @@ a:hover {
 }
 
 a
+
+
+
+
 :not
+
+
  
+
+
 (
 [
 href
 ]
+
+
  
+
+
 )
 :not
+
+
  
+
+
 (
 [
 tabindex
 ]
+
+
  
+
+
 ){
 color
-:
- 
-inherit
-;
 
-	
-text-decoration
+
+
+
 :
+
+
  
+
+
+inherit
+
+
+
+
+;
+text-decoration
+
+
+
+
+:
+
+
+ 
+
+
 none
+
+
+
+
 
 
 }
@@ -285,46 +327,106 @@ type
 =
 button
 ]
+
+
+
+
 :not
+
+
  
+
+
 (
 :disabled
+
+
  
+
+
 ),
 [
 type
 =
 reset
 ]
+
+
+
+
 :not
+
+
  
+
+
 (
 :disabled
+
+
  
+
+
 ),
 [
 type
 =
 submit
 ]
+
+
+
+
 :not
 
+
+
 	
+
+
 (
 :disabled
+
+
  
+
+
 ),
 button
+
+
+
+
 :not
+
+
  
+
+
 (
 :disabled
+
+
  
+
+
 ){
 cursor
+
+
+
+
 :
+
+
  
+
+
 pointer
+
+
+
+
 
 
 }
@@ -499,16 +601,40 @@ hr {
 }
 
 .list-inline-item
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 ){
 margin-right
+
+
+
+
 :
+
+
  
+
+
 .5rem
+
+
+
+
 
 
 }
@@ -3092,28 +3218,72 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .fade
+
+
+
+
 :not
+
+
  
+
+
 (
 .show
+
+
  
+
+
 ){
 opacity
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .collapse
+
+
+
+
 :not
+
+
  
+
+
 (
 .show
+
+
  
+
+
 ){
 display
+
+
+
+
 :
+
+
  
+
+
 none
+
+
+
+
 
 
 }
@@ -3415,94 +3585,218 @@ none
 .btn-group
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ),
 .btn-group
 >
 .btn
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
 
+
+
 	
+
+
 ){
 margin-left
+
+
+
+
 :
+
+
  
+
+
 -1
 px
+
+
+
+
 
 
 }
 .btn-group
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 )>
 .btn
 ,
 .btn-group
 >
 .btn
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
 
+
+
 	
+
+
 )
 :not
+
+
  
+
+
 (
 .dropdown-toggle
+
+
  
+
+
 ){
 border-top-right-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-right-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .btn-group
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 )>
 .btn
 ,
 .btn-group
 >
 .btn
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
 
+
+
 	
+
+
 ){
 border-top-left-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-left-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .dropdown-toggle-split {
@@ -3547,92 +3841,216 @@ border-bottom-left-radius
 .btn-group-vertical
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ),
 .btn-group-vertical
 >
 .btn
+
+
+
+
 :not
 
+
+
 	
+
+
 (
 :first-child
+
+
  
+
+
 ){
 margin-top
+
+
+
+
 :
+
+
  
+
+
 -1
 px
+
+
+
+
 
 
 }
 .btn-group-vertical
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 )>
 .btn
 ,
 .btn-group-vertical
 >
 .btn
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 )
 :not
+
+
  
+
+
 (
 .dropdown-toggle
+
+
  
+
+
 ){
 border-bottom-right-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-left-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .btn-group-vertical
 >
 .btn-group
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 )>
 .btn
 ,
 .btn-group-vertical
 >
 .btn
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ){
 border-top-left-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-top-right-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .btn-group-toggle>.btn, .btn-group-toggle>.btn-group>.btn {
@@ -3689,57 +4107,137 @@ border-top-right-radius
 .input-group
 >
 .custom-select
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 ),
 .input-group
 >
 .form-control
+
+
+
+
 :not
 
+
+
 	
+
+
 (
 :last-child
+
+
  
+
+
 ){
 border-top-right-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-right-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .input-group
 >
 .custom-select
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ),
 .input-group
 >
 .form-control
+
+
+
+
 :not
 
+
+
 	
+
+
 (
 :first-child
+
+
  
+
+
 ){
 border-top-left-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-left-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .input-group>.custom-file {
@@ -3860,8 +4358,8 @@ border-bottom-left-radius
 
 .input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text,
 	.input-group>.input-group-prepend:first-child>.btn:not (:first-child 
-	), .input-group>.input-group-prepend:first-child>.input-group-text:not 
-	(:first-child
+	 ), .input-group>.input-group-prepend:first-child>.input-group-text:not 
+	 (:first-child
 	 ), .input-group>.input-group-prepend:not (:first-child )>.btn,
 	.input-group>.input-group-prepend:not (:first-child )>.input-group-text
 	{
@@ -4075,42 +4573,94 @@ border-bottom-left-radius
 }
 
 .custom-select
+
+
+
+
 [
 multiple
 ]
 ,
 .custom-select
+
+
+
+
 [
 size
 ]
+
+
+
+
 :not
+
+
  
+
+
 (
 [
 size
 =
 "1"
 ]
+
+
  
+
+
 ){
 height
+
+
+
+
 :
+
+
  
+
+
 auto
-;
 
-	
+
+
+
+;
 padding-right
-:
- 
-.75rem
-;
 
-	
-background-image
+
+
+
 :
+
+
  
+
+
+.75rem
+
+
+
+
+;
+background-image
+
+
+
+
+:
+
+
+ 
+
+
 none
+
+
+
+
 
 
 }
@@ -5043,19 +5593,47 @@ none
 	.card-group
 	>
 	.card
+	
+	
+	
+	
 	:not
+	
+	
 	 
+	
+	
 	(
 	:last-child
+	
+	
 	 
+	
+	
 	){
 	border-top-right-radius
+	
+	
+	
+	
 	:
+	
+	
 	 
+	
+	
 	0;
 	border-bottom-right-radius
+	
+	
+	
+	
 	:
+	
+	
 	 
+	
+	
 	0
 }
 
@@ -5072,19 +5650,47 @@ none
 .card-group
 >
 .card
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ){
 border-top-left-radius
+
+
+
+
 :
+
+
  
+
+
 0;
 border-bottom-left-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .card-group>.card:not (:first-child ) .card-header, .card-group>.card:not
@@ -5130,25 +5736,61 @@ border-bottom-left-radius
 .accordion
 >
 .card
+
+
+
+
 :not
+
+
  
+
+
 (
 :first-of-type
+
+
  
+
+
 )
 :not
+
+
  
+
+
 (
 :last-of-type
+
+
  
+
+
 ){
 border-bottom
+
+
+
+
 :
+
+
  
+
+
 0;
 border-radius
+
+
+
+
 :
+
+
  
+
+
 0
 }
 .accordion>.card:first-of-type {
@@ -6065,16 +6707,40 @@ a.close.disabled {
 }
 
 .toast
+
+
+
+
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 ){
 margin-bottom
+
+
+
+
 :
+
+
  
+
+
 .75rem
+
+
+
+
 
 
 }
@@ -6284,30 +6950,70 @@ margin-bottom
 .modal-footer
 >
 :not
+
+
  
+
+
 (
 :first-child
+
+
  
+
+
 ){
 margin-left
+
+
+
+
 :
+
+
  
+
+
 .25rem
+
+
+
+
 
 
 }
 .modal-footer
 >
 :not
+
+
  
+
+
 (
 :last-child
+
+
  
+
+
 ){
 margin-right
+
+
+
+
 :
+
+
  
+
+
 .25rem
+
+
+
+
 
 
 }
@@ -6689,56 +7395,128 @@ margin-right
 }
 
 .active
+
+
+
+
 .carousel-item-right
 ,
 .carousel-item-next
+
+
+
+
 :not
+
+
  
+
+
 (
 .carousel-item-left
 
+
+
 	
+
+
 ){
 -webkit-transform
+
+
+
+
 :
+
+
  
+
+
 translateX
+
+
+
+
 (100%);
-
-	
 transform
+
+
+
+
 :
+
+
  
+
+
 translateX
+
+
+
+
 (100%)
-
-
 }
 .active
+
+
+
+
 .carousel-item-left
 ,
 .carousel-item-prev
+
+
+
+
 :not
+
+
  
+
+
 (
 .carousel-item-right
 
+
+
 	
+
+
 ){
 -webkit-transform
+
+
+
+
 :
+
+
  
+
+
 translateX
+
+
+
+
 (-100%);
-
-	
 transform
+
+
+
+
 :
+
+
  
+
+
 translateX
+
+
+
+
 (-100%)
-
-
 }
 .carousel-fade .carousel-item {
 	opacity: 0;
@@ -6922,7 +7700,15 @@ keyframes spinner-border {
 opacity
 
 
+
+
+
+
 :
+
+
+
+
 
 
 1
@@ -6938,7 +7724,15 @@ keyframes spinner-grow { 0%{
 opacity
 
 
+
+
+
+
 :
+
+
+
+
 
 
 1
@@ -10073,18 +10867,42 @@ a.text-dark:focus, a.text-dark:hover {
 		box-shadow: none !important
 	}
 	a
+	
+	
+	
+	
 	:not
+	
+	
 	 
+	
+	
 	(
 	.btn
+	
+	
 	 
+	
+	
 	){
 	text-decoration
+	
+	
+	
+	
 	:
+	
+	
 	 
+	
+	
 	underline
 	
 	
+	
+	
+
+
 }
 
 abbr[title]::after {

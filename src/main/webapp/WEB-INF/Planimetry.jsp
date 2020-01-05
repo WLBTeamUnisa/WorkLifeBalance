@@ -2,24 +2,24 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
-		name='viewport' />
-	
-	<!-- Title -->
-	<title>WLB - Planimetria</title>
-	
-	<!-- Icon -->
-	<link rel="icon" href="img/icon.ico" type="image/x-icon" />
-	
-	<!-- CSS Files -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/atlantis.css">
-	
-	<!-- Fonts and icons -->
-	<script src="js/plugin/webfont/webfont.min.js"></script>
-	<script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
+	name='viewport' />
+
+<!-- Title -->
+<title>WLB - Planimetria</title>
+
+<!-- Icon -->
+<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+
+<!-- CSS Files -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/atlantis.css">
+
+<!-- Fonts and icons -->
+<script src="js/plugin/webfont/webfont.min.js"></script>
+<script>
 		WebFont.load({
 			google : {
 				"families" : [ "Lato:300,400,700,900" ]
@@ -35,18 +35,18 @@
 			}
 		});
 	</script>
-	
-	<style>
-		.flex-container {
-			display: flex;
-			flex-wrap: wrap;
-		}
-		
-		.flex-container>svg {
-			margin: 10px;
-			margin-right: 0px;
-		}
-	</style>
+
+<style>
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex-container>svg {
+	margin: 10px;
+	margin-right: 0px;
+}
+</style>
 
 </head>
 
@@ -95,7 +95,7 @@
 							</div>
 
 							<div class="card-body">
-							
+
 								<div style="overflow-y: scroll; height: 230px;">
 									<div class="flex-container"></div>
 								</div>
@@ -122,7 +122,7 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 	<script>
 	$(document).ready(function () {
 

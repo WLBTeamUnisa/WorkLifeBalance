@@ -63,8 +63,7 @@
 							<div class="card-body registration-fields">
 
 								<!-- FORM -->
-								<form name="Profile" method="post"
-									action="ChangeStatusEmployee">
+								<form name="Profile" method="post" action="ChangeStatusEmployee">
 
 									<!-- CONTAINER -->
 									<div class="container">
@@ -75,11 +74,10 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
 											</div>
-											<input name="name" id="Name"
-												class="form-control text-center" value="${employee.name}"
-												type="text" readonly required>
+											<input name="name" id="Name" class="form-control text-center"
+												value="${employee.name}" type="text" readonly required>
 										</div>
-										
+
 
 
 										<!-- COGNOME -->
@@ -87,11 +85,11 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
 											</div>
-											<input name="surname" id="Surname" value="${employee.surname}"
-												class="form-control text-center" 
+											<input name="surname" id="Surname"
+												value="${employee.surname}" class="form-control text-center"
 												type="text" readonly required>
 										</div>
-										
+
 
 
 										<!-- EMAIL -->
@@ -101,10 +99,10 @@
 													class="fa fa-envelope"></i></span>
 											</div>
 											<input name="email" id="Email" value="${employee.email}"
-												class="form-control text-center" 
-												type="email" readonly required>
+												class="form-control text-center" type="email" readonly
+												required>
 										</div>
-									
+
 
 
 										<!-- SELECT RUOLO -->
@@ -119,10 +117,10 @@
 												<option value="Manager">Manager</option>
 											</select>
 										</div>
-										
+
 										<!-- form-group// Status choose -->
 
-										
+
 
 										<div class="form-group col-sm-6 mx-auto">
 											<button type="submit" id="changeStatusButton"
@@ -161,9 +159,9 @@
 
 </body>
 
-	
-	
-	
+
+
+
 <script>
 
 window.onload = function() {

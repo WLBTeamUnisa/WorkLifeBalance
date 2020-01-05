@@ -15,23 +15,24 @@
 	</div>
 </footer>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-	
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-		
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<!--   Core JS Files   -->
+<script src="js/core/jquery.3.2.1.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
 
-	<!-- Sweet Alert -->
-	<script src="js/sweetalert2.all.js"></script>
+<!-- jQuery UI -->
+<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script
+	src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
+<!-- jQuery Scrollbar -->
+<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Sweet Alert -->
+<script src="js/sweetalert2.all.js"></script>
+
+<!-- Atlantis JS -->
+<script src="js/atlantis.min.js"></script>
 
 <script>
 
