@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -125,8 +125,8 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			}			 
 			if(smartWorkingPrenotationDateList!=null) {
 				for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
-					Date tempDate = (Date) smartWorkingPrenotationDateList.get(i).getId().getDate();
-					LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
+					Date tempDate = smartWorkingPrenotationDateList.get(i).getId().getDate();
+					LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 					listDates.remove(tempDateConverted);
 				}				
 			} 
@@ -138,9 +138,10 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 				;
 			}			 
 			if(workstationPrenotations!=null) {
+				;
 				for(int i=0; i<workstationPrenotations.size(); i++) {
-					Date tempDate = (Date) workstationPrenotations.get(i).getId().getPrenotationDate();
-					LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
+					Date tempDate = workstationPrenotations.get(i).getId().getPrenotationDate();
+					LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 					listDates.remove(tempDateConverted);
 				}
 			}
