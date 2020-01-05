@@ -48,11 +48,11 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy="employee")
 	private List<Message> messages;
 
-	//bi-directional many-to-one association to Project
+	//bi-directional many-to-one association to Project (manager foreign key)
 	@OneToMany(mappedBy="employee")
 	private List<Project> projects1;
 
-	//bi-directional many-to-many association to Project
+	//bi-directional many-to-many association to Project (works table)
 	@ManyToMany(mappedBy="employees")
 	private List<Project> projects2;
 

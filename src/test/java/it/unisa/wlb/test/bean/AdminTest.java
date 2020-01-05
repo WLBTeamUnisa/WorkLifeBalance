@@ -49,6 +49,7 @@ class AdminTest {
 		Floor floor1 = new Floor();
 		
 		floor1.setNumFloor(1);
+		floor1.setAdmin(admin);
 		
 		Floor floor2 = new Floor();
 		floor2.setAdmin(admin);
@@ -131,6 +132,8 @@ class AdminTest {
 	@Test
 	public void getFloors() {
 		List<Floor> list = admin.getFloors();
+		if(list.size()!=floors.size())
+			assertTrue(false);
 		for(Floor floor:list)
 			if(!floors.contains(floor)) {
 				assertTrue(false);
@@ -140,22 +143,22 @@ class AdminTest {
 	}
 
 	@Test
-	public void setFloorsTest() {
-		floors.clear();
+	public void setFloorsTest() {	
+		List<Floor> floorsList = new ArrayList<Floor>();
 		
 		Floor floor3 = new Floor();
 		floor3.setAdmin(admin);
 		floor3.setNumFloor(3);
 		
-		floors.add(floor3);
+		floorsList.add(floor3);
 		
 		Floor floor4 = new Floor();
 		floor4.setAdmin(admin);
 		floor4.setNumFloor(4);
 		
-		floors.add(floor4);
+		floorsList.add(floor4);
 		
-		admin.setFloors(floors);
+		admin.setFloors(floorsList);
 		
 		if(!admin.getFloors().contains(floor4) || !admin.getFloors().contains(floor3)) {
 			assertTrue(false);
@@ -204,6 +207,8 @@ class AdminTest {
 	@Test
 	public void getProjectsTest() {
 		List<Project> list = admin.getProjects();
+		if(list.size()!=projects.size())
+			assertTrue(false);
 		for(Project project:list)
 			if(!projects.contains(project)) {
 				assertTrue(false);
@@ -214,7 +219,7 @@ class AdminTest {
 
 	@Test
 	public void setProjectsTest() {
-		projects.clear();
+		List<Project> projectsList = new ArrayList<Project>();
 
 		Project project3 = new Project();
 		project3.setAdmin(admin);
@@ -226,7 +231,7 @@ class AdminTest {
 		project3.setScope("abc");
 		project3.setStartDate(new Date());
 		
-		projects.add(project3);
+		projectsList.add(project3);
 		
 		Project project4 = new Project();
 		project4.setAdmin(admin);
@@ -238,7 +243,9 @@ class AdminTest {
 		project4.setScope("def");
 		project4.setStartDate(new Date());
 		
-		projects.add(project4);
+		projectsList.add(project4);
+		
+		admin.setProjects(projectsList);
 		
 		List<Project> list = admin.getProjects();
 		

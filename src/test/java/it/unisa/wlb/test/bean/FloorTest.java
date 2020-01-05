@@ -96,6 +96,8 @@ class FloorTest {
 	@Test
 	public void getRoomsTest() {
 		List<Room> list = floor.getRooms();
+		if(list.size()!=rooms.size())
+			assertTrue(false);
 		for(Room temp:list)
 			if(!rooms.contains(temp)) {
 				assertTrue(false);
@@ -104,9 +106,7 @@ class FloorTest {
 		assertTrue(true);
 	}
 	@Test
-	public void setRoomsTest() {
-		rooms.clear();
-		
+	public void setRoomsTest() {	
 		Room room2 = new Room();
 		room2.setFloor(floor);
 		RoomPK id2 = new RoomPK();
@@ -115,8 +115,10 @@ class FloorTest {
 		room2.setId(id2);		
 		room2.setWorkstations(new ArrayList<Workstation>());
 		
-		rooms.add(room2);
-		floor.setRooms(rooms);
+		List<Room> roomsList = new ArrayList<Room>();
+		roomsList.add(room2);
+		
+		floor.setRooms(roomsList);
 		
 		if(!floor.getRooms().contains(room2)) {
 			assertTrue(false);
