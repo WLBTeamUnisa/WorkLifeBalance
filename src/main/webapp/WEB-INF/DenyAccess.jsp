@@ -94,11 +94,6 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
 	
 </body>
 </html>

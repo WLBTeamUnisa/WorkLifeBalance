@@ -114,7 +114,7 @@
 							class="nav-link"><i class="fas fa-home"></i>
 								<p class="b">Homepage</p></a></li>
 								
-							<li class="nav-item"><a href="#base" class="nav-link"><i
+							<li class="nav-item"><a href="ShowPlanimetryPage" class="nav-link"><i
 									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
@@ -145,7 +145,7 @@
 							class="nav-link"><i class="fas fa-home"></i>
 								<p class="b">Homepage</p></a></li>
 								
-							<li class="nav-item"><a href="#base" class="nav-link"><i
+							<li class="nav-item"><a href="ShowPlanimetryPage" class="nav-link"><i
 									class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 

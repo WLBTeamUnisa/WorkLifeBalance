@@ -1,56 +1,52 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
-	name='viewport' />
-
-<!-- Title -->
-<title>WLB - Smart Working</title>
-
-<!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
-
-<!-- CSS Files -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/atlantis.css">
-
-<!-- Fonts and icons -->
-<script src="js/plugin/webfont/webfont.min.js"></script>
-<script>
-	WebFont.load({
-		google : {
-			"families" : [ "Lato:300,400,700,900" ]
-		},
-		custom : {
-			"families" : [ "Flaticon", "Font Awesome 5 Solid",
-					"Font Awesome 5 Regular", "Font Awesome 5 Brands",
-					"simple-line-icons" ],
-			urls : [ 'css/fonts.min.css' ]
-		},
-		active : function() {
-			sessionStorage.fonts = true;
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
+		name='viewport' />
+	
+	<!-- Title -->
+	<title>WLB - Planimetria</title>
+	
+	<!-- Icon -->
+	<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+	
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/atlantis.css">
+	
+	<!-- Fonts and icons -->
+	<script src="js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google : {
+				"families" : [ "Lato:300,400,700,900" ]
+			},
+			custom : {
+				"families" : [ "Flaticon", "Font Awesome 5 Solid",
+						"Font Awesome 5 Regular", "Font Awesome 5 Brands",
+						"simple-line-icons" ],
+				urls : [ 'css/fonts.min.css' ]
+			},
+			active : function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+	
+	<style>
+		.flex-container {
+			display: flex;
+			flex-wrap: wrap;
 		}
-	});
-</script>
-
-<style>
-.flex-container {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.flex-container>svg {
-	margin: 10px;
-	margin-right: 0px;
-}
-</style>
+		
+		.flex-container>svg {
+			margin: 10px;
+			margin-right: 0px;
+		}
+	</style>
 
 </head>
 
@@ -68,10 +64,8 @@
 
 						<div class="card">
 
-
 							<div class="card-header">
-								<h3 class="my-auto">Seleziona il giorno e la postazione da
-									prenotare:</h3>
+								<h3 class="my-auto">Planimetria</h3>
 								<div class="row">
 									<div class="col-sm-4">
 										<div class="form-group">
@@ -87,14 +81,13 @@
 										<div class="form-group">
 											<label for="floorSelect">Piano:</label> <select
 												class="form-control form-control-sm" id="floorSelect">
-
 											</select>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
-											<label for="roomSelect">Stanza:</label>
-											<select class="form-control form-control-sm" id="roomSelect">
+											<label for="roomSelect">Stanza:</label> <select
+												class="form-control form-control-sm" id="roomSelect">
 											</select>
 										</div>
 									</div>
@@ -102,17 +95,18 @@
 							</div>
 
 							<div class="card-body">
+							
 								<div style="overflow-y: scroll; height: 230px;">
 									<div class="flex-container"></div>
-									<form action="WorkstationPrenotationServlet" id="finalForm"></form>
 								</div>
-							</div>
 
+								<!-- FINE CARD-BODY -->
+							</div>
 
 							<!-- FINE CARD -->
 						</div>
 
-						<!-- FINE CARD -->
+						<!-- FINE COLONNA -->
 					</div>
 
 					<!-- FINE CONTAINER -->
@@ -129,20 +123,6 @@
 		<!-- FINE WRAPPER -->
 	</div>
 	
-	<c:if test="${not empty result}">
-		<script>
-				//SWEETALERT
-				if("${result}"=="success"){
-					Swal.fire({
-						icon: 'success',
-						title: 'Ottimo!',
-						text: "Operazione effettuata con successo!"
-						})
-				}
-				
-		</script>
-	</c:if>
-
 	<script>
 	$(document).ready(function () {
 
@@ -205,7 +185,6 @@
 	        var room = roomSelect.val();
 
 	        if (((dateSelect.val() != null) && (floorSelect.val() != null) && (roomSelect.val() != null))) {
-
 	            var xhttp = new XMLHttpRequest();
 	            xhttp.onreadystatechange = function () {
 	                if (this.readyState == 4 && this.status == 200) {
@@ -219,51 +198,13 @@
 	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
 	                        }
 	                    }
-	                    //ONCLICK DA CONTINUARE E RIVEDERE
-	                    clickedElement = $(".flex-container > svg");
-	                    var clicked = "";
-
-	                    clickedElement.on("click", function () {
-	                        clicked = $(this);
-
-	                        if (clicked.children("rect").hasClass("unavailable")) { return; }
-
-	                        //SWEETALERT
-	                        Swal.fire({
-	                            title: 'Sei sicuro?',
-	                            text: "Stai prenotando questa postazione:\nPiano: " + floorSelect.val() + "\nStanza:" + roomSelect.val() + "\nPostazione: " + clicked.children("text").html(),
-	                            icon: 'warning',
-	                            showCancelButton: true,
-	                            confirmButtonColor: '#3085d6',
-	                            cancelButtonColor: '#d33',
-	                            cancelButtonText: 'Cancella',
-	                            confirmButtonText: 'Si, voglio prenotare'
-	                        }).then((result) => {
-	                            //SE PREMO "PRENOTA"
-	                            if (result.value) {
-	                                $("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation':" + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
-	                                $("#finalForm").submit();
-	                            }	//Fine if
-	                            else if (result.dismiss === Swal.DismissReason.cancel) {
-	                                //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
-	                                Swal.fire(
-	                                    'Cancellata!',
-	                                    'La prenotazione e\' stata annullata',
-	                                    'error'
-	                                )
-	                            }	//Fine else
-	                        });
-	                    });
 	                }
 	            }
 	            xhttp.open("GET", "WorkstationsAvailability?date=" + date + "&floor=" + floor + "&room=" + room, true);
 	            xhttp.send();
 	        } else {
-	            $(".card-header").html("");
-	            $(".card-header").append("<h3 class='my-auto'>Avviso:</h3>");
-	            $(".card-body").html("");
-	            $(".card-body").prop("height:250px; display: flex; align-items: center;");
-	            $(".card-body").append("<h2 class='my-auto mx-auto'>Hai già prenotato il numero massimo di postazioni.</h2>");
+	        	container.html("");
+	        	container.append("<h2 class='mx-auto my-auto'>Planimetria non inserita.</h2>");
 	        }
 	    }
 
@@ -280,6 +221,35 @@
 	        loadPlanimetry();
 	    });
 	});
+	</script>
+
+	<script>
+		function Suggestions(name) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+					var suggestionsList = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].name + "</option>";
+						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="
+								+ lista[i].name
+								+ "' class='mx-auto nav-link' style='color: #2f3640'>"
+								+ lista[i].name + "</a></li>";
+					}
+					console.log(options);
+
+					document.getElementById("suggestionsList").innerHTML = suggestionsList;
+				}
+			}
+			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
+			xhttp.send();
+		}
 	</script>
 
 </body>

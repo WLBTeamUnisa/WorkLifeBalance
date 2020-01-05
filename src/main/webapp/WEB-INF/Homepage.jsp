@@ -114,7 +114,7 @@
 		var listaJson = JSON.parse(lista);
 		
 		if(listaJson.length==0){
-			tbody.html("<div class='card-body my-auto mx-auto'>	<h2>Non hai prenotato niente.</h2></div>");
+			tbody.html("<div class='card-body my-auto mx-auto'>	<h2>Non hai prenotato niente per questa settimana</h2></div>");
 		}
 		
 		for(var i = 0; i<listaJson.length; i++){
