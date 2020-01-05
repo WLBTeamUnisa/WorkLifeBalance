@@ -50,7 +50,7 @@ public class EmployeesListPageServlet extends HttpServlet {
 			request.setAttribute("employeeList", list);
 			request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
 		}catch(Exception e) {
-			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+			request.getRequestDispatcher(".").forward(request, response);
 		}
 	}
 

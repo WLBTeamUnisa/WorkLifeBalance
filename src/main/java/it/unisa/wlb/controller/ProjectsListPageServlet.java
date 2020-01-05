@@ -47,7 +47,7 @@ public class ProjectsListPageServlet extends HttpServlet {
 			request.setAttribute("projectList", list);
 			request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
 		} catch(Exception e) {
-			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+			request.getRequestDispatcher(".").forward(request, response);
 		}
 		
 	}

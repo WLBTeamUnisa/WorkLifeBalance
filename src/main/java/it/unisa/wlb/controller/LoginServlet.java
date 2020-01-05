@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) {
-			request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+			request.getRequestDispatcher(".").forward(request, response);
 		}
 
 		else {

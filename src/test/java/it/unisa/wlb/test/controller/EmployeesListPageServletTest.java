@@ -102,7 +102,7 @@ class EmployeesListPageServletTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void test1() throws ServletException, IOException {
-		String path = "WEB-INF/Homepage.jsp";
+		String path = ".";
 		when(request.getSession()).thenReturn(session);
 		when(session.getAttribute("userRole")).thenReturn("Admin");
 		when(session.getAttribute("user")).thenReturn(null);

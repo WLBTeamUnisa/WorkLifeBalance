@@ -172,7 +172,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("result", "success");
-		request.getRequestDispatcher("WEB-INF/Homepage.jsp").forward(request, response);
+		request.getRequestDispatcher(".").forward(request, response);
 	}
 
 	/**
