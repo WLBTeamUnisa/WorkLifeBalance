@@ -33,6 +33,11 @@ public class CheckEmployeeServlet extends HttpServlet {
     public CheckEmployeeServlet() {
         super();
     }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao)
+    {
+    	this.employeeDao=employeeDao;
+    }
 
 	/**
 	 * If the Employee already exists, the response (written in XML) will be <no/>, otherwise it will be <ok/>, meaning that the email is not yet associated with any Employee.
@@ -59,7 +64,7 @@ public class CheckEmployeeServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
