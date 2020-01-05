@@ -49,12 +49,12 @@ public class SearchEmployeeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
-		employeeEmail = request.getParameter("email");
+		employeeEmail = (String) request.getParameter("email");
 		List<Employee> list = null;
 		
 		if(employeeEmail.length() > 37) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().write("Email e/o password non validi");
+			response.getWriter().write("Il parametro email non rispetta la lunghezza");
 			response.getWriter().flush();
 		}
 		

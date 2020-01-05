@@ -28,12 +28,20 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import it.unisa.wlb.controller.HomeServlet;
 import it.unisa.wlb.controller.ShowWorkstationPrenotationPageServlet;
 import it.unisa.wlb.model.bean.Employee;
+import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.PrenotationDatePK;
+import it.unisa.wlb.model.bean.Room;
+import it.unisa.wlb.model.bean.RoomPK;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
+import it.unisa.wlb.model.bean.Workstation;
+import it.unisa.wlb.model.bean.WorkstationPK;
+import it.unisa.wlb.model.bean.WorkstationPrenotation;
+import it.unisa.wlb.model.bean.WorkstationPrenotationPK;
 import it.unisa.wlb.model.dao.IPrenotationDateDAO;
 import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
@@ -92,9 +100,20 @@ class ShowWorkstationPrenotationPageServletTest {
 	private PrenotationDatePK prenotationDatePk1;
 	private PrenotationDatePK prenotationDatePk2;
 	private List<PrenotationDate> prenotationDates;
+	private Floor floor;
+	private Room room;
+	private Workstation workstation;
+	private RoomPK roomPk;
+	private WorkstationPK workstationPk;
+	private List<WorkstationPrenotation> workstationPrenotationList;
+	private WorkstationPrenotation workstationPrenotation;
+	private WorkstationPrenotationPK workstationPrenotationPk;
+	private List<Workstation> workstationList;
+	private List<Room> roomList;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		
 		MockitoAnnotations.initMocks(this);
 		
 		servlet = new ShowWorkstationPrenotationPageServlet();
@@ -164,45 +183,74 @@ class ShowWorkstationPrenotationPageServletTest {
 		prenotationDates.add(prenotationDate2);
 		smartWorkingPrenotation.setPrenotationDates(prenotationDates);
 		
+		int floorNumber = 2;
+		floor = new Floor();
+		floor.setNumFloor(floorNumber);
+		
+		int roomNumber = 3;
+		roomPk = new RoomPK();
+		roomPk.setNumFloor(floorNumber);
+		roomPk.setNumRoom(roomNumber);
+		
+		room = new Room();
+		room.setFloor(floor);
+		room.setId(roomPk);
+		
+		int workstationNumber = 7;
+		workstationPk = new WorkstationPK();
+		workstationPk.setFloor(floorNumber);
+		workstationPk.setRoom(roomNumber);
+		workstationPk.setWorkstation(workstationNumber);
+		
+		workstation = new Workstation();
+		workstation.setId(workstationPk);
+		workstation.setRoom(room);
+		
+		workstationList = new ArrayList<>();
+		workstationList.add(workstation);
+		room.setWorkstations(workstationList);
+		
+		roomList = new ArrayList<>();
+		roomList.add(room);
+		
+		workstationPrenotationPk = new WorkstationPrenotationPK();
+		workstationPrenotationPk.setEmailEmployee(email);
+		workstationPrenotationPk.setPrenotationDate(Date.from(nextMonday.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+		
+		workstationPrenotation = new WorkstationPrenotation();
+		workstationPrenotation.setEmployee(employee);
+		workstationPrenotation.setId(workstationPrenotationPk);
+		workstationPrenotation.setCalendarWeek(nextCalendarWeek);
+		workstationPrenotation.setYear(year);
+		workstationPrenotation.setWorkstation(workstation);
+		
+		workstationPrenotationList = new ArrayList<>();
+		workstationPrenotationList.add(workstationPrenotation);
+		
+		
 	}
 	
 	/**
 	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	void noSmartWorkingPrenotation() throws ServletException, IOException {
-//		String path = "/ShowSmartWorkingPrenotation";
-//		when(request.getSession()).thenReturn(session);
-//		when(session.getAttribute("user")).thenReturn(employee);
-//		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-//		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenThrow(Exception.class);
-//		servlet.setSmartWorkingDao(smartWorkingDao);
-//		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-//		servlet.doPost(request, response);
-//		verify(request).getRequestDispatcher(captor.capture());
-//		assertEquals(path, captor.getValue());
-	}
-
-	/**
-	 * 
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test
-	void yesSmartWorkingPrenotation() throws ServletException, IOException {
-//		String path = "/ShowSmartWorkingPrenotation";
-//		when(request.getSession()).thenReturn(session);
-//		when(session.getAttribute("user")).thenReturn(employee);
-//		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-//		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
-//		servlet.setSmartWorkingDao(smartWorkingDao);
-//		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-//		servlet.doPost(request, response);
-//		verify(request).getRequestDispatcher(captor.capture());
-//		assertEquals(path, captor.getValue());
+	void yesSmartWorkingPrenotationAndWorkstationPrenotation() throws ServletException, IOException {
+		String path = "WEB-INF/WorkstationPrenotation.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenReturn(workstationPrenotationList);
+		when(roomDao.retrieveAll()).thenReturn(roomList);
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setRoomDao(roomDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
 	}
 }

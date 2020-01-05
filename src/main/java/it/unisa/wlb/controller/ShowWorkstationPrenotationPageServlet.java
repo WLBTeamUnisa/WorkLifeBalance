@@ -68,10 +68,6 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
-	public void setPrenotationDateDao(IPrenotationDateDAO prenotationDateDao) {
-		this.prenotationDateDao = prenotationDateDao;
-	}
-	
 	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
 		this.workstationPrenotationDao = workstationPrenotationDao;
 	}

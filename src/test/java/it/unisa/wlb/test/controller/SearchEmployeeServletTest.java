@@ -1,5 +1,6 @@
 package it.unisa.wlb.test.controller;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.json.JSONArray;
@@ -18,17 +19,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.controller.SearchEmployeeServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.utils.Utils;
+
 /**
- * 
- * This class tests SearchEmployeeServlet
+ * This test class follows the specification of the section "TC_1.2 Ricerca dipendente" Test Case Specification"
  * 
  * @author Vincenzo Fabiano
- *
+ * 
  */
 class SearchEmployeeServletTest {
 
@@ -84,34 +86,40 @@ class SearchEmployeeServletTest {
 	}
 	
 	/**
-	 * Retrieve employees based on the suggestions
+	 * TC_1.2_1: email doesn't respect the length - FAIL
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test
-	void searchEmployeesBasedOnSuggestionsTest() throws ServletException, IOException {
+	void TC_1_2_1() throws ServletException, IOException {
+		String errorMessage = "Il parametro non rispetta la lunghezza";
+		request.setParameter("email", "marcomarcomarcomarcomarcomarcomarcomarcomarco");
+		servlet = new SearchEmployeeServlet();
+		try {
+			servlet.doPost(request, response);
+		} catch (Exception e) {
+			;
+		} finally { 
+			assertEquals(errorMessage, response.getContentAsString());
+		}
+	}
+	
+	/**
+	 * TC_1.2_2: Retrieve employees based on the suggestions - SUCCESS
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	void TC_1_2_2() throws ServletException, IOException {
 		when(employeeDao.suggestByEmail(email)).thenReturn(employeeSuggestList);
-		when(employeeDao.retrieveAll()).thenReturn(employeeAll);
 		request.addParameter("email", email);
 		servlet = new SearchEmployeeServlet(employeeDao);
 		servlet.doPost(request, response);
 		assertEquals(json, response.getContentAsString().toString());
 	}
 	
-	/**
-	 * Retrieve all employees
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	@Test 
-	void searchAllEmployeesTest() throws ServletException, IOException {
-		when(employeeDao.retrieveAll()).thenReturn(employeeAll);
-		request.addParameter("email", "");
-		servlet = new SearchEmployeeServlet(employeeDao);
-		servlet.doPost(request, response);
-		assertEquals(json, response.getContentAsString().toString());
-	}
+
 
 }
