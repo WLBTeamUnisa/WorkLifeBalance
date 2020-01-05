@@ -1,7 +1,7 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -49,6 +49,14 @@ public class HomeServlet extends HttpServlet {
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+		this.smartWorkingDao = smartWorkingDao;
+	}
+	
+	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
+		this.workstationPrenotationDao = workstationPrenotationDao;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getSession().getAttribute("user")==null) {
@@ -71,9 +79,6 @@ public class HomeServlet extends HttpServlet {
 				calendar.setTime(Date.from(friday.atStartOfDay().atZone(zoneId).toInstant()));
 				int calendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 				int year = calendar.get(Calendar.YEAR);
-				System.out.println("Venerdì: " + friday.toString());
-				System.out.println("CalendarWeek: " + calendarWeek);
-				System.out.println("Year: " + year);
 				
 				List<LocalDate> listDates = new ArrayList<>();
 				
@@ -97,8 +102,8 @@ public class HomeServlet extends HttpServlet {
 				
 				if(smartWorkingPrenotationDateList!=null) {
 					for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
-						Date tempDate = (Date) smartWorkingPrenotationDateList.get(i).getId().getDate();
-						LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
+						Date tempDate = smartWorkingPrenotationDateList.get(i).getId().getDate();
+						LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						JSONObject obj = new JSONObject();
 						obj.put("date", tempDateConverted);
 						obj.put("type", "smartWorking");
@@ -117,8 +122,8 @@ public class HomeServlet extends HttpServlet {
 				
 				if(workstationPrenotations!=null) {
 					for(int i=0; i<workstationPrenotations.size(); i++) {
-						Date tempDate = (Date) workstationPrenotations.get(i).getId().getPrenotationDate();
-						LocalDate tempDateConverted = new Date(tempDate.getTime()).toLocalDate();
+						Date tempDate = workstationPrenotations.get(i).getId().getPrenotationDate();
+						LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						JSONObject obj = new JSONObject();
 						obj.put("date", tempDateConverted);
 						obj.put("floor", workstationPrenotations.get(i).getWorkstation().getRoom().getFloor().getNumFloor());
@@ -136,10 +141,6 @@ public class HomeServlet extends HttpServlet {
 						["data":"2019-12-12", "piano":, "stanza":, ,"postazione":]}
 				*/
 				
-				for(LocalDate x : listDates) {
-					System.out.println(x.toString());
-
-				}
 			}
 			
 			request.setAttribute("jsonList", jsonList);
