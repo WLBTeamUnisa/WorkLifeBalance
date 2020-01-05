@@ -6,7 +6,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -79,9 +78,7 @@ public class HomeServlet extends HttpServlet {
 				calendar.setTime(Date.from(friday.atStartOfDay().atZone(zoneId).toInstant()));
 				int calendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 				int year = calendar.get(Calendar.YEAR);
-				
-				List<LocalDate> listDates = new ArrayList<>();
-				
+								
 				/**
 				 * Get SmartWorkingPrenotation list
 				 */

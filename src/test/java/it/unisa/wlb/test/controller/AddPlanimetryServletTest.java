@@ -1,7 +1,6 @@
 package it.unisa.wlb.test.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import it.unisa.wlb.controller.AddPlanimetryServlet;
 import it.unisa.wlb.model.bean.Admin;

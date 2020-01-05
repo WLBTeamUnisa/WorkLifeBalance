@@ -87,17 +87,18 @@
 
 	<!-- jQuery UI -->
 	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-		
+	<script
+		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
 	<!-- jQuery Scrollbar -->
 	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-	
+
 	<!-- Sweet Alert -->
 	<script src="js/sweetalert2.all.js"></script>
 
 	<!-- Atlantis JS -->
 	<script src="js/atlantis.min.js"></script>
-	
+
 	<script src="js/login.js"></script>
 
 

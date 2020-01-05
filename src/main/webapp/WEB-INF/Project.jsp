@@ -151,8 +151,9 @@
 															<ul class="list-group list-group-bordered"
 																id="employeeList">
 																<c:forEach items="${currentEmployees}" var="employee">
-																	<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>
-																	${employee.email}</li>
+																	<li class='list-group-item'><i
+																		class='fas fa-user my-auto mr-2'></i>
+																		${employee.email}</li>
 																</c:forEach>
 															</ul>
 														</div>
@@ -182,7 +183,7 @@
 									</div>
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
 								</form>
-								
+
 								<!-- Modal -->
 								<div class="modal fade" id="exampleModal" tabindex="-1"
 									role="dialog" aria-labelledby="exampleModalLabel"
@@ -220,7 +221,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- FINE CARD BODY -->
 							</div>
 

@@ -68,7 +68,8 @@
 								<form method="post" action="AddPlanimetryServlet">
 
 									<!-- CONTAINER -->
-									<div class="container col-lg-10 mx-auto" id="containerPlanimetry">
+									<div class="container col-lg-10 mx-auto"
+										id="containerPlanimetry">
 
 										<!-- FLOOR -->
 										<div class="form-group input-group mx-auto ">
@@ -123,11 +124,13 @@
 
 
 										<!-- LIST PLANIMETRY-->
-										<div class="form-group row justify-content-md-center" id="PlanimetryActuallyInserted">
-											<div class="col-lg-12" >
-												<div class="card my-auto" > 
-													<div class="card-header p-2 " id="TitlePlanimetryActuallyInserted">
-														<h3 class="my-auto" >Planimetria attualmente inserita</h3>
+										<div class="form-group row justify-content-md-center"
+											id="PlanimetryActuallyInserted">
+											<div class="col-lg-12">
+												<div class="card my-auto">
+													<div class="card-header p-2 "
+														id="TitlePlanimetryActuallyInserted">
+														<h3 class="my-auto">Planimetria attualmente inserita</h3>
 													</div>
 
 													<div class="card-body">
@@ -184,7 +187,7 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-	
+
 	<script>
 		var insertedPlanimetry = '${insertedPlanimetry}';
 		console.log(insertedPlanimetry.length);

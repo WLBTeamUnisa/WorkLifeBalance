@@ -140,7 +140,7 @@
 				
 		</script>
 	</c:if>
-	
+
 	<c:if test="${not empty statusResult}">
 		<script>
 			function sweetalertclick() {
