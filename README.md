@@ -2,7 +2,6 @@
  [![codecov](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance/branch/master/graphs/badge.svg)](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance)
 
 <h1>Work Life Balance </h1> 
-------
  
 <h2>Installation</h2>
 
