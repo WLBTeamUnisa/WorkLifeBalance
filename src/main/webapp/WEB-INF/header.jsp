@@ -202,22 +202,22 @@ $(document).ready(function(){
 	});
 
 function showProject() {
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var lista = JSON.parse(this.responseText);
-					var li = "";
-					
-					for (i = 0; i < lista.length; i++){
-						li += "<li><a href='.'><span class='sub-item'>"+lista[i].projectName+"</span></a></li>"
-						console.log(li);
-						document.getElementById("projectList").innerHTML = li;
-					}
-				}
-			}
-			xhttp.open("GET", "ShowAllSupervisedProjectsServlet", true);
-			xhttp.send();
-		}
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var lista = JSON.parse(this.responseText);
+            var li = "";
+
+            for (i = 0; i < lista.length; i++) {
+                li += "<li><a href=\"ShowProjectPageManager?projectName=" + lista[i].projectName + "\"><span class='sub-item'>" + lista[i].projectName + "</span></a></li>"
+                console.log(li);
+                document.getElementById("projectList").innerHTML = li;
+            }
+        }
+    }
+    xhttp.open("GET", "ShowAllSupervisedProjectsServlet", true);
+    xhttp.send();
+}
 
 </script>
 <!-- End Sidebar -->
