@@ -48,6 +48,14 @@ public class WorkstationPrenotationPK implements Serializable {
 		this.prenotationDate = prenotationDate;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

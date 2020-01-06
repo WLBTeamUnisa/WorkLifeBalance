@@ -423,4 +423,13 @@ class WorkstationPrenotationTest {
 		id.setEmailEmployee(null);
 		assertNotEquals(id, workstationPrenotationPK);
 	}
+	
+	@Test
+	public void equalsTest27() {		
+		WorkstationPrenotationPK workstationPrenotationPK = new WorkstationPrenotationPK();
+		workstationPrenotationPK.setEmailEmployee(id.getEmailEmployee());
+		workstationPrenotationPK.setPrenotationDate(id.getPrenotationDate());
+		workstationPrenotationPK.setId(id.getId()+1);
+		assertNotEquals(id, workstationPrenotationPK);
+	}
 }
