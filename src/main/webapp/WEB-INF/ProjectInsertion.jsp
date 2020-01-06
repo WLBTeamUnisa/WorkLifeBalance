@@ -273,7 +273,6 @@
 				xmlHttpReq.onreadystatechange = function() {
 					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
 						var json = JSON.parse(xmlHttpReq.responseText);
-						console.log(json);
 						if (json != null) {
 							if (json.available == "yes") {
 								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
@@ -307,6 +306,7 @@
 				$("#name").addClass("is-invalid");
 				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
+				changeInsertButtonState();
 			}
 		}
 
@@ -415,14 +415,36 @@
 
 			var errorMsg = "L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#managerEmail").hasClass("is-invalid"))
-					$("#managerEmail").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#managerEmail").addClass("is-valid");
-				document.getElementById("errorManager").innerHTML = "";
-				managerOK = true;
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+				
+				var xmlHttpReq = new XMLHttpRequest();
+				xmlHttpReq.onreadystatechange = function() {
+					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
+						var json = JSON.parse(xmlHttpReq.responseText);
+						if (json != null) {
+							if (json.status == 1) {
+								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+								if ($("#managerEmail").hasClass("is-invalid"))
+									$("#managerEmail").removeClass("is-invalid");
+								//AGGIUNGO LA CLASSE 'IS-VALID'
+								$("#managerEmail").addClass("is-valid");
+								document.getElementById("errorManager").innerHTML = "";
+								managerOK = true;
+							} else {
+								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								if ($("#managerEmail").hasClass("is-valid"))
+									$("#managerEmail").removeClass("is-valid");
+								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								$("#managerEmail").addClass("is-invalid");
+								document.getElementById("errorManager").innerHTML = "L'utente selezionato non è un manager!";
+								managerOK = false;
+							}
+						}
+					}
+					changeInsertButtonState();
+				}
+				xmlHttpReq.open("GET", "CheckManager?email=" + encodeURIComponent(input), true);
+				xmlHttpReq.send();
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#managerEmail").hasClass("is-valid"))
@@ -431,8 +453,8 @@
 				$("#managerEmail").addClass("is-invalid");
 				document.getElementById("errorManager").innerHTML = errorMsg;
 				managerOK = false;
+				changeInsertButtonState();
 			}
-			changeInsertButtonState();
 		}
 
 		function changeInsertButtonState() {
@@ -503,7 +525,6 @@
 
 					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>"
 							+ lista.emailEmployee + "</li>";
-					console.log(li);
 					document.getElementById("employeeList").innerHTML += li;
 
 				}
