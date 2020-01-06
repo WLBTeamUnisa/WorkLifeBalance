@@ -93,7 +93,7 @@ class SearchEmployeeServletTest {
 	 */
 	@Test
 	void TC_1_2_1() throws ServletException, IOException {
-		String errorMessage = "Il parametro non rispetta la lunghezza";
+		String errorMessage = "Il parametro email non rispetta la lunghezza";
 		request.setParameter("email", "marcomarcomarcomarcomarcomarcomarcomarcomarco");
 		servlet = new SearchEmployeeServlet();
 		try {
