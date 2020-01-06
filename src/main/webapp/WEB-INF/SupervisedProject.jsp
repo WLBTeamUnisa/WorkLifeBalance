@@ -125,8 +125,9 @@
 																<ul class="list-group list-group-bordered"
 																	id="employeeList">
 																	<c:forEach items="${project.employees}" var="employee">
-																		<li class='list-group-item'>
+																		<li class='list-group-item'><a href="ShowCalendarHistory?employeeEmail=${employee.email}">
 																			<i class='fas fa-user my-auto mr-2'></i>${employee.name} ${employee.surname} - ${employee.email}
+																			</a>
 																		</li>
 																	</c:forEach>
 																</ul>
@@ -162,49 +163,5 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-
-	<c:if test="${not empty result}">
-		<script>
-				//SWEETALERT
-				if("${result}"=="success"){
-					Swal.fire({
-						icon: 'success',
-						title: 'Ottimo!',
-						text: "Operazione effettuata con successo!"
-						})
-				}
-				
-		</script>
-	</c:if>
-
-	<script>
-		function Suggestions(name) {
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-
-					var lista = JSON.parse(this.responseText);
-
-					var options = "";
-					var suggestionsList = "";
-
-					for (i = 0; i < lista.length; i++) {
-						options += "<option>" + lista[i].name + "</option>";
-						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="
-								+ lista[i].name
-								+ "' class='mx-auto nav-link' style='color: #2f3640'>"
-								+ lista[i].name + "</a></li>";
-					}
-					console.log(options);
-
-					document.getElementById("suggestionsList").innerHTML = suggestionsList;
-				}
-			}
-			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
-			xhttp.send();
-		}
-	</script>
-
 </body>
 </html>

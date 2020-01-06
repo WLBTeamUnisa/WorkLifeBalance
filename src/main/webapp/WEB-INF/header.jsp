@@ -118,7 +118,7 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="#sidebarLayouts"
+							<li class="nav-item"><a href="ShowCalendarHistory"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
@@ -149,7 +149,7 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="#sidebarLayouts"
+							<li class="nav-item"><a href="ShowCalendarHistory"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
@@ -161,12 +161,6 @@
 							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
 								class="nav-link"><i class="fas fa-pen-square"></i>
 									<p class="b">Smart Working</p></a></li>
-
-							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fas fa-th-list"></i>
-									<p class="b">
-										Storico giornate<br> lavorative
-									</p></a></li>
 
 							<li class="nav-item" id="Projects" onclick="showProject()"><a
 								data-toggle="collapse" class="nav-link" href=""> <i
@@ -209,8 +203,7 @@ function showProject() {
             var li = "";
 
             for (i = 0; i < lista.length; i++) {
-                li += "<li><a href=\"ShowProjectPageManager?projectName=" + lista[i].projectName + "\"><span class='sub-item'>" + lista[i].projectName + "</span></a></li>"
-                console.log(li);
+                li += "<li><a href=\"ShowSupervisedProject?projectName=" + lista[i].projectName + "\"><span class='sub-item'>" + lista[i].projectName + "</span></a></li>"
                 document.getElementById("projectList").innerHTML = li;
             }
         }

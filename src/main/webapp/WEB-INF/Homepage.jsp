@@ -113,6 +113,10 @@
 		
 		var listaJson = JSON.parse(lista);
 		
+		listaJson.sort(function(a,b){
+            return a.date.localeCompare(b.date);
+        });
+
 		if(listaJson.length==0){
 			tbody.html("<div class='card-body my-auto mx-auto'>	<h2>Non hai prenotato niente per questa settimana</h2></div>");
 		}

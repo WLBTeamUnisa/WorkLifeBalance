@@ -15,8 +15,8 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 /**
  * Servlet implementation class ShowProjectPageManagerServlet
  */
-@WebServlet(urlPatterns = "/ShowProjectPageManager", name = "ShowProjectPageManagerServlet")
-public class ShowProjectPageManagerServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/ShowSupervisedProject", name = "ShowSupervisedProjectServlet")
+public class ShowSupervisedProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
@@ -25,7 +25,7 @@ public class ShowProjectPageManagerServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowProjectPageManagerServlet() {
+    public ShowSupervisedProjectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,7 @@ public class ShowProjectPageManagerServlet extends HttpServlet {
 			project = projectDao.retrieveByName(name);
 			if(project!=null) {
 				request.setAttribute("project", project);
-				request.getRequestDispatcher("WEB-INF/ProjectForManager.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/SupervisedProject.jsp").forward(request, response);
 			} else {
 				request.getRequestDispatcher(".").forward(request, response);
 			}
