@@ -32,9 +32,6 @@ import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private Calendar CALENDAR = Calendar.getInstance();
-	private SmartWorkingPrenotation smartWorkingPrenotation;
-	private Employee employee;
 	
 	@EJB
 	private ISmartWorkingPrenotationDAO smartWorkingDao;
@@ -44,7 +41,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
 		}
 		else {
-			CALENDAR = Calendar.getInstance();
+			Calendar CALENDAR = Calendar.getInstance();
 			SmartWorkingPrenotation smartWorkingPrenotation;
 			Employee employee;
 			employee = (Employee) request.getSession().getAttribute("user");
