@@ -70,7 +70,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		
 		List<Employee> employeeList = null;
 		
-		request.setAttribute("lista_dipendenti", employeeList);
+		request.setAttribute("employeeList", employeeList);
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			servlet.doPost(request, response);
@@ -100,7 +100,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		
 		List<Employee> employeeList = new ArrayList<Employee>();
 		
-		request.setAttribute("lista_dipendenti", employeeList);
+		request.setAttribute("employeeList", employeeList);
 		request.setAttribute("employee","m.rossi4@wlb.it");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -140,7 +140,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		employeeList.add(employee);
 		
-		request.setAttribute("lista_dipendenti", employeeList);
+		request.setAttribute("employeeList", employeeList);
 		request.setAttribute("employee","m.bianchi4@wlb.it");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -198,7 +198,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		List<Employee> employeeList = new ArrayList<Employee>();
 		employeeList.add(employee);
 		
-		request.getSession().setAttribute("lista_dipendenti", employeeList);
+		request.getSession().setAttribute("employeeList", employeeList);
 		
 		servlet.doPost(request, response);
 		assertEquals("success", request.getAttribute("result"));

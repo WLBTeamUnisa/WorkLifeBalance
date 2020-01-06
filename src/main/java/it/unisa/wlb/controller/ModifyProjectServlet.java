@@ -103,7 +103,7 @@ public class ModifyProjectServlet extends HttpServlet {
 		managerEmail = request.getParameter(PROJECT_MANAGER);
 		userRole = (String) request.getSession().getAttribute(USER_ROLE);
 		oldProject = (Project) request.getSession().getAttribute("oldProject");
-		List<Employee> employeesList = (List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		List<Employee> employeesList = (List<Employee>) request.getSession().getAttribute("employeeList");
 		oldManager = oldProject.getEmployee();
 
 		/**

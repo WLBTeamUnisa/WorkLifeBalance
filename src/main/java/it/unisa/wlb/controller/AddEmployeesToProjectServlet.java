@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is to create effectively the project and to add
@@ -25,7 +27,8 @@ import it.unisa.wlb.model.dao.IProjectDAO;
  *
  */
 
-@WebServlet("/AddEmployeesToProjectServlet")
+@WebServlet(name="AddEmployeesToProjectServlet", urlPatterns="/AddEmployeesToProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +62,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		  Employee manager;
 		  String userRole=(String) session.getAttribute("userRole");
 		  Project project=(Project) request.getAttribute("Project");
-		  List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("lista_dipendenti");
+		  List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("employeeList");
 		  List<Employee> currentEmployees;
 		  String status;
 		  status = (String)request.getAttribute("status");
@@ -110,7 +113,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 				        	employeeDao.update(manager);
 					  }
 		        
-		        	session.removeAttribute("lista_dipendenti");
+		        	session.removeAttribute("employeeList");
 					request.setAttribute("result", "success");
 					request.removeAttribute("Project");
 				
@@ -118,7 +121,7 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		        	dispatcher.forward(request, response);
 		        } else {
 		        	request.setAttribute("result", "error");
-		        	session.removeAttribute("lista_dipendenti");
+		        	session.removeAttribute("employeeList");
 		        	request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		        	throw new IllegalArgumentException();
 		          }

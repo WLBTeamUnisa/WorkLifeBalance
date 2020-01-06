@@ -99,7 +99,7 @@ public class AddEmployeeToList extends HttpServlet {
 	          int flag=0;
 	          for(int i=0; i<list.size() && flag==0; i++)
 	          {
-	        	  if(list.get(i).getEmail()==employee.getEmail())
+	        	  if(list.get(i).getEmail().equals(employee.getEmail()))
 	        	  {
 	        		  flag=1;
 	        	  }
@@ -120,7 +120,6 @@ public class AddEmployeeToList extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

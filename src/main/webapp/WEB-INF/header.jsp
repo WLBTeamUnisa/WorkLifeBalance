@@ -193,10 +193,10 @@
 $(document).ready(function(){
 	  $("#Projects").click(function(){
 	  if($("#projectList").is(":visible")){
-	    $("#projectList").hide(1000);}
+	    $("#projectList").hide(500);}
 	  else
 	  {
-	  	$("#projectList").show(1000);
+	  	$("#projectList").show(500);
 	  }
 	  });
 	});
