@@ -23,6 +23,9 @@
 		<servlet-name>AddPlanimetryServlet</servlet-name>
 		<servlet-name>AddProjectServlet</servlet-name>
 		<servlet-name>CheckEmployeeServlet</servlet-name>
+		<servlet-name>ChangeStatusEmployeeServlet</servlet-name>
+		<servlet-name>CheckManagerServlet</servlet-name>
+		<servlet-name>CheckProjectServlet</servlet-name>
 		<servlet-name>EmployeeInsertPageServlet</servlet-name>
 		<servlet-name>EmployeeRegistrationServlet</servlet-name>
 		<servlet-name>EmployeeListPageServlet</servlet-name>
@@ -43,6 +46,12 @@
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
+		<servlet-name>ShowCalendarHistoryServlet</servlet-name>
+		<servlet-name>ShowCalendarHistoryPageServlet</servlet-name>
+		<servlet-name>ShowEmployeePageServlet</servlet-name>
+		<servlet-name>ShowPlanimetryPageServlet</servlet-name>
+		<servlet-name>ShowProjectServlet</servlet-name>
+		<servlet-name>ShowSupervisedProjectServlet</servlet-name>
 	</filter-mapping>
 
 	<filter>
@@ -59,6 +68,9 @@
 		<servlet-name>AddPlanimetryServlet</servlet-name>
 		<servlet-name>AddProjectServlet</servlet-name>
 		<servlet-name>CheckEmployeeServlet</servlet-name>
+		<servlet-name>ChangeStatusEmployeeServlet</servlet-name>
+		<servlet-name>CheckManagerServlet</servlet-name>
+		<servlet-name>CheckProjectServlet</servlet-name>
 		<servlet-name>EmployeeInsertPageServlet</servlet-name>
 		<servlet-name>EmployeeRegistrationServlet</servlet-name>
 		<servlet-name>EmployeeListPageServlet</servlet-name>
@@ -71,6 +83,8 @@
 		<servlet-name>ShowProjectServlet</servlet-name>
 		<servlet-name>SuggestionEmployees</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
+		<servlet-name>ShowEmployeePageServlet</servlet-name>
+		<servlet-name>ShowSupervisedProjectServlet</servlet-name>
 	</filter-mapping>
 
 	<filter>
@@ -88,6 +102,10 @@
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
+		<servlet-name>ShowCalendarHistoryServlet</servlet-name>
+		<servlet-name>ShowCalendarHistoryPageServlet</servlet-name>
+		<servlet-name>ShowPlanimetryPageServlet</servlet-name>
+		<servlet-name>ShowSupervisedProjectServlet</servlet-name>
 	</filter-mapping>
 
 	<filter>
@@ -104,15 +122,21 @@
 		<servlet-name>AddPlanimetryServlet</servlet-name>
 		<servlet-name>AddProjectServlet</servlet-name>
 		<servlet-name>CheckEmployeeServlet</servlet-name>
+		<servlet-name>ChangeStatusEmployeeServlet</servlet-name>
+		<servlet-name>CheckManagerServlet</servlet-name>
+		<servlet-name>CheckProjectServlet</servlet-name>
 		<servlet-name>EmployeeInsertPageServlet</servlet-name>
 		<servlet-name>EmployeeRegistrationServlet</servlet-name>
 		<servlet-name>EmployeeListPageServlet</servlet-name>
 		<servlet-name>ModifyProjectServlet</servlet-name>
 		<servlet-name>PlanimetryInsertionPageServlet</servlet-name>
 		<servlet-name>ProjectInsertPageServlet</servlet-name>
+		<servlet-name>ProjectsListPageServlet</servlet-name>
 		<servlet-name>SearchEmployeeServlet</servlet-name>
 		<servlet-name>SearchProjectServlet</servlet-name>
+		<servlet-name>ShowProjectServlet</servlet-name>
 		<servlet-name>SuggestionEmployees</servlet-name>
+		<servlet-name>ShowEmployeePageServlet</servlet-name>
 	</filter-mapping>
 
 </web-app>
