@@ -78,6 +78,7 @@
 												name="name" id="name" onkeyup="verificaNome()"
 												value="${oldProject.name}" required>
 										</div>
+										<span id="errorName"> </span>
 
 
 										<!-- SCOPE -->
@@ -90,6 +91,7 @@
 												name="scope" id="scope" onkeyup="verificaScope()"
 												value="${oldProject.scope}" required>
 										</div>
+										<span id="errorScope"> </span>
 
 
 										<!-- DATA INIZIO -->
@@ -102,6 +104,7 @@
 												name="startDate" id="startDate" value="${startDate}"
 												onkeyup="verificaDataInizio()" required>
 										</div>
+										<span id="errorDataInizio"> </span>
 
 
 										<!-- DATA FINE -->
@@ -114,6 +117,7 @@
 												name=endDate id="endDate" onkeyup="verificaDataFine()"
 												value="${endDate}" required>
 										</div>
+										<span id="errorDataFine"> </span>
 
 
 										<!-- DESCRIZIONE -->
@@ -126,6 +130,7 @@
 												class="form-control text-center"
 												onkeyup="verificaDescrizione()" required>${oldProject.description}</textarea>
 										</div>
+										<span id="errorDescrizione"> </span>
 
 
 										<!-- MANAGER -->
@@ -138,6 +143,8 @@
 												onkeyup="verificaManager()"
 												value="${oldProject.employee.email}" required>
 										</div>
+										<span id="errorManager"> </span>
+										
 
 										<!-- LISTA DIPENDENTI -->
 										<div class="form-group row pb-1">
@@ -282,31 +289,105 @@
 		}
 
 		function verificaDataInizio() {
-			var input = $("#startDate").val();
 
+			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+			var input = $("#startDate").val();
 			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#startDate").css("border", borderOK);
-				dataInizioOK = true;
+				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var endDate = $("#endDate").val();
+				var startDate = input;
+				if (endDate != null && endDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+					if ($("#startDate").hasClass("is-invalid"))
+						$("#startDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#startDate").addClass("is-valid");
+					document.getElementById("errorDataInizio").innerHTML = "";
+					dataInizioOK = true;
+				}
 			} else {
-				$("#startDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if ($("#startDate").hasClass("is-valid"))
+					$("#startDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#startDate").addClass("is-invalid");
+				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataFine() {
-			var input = $("#endDate").val();
 
-			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#endDate").css("border", borderOK);
-				dataFineOK = true;
+			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+			var input = $("#endDate").val();
+			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var startDate = $("#startDate").val();
+				var endDate = input;
+				if (startDate != null && startDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//ENDDATE
+					if ($("#endDate").hasClass("is-invalid"))
+						$("#endDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#endDate").addClass("is-valid");
+					document.getElementById("errorDataFine").innerHTML = "";
+					dataFineOK = true;
+				}
 			} else {
-				$("#endDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if ($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
 			}
 			changeInsertButtonState();
+		}
+
+		function verificaDate(startDate, endDate) {
+			//Matchano tutte e due
+			if (startDate <= endDate) {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-invalid"))
+					$("#endDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#endDate").addClass("is-valid");
+				document.getElementById("errorDataFine").innerHTML = "";
+				dataFineOK = true;
+			} else {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
+				dataFineOK = false;
+			}
 		}
 
 		function verificaDescrizione() {

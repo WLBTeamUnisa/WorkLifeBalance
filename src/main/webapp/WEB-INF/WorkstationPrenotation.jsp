@@ -76,7 +76,7 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="dateSelect">Data:</label> <select
-												class="form-control form-control-sm" id="dateSelect">
+												class="custom-select form-control form-control-sm" id="dateSelect">
 												<c:forEach items="${availableDates}" var="data">
 													<option>${data}</option>
 												</c:forEach>
@@ -86,7 +86,7 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="floorSelect">Piano:</label> <select
-												class="form-control form-control-sm" id="floorSelect">
+												class="custom-select form-control form-control-sm" id="floorSelect">
 
 											</select>
 										</div>
@@ -94,7 +94,7 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="roomSelect">Stanza:</label> <select
-												class="form-control form-control-sm" id="roomSelect">
+												class="custom-select form-control form-control-sm" id="roomSelect">
 											</select>
 										</div>
 									</div>
