@@ -1,6 +1,7 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Employee;
+import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.utils.LoggerSingleton;
 
@@ -56,10 +58,33 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 				{
 					try 
 					{
-						Employee employee=employeeDao.retrieveByEmail(emailEmployee);
-						request.setAttribute("employeeSupervised", employee);
-						request.setAttribute("result", "success");
-						request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
+						Employee employee = employeeDao.retrieveByEmail(emailEmployee);
+						List<Project> managerProjects = sessionEmployee.getProjects1();
+						List<Project> employeeProjects = employee.getProjects2();
+						int flag=0;
+						for(int i=0; i<managerProjects.size() && flag==0; i++)
+						{
+							for(int j=0; i<employeeProjects.size() && flag==0; j++)
+							{
+								if(managerProjects.get(i).getName().equals(employeeProjects.get(j).getName()))
+								{
+									flag=1;
+								}
+							}
+						}
+						
+						if(flag==1)
+						{
+							request.setAttribute("employeeSupervised", employee);
+							request.setAttribute("result", "success");
+							request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
+						}
+						
+						else
+						{
+							request.setAttribute("result", "error");
+							request.getRequestDispatcher(".").forward(request, response);
+						}
 					}	
 					
 					catch(Exception exception) 
