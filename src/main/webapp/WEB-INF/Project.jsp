@@ -102,7 +102,7 @@
 											</div>
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate" value="${startDate}"
-												onkeyup="verificaDataInizio()" required>
+												onchange="verificaDataInizio()" required>
 										</div>
 										<span id="errorDataInizio"> </span>
 
@@ -114,7 +114,7 @@
 													class="fas fa-calendar-minus"></i></span>
 											</div>
 											<input type="date" class="form-control text-center"
-												name=endDate id="endDate" onkeyup="verificaDataFine()"
+												name=endDate id="endDate" onchange="verificaDataFine()"
 												value="${endDate}" required>
 										</div>
 										<span id="errorDataFine"> </span>
