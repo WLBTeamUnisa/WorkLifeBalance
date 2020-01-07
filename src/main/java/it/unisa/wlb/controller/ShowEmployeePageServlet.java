@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +15,14 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowEmployeePage
  */
-@WebServlet("/ShowEmployeePage")
-public class ShowEmployeePage extends HttpServlet {
+@WebServlet(name="ShowEmployeePageServlet", urlPatterns="/ShowEmployeePage")
+@Interceptors({LoggerSingleton.class})
+public class ShowEmployeePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
@@ -29,7 +32,7 @@ public class ShowEmployeePage extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowEmployeePage() {
+    public ShowEmployeePageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

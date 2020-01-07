@@ -118,7 +118,7 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="ShowCalendarHistory"
+							<li class="nav-item"><a href="ShowCalendarHistoryPage"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
@@ -149,7 +149,7 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="ShowCalendarHistory"
+							<li class="nav-item"><a href="ShowCalendarHistoryPage"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 

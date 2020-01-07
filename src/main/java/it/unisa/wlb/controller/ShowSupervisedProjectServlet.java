@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ShowProjectPageManagerServlet
+ * This servlet aims to show a project supervised by a manager
+ * 
+ * @author Luigi Cerrone
  */
 @WebServlet(urlPatterns = "/ShowSupervisedProject", name = "ShowSupervisedProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class ShowSupervisedProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

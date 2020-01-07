@@ -3,7 +3,10 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @WebServlet(name = "ChangeStatusEmployee", urlPatterns = "/ChangeStatusEmployee")
+@Interceptors({LoggerSingleton.class})
 public class ChangeStatusEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
