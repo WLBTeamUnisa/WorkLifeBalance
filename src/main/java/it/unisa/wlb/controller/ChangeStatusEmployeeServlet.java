@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Simranjit
  *
  */
-@WebServlet(name = "ChangeStatusEmployee", urlPatterns = "/ChangeStatusEmployee")
+@WebServlet(name = "ChangeStatusEmployeeServlet", urlPatterns = "/ChangeStatusEmployee")
 @Interceptors({LoggerSingleton.class})
 public class ChangeStatusEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
