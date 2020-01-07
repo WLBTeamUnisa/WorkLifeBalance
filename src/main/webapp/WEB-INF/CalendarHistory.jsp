@@ -57,13 +57,14 @@
 
 						<!-- CARD -->
 						<div class="card">
-							&nbsp;
-							<div class="card-header">Storico Prenotazioni</div>
-							&nbsp;
-							<div class="container">
-								<div class="row">
-									<div class="col-sm">
-										<select name="" class="custom-select text-center" id=""
+							<div class="card-header">
+								<h3 class="my-auto">Storico prenotazioni</h3>
+							</div>
+							<div class="card-body">
+							
+								<div class="row container">
+									<div class="col-sm-3 mx-auto">
+										<select name="" class="custom-select text-center" id="monthSelect"
 											style="height: 40px; weight: 150px" required>
 											<option value="Gennaio">Gennaio</option>
 											<option value="Febbraio">Febbraio</option>
@@ -79,8 +80,7 @@
 											<option value="Dicembre">Dicembre</option>
 										</select>
 									</div>
-									<div class="col-sm">
-
+									<div class="col-sm-3 mx-auto">
 										<select class="custom-select text-center"
 											style="height: 40px; weight: 150px" required>
 											<option value="2010">2010</option>
@@ -96,97 +96,114 @@
 											<option value="2020">2020</option>
 										</select>
 									</div>
-									<div class="col-sm">
-										<button style="height: 40px; width: 150px" type="submit" id=""
-											class="btn btn btn-success btn-block mx-auto" disabled>
-											Cerca</button>
-									</div>
 								</div>
+
+								<div class="mt-3" style="overflow-y: scroll; height: 300px;">
+
+									<table class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th scope="col">DATA</th>
+												<th scope="col">MODALITA' DI LAVORO</th>
+												<th scope="col">POSTO</th>
+												<th scope="col">STANZA</th>
+												<th scope="col">PIANO</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+
+												<td>2019-10-31</td>
+												<td>Smart Working</td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+
+												<td>2019-10-30</td>
+												<td>In Azienda</td>
+												<td>25</td>
+												<td>10</td>
+												<td>1</td>
+											</tr>
+											<tr>
+
+												<td>2019-10-29</td>
+												<td>Smart Working</td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+
+												<td>2019-10-28</td>
+												<td>In Azienda</td>
+												<td>25</td>
+												<td>10</td>
+												<td>1</td>
+											</tr>
+											<tr>
+
+												<td>2019-10-27</td>
+												<td>Smart Working</td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+
+												<td>2019-10-26</td>
+												<td>In Azienda</td>
+												<td>25</td>
+												<td>10</td>
+												<td>1</td>
+											</tr>
+											<!-- FINE BODY TABLE-->
+										</tbody>
+										<!-- FINE TABLE -->
+									</table>
+								</div>
+
+								<!-- FINE CARD BODY -->
 							</div>
-							&nbsp; &nbsp;
-							<div style="overflow-y: scroll; height: 230px;">
 
-								<table class="table table-bordered table-striped mb-0">
-									<thead>
-										<tr>
-											<th scope="col">DATA</th>
-											<th scope="col">MODALITA' DI LAVORO</th>
-											<th scope="col">POSTO</th>
-											<th scope="col">STANZA</th>
-											<th scope="col">PIANO</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-
-											<td>2019-10-31</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-30</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<tr>
-
-											<td>2019-10-29</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-28</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<tr>
-
-											<td>2019-10-27</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-26</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<!-- FINE BODY TABLE-->
-									</tbody>
-									<!-- FINE TABLE -->
-								</table>
-
-								<!-- FINE CARD-BODY -->
-							</div>
 							<!-- FINE CARD -->
 						</div>
-					</div>
-					<!-- FINE COLONNA -->
-				</div>
-				<!-- FINE CONTAINER -->
-			</div>
-			<!-- FINE CONTENT -->
-		</div>
-		<jsp:include page="footer.jsp" />
 
-		<!-- FINE MAIN PANEL -->
+						<!-- FINE COLONNA -->
+					</div>
+
+					<!-- FINE CONTAINER -->
+				</div>
+
+				<!-- FINE CONTENT -->
+			</div>
+
+			<jsp:include page="footer.jsp" />
+
+			<!-- FINE MAIN-PANEL -->
+		</div>
+
+		<!-- FINE WRAPPER -->
 	</div>
 
-	<!-- FINE WRAPPER -->
+
+<script>
+$(window).resize(function(){
+
+	if ($(window).width() <= 992) {
+		if(!($("#monthSelect").hasClass("mb-3"))){
+			$("#monthSelect").addClass("mb-3")
+		}
+	} else {
+		if($("#monthSelect").hasClass("mb-3")){
+			$("#monthSelect").removeClass("mb-3")
+		}
+	}
+
+});
+</script>
 
 </body>
 
