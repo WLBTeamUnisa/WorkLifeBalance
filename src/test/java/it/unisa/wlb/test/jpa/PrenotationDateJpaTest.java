@@ -13,15 +13,12 @@ import java.util.TimeZone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Id;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Message;
 import it.unisa.wlb.model.bean.PrenotationDate;
@@ -256,6 +253,15 @@ class PrenotationDateJpaTest {
 		PrenotationDate modifyied = prenotationDateJpa.update(prenotationDate);
 		assertEquals(prenotationDate.getId().getEmployeeEmail(), modifyied.getId().getEmployeeEmail());
 		prenotationDate.getId().setEmployeeEmail("g.verdana12@wlb.it");
+		try {
+			entityManager = factor.createEntityManager();
+			entityManager.getTransaction().begin();
+			entityManager.createNativeQuery("delete from PRENOTATION_DATE where DATE='2020-01-03' and EMPLOYEE_EMAIL='g.verdana72@wlb.it' and ID_PRENOTATION_SW=1").executeUpdate();
+			entityManager.getTransaction().commit();
+		}
+		finally {
+			entityManager.close();
+		}
 	}
 
 	@Test
