@@ -24,7 +24,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 /**
  * This test class follows the specification of the section "3.2.3 TC_2.3 Modifica progetto" of the document "Test Case Specification"
  * 
- * @author nello
+ * @author Aniello Romano
  *
  */
 public class ModifyProjectTest extends Mockito {
@@ -32,11 +32,11 @@ public class ModifyProjectTest extends Mockito {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private ModifyProjectServlet servlet;
-	private IProjectDAO projectDao;
 	private IEmployeeDAO employeeDao;
 	private Employee manager;
 	private Project oldProject;
 
+	@SuppressWarnings("deprecation")
 	@BeforeEach
 	public void setUp() {
 
@@ -161,7 +161,9 @@ public class ModifyProjectTest extends Mockito {
 
 		String commonName = "WLB13PO";
 		Project project = new Project();
+		@SuppressWarnings("deprecation")
 		Date dateS = new Date(2019, 11, 02);
+		@SuppressWarnings("deprecation")
 		Date dateE = new Date(2019, 12, 02);
 		Employee employee = new Employee();
 		List<Employee> lista = new ArrayList<Employee>();

@@ -33,6 +33,10 @@ public class SuggestionEmployees extends HttpServlet {
    
     @EJB
     private IEmployeeDAO employeeDao;   
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    	this.employeeDao = employeeDao;
+    }
 	
     private static final String EMAIL_EMPLOYEE = "email";
     private static final String FLAG = "flag";
@@ -54,7 +58,6 @@ public class SuggestionEmployees extends HttpServlet {
         String email_employee=request.getParameter(EMAIL_EMPLOYEE);
         String flagStr = request.getParameter(FLAG);
         
-        System.out.println(flagStr);
         
         List<Employee> listaDipendenti=null;
         
@@ -90,7 +93,7 @@ public class SuggestionEmployees extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

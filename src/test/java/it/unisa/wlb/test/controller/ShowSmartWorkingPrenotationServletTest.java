@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.OngoingStubbing;
-
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import java.io.IOException;
@@ -35,7 +32,7 @@ import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
 import it.unisa.wlb.utils.Utils;
 
 /**
- * This class tests ShowSmartWorkingPrenotationServlet
+ * The aim of this class is testing ShowSmartWorkingPrenotationServlet.java
  * 
  * @author Vincenzo Fabiano 
  *
@@ -56,7 +53,6 @@ class ShowSmartWorkingPrenotationServletTest {
 	private ISmartWorkingPrenotationDAO smartWorkingDao;
 	
 	private SmartWorkingPrenotation smartWorkingPrenotation;
-	private SmartWorkingPrenotationPK smartWorkingPrenotationPk;
 	
 	private int id;
 	private int calendarWeek;
@@ -73,7 +69,7 @@ class ShowSmartWorkingPrenotationServletTest {
 	void setUp() throws Exception {
 		
 		MockitoAnnotations.initMocks(this);
-		SmartWorkingPrenotation smartWorkingPrenotation = new SmartWorkingPrenotation();
+		smartWorkingPrenotation = new SmartWorkingPrenotation();
 		SmartWorkingPrenotationPK smartWorkingPrenotationPk = new SmartWorkingPrenotationPK();
 		employee = new Employee();
 		servlet = new ShowSmartWorkingPrenotationServlet();
@@ -112,12 +108,6 @@ class ShowSmartWorkingPrenotationServletTest {
 		smartWorkingPrenotation.setYear(year);
 	}
 
-	/**
-	 * If exists a smart working prenotation for the next week
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@Test
 	void noBookingTest() throws ServletException, IOException {
 		String path = "WEB-INF/SmartWorkingPrenotation.jsp";
@@ -133,12 +123,6 @@ class ShowSmartWorkingPrenotationServletTest {
 		assertEquals(path, captor.getValue());
 	}
 	
-	/**
-	 * If doesn't exist a smart working prenotation for the next week
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@SuppressWarnings("unchecked")
 	@Test
 	void yesBookingTest() throws ServletException, IOException {
@@ -155,12 +139,6 @@ class ShowSmartWorkingPrenotationServletTest {
 		assertEquals(path, captor.getValue());
 	}
 	
-	/**
-	 * if user is null
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@Test
 	void userNull() throws ServletException, IOException {
 		String path = "WEB-INF/Index.jsp";

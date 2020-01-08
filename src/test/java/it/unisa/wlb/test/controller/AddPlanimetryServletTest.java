@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * This test class follows the specification of the section "3.3.1 TC_3.1 Inserisci planimetria" of the document "Test Case Specification"
  * 
- * @author Sabato, Aniello
+ * @author Sabato Nocera, Aniello Romano
  *
  */
 public class AddPlanimetryServletTest extends Mockito {

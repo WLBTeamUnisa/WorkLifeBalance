@@ -26,6 +26,9 @@ public class ProjectsListPageServlet extends HttpServlet {
 	@EJB
 	private IProjectDAO projectDao;
 	
+	public void setProjectDao(IProjectDAO projectDao) {
+		this.projectDao = projectDao;
+	}
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,9 +41,6 @@ public class ProjectsListPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!(request.getSession().getAttribute("user")==null) || !(request.getSession().getAttribute("userRole").equals("Admin"))) {
-			//exception
-		}
 		List<Project> list = null;
 		try {
 			list = projectDao.retrieveAll();
@@ -55,7 +55,7 @@ public class ProjectsListPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

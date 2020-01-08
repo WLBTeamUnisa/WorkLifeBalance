@@ -23,7 +23,7 @@ import javax.servlet.ServletException;
 /**
  * This test class follows the specification of the section "3.2.1 TC_2.1 Inserisci progetto" of the document "Test Case Specification"
  * 
- * @author nello
+ * @author Aniello Romano
  *
  */
 public class AddProjectServletTest extends Mockito {

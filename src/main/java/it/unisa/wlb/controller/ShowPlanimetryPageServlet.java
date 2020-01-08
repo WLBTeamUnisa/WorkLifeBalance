@@ -51,6 +51,7 @@ public class ShowPlanimetryPageServlet extends HttpServlet {
 	
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -60,6 +61,9 @@ public class ShowPlanimetryPageServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    public void setRoomDao(IRoomDao roomDao) {
+    	this.roomDao = roomDao;
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -114,7 +118,7 @@ public class ShowPlanimetryPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -47,6 +47,10 @@ public class AddEmployeeToList extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    	this.employeeDao = employeeDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,7 +62,7 @@ public class AddEmployeeToList extends HttpServlet {
 	     * Check about the existence of submitted email in the database 
 	     * 
 	     * */
-	    Employee employee=employeeDao.retrieveByEmail(emailEmployee);
+	    Employee employee = employeeDao.retrieveByEmail(emailEmployee);
 	    if(employee==null)
 	    {
 	        response.getWriter().append("The employee is not valid");
@@ -119,7 +123,7 @@ public class AddEmployeeToList extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

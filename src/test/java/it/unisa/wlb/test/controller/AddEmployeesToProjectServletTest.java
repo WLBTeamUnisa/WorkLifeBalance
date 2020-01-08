@@ -24,7 +24,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 /**
  * This test class follows the specification of the section "3.2.4 TC_2.4 Inserisci dipendente ad un progetto" of the document "Test Case Specification"
  * 
- * @author nello
+ * @author Aniello Romano
  *
  */
 class AddEmployeesToProjectServletTest extends Mockito {

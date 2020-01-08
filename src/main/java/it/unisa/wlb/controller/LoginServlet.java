@@ -44,6 +44,10 @@ public class LoginServlet extends HttpServlet {
 		this.employeeDao = employeeDao;
 	}
 
+	public void setAdminDao(IAdminDAO adminDao) {
+		this.adminDao = adminDao;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -75,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 						if (admin != null) {
 							session.setAttribute("userRole", "Admin");
 							session.setAttribute("user", admin);
+							request.setAttribute("login", "success");
 							request.getRequestDispatcher(".").forward(request, response);
 						}
 					} else {
@@ -109,7 +114,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	public static boolean checkEmailEmployee(String email) {
-		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") || email.equals("")
+		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("")
 				|| (email.length() - 7) < 5 || (email.length() - 7) > 30) {
 			return false;
 		} else
@@ -117,7 +122,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	public static boolean checkEmailAdmin(String email) {
-		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlbadmin.it$") || email.equals("")
+		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlbadmin.it$") || email.equals("")
 				|| (email.length() - 12) < 5 || (email.length() - 12) > 30) {
 			return false;
 		} else

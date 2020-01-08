@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 /**
  * This test class follows the specification of the section "3.1.1 TC_1.1 Registra dipendente" of the document "Test Case Specification"
  * 
- * @author Aniello, Sabato
+ * @author Aniello Romano, Sabato Nocera
  *
  */
 public class EmployeeRegistrationServletTest extends Mockito {

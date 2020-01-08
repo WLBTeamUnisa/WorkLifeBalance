@@ -16,19 +16,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-
-
-import it.unisa.wlb.controller.CheckEmployeeServlet;
 import it.unisa.wlb.controller.EmployeeInsertPageServlet;
 import it.unisa.wlb.model.bean.Admin;
-import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IAdminDAO;
 import static org.mockito.Mockito.verify;
 
-
-public class EmployeeInseetPageServletTest {
+/**
+ * The aim of this class is testing EmployeeInsertPageServlet.java
+ * 
+ * @author Vincenzo Fabiano
+ *
+ */
+public class EmployeeInsertPageServletTest {
 
 	@Mock
 	private HttpServletRequest request;

@@ -41,9 +41,6 @@ public class EmployeesListPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!(request.getSession().getAttribute("user")==null) || !(request.getSession().getAttribute("userRole").equals("Admin"))) {
-			//exception
-		}
 		try {
 			List<Employee> list = null;
 			list = employeeDao.retrieveAll();

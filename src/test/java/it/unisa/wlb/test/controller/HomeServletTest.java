@@ -45,7 +45,7 @@ import it.unisa.wlb.utils.Utils;
 
 /**
  * 
- * This class tests methods of HomeServlet
+ * This class tests HomeServlet.java
  * 
  * @author Vincenzo Fabiano
  *
@@ -194,12 +194,6 @@ class HomeServletTest {
 		
 	}
 	
-	/**
-	 * Case of failure. The servlet will redirect to Index.jsp
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@Test
 	void homeServletFail() throws ServletException, IOException {
 		String path = "WEB-INF/Index.jsp";

@@ -56,6 +56,23 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
+	
+	
+	public void setFloorDao(IFloorDao floorDao) {
+		this.floorDao = floorDao;
+	}
+	
+	public void setRoomDao(IRoomDao roomDao) {
+		this.roomDao = roomDao;
+	}
+	
+	public void setWorkstationDao(IWorkstationDao workstationDao) {
+		this.workstationDao = workstationDao;
+	}
+	
+	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
+		this.workstationPrenotationDao = workstationPrenotationDao;
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -82,8 +99,9 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero delle informazioni relative al piano massimo, alla stanza massima e alla postazione massima");			
-			response.getWriter().flush();	
-		}		
+			response.getWriter().flush();
+			return;
+		}
 
 		if(floor<MIN || floor>maxFloor || room<MIN || room>maxRoom || (datePrenotation==null) || !datePrenotation.matches("^(19|20)\\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$") || datePrenotation.equals("")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -102,6 +120,7 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel parsing della data ricevuta come parametro");			
 			response.getWriter().flush();
+			return;
 		}
 
 		List<WorkstationPrenotation> workstationPrenotations = null;
@@ -111,6 +130,7 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero delle prenotazioni");			
 			response.getWriter().flush();	
+			return;
 		}
 
 		List<Workstation> workstations = null;
@@ -120,6 +140,7 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero delle postazioni");			
 			response.getWriter().flush();	
+			return;
 		}
 
 		for(Workstation workstation : workstations) {

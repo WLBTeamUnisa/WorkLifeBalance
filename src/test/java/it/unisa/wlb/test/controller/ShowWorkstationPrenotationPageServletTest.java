@@ -28,7 +28,6 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import it.unisa.wlb.controller.HomeServlet;
 import it.unisa.wlb.controller.ShowWorkstationPrenotationPageServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Floor;
@@ -49,7 +48,7 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
- * This class tests ShowWorkstationPrenotationPageServlet
+ * The aim of this class is testing ShowWorkstationPrenotationPageServlet.java
  * 
  * @author Vincenzo Fabiano
  *
@@ -230,12 +229,6 @@ class ShowWorkstationPrenotationPageServletTest {
 		
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@Test
 	void yesSmartWorkingPrenotationAndWorkstationPrenotation() throws ServletException, IOException {
 		String path = "WEB-INF/WorkstationPrenotation.jsp";

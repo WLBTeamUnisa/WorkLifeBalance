@@ -33,49 +33,44 @@ public class ShowEmployeePage extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    	this.employeeDao = employeeDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!(request.getSession().getAttribute("user")==null) || !(request.getSession().getAttribute("userRole").equals("Admin"))) {
-			HttpSession session=request.getSession();
-			if(session.getAttribute("userRole").equals("Admin"))
-			{
-				//EmployeeLists.jsp send email parameter
-				String email=request.getParameter("email");
-				if(email!=null && email!="")
-				{
-					try
-					{
-						
-						Employee employee=employeeDao.retrieveByEmail(email);session.setAttribute("employee", employee);
-						request.setAttribute("result", "ok");
-						request.getRequestDispatcher("WEB-INF/Employee.jsp").forward(request, response);
-					}
-					catch(Exception ex)
-					{
-						request.setAttribute("result", "error");
-						request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
-					}
-				}
-				else //if email is null or email is empty
-				{
+		HttpSession session=request.getSession();
+		if(session.getAttribute("userRole").equals("Admin")) {
+				
+			String email=request.getParameter("email");
+			if(email!=null && email!="") {
+				try { 			
+					Employee employee=employeeDao.retrieveByEmail(email);
+					session.setAttribute("employee", employee);
+					request.setAttribute("result", "ok");
+					request.getRequestDispatcher("WEB-INF/Employee.jsp").forward(request, response);
+				} catch(Exception ex) {
 					request.setAttribute("result", "error");
 					request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
-				}
-			}
-			else//if the user is different to admin
-			{
+				} 
+			} else {//if email is null or email is empty
 				request.setAttribute("result", "error");
 				request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
 			}
+			
+		} else {
+			request.setAttribute("result", "error");
+			request.getRequestDispatcher(".").forward(request, response);
 		}
-}
+		
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

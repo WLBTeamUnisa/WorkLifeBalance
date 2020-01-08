@@ -49,6 +49,9 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
         super();
     }
 
+    public void setRoomDao(IRoomDao roomDao) {
+    	this.roomDao = roomDao;
+    }
 	/**
 	 * The aim of this method is to access to PlanimetryInsertion.jsp. In the case in which the planimetry is already inserted into the database,
 	 * the Servlet will send to the jsp the informations about the current planimetry.
@@ -56,9 +59,6 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!(request.getSession().getAttribute("user")==null) || !(request.getSession().getAttribute("userRole").equals("Admin"))) {
-			//exception
-		}
 		
 		/**
 		 * The aim of this try-catch is checking the existence of a planimetry inside the database and, eventually, storing this information in the request
@@ -72,9 +72,6 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 					jsonObject.put(FLOOR, room.getId().getNumFloor());
 					jsonObject.put(ROOM, room.getId().getNumRoom());
 					jsonObject.put(WORKSTATIONS, room.getWorkstations().size());
-					
-					System.err.println(jsonObject.toString());
-					
 					jsonArray.put(jsonObject);				
 				}
 
@@ -90,7 +87,7 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

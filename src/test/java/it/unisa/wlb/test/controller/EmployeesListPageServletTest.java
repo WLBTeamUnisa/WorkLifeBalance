@@ -26,7 +26,7 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.utils.Utils;
 
 /**
- * This class tests EmployeesListPageServlet
+ * This class tests EmployeesListPageServlet.java
  * 
  * @author Vincenzo Fabiano
  *
@@ -75,6 +75,7 @@ class EmployeesListPageServletTest {
 	}
 
 	/**
+	 * Retrieve all returns a list of employees
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -95,6 +96,7 @@ class EmployeesListPageServletTest {
 	}
 
 	/**
+	 * Retrieve All throws an Exception
 	 * 
 	 * @throws ServletException
 	 * @throws IOException

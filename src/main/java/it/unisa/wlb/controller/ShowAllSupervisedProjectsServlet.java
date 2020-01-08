@@ -50,7 +50,6 @@ public class ShowAllSupervisedProjectsServlet extends HttpServlet {
 	           * Insertion of supervised projects in a JsonArray 
 	           * 
 	           * */
-	        	
 	           for(int i = 0; i<projectList.size();i++) {
 	        	   JSONObject obj = new JSONObject();
 	        	   obj.put("projectName", projectList.get(i).getName());
@@ -65,7 +64,7 @@ public class ShowAllSupervisedProjectsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

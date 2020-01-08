@@ -19,12 +19,16 @@ import it.unisa.wlb.model.bean.Employee;
 
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
+/**
+ * This test class follows the specification of the section "3.1.3 TC_1.3 Modifica status dipendente" of the document "Test Case Specification"
+ * 
+ * @author Simranjith Singh
+ *
+ */
 public class ChangeStatusEmployeeServletTest extends Mockito {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private ChangeStatusEmployeeServlet servlet;
-	private IEmployeeDAO employeeDao;
-	private Employee employee;
 
 	@BeforeEach
 	public void setUp() {

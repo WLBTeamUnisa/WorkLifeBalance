@@ -1,6 +1,6 @@
 package it.unisa.wlb.test.controller;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.json.JSONArray;
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.controller.SearchEmployeeServlet;
 import it.unisa.wlb.model.bean.Employee;

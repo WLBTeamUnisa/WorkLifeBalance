@@ -188,5 +188,6 @@ public class LoginServletTest {
 
 		assertEquals(message, (String) request.getAttribute("login"));
 	}
+	
 }
 
