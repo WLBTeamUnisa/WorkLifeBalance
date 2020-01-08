@@ -59,13 +59,11 @@
 						<div class="card">
 							<div class="card-header">
 								<h3 class="my-auto">Storico prenotazioni</h3>
-							</div>
-							<div class="card-body" id="myCard">
-							
+
 								<div class="row container">
 									<div class="col-sm-3 mx-auto">
-										<select name="" class="custom-select text-center" id="monthSelect"
-											style="height: 40px; weight: 150px" required>
+										<select name="" class="custom-select text-center"
+											id="monthSelect" style="height: 40px; weight: 150px" required>
 											<option value="1">Gennaio</option>
 											<option value="2">Febbraio</option>
 											<option value="3">Marzo</option>
@@ -83,87 +81,11 @@
 									<div class="col-sm-3 mx-auto">
 										<select class="custom-select text-center"
 											style="height: 40px; weight: 150px" id="yearSelect" required>
-											<option value="2010">2010</option>
-											<option value="2011">2011</option>
-											<option value="2012">2012</option>
-											<option value="2013">2013</option>
-											<option value="2014">2014</option>
-											<option value="2015">2015</option>
-											<option value="2016">2016</option>
-											<option value="2017">2017</option>
-											<option value="2018">2018</option>
-											<option value="2019">2019</option>
-											<option value="2020">2020</option>
 										</select>
 									</div>
 								</div>
-
-								<div class="mt-3" style="overflow-y: scroll; height: 300px;" id="calendarHistoryTable">
-
-									<table class="table table-bordered table-striped">
-										<thead>
-											<tr>
-												<th scope="col">DATA</th>
-												<th scope="col">MODALITA' DI LAVORO</th>
-												<th scope="col">POSTO</th>
-												<th scope="col">STANZA</th>
-												<th scope="col">PIANO</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-
-												<td>2019-10-31</td>
-												<td>Smart Working</td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-
-												<td>2019-10-30</td>
-												<td>In Azienda</td>
-												<td>25</td>
-												<td>10</td>
-												<td>1</td>
-											</tr>
-											<tr>
-
-												<td>2019-10-29</td>
-												<td>Smart Working</td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-
-												<td>2019-10-28</td>
-												<td>In Azienda</td>
-												<td>25</td>
-												<td>10</td>
-												<td>1</td>
-											</tr>
-											<tr>
-
-												<td>2019-10-27</td>
-												<td>Smart Working</td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-
-												<td>2019-10-26</td>
-												<td>In Azienda</td>
-												<td>25</td>
-												<td>10</td>
-												<td>1</td>
-											</tr>
-											<!-- FINE BODY TABLE-->
-										</tbody>
-										<!-- FINE TABLE -->
-									</table>
-								</div>
+							</div>
+							<div class="card-body" id="myCard">
 
 								<!-- FINE CARD BODY -->
 							</div>
@@ -189,7 +111,7 @@
 	</div>
 
 
-<script>
+	<script>
 $(window).resize(function(){
 
 	if ($(window).width() <= 992) {
@@ -204,54 +126,91 @@ $(window).resize(function(){
 
 });
 </script>
-<script>
+	<script>
 $(document).ready(function () {
 
 	//INIZIALIZZO LE VARIE SELECT
+	var container = $("#myCard");
     var monthSelect = $("#monthSelect");
     var yearSelect = $("#yearSelect");
     var emailEmployee = '${employeeSupervised}';
+    loadYears();
 
-//LOAD CalendarHistory
+    function loadYears()
+    {
+    	
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				 
+				var lista = JSON.parse(this.responseText);
+
+				var options = "";
+
+				for (i = 0; i < lista.length; i++) {
+					options += "<option>" + lista[i].year + "</option>";
+				}
+				document.getElementById("yearSelect").innerHTML = options;
+				yearSelect.val(new Date().getFullYear());
+				loadCalendarHistory();
+			}
+		}
+		xhttp.open("GET", "SuggestionsYear", true);
+		xhttp.send();
+    }
+	//Load CalendarHistory
 	    function loadCalendarHistory() {
-
 	        var month = monthSelect.val();
 	        var year = yearSelect.val();
-
 	        if (((monthSelect.val() != null) && (yearSelect.val() != null))) {
 	            var xhttp = new XMLHttpRequest();
 	            xhttp.onreadystatechange = function () {
 	                if (this.readyState == 4 && this.status == 200) {
 	                    var lista = JSON.parse(this.responseText);
 	                    
-	                    if(lista==null)
-		                    {
-	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai prenotato niente per questa settimana</h2></div>");
-	                    		document.getElementById("calendarHistoryTable").innerHTML = ;
+	                    if(lista==null || lista.length==0){
+	                    		$("#calendarHistoryTable").remove();
+	                    		$("#myCard").html("");
+	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai effettuato nessuna prenotazione per questo mese.</h2></div>");
+		                    } else {
+		                    	lista.sort(function(a,b){
+		                            return a.date.localeCompare(b.date);
+		                        });
+		                    	
+		                    	$("#myCard").html("");
+		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>POSTO</th><th scope='col'>STANZA</th><th scope='col'>PIANO</th></tr></thead><tbody id='myTbody'>");
+		                    	
+		                    	for (var i = 0; i < lista.length; i++) {
+		                    		if(lista[i].type=="Smartworking"){
+		                    			$("#myTbody").append("<tr><td>" + lista[i].date +  "</td><td>" + lista[i].type +  "</td><td></td><td></td><td></td>");
+		                    		} else if(lista[i].type=="Workstation"){
+		                    			$("#myTbody").append("<tr><td>" + lista[i].date + "</td><td>" + lista[i].type + "</td><td>" + lista[i].floor + "</td><td>" + lista[i].room + "</td><td>" + lista[i].workstation + "</td>");
+		                    		}
+		                    	}
+		                    	$("#myCard").append("</tbody></table></div>");
 		                    }
-
-	                    //Da cambiare
-	                    for (var i = 0; i < lista.length; i++) {
-	                        if (lista[i].status == 0) {
-	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + lista[i].workstation + "</text> </svg>");
-	                        } else if (lista[i].status == 1) {
-	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
-	                        }
-	                    }
 	                }
 	            }
 	            xhttp.open("GET", "ShowCalendarHistory?employeeEmail=" + emailEmployee + "&month=" + month + "&year=" + year, true);
 	            xhttp.send();
 	        } else {
-
-		        //Da cambiare
 	        	container.html("");
-	        	container.append("<h2 class='mx-auto my-auto'>Planimetria non inserita.</h2>");
+	        	container.append("<h2 class='mx-auto my-auto'>Seleziona un mese.</h2>");
 	        }
 	    }
-}
-</script>
 	    
+	    
+	  //SETTO GLI EVENTI ONCHANGE ALLE SELECT
+	    monthSelect.on("change", function () {
+	    	loadCalendarHistory();
+	    });
+	    
+	    yearSelect.on("change", function () {
+	    	loadCalendarHistory();
+	    });
+});
+</script>
+
 </body>
 
 </html>

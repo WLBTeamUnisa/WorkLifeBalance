@@ -242,6 +242,7 @@ public class ShowCalendarHistoryServletTest {
 		//request.setParameter("employeeEmail", "ciao");
 		request.setParameter("month","1");
 		request.setParameter("year", "2020");
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		
 		servlet.setEmployeeDAO(employeeDAO);
 		servlet.doPost(request, response);

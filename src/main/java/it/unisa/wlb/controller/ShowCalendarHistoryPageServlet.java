@@ -23,7 +23,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  *	@author Luigi Cerrone
  *
  */
-@WebServlet(name="ShowCalendarHistoryPageSevlet", urlPatterns="/ShowCalendarHistoryPage")
+@WebServlet(name="ShowCalendarHistoryPageServlet", urlPatterns="/ShowCalendarHistoryPage")
 @Interceptors({LoggerSingleton.class})
 public class ShowCalendarHistoryPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 						int flag=0;
 						for(int i=0; i<managerProjects.size() && flag==0; i++)
 						{
-							for(int j=0; i<employeeProjects.size() && flag==0; j++)
+							for(int j=0; j<employeeProjects.size() && flag==0; j++)
 							{
 								if(managerProjects.get(i).getName().equals(employeeProjects.get(j).getName()))
 								{
@@ -75,7 +75,7 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 						
 						if(flag==1)
 						{
-							request.setAttribute("employeeSupervised", employee);
+							request.setAttribute("employeeSupervised", employee.getEmail());
 							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 						}

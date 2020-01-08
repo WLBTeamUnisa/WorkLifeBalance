@@ -71,11 +71,11 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			//System.out.println(employeeString);
 			if(employeeString==null || employeeString.equals(""))
 			{
-				
-				List<SmartWorkingPrenotation> smartWorkingPrenotationList = sessionEmployee.getSmartWorkingPrenotations();
-			
-				List<WorkstationPrenotation> workstationPrenotationList = sessionEmployee.getWorkstationPrenotations();
-				
+
+				Employee employee = employeeDao.retrieveByEmail(sessionEmployee.getEmail());
+				List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
+				List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
+
 				JSONArray jsonArray=ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 				response.setContentType("application/json");
 				response.getWriter().append(jsonArray.toString());
@@ -104,7 +104,7 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 				catch(Exception exception)
 				{
 					request.setAttribute("result", "error");
-					request.getRequestDispatcher(".").forward(request, response);
+					request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 				}
 			}
 		}
