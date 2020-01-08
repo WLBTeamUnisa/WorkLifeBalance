@@ -39,7 +39,7 @@ public class FloorJpa implements IFloorDao{
 	@Override
 	public void remove(Floor entityClass) {
 		entityManager.getTransaction().begin();
-	    entityManager.remove(entityClass);
+	    entityManager.remove(entityManager.merge(entityClass));
 	    entityManager.getTransaction().commit();
 	}
 

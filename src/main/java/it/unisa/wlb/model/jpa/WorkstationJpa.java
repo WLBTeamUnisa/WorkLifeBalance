@@ -51,7 +51,7 @@ public class WorkstationJpa implements IWorkstationDao{
 	@Override
 	public void remove(Workstation entityClass) {
 		entityManager.getTransaction().begin();
-		entityManager.remove(entityClass);
+		entityManager.remove(entityManager.merge(entityClass));
 		entityManager.getTransaction().commit();		
 	}
 	@Override

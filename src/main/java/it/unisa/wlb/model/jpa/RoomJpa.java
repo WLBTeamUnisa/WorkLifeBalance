@@ -26,7 +26,7 @@ public class RoomJpa implements IRoomDao{
 		entityManager.getTransaction().begin();
 		TypedQuery<Room> query = entityManager.createNamedQuery("Room.retrieveByFloor", Room.class).setParameter(1, idFloor);
 		entityManager.getTransaction().commit();
-		return (List<Room>) query.getSingleResult();
+		return (List<Room>) query.getResultList();
 	}
 	@Override
 	public int countMaxByFloor(int idFloor) {
@@ -45,7 +45,7 @@ public class RoomJpa implements IRoomDao{
 	@Override
 	public void remove(Room entityClass) {
 		entityManager.getTransaction().begin();
-	    entityManager.remove(entityClass);
+	    entityManager.remove(entityManager.merge(entityClass));
 	    entityManager.getTransaction().commit();		
 	}
 	@Override
