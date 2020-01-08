@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +18,17 @@ import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class AddEmployeeToList
+ * The aim of this Servlet is to insert an employee into a dynamic list thanks 
+ * to JSON Object
+ * 
+ * @author Luigi Cerrone, Emmanuel Tesauro
+ *
  */
-@WebServlet("/AddEmployeeToList")
+@WebServlet(name="AddEmployeeToList", urlPatterns="/AddEmployeeToList")
+@Interceptors({LoggerSingleton.class})
 public class AddEmployeeToList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -31,7 +38,7 @@ public class AddEmployeeToList extends HttpServlet {
     @EJB
     private IEmployeeDAO employeeDao; 
     
-    private static final String EMAIL_EMPLOYEE = "email";
+    private static final String EMAIL = "email";
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,21 +47,25 @@ public class AddEmployeeToList extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    	this.employeeDao = employeeDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String email_employee=request.getParameter(EMAIL_EMPLOYEE);
+	    String emailEmployee=request.getParameter(EMAIL);
 	    
 	    /**
-	     * Controllo che il dipendente effettivamente esista
+	     * Check about the existence of submitted email in the database 
 	     * 
 	     * */
-	    Employee employee=employeeDao.retrieveByEmail(email_employee);
+	    Employee employee = employeeDao.retrieveByEmail(emailEmployee);
 	    if(employee==null)
 	    {
-	        response.getWriter().append("Non hai inserito un dipendente valido");
+	        response.getWriter().append("The employee is not valid");
 	    }
 	    
 	    else
@@ -63,32 +74,36 @@ public class AddEmployeeToList extends HttpServlet {
 	    	obj.put("emailEmployee", employee.getEmail());
 	        
 	        /**
-	         * Se il dipendente esiste, lo inserisco nella lista dei dipendenti da inserire nel progetto
+	         * If employee exists, the employee will be inserted into the arraylist
 	         * 
 	         * */
 	    	HttpSession session=request.getSession();
-	        ArrayList<Employee> lista=(ArrayList<Employee>) session.getAttribute("lista_dipendenti");
+	        ArrayList<Employee> list=(ArrayList<Employee>) session.getAttribute("employeeList");
 	        
-	        if(lista==null)
+	        /**
+	         * If the list, initially is empty, it will be created
+	         * 
+	         */
+	        if(list==null)
 	        {
-	        	lista=new ArrayList<Employee>();
-	        	lista.add(employee);
-	        	session.setAttribute("lista_dipendenti", lista);
+	        	list=new ArrayList<Employee>();
+	        	list.add(employee);
+	        	session.setAttribute("employeeList", list);
 		        response.getWriter().append(obj.toString());
 		        response.setContentType("application/json");
 	        }
 	        
 	        
 	        /**
-	         * Controllo che il dipendente non faccia già parte della lista
+	         * Only if the employee there isn't yet into the list, it will be added 
 	         * 
 	         * */
 	        else
 	        {
 	          int flag=0;
-	          for(int i=0; i<lista.size() && flag==0; i++)
+	          for(int i=0; i<list.size() && flag==0; i++)
 	          {
-	        	  if(lista.get(i).getEmail()==employee.getEmail())
+	        	  if(list.get(i).getEmail().equals(employee.getEmail()))
 	        	  {
 	        		  flag=1;
 	        	  }
@@ -96,8 +111,8 @@ public class AddEmployeeToList extends HttpServlet {
 	          
 	          if(flag==0)
 	          {
-	        	  lista.add(employee);
-        		  session.setAttribute("lista_dipendenti", lista);
+	        	  list.add(employee);
+        		  session.setAttribute("employeeList", list);
         		  response.getWriter().append(obj.toString());
         		  response.setContentType("application/json");
 	          }
@@ -108,8 +123,7 @@ public class AddEmployeeToList extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

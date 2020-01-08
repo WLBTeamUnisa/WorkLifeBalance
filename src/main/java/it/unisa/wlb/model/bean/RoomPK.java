@@ -1,13 +1,18 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The primary key class for the ROOM database table.
  * 
  */
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class RoomPK implements Serializable {
 
 	//default serial version id, required for serializable classes.
@@ -38,14 +43,7 @@ public class RoomPK implements Serializable {
 	public String toString() {
 		return "RoomPK [numRoom=" + numRoom + ", numFloor=" + numFloor + "]";
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + numFloor;
-		result = prime * result + numRoom;
-		return result;
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

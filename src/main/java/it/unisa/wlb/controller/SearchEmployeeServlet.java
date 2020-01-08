@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet is used to retrieve employee suggestions.
@@ -22,6 +24,7 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
  * @author Simranjit Singh
  */
 @WebServlet(name = "SearchEmployeeServlet", urlPatterns = "/SearchEmployeeServlet")
+@Interceptors({LoggerSingleton.class})
 public class SearchEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +36,6 @@ public class SearchEmployeeServlet extends HttpServlet {
         super();
     }
     
-
     /**
      * This contructor is used during the testing to simulate the behaviour of the dao class
      *  
@@ -47,16 +49,21 @@ public class SearchEmployeeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
-		employeeEmail = request.getParameter("email");
-		System.out.println(employeeEmail);
+		employeeEmail = (String) request.getParameter("email");
 		List<Employee> list = null;
+		
+		if(employeeEmail.length() > 37) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().write("Il parametro email non rispetta la lunghezza");
+			response.getWriter().flush();
+		}
 		
 		JSONArray employeeEmailList = new JSONArray();
 		
 		if(employeeEmail != null) {
 			
 			if(employeeEmail.equals(""))
-				list=employeeDao.retrieveAll();
+				list = employeeDao.retrieveAll();
 			else
 				list = employeeDao.suggestByEmail(employeeEmail);
 			
@@ -78,7 +85,7 @@ public class SearchEmployeeServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

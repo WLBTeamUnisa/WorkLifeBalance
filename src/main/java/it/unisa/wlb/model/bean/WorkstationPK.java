@@ -2,10 +2,14 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 
+import javax.interceptor.Interceptors;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import it.unisa.wlb.utils.LoggerSingleton;
+
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -43,16 +47,6 @@ public class WorkstationPK implements Serializable{
 
 	public void setRoom(int room) {
 		this.room = room;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + floor;
-		result = prime * result + room;
-		result = prime * result + workstation;
-		return result;
 	}
 
 	@Override

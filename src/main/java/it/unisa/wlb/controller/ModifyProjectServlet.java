@@ -3,8 +3,10 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +19,17 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ModifyProjectServlet
+ * The aim of this Servlet is to modify a project created
+ * 
+ * @author Michele Montano, Luigi Cerrone
+ *
  */
+
 @WebServlet(name="ModifyProjectServlet", urlPatterns="/ModifyProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class ModifyProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +52,6 @@ public class ModifyProjectServlet extends HttpServlet {
 	 */
 	public ModifyProjectServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setProjectDao(IProjectDAO projectDao) {
@@ -59,6 +66,9 @@ public class ModifyProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Declaration of variables of instance
+		 */
 		Project oldProject;
 		Employee manager;
 		Employee oldManager;
@@ -84,13 +94,16 @@ public class ModifyProjectServlet extends HttpServlet {
 
 		name = request.getParameter(PROJECT_NAME);
 		scope = request.getParameter(PROJECT_SCOPE);
-		//Prendo la data come una stringa, setto il formatter e converto String in Date
+		/**
+		 * Taking dates as strings
+		 */
 		startDateString = request.getParameter(PROJECT_START_DATE);
 		endDateString = request.getParameter(PROJECT_END_DATE);
 		description = request.getParameter(PROJECT_DESCRIPTION);
 		managerEmail = request.getParameter(PROJECT_MANAGER);
 		userRole = (String) request.getSession().getAttribute(USER_ROLE);
 		oldProject = (Project) request.getSession().getAttribute("oldProject");
+		List<Employee> employeesList = (List<Employee>) request.getSession().getAttribute("employeeList");
 		oldManager = oldProject.getEmployee();
 
 		/**
@@ -101,7 +114,6 @@ public class ModifyProjectServlet extends HttpServlet {
 		}
 
 		if(name.matches("^[A-Za-z0-9]+$") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
-			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
 		}
 
@@ -149,7 +161,9 @@ public class ModifyProjectServlet extends HttpServlet {
 					endDateOk = false;
 				}
 			} catch(Exception e) {
-				// Annulla l'inserimento poichè il formato della data è errato
+				/**
+				 * Format error
+				 */
 				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 				throw new IllegalArgumentException();
 			}
@@ -157,10 +171,17 @@ public class ModifyProjectServlet extends HttpServlet {
 
 		if(nameOk && scopeOk && startDateOk && endDateOk && descriptionOk && managerEmailOk && roleOk) {
 			if(!managerEmail.equals(oldProject.getEmployee().getEmail())) {
+				/**
+				 * Checking if the manager is changed
+				 */
 				oldManager.removeProjects1(oldProject);
 				manager.addProjects1(oldProject);
 				employeeDao.update(oldManager);
 			}
+			
+			/**
+			 * Update of project's attributes 
+			 */
 			oldProject.setName(name);
 			oldProject.setScope(scope);
 			oldProject.setStartDate(startDate);
@@ -170,10 +191,17 @@ public class ModifyProjectServlet extends HttpServlet {
 			projectDao.update(oldProject);
 
 			request.setAttribute("result", "success");
+			request.setAttribute("status", "modifying");
+			request.setAttribute("Project", oldProject);
 			request.getSession().removeAttribute("oldProject");
 			request.getSession().removeAttribute("startDate");
 			request.getSession().removeAttribute("endDate");
-			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+			
+			if(employeesList == null || employeesList.isEmpty()) {
+				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/AddEmployeesToProjectServlet").forward(request, response);
+			}
 		}
 	}
 

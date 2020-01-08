@@ -21,10 +21,6 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/atlantis.css">
 
-<link href="node_modules/sweetalert2/dist/sweetalert2.css"
-	rel="stylesheet" />
-<link href="style.css" rel="stylesheet" />
-
 <!-- Fonts and icons -->
 <script src="js/plugin/webfont/webfont.min.js"></script>
 <script>
@@ -91,14 +87,14 @@
 									<ul class="list-group list-group-bordered" id="suggestionsList">
 										<c:forEach items="${employeeList}" var="employee">
 											<li class="list-group-item"><a
-												href="NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE"
+												href="ShowEmployeePage?email=${employee.email}"
 												class="mx-auto nav-link" style="color: #2f3640">${employee.name}
 													${employee.surname} - ${employee.email}</a></li>
 										</c:forEach>
 
 										<c:if test="${empty employeeList}">
 											<div class="my-auto text-center p-5">
-												<h3>Non esistono progetti.</h3>
+												<h3>Non esistono dipendenti.</h3>
 											</div>
 										</c:if>
 									</ul>
@@ -130,46 +126,29 @@
 		<!-- FINE WRAPPER -->
 	</div>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-
-	<!-- jQuery Sparkline -->
-	<script src="js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-	<!-- Datatables -->
-	<script src="js/plugin/datatables/datatables.min.js"></script>
-
-	<!-- Bootstrap Notify -->
-	<script src="js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- Sweet Alert -->
-	<script src="js/plugin/sweetalert/sweetalert.min.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
-
 
 	<c:if test="${not empty result}">
 		<script>
+				//SWEETALERT
+				if("${result}"=="success"){
+					Swal.fire({
+						icon: 'success',
+						title: 'Ottimo!',
+						text: "Operazione effettuata con successo!"
+					})
+				}
+				
+		</script>
+	</c:if>
+
+	<c:if test="${not empty statusResult}">
+		<script>
 			function sweetalertclick() {
-				swal("Ottimo!", "Registrazione avvenuta con successo!",
-						"success")
+				swal("Ottimo!", "Status modificato con successo!","success")
 			}
 			window.onload = sweetalertclick;
 		</script>
 	</c:if>
-
 	<script>
 		function Suggestions(email) {
 
@@ -182,7 +161,7 @@
 					var suggestionsList = "";
 
 					for (i = 0; i < lista.length; i++) {
-						suggestionsList += "<li class='list-group-item'><a href='NOME_SERVLET_VISUALIZZA_PROFILO_DIPENDENTE="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>"
+						suggestionsList += "<li class='list-group-item'><a  href='ShowEmployeePage?email="+lista[i].email+"' class='mx-auto nav-link' style='color: #2f3640'>"
 								+ lista[i].name
 								+ " "
 								+ lista[i].surname

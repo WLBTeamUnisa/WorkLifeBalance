@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -10,8 +11,10 @@ import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.dao.IFloorDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class FloorJpa implements IFloorDao{
 	
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
@@ -20,9 +23,9 @@ public class FloorJpa implements IFloorDao{
 	@Override
 	public int countMax() {
 		entityManager.getTransaction().begin();
-		TypedQuery<Integer> query = entityManager.createNamedQuery("Floor.countMax", Integer.class);
+		TypedQuery<Long> query = entityManager.createNamedQuery("Floor.countMax", Long.class);
 		entityManager.getTransaction().commit();
-		return (Integer) query.getSingleResult();
+		return query.getSingleResult().intValue();
 	}
 
 	@Override
@@ -36,9 +39,8 @@ public class FloorJpa implements IFloorDao{
 	@Override
 	public void remove(Floor entityClass) {
 		entityManager.getTransaction().begin();
-	    entityManager.remove(entityClass);
+	    entityManager.remove(entityManager.merge(entityClass));
 	    entityManager.getTransaction().commit();
-		
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,8 +12,10 @@ import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.dao.IAdminDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class AdminJpa implements IAdminDAO {
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
@@ -36,7 +39,7 @@ public class AdminJpa implements IAdminDAO {
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-			entityManager.remove(entityClass);
+			entityManager.remove(entityManager.merge(entityClass));
 			entityManager.getTransaction().commit();
 		}
 

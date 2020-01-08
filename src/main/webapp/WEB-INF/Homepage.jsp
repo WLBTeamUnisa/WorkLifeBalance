@@ -68,112 +68,20 @@
 
 								<c:otherwise>
 
-									<c:if test="${user.status == 0}">
+									<div class="card-body p-0" id="myCard">
+
 										<div class="card-header">
-											<h3 class="my-auto">3° Settimana</h3>
+											<h3 class="my-auto">Pianificazione settimanale</h3>
 										</div>
 
-										<div class="card-body p-0 pt-3">
-											<table class="table table-striped">
-												<tbody>
+										<table class="table table-striped" id="myTable">
+											<tbody id="tbody">
+											</tbody>
+										</table>
 
-													<tr>
-														<td>Giorno 1</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
+										<!-- FINE CARD-BODY MANAGER -->
+									</div>
 
-													</tr>
-
-													<tr>
-														<td>Giorno 2</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-
-													<tr>
-														<td>Giorno 3</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-													<tr>
-														<td>Giorno 4</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-													<tr>
-														<td>Giorno 5</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-												</tbody>
-											</table>
-											<!-- FINE CARD-BODY EMPLOYEE-->
-										</div>
-
-										<!-- CARD FOOTER -->
-										<div class="card-footer">
-											<h5 class="mx-auto">Employee</h5>
-										</div>
-									</c:if>
-
-
-									<c:if test="${user.status == 1}">
-										<div class="card-header">
-											<h3 class="my-auto">3° Settimana</h3>
-										</div>
-
-										<div class="card-body p-0 pt-3">
-											<table class="table table-striped">
-												<tbody>
-
-													<tr>
-														<td>Giorno 1</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-
-													</tr>
-
-													<tr>
-														<td>Giorno 2</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-
-													<tr>
-														<td>Giorno 3</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-													<tr>
-														<td>Giorno 4</td>
-														<td><span align="center"><i
-																class="fas fa-laptop" style="font-size: 1.73em;"></i></span></td>
-														<td>P1- S3- P16</td>
-													</tr>
-													<tr>
-														<td>Giorno 5</td>
-														<td><span align="center"><i
-																class="fas fa-home" style="font-size: 1.73em;"></i></span></td>
-														<td></td>
-													</tr>
-												</tbody>
-											</table>
-											<!-- FINE CARD-BODY MANAGER -->
-										</div>
-
-										<!-- CARD FOOTER -->
-										<div class="card-footer">
-											<h5 class="mx-auto">Manager</h5>
-										</div>
-									</c:if>
 								</c:otherwise>
 							</c:choose>
 							<!-- FINE CARD -->
@@ -196,34 +104,50 @@
 		<!-- FINE WRAPPER -->
 	</div>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
+	<script>
+		var tbody = $("#tbody");
+		
+		tbody.html("");
+		
+		var lista = '${jsonList}';
+		
+		var listaJson = JSON.parse(lista);
+		
+		listaJson.sort(function(a,b){
+            return a.date.localeCompare(b.date);
+        });
 
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+		if(listaJson.length==0){
+			$("#myTable").remove();
+			$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai prenotato niente per questa settimana</h2></div>");
+		}
+		
+		for(var i = 0; i<listaJson.length; i++){
+			var obj = listaJson[i];
+			console.log[obj];
 
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+			if(obj.type=="smartWorking"){
+				tbody.append("<tr><td>" + obj.date + "</td> <td><span align='center'><i class='fas fa-home' style='font-size: 1.73em;'></i></span></td> <td>Smart Working</td></tr>");
+			} else {
+				tbody.append("<tr><td>" + obj.date + "</td> <td><span align='center'><i class='fas fa-building' style='font-size: 1.73em;'></i></span></td> <td>P" + obj.floor + " - S" + obj.room + " - W" + obj.workstation + "</td></tr>");
+			}
+		}
+	
+	</script>
 
-
-	<!-- jQuery Sparkline -->
-	<script src="js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-	<!-- Datatables -->
-	<script src="js/plugin/datatables/datatables.min.js"></script>
-
-	<!-- Bootstrap Notify -->
-	<script src="js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- Sweet Alert -->
-	<script src="js/plugin/sweetalert/sweetalert.min.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
+	<c:if test="${not empty result}">
+		<script>
+				//SWEETALERT
+				if("${result}"=="success"){
+					Swal.fire({
+						icon: 'success',
+						title: 'Ottimo!',
+						text: "Operazione effettuata con successo!"
+						})
+				}
+				
+		</script>
+	</c:if>
 
 </body>
 </html>

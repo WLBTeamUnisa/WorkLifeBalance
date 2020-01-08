@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -15,6 +20,7 @@ import java.util.List;
 	@NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a"),
 	@NamedQuery(name = "Admin.findByEmailPassword", query = "SELECT a FROM Admin a WHERE a.email = :email AND a.password = :password")
 })
+@Interceptors({LoggerSingleton.class})
 public class Admin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -119,19 +125,6 @@ public class Admin implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((floors == null) ? 0 : floors.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((projects == null) ? 0 : projects.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -176,7 +169,7 @@ public class Admin implements Serializable {
 	@Override
 	public String toString() {
 		return "Admin [email=" + email + ", name=" + name + ", password=" + password + ", surname=" + surname
-				+ ", floors=" + floors + ", projects=" + projects + "]";
+				+ "]";
 	}
 
 }

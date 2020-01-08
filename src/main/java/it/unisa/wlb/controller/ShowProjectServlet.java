@@ -2,10 +2,9 @@ package it.unisa.wlb.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowProjectServlet
  */
-@WebServlet("/ShowProjectServlet")
+@WebServlet(name="ShowProjectServlet", urlPatterns="/ShowProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class ShowProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,6 +32,10 @@ public class ShowProjectServlet extends HttpServlet {
      */
     public ShowProjectServlet() {
         super();
+    }
+    
+    public void setProjectDao(IProjectDAO projectDao) {
+    	this.projectDao = projectDao;
     }
 
 	/**
@@ -47,26 +52,16 @@ public class ShowProjectServlet extends HttpServlet {
 				try
 				{
 					String startDateString;
-					String endDateString;;
+					String endDateString;
 					
 					Project project=projectDao.retrieveByName(name);
-					//System.out.println("Fine: " + project.getEndDate());
-					//System.out.println("Inizio: " + project.getStartDate());
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-					Calendar calendar = Calendar.getInstance();
-					
-					calendar.setTime(project.getStartDate());
-					calendar.add(Calendar.DAY_OF_MONTH, 1);
-					startDateString = formatter.format(calendar.getTime());
-					//System.out.println("Str: " + startDateString);
-					
-					calendar.setTime(project.getEndDate());
-					calendar.add(Calendar.DAY_OF_MONTH, 1);
-					endDateString = formatter.format(calendar.getTime());
-					
+					startDateString = formatter.format(project.getStartDate());
+					endDateString = formatter.format(project.getEndDate());
 					session.setAttribute("startDate", startDateString);
 					session.setAttribute("endDate", endDateString);
 					session.setAttribute("oldProject",project);
+					session.setAttribute("currentEmployees", project.getEmployees());
 					request.setAttribute("result", "ok");
 					request.getRequestDispatcher("WEB-INF/Project.jsp").forward(request, response);
 				}
@@ -98,7 +93,7 @@ public class ShowProjectServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

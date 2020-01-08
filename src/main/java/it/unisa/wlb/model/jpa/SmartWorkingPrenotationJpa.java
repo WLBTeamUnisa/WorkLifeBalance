@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.FlushModeType;
@@ -12,8 +13,10 @@ import javax.persistence.TypedQuery;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");

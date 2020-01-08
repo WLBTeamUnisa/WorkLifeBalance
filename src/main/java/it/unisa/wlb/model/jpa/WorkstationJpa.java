@@ -3,6 +3,7 @@ package it.unisa.wlb.model.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -10,8 +11,10 @@ import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.dao.IWorkstationDao;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 @Stateless
+@Interceptors({LoggerSingleton.class})
 public class WorkstationJpa implements IWorkstationDao{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
@@ -29,14 +32,14 @@ public class WorkstationJpa implements IWorkstationDao{
 		entityManager.getTransaction().begin();
 		TypedQuery<Workstation> query = entityManager.createNamedQuery("Workstation.retrieveById", Workstation.class).setParameter(1, idWorkstation).setParameter(2, idFloor).setParameter(3, idRoom);
 		entityManager.getTransaction().commit();
-		return (Workstation) query.getResultList();
+		return query.getSingleResult();
 	}
 	@Override
 	public int countMaxByFloorAndRoom(int idFloor, int idRoom) {
 		entityManager.getTransaction().begin();
-		TypedQuery<Integer> query = entityManager.createNamedQuery("Workstation.countMaxByFloorAndRoom", Integer.class).setParameter(1, idFloor).setParameter(2, idRoom);
+		TypedQuery<Long> query = entityManager.createNamedQuery("Workstation.countMaxByFloorAndRoom", Long.class).setParameter(1, idFloor).setParameter(2, idRoom);
 		entityManager.getTransaction().commit();
-		return (Integer) query.getSingleResult();
+		return query.getSingleResult().intValue();
 	}
 	@Override
 	public Workstation create(Workstation entity) {
@@ -48,7 +51,7 @@ public class WorkstationJpa implements IWorkstationDao{
 	@Override
 	public void remove(Workstation entityClass) {
 		entityManager.getTransaction().begin();
-		entityManager.remove(entityClass);
+		entityManager.remove(entityManager.merge(entityClass));
 		entityManager.getTransaction().commit();		
 	}
 	@Override

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +16,15 @@ import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet is used to retrieve project suggestions.
+ * 
  * @author Michele
  */
 @WebServlet(name = "SearchProjectServlet", urlPatterns = "/SearchProjectServlet")
+@Interceptors({LoggerSingleton.class})
 public class SearchProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +45,6 @@ public class SearchProjectServlet extends HttpServlet {
      *  
      * @param projectDao
      */
-    
     public SearchProjectServlet(IProjectDAO projectDao) {
     	this.projectDao = projectDao;
     }
@@ -53,9 +56,13 @@ public class SearchProjectServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String projectName;
 		projectName = request.getParameter("name");
-		System.out.println(projectName);
 		List<Project> list = null;
 		
+		if(projectName.length() > 15) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().write("Il parametro non rispetta la lunghezza");
+			response.getWriter().flush();
+		}
 		JSONArray projectList = new JSONArray();
 		
 		if(projectName != null) {
@@ -80,7 +87,7 @@ public class SearchProjectServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -17,6 +22,7 @@ import java.util.List;
 	@NamedQuery(name="Workstation.retrieveById", query="SELECT w FROM Workstation w WHERE w.id.workstation=?1 AND w.id.floor=?2 AND w.id.room=?3"),
 	@NamedQuery(name="Workstation.countMaxByFloorAndRoom", query="SELECT COUNT(w) FROM Workstation w WHERE w.id.floor=?1 AND w.id.room=?2"),
 })
+@Interceptors({LoggerSingleton.class})
 public class Workstation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -77,19 +83,8 @@ public class Workstation implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "Workstation [id=" + id + ", room=" + room + ", workstationPrenotations=" + workstationPrenotations
-				+ "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((room == null) ? 0 : room.hashCode());
-		result = prime * result + ((workstationPrenotations == null) ? 0 : workstationPrenotations.hashCode());
-		return result;
+	public String toString() {		
+		return "Workstation [id=" + id + ", room=" + room + "]";
 	}
 
 	@Override

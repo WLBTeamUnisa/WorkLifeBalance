@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -16,6 +21,7 @@ import java.util.List;
 	@NamedQuery(name="Floor.findById", query="SELECT f FROM Floor f WHERE f.numFloor=?1"),
 	@NamedQuery(name="Floor.countMax", query="SELECT COUNT(f) FROM Floor f")	
 })
+@Interceptors({LoggerSingleton.class})
 public class Floor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -75,16 +81,6 @@ public class Floor implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
-		result = prime * result + numFloor;
-		result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -110,6 +106,6 @@ public class Floor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Floor [numFloor=" + numFloor + ", admin=" + admin + ", rooms=" + rooms + "]";
+		return "Floor [numFloor=" + numFloor + ", admin=" + admin + "]";
 	}
 }

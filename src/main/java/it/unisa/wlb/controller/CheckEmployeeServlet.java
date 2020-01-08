@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The aim of this Servlet is checking the presence of an Employee by searching him using his email. 
@@ -17,7 +19,8 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
  * @author Sabato
  *
  */
-@WebServlet("/CheckEmployeeServlet")
+@WebServlet(name="CheckEmployeeServlet", urlPatterns="/CheckEmployeeServlet")
+@Interceptors({LoggerSingleton.class})
 public class CheckEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,6 +32,11 @@ public class CheckEmployeeServlet extends HttpServlet {
      */
     public CheckEmployeeServlet() {
         super();
+    }
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao)
+    {
+    	this.employeeDao=employeeDao;
     }
 
 	/**
@@ -56,7 +64,7 @@ public class CheckEmployeeServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

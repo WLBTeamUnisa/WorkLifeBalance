@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.List;
 
 
@@ -19,6 +24,7 @@ import java.util.List;
 	@NamedQuery(name="Employee.findSuggestsManagerByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%') AND e.status = 1"),
 	@NamedQuery(name="Employee.findSuggestsByEmail", query="SELECT e FROM Employee e WHERE e.email LIKE CONCAT(:email,'%')"),
 })
+@Interceptors({LoggerSingleton.class})
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,11 +48,11 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy="employee")
 	private List<Message> messages;
 
-	//bi-directional many-to-one association to Project
+	//bi-directional many-to-one association to Project (manager foreign key)
 	@OneToMany(mappedBy="employee")
 	private List<Project> projects1;
 
-	//bi-directional many-to-many association to Project
+	//bi-directional many-to-many association to Project (works table)
 	@ManyToMany(mappedBy="employees")
 	private List<Project> projects2;
 
@@ -198,23 +204,6 @@ public class Employee implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((projects1 == null) ? 0 : projects1.hashCode());
-		result = prime * result + ((projects2 == null) ? 0 : projects2.hashCode());
-		result = prime * result + ((smartWorkingPrenotations == null) ? 0 : smartWorkingPrenotations.hashCode());
-		result = prime * result + status;
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		result = prime * result + ((workstationPrenotations == null) ? 0 : workstationPrenotations.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -274,11 +263,8 @@ public class Employee implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() {				
 		return "Employee [email=" + email + ", name=" + name + ", password=" + password + ", status=" + status
-				+ ", surname=" + surname + ", messages=" + messages + ", projects1=" + projects1 + ", projects2="
-				+ projects2 + ", smartWorkingPrenotations=" + smartWorkingPrenotations + ", workstationPrenotations="
-				+ workstationPrenotations + "]";
+				+ ", surname=" + surname + "]";
 	}
-
 }

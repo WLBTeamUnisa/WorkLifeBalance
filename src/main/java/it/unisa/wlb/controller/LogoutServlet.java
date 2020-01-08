@@ -1,31 +1,32 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.wlb.utils.LoggerSingleton;
+
 /**
- * Servlet implementation class LogoutServlet
+ * This servlet allows to logout from the system
+ * 
+ * @author Vincenzo Fabiano
  */
-@WebServlet("/LogoutServlet")
+@WebServlet(name="LogoutServlet", urlPatterns="/LogoutServlet")
+@Interceptors({LoggerSingleton.class})
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
 		response.sendRedirect(".");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

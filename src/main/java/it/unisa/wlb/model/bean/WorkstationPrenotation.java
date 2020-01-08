@@ -1,7 +1,11 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 
 /**
@@ -10,7 +14,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="WORKSTATION_PRENOTATION")
-@NamedQuery(name="WorkstationPrenotation.findAll", query="SELECT w FROM WorkstationPrenotation w")
+@NamedQueries({
+	@NamedQuery(name="WorkstationPrenotation.findAll", query="SELECT w FROM WorkstationPrenotation w"),
+	@NamedQuery(name="WorkstationPrenotation.findByWeeklyPlanning", query="SELECT w FROM WorkstationPrenotation w WHERE w.calendarWeek=?1 AND w.year=?2 and w.id.emailEmployee=?3"),
+	@NamedQuery(name="WorkstationPrenotation.findByWorkstationWeeklyPlanning", query="SELECT w FROM WorkstationPrenotation w WHERE w.id.prenotationDate=?1 AND w.workstation.id.floor=?2 AND w.workstation.id.room=?3"),
+	@NamedQuery(name="WorkstationPrenotation.findByEmail", query="SELECT w FROM WorkstationPrenotation w WHERE w.id.emailEmployee=?1")
+})
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -76,18 +86,6 @@ public class WorkstationPrenotation implements Serializable {
 
 	public void setWorkstation(Workstation workstation) {
 		this.workstation = workstation;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + calendarWeek;
-		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((workstation == null) ? 0 : workstation.hashCode());
-		result = prime * result + year;
-		return result;
 	}
 
 	@Override

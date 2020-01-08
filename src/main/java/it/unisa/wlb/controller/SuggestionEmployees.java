@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +15,16 @@ import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class SuggestionEmployees
+ * This Servlet aims to suggest employees 
+ * 
+ * @author Emmanuel Tesauro
+ * 
  */
-@WebServlet("/SuggestionEmployees")
+@WebServlet(name="SuggestionEmployees", urlPatterns="/SuggestionEmployees")
+@Interceptors({LoggerSingleton.class})
 public class SuggestionEmployees extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -27,6 +33,10 @@ public class SuggestionEmployees extends HttpServlet {
    
     @EJB
     private IEmployeeDAO employeeDao;   
+    
+    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    	this.employeeDao = employeeDao;
+    }
 	
     private static final String EMAIL_EMPLOYEE = "email";
     private static final String FLAG = "flag";
@@ -48,7 +58,6 @@ public class SuggestionEmployees extends HttpServlet {
         String email_employee=request.getParameter(EMAIL_EMPLOYEE);
         String flagStr = request.getParameter(FLAG);
         
-        System.out.println(flagStr);
         
         List<Employee> listaDipendenti=null;
         
@@ -76,21 +85,6 @@ public class SuggestionEmployees extends HttpServlet {
         	   lista_json.put(obj);
            }
            
-           /**if(listaDipendenti!=null && listaDipendenti.size()>0)
-           {
-             List<Employee> lista=(List<Employee>) request.getAttribute("listaDipendenti");
-             for(int i=0; i<listaDipendenti.size(); i++)
-             {
-               
-                * Facendo questo controllo, evito che l'admin scelga un dipendente che fa già parte della lista
-                * 
-                *
-               if(!lista.contains(listaDipendenti.get(i)));
-               lista_json.put(listaDipendenti.get(i).getEmail());
-             }
-           }
-            */
-           
            response.setContentType("application/json");
            response.getWriter().append(lista_json.toString());
         }
@@ -99,7 +93,7 @@ public class SuggestionEmployees extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

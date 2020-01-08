@@ -1,4 +1,5 @@
 <%@ page import="java.util.*,it.unisa.wlb.model.bean.Employee"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -77,6 +78,7 @@
 												name="name" id="name" onkeyup="verificaNome()"
 												value="${oldProject.name}" required>
 										</div>
+										<span id="errorName"> </span>
 
 
 										<!-- SCOPE -->
@@ -89,6 +91,7 @@
 												name="scope" id="scope" onkeyup="verificaScope()"
 												value="${oldProject.scope}" required>
 										</div>
+										<span id="errorScope"> </span>
 
 
 										<!-- DATA INIZIO -->
@@ -99,8 +102,9 @@
 											</div>
 											<input type="date" class="form-control text-center"
 												name="startDate" id="startDate" value="${startDate}"
-												onkeyup="verificaDataInizio()" required>
+												onchange="verificaDataInizio()" required>
 										</div>
+										<span id="errorDataInizio"> </span>
 
 
 										<!-- DATA FINE -->
@@ -110,9 +114,10 @@
 													class="fas fa-calendar-minus"></i></span>
 											</div>
 											<input type="date" class="form-control text-center"
-												name=endDate id="endDate" onkeyup="verificaDataFine()"
+												name=endDate id="endDate" onchange="verificaDataFine()"
 												value="${endDate}" required>
 										</div>
+										<span id="errorDataFine"> </span>
 
 
 										<!-- DESCRIZIONE -->
@@ -125,6 +130,7 @@
 												class="form-control text-center"
 												onkeyup="verificaDescrizione()" required>${oldProject.description}</textarea>
 										</div>
+										<span id="errorDescrizione"> </span>
 
 
 										<!-- MANAGER -->
@@ -136,6 +142,41 @@
 												name="managerEmail" id="managerEmail"
 												onkeyup="verificaManager()"
 												value="${oldProject.employee.email}" required>
+										</div>
+										<span id="errorManager"> </span>
+
+
+										<!-- LISTA DIPENDENTI -->
+										<div class="form-group row pb-1">
+											<div class="col-lg-7">
+												<div class="card">
+													<div class="card-header p-2">
+														<h3 class="my-auto">Lista dipendenti:</h3>
+													</div>
+													<div class="card-body">
+														<div class="form-group text-center mx-auto">
+															<ul class="list-group list-group-bordered"
+																id="employeeList">
+																<c:forEach items="${currentEmployees}" var="employee">
+																	<li class='list-group-item'><i
+																		class='fas fa-user my-auto mr-2'></i>
+																		${employee.email}</li>
+																</c:forEach>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<!-- INSERISCI DIPENDENTE (BOTTONE TRIGGER) -->
+											<div class="col-lg-5 mx-auto mb-auto">
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-warning mx-auto"
+													data-toggle="modal" data-target="#exampleModal">
+													Inserisci dipendente <i class="fas fa-plus ml-2 my-auto"></i>
+												</button>
+											</div>
 										</div>
 
 										<hr>
@@ -149,6 +190,45 @@
 									</div>
 									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
 								</form>
+
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header text-center">
+												<h5 class="modal-title" id="exampleModalLabel">Inserisci
+													dipendente</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<h3>Ricerca dipendente</h3>
+
+												<div class="input-group mb-3">
+													<input type="email"
+														onkeyup="SuggestionsEmployee(this.value)"
+														class="form-control" placeholder="m.red1@wlb.it"
+														aria-describedby="basic-addon1" name="q" id="lista"
+														list="suggestionsEmployee">
+													<div class="input-group-append">
+														<button class="input-group-text" type="button"
+															onclick="insertEmployee(lista.value)"
+															data-dismiss="modal">
+															<i class="fas fa-plus-square"></i>
+														</button>
+													</div>
+												</div>
+												<datalist id="suggestionsEmployee"></datalist>
+											</div>
+										</div>
+									</div>
+								</div>
+
 								<!-- FINE CARD BODY -->
 							</div>
 
@@ -172,34 +252,6 @@
 		<!-- FINE WRAPPER -->
 	</div>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-
-	<!-- jQuery Sparkline -->
-	<script src="js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-	<!-- Datatables -->
-	<script src="js/plugin/datatables/datatables.min.js"></script>
-
-	<!-- Bootstrap Notify -->
-	<script src="js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- Sweet Alert -->
-	<script src="js/plugin/sweetalert/sweetalert.min.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
 
 	<script>
 		var nomeOK = true;
@@ -237,31 +289,105 @@
 		}
 
 		function verificaDataInizio() {
-			var input = $("#startDate").val();
 
+			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+			var input = $("#startDate").val();
 			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#startDate").css("border", borderOK);
-				dataInizioOK = true;
+				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var endDate = $("#endDate").val();
+				var startDate = input;
+				if (endDate != null && endDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+					if ($("#startDate").hasClass("is-invalid"))
+						$("#startDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#startDate").addClass("is-valid");
+					document.getElementById("errorDataInizio").innerHTML = "";
+					dataInizioOK = true;
+				}
 			} else {
-				$("#startDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if ($("#startDate").hasClass("is-valid"))
+					$("#startDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#startDate").addClass("is-invalid");
+				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
 			}
 			changeInsertButtonState();
 		}
 
 		function verificaDataFine() {
-			var input = $("#endDate").val();
 
-			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				$("#endDate").css("border", borderOK);
-				dataFineOK = true;
+			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+			var input = $("#endDate").val();
+			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var startDate = $("#startDate").val();
+				var endDate = input;
+				if (startDate != null && startDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//ENDDATE
+					if ($("#endDate").hasClass("is-invalid"))
+						$("#endDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#endDate").addClass("is-valid");
+					document.getElementById("errorDataFine").innerHTML = "";
+					dataFineOK = true;
+				}
 			} else {
-				$("#endDate").css("border", borderNO);
+				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				if ($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
 			}
 			changeInsertButtonState();
+		}
+
+		function verificaDate(startDate, endDate) {
+			//Matchano tutte e due
+			if (startDate <= endDate) {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-invalid"))
+					$("#endDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#endDate").addClass("is-valid");
+				document.getElementById("errorDataFine").innerHTML = "";
+				dataFineOK = true;
+			} else {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
+				dataFineOK = false;
+			}
 		}
 
 		function verificaDescrizione() {
@@ -303,6 +429,68 @@
 				btn.css("color", "#ffffff");
 			}
 		}
+		
+		function SuggestionsEmployee(email) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					document.getElementById("suggestionsEmployee").innerHTML = options;
+					dipendentiOK = true;
+					changeInsertButtonState();
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=0",
+					true);
+			xhttp.send();
+		}
+
+		function SuggestionsManager(email) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					var lista = JSON.parse(this.responseText);
+
+					var options = "";
+
+					for (i = 0; i < lista.length; i++) {
+						options += "<option>" + lista[i].email + "</option>";
+					}
+					document.getElementById("suggestionsManager").innerHTML = options;
+				}
+			}
+			xhttp.open("GET", "SuggestionEmployees?email=" + email + "&flag=1",
+					true);
+			xhttp.send();
+		}
+
+		function insertEmployee(email) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var lista = JSON.parse(this.responseText);
+					var li = "";
+
+					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>"
+							+ lista.emailEmployee + "</li>";
+					console.log(li);
+					document.getElementById("employeeList").innerHTML += li;
+
+				}
+			}
+			xhttp.open("GET", "AddEmployeeToList?email=" + email, true);
+			xhttp.send();
+		}		
 		
 	</script>
 

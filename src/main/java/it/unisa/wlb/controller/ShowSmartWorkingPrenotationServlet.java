@@ -1,6 +1,7 @@
 package it.unisa.wlb.controller;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,7 +10,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,69 +20,73 @@ import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class ShowSmartWorkingPrenotationServlet
  */
-@WebServlet("/ShowSmartWorkingPrenotation")
+@WebServlet(name="ShowSmartWorkingPrenotationServlet", urlPatterns="/ShowSmartWorkingPrenotation")
+@Interceptors({LoggerSingleton.class})
 public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 	
+	/**
+	 * This servlet aims to redirect to the booking page for Smart Working days
+	 * 
+	 * @author Vincenzo Fabiano, Luigi Cerrone
+	 */
 	private static final long serialVersionUID = 1L;
-	private static final Calendar CALENDAR = Calendar.getInstance();
-	private SmartWorkingPrenotation smartWorkingPrenotation;
-	private Employee employee;
 	@EJB
 	private ISmartWorkingPrenotationDAO smartWorkingDao;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+		this.smartWorkingDao = smartWorkingDao;
+	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("user")==null) {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
 		}
 		else {
+			/**
+			 * Get information about the next calendar week (number and year)
+			 */
+			Calendar calendar = Calendar.getInstance();
+			SmartWorkingPrenotation smartWorkingPrenotation;
+			Employee employee;
 			employee = (Employee) request.getSession().getAttribute("user");
-			TimeZone tz = CALENDAR.getTimeZone();
+			TimeZone tz = calendar.getTimeZone();
 			ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
-			LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zid).toLocalDate();
-			CALENDAR.setTime(Date.from(today.atStartOfDay().atZone(zid).toInstant()));
-			int currentCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
-			int currentYear = CALENDAR.get(Calendar.YEAR);
-			int lastWeekOfYear = CALENDAR.getActualMaximum(Calendar.WEEK_OF_YEAR);
+			LocalDate today = LocalDateTime.ofInstant(calendar.toInstant(), zid).toLocalDate();
+			LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
+			LocalDate newDate;
+			newDate = nextMonday.plusDays(7);
+			calendar.setTime(Date.from(newDate.atStartOfDay().atZone(zid).toInstant()));
+			int nextCalendarWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+			int year = calendar.get(Calendar.YEAR);
 			
-			if(lastWeekOfYear==currentCalendarWeek) {
-				
-				try {
-					smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(1, currentYear+1, employee.getEmail());
-				} catch(EJBException e) {
-					request.setAttribute("booking", "yes");
-					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
-				} catch(Exception e) {
-					//implementare comportamento
-					e.printStackTrace();
-				}
-				
-			} else {
-				
-				try {
-					smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(currentCalendarWeek+1, currentYear, employee.getEmail());
-				} catch(EJBException e) {
-					request.setAttribute("booking", "yes");
-					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
-				} catch(Exception e) {
-					//implementare comportamento
-					e.printStackTrace();
-				}
-				
+			if((nextMonday.getYear() == newDate.getYear()) && nextCalendarWeek==1) {
+				year = year + 1;
 			}
 			
-			if(smartWorkingPrenotation != null) {
-				request.setAttribute("booking", "no");
-				request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
-			}
+			System.out.println(nextCalendarWeek);
+			System.out.println(year);
+				try {
+					/**
+					 * If the user has made a reservation for the next week he will not be able to make a new reservation
+					 */
+					smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
+					request.setAttribute("booking", "no");
+					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
+					
+				} catch(Exception e) {
+					System.out.println("Posso effettuare la prenotazione");
+					request.setAttribute("booking", "yes");
+					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
+				} 
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

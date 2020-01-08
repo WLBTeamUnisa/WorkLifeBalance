@@ -2,13 +2,18 @@ package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * The primary key class for the WORKSTATION_PRENOTATION database table.
  * 
  */
 @Embeddable
+@Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotationPK implements Serializable {
 
 	//default serial version id, required for serializable classes.
@@ -42,16 +47,15 @@ public class WorkstationPrenotationPK implements Serializable {
 	public void setPrenotationDate(Date prenotationDate) {
 		this.prenotationDate = prenotationDate;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((emailEmployee == null) ? 0 : emailEmployee.hashCode());
-		result = prime * result + ((prenotationDate == null) ? 0 : prenotationDate.hashCode());
-		return result;
+	
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,6 +69,8 @@ public class WorkstationPrenotationPK implements Serializable {
 			if (other.emailEmployee != null)
 				return false;
 		} else if (!emailEmployee.equals(other.emailEmployee))
+			return false;
+		if (id != other.id)
 			return false;
 		if (prenotationDate == null) {
 			if (other.prenotationDate != null)

@@ -1,7 +1,12 @@
 package it.unisa.wlb.model.bean;
 
 import java.io.Serializable;
+
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
+
+import it.unisa.wlb.utils.LoggerSingleton;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +19,11 @@ import java.util.List;
 @Table(name="PROJECT")
 @NamedQueries({
 	@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p"),
-	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee=:email"),
-	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')")
+	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee.email=:email"),
+	@NamedQuery(name="Project.searchByName", query="SELECT project FROM Project project WHERE project.name LIKE CONCAT(:name,'%')"),
+	@NamedQuery(name="Project.findByName", query="SELECT project FROM Project project WHERE project.name=?1")
 })
-
+@Interceptors({LoggerSingleton.class})
 public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -168,23 +174,6 @@ public class Project implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
-		result = prime * result + ((employees == null) ? 0 : employees.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -246,8 +235,8 @@ public class Project implements Serializable {
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", description=" + description + ", endDate=" + endDate + ", name=" + name
-				+ ", scope=" + scope + ", startDate=" + startDate + ", messages=" + messages + ", admin=" + admin
-				+ ", employee=" + employee + ", employees=" + employees + "]";
+				+ ", scope=" + scope + ", startDate=" + startDate + ", admin=" + admin
+				+ ", employee=" + employee + "]";
 	}
 
 }

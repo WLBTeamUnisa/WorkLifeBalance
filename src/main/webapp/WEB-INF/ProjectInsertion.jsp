@@ -56,7 +56,7 @@
 						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
-								<h3>Inserimento progetto</h3>
+								<h3 class="my-auto">Inserimento progetto</h3>
 							</div>
 
 							<!-- CARD-BODY -->
@@ -141,7 +141,7 @@
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()"
+												onchange="verificaManager()"
 												onkeypress="SuggestionsManager(this.value)"
 												placeholder="Manager..." required list="suggestionsManager">
 											<datalist id="suggestionsManager"></datalist>
@@ -252,35 +252,6 @@
 		<!-- FINE WRAPPER -->
 	</div>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-
-	<!-- jQuery Sparkline -->
-	<script src="js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-	<!-- Datatables -->
-	<script src="js/plugin/datatables/datatables.min.js"></script>
-
-	<!-- Bootstrap Notify -->
-	<script src="js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- Sweet Alert -->
-	<script src="js/plugin/sweetalert/sweetalert.min.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
-
 	<script>
 		var nomeOK = false;
 		var scopeOK = false;
@@ -297,13 +268,36 @@
 
 			if (input.trim().length >= 4 && input.trim().length <= 15
 					&& input.match(/^[A-Za-z0-9]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#name").hasClass("is-invalid"))
-					$("#name").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#name").addClass("is-valid");
-				document.getElementById("errorName").innerHTML = "";
-				nomeOK = true;
+
+				var xmlHttpReq = new XMLHttpRequest();
+				xmlHttpReq.onreadystatechange = function() {
+					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
+						var json = JSON.parse(xmlHttpReq.responseText);
+						if (json != null) {
+							if (json.available == "yes") {
+								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+								if ($("#name").hasClass("is-invalid"))
+									$("#name").removeClass("is-invalid");
+								//AGGIUNGO LA CLASSE 'IS-VALID'
+								$("#name").addClass("is-valid");
+								document.getElementById("errorName").innerHTML = "";
+								nomeOK = true;
+							} else {
+								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								if ($("#name").hasClass("is-valid"))
+									$("#name").removeClass("is-valid");
+								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								$("#name").addClass("is-invalid");
+								document.getElementById("errorName").innerHTML = "Attenzione! Questo nome è già associato ad un altro progetto.";
+								nomeOK = false;
+							}
+						}
+					}
+					changeInsertButtonState();
+				}
+				xmlHttpReq.open("GET", "CheckProject?name="
+						+ encodeURIComponent(input), true);
+				xmlHttpReq.send();
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#name").hasClass("is-valid"))
@@ -312,8 +306,8 @@
 				$("#name").addClass("is-invalid");
 				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
+				changeInsertButtonState();
 			}
-			changeInsertButtonState();
 		}
 
 		function verificaScope() {
@@ -346,14 +340,22 @@
 			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#startDate").val();
 			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#startDate").hasClass("is-invalid"))
-					$("#startDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#startDate").addClass("is-valid");
-				document.getElementById("errorDataInizio").innerHTML = "";
-				dataInizioOK = true;
+				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var endDate = $("#endDate").val();
+				var startDate = input;
+				if (endDate != null && endDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+					if ($("#startDate").hasClass("is-invalid"))
+						$("#startDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#startDate").addClass("is-valid");
+					document.getElementById("errorDataInizio").innerHTML = "";
+					dataInizioOK = true;
+				}
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#startDate").hasClass("is-valid"))
@@ -370,15 +372,22 @@
 
 			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
 			var input = $("#endDate").val();
-			if (input
-					.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#endDate").hasClass("is-invalid"))
-					$("#endDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#endDate").addClass("is-valid");
-				document.getElementById("errorDataFine").innerHTML = "";
-				dataFineOK = true;
+			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+				var startDate = $("#startDate").val();
+				var endDate = input;
+				if (startDate != null && startDate.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
+					var dateStartDate = new Date(startDate);
+					var dateEndDate = new Date(endDate);
+					verificaDate(dateStartDate, dateEndDate);
+				} else {
+					//ENDDATE
+					if ($("#endDate").hasClass("is-invalid"))
+						$("#endDate").removeClass("is-invalid");
+					//AGGIUNGO LA CLASSE 'IS-VALID'
+					$("#endDate").addClass("is-valid");
+					document.getElementById("errorDataFine").innerHTML = "";
+					dataFineOK = true;
+				}
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#endDate").hasClass("is-valid"))
@@ -389,6 +398,43 @@
 				dataFineOK = false;
 			}
 			changeInsertButtonState();
+		}
+
+		function verificaDate(startDate, endDate) {
+			//Matchano tutte e due
+			if (startDate <= endDate) {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-invalid"))
+					$("#endDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#endDate").addClass("is-valid");
+				document.getElementById("errorDataFine").innerHTML = "";
+				dataFineOK = true;
+			} else {
+				//STARTDATE
+				if ($("#startDate").hasClass("is-invalid"))
+					$("#startDate").removeClass("is-invalid");
+				//AGGIUNGO LA CLASSE 'IS-VALID'
+				$("#startDate").addClass("is-valid");
+				document.getElementById("errorDataInizio").innerHTML = "";
+				dataInizioOK = true;
+
+				//ENDDATE
+				if ($("#endDate").hasClass("is-valid"))
+					$("#endDate").removeClass("is-valid");
+				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				$("#endDate").addClass("is-invalid");
+				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
+				dataFineOK = false;
+			}
 		}
 
 		function verificaDescrizione() {
@@ -421,14 +467,38 @@
 
 			var errorMsg = "L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
-				if ($("#managerEmail").hasClass("is-invalid"))
-					$("#managerEmail").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
-				$("#managerEmail").addClass("is-valid");
-				document.getElementById("errorManager").innerHTML = "";
-				managerOK = true;
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+
+				var xmlHttpReq = new XMLHttpRequest();
+				xmlHttpReq.onreadystatechange = function() {
+					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
+						var json = JSON.parse(xmlHttpReq.responseText);
+						if (json != null) {
+							if (json.status == 1) {
+								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+								if ($("#managerEmail").hasClass("is-invalid"))
+									$("#managerEmail")
+											.removeClass("is-invalid");
+								//AGGIUNGO LA CLASSE 'IS-VALID'
+								$("#managerEmail").addClass("is-valid");
+								document.getElementById("errorManager").innerHTML = "";
+								managerOK = true;
+							} else {
+								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								if ($("#managerEmail").hasClass("is-valid"))
+									$("#managerEmail").removeClass("is-valid");
+								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								$("#managerEmail").addClass("is-invalid");
+								document.getElementById("errorManager").innerHTML = "L'utente selezionato non è un manager!";
+								managerOK = false;
+							}
+						}
+					}
+					changeInsertButtonState();
+				}
+				xmlHttpReq.open("GET", "CheckManager?email="
+						+ encodeURIComponent(input), true);
+				xmlHttpReq.send();
 			} else {
 				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#managerEmail").hasClass("is-valid"))
@@ -437,8 +507,8 @@
 				$("#managerEmail").addClass("is-invalid");
 				document.getElementById("errorManager").innerHTML = errorMsg;
 				managerOK = false;
+				changeInsertButtonState();
 			}
-			changeInsertButtonState();
 		}
 
 		function changeInsertButtonState() {
@@ -509,7 +579,6 @@
 
 					li += "<li class='list-group-item'><i class='fas fa-user my-auto mr-2'></i>"
 							+ lista.emailEmployee + "</li>";
-					console.log(li);
 					document.getElementById("employeeList").innerHTML += li;
 
 				}

@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -20,6 +22,7 @@ import it.unisa.wlb.utils.Utils;
  *
  */
 @WebServlet(name = "EmployeeRegistrationServlet", urlPatterns = "/EmployeeRegistrationServlet")
+@Interceptors({LoggerSingleton.class})
 public class EmployeeRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -137,7 +140,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 //			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
 //			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 //			dispatcher.forward(request, response);
-			request.getRequestDispatcher("WEB-INF/EmployeesList.jsp").forward(request, response);
+			request.getRequestDispatcher("EmployeesListPage").forward(request, response);
 		}
 		else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

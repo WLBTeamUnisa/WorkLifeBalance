@@ -58,10 +58,11 @@
 							<c:choose>
 								<c:when test="${booking=='no'}">
 									<div class="card-header">
-										<h3>Prenotazione già effettuata!</h3>
+										<h3 class="my-auto">Avviso:</h3>
 									</div>
 									<div class="card-body">
-										<h1>Hai già effettuato una prenotazione questa settimana.</h1>
+										<h2 class="my-auto mx-auto">Hai già effettuato una
+											prenotazione questa settimana.</h2>
 									</div>
 								</c:when>
 
@@ -86,7 +87,7 @@
 										<form action="SmartWorkingDaysPrenotationServlet"
 											id="smartWorkingDays" method="post">
 											<button type="submit" class=" btn btn-success mb-3"
-												id="sendButton" disabled>Prenota</button>
+												id="sendButton">Prenota</button>
 										</form>
 									</c:if>
 								</c:otherwise>
@@ -113,36 +114,18 @@
 		<!-- FINE WRAPPER -->
 	</div>
 
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
-
-	<!-- jQuery UI -->
-	<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-
-	<!-- jQuery Scrollbar -->
-	<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-
-	<!-- jQuery Sparkline -->
-	<script src="js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-	<!-- Datatables -->
-	<script src="js/plugin/datatables/datatables.min.js"></script>
-
-	<!-- Bootstrap Notify -->
-	<script src="js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- Sweet Alert -->
-	<script src="js/sweetalert2.all.js"></script>
-
-	<!-- Atlantis JS -->
-	<script src="js/atlantis.min.js"></script>
-
 	<!-- Calendar -->
 	<script src="js/calendar.js"></script>
+
+	<c:if test="${not empty error}">
+		<script>
+				//SWEETALERT
+				Swal.fire({
+				  icon: 'warning',
+				  title: 'Oops...',
+				  text: "${error}"})
+		</script>
+	</c:if>
+
 </body>
 </html>
