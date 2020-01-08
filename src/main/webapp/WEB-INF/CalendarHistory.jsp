@@ -60,29 +60,29 @@
 							<div class="card-header">
 								<h3 class="my-auto">Storico prenotazioni</h3>
 							</div>
-							<div class="card-body">
+							<div class="card-body" id="myCard">
 							
 								<div class="row container">
 									<div class="col-sm-3 mx-auto">
 										<select name="" class="custom-select text-center" id="monthSelect"
 											style="height: 40px; weight: 150px" required>
-											<option value="Gennaio">Gennaio</option>
-											<option value="Febbraio">Febbraio</option>
-											<option value="Marzo">Marzo</option>
-											<option value="Aprile">Aprile</option>
-											<option value="Maggio">Maggio</option>
-											<option value="Giugno">Giugno</option>
-											<option value="Luglio">Luglio</option>
-											<option value="Agosto">Agosto</option>
-											<option value="Settembre">Settembre</option>
-											<option value="Ottobre">Ottobre</option>
-											<option value="Novembre">Novembre</option>
-											<option value="Dicembre">Dicembre</option>
+											<option value="1">Gennaio</option>
+											<option value="2">Febbraio</option>
+											<option value="3">Marzo</option>
+											<option value="4">Aprile</option>
+											<option value="5">Maggio</option>
+											<option value="6">Giugno</option>
+											<option value="7">Luglio</option>
+											<option value="8">Agosto</option>
+											<option value="9">Settembre</option>
+											<option value="10">Ottobre</option>
+											<option value="11">Novembre</option>
+											<option value="12">Dicembre</option>
 										</select>
 									</div>
 									<div class="col-sm-3 mx-auto">
 										<select class="custom-select text-center"
-											style="height: 40px; weight: 150px" required>
+											style="height: 40px; weight: 150px" id="yearSelect" required>
 											<option value="2010">2010</option>
 											<option value="2011">2011</option>
 											<option value="2012">2012</option>
@@ -98,7 +98,7 @@
 									</div>
 								</div>
 
-								<div class="mt-3" style="overflow-y: scroll; height: 300px;">
+								<div class="mt-3" style="overflow-y: scroll; height: 300px;" id="calendarHistoryTable">
 
 									<table class="table table-bordered table-striped">
 										<thead>
@@ -204,7 +204,54 @@ $(window).resize(function(){
 
 });
 </script>
+<script>
+$(document).ready(function () {
 
+	//INIZIALIZZO LE VARIE SELECT
+    var monthSelect = $("#monthSelect");
+    var yearSelect = $("#yearSelect");
+    var emailEmployee = '${employeeSupervised}';
+
+//LOAD CalendarHistory
+	    function loadCalendarHistory() {
+
+	        var month = monthSelect.val();
+	        var year = yearSelect.val();
+
+	        if (((monthSelect.val() != null) && (yearSelect.val() != null))) {
+	            var xhttp = new XMLHttpRequest();
+	            xhttp.onreadystatechange = function () {
+	                if (this.readyState == 4 && this.status == 200) {
+	                    var lista = JSON.parse(this.responseText);
+	                    
+	                    if(lista==null)
+		                    {
+	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai prenotato niente per questa settimana</h2></div>");
+	                    		document.getElementById("calendarHistoryTable").innerHTML = ;
+		                    }
+
+	                    //Da cambiare
+	                    for (var i = 0; i < lista.length; i++) {
+	                        if (lista[i].status == 0) {
+	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:green;stroke:black;stroke-width:5;opacity:0.5' /> <text x='50%' y='50%' text-anchor='middle' fill='white' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.8;'>" + lista[i].workstation + "</text> </svg>");
+	                        } else if (lista[i].status == 1) {
+	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
+	                        }
+	                    }
+	                }
+	            }
+	            xhttp.open("GET", "ShowCalendarHistory?employeeEmail=" + emailEmployee + "&month=" + month + "&year=" + year, true);
+	            xhttp.send();
+	        } else {
+
+		        //Da cambiare
+	        	container.html("");
+	        	container.append("<h2 class='mx-auto my-auto'>Planimetria non inserita.</h2>");
+	        }
+	    }
+}
+</script>
+	    
 </body>
 
 </html>

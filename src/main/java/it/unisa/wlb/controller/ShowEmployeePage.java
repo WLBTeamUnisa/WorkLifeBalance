@@ -22,7 +22,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  */
 @WebServlet(name="ShowEmployeePageServlet", urlPatterns="/ShowEmployeePage")
 @Interceptors({LoggerSingleton.class})
-public class ShowEmployeePageServlet extends HttpServlet {
+public class ShowEmployeePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
@@ -32,7 +32,7 @@ public class ShowEmployeePageServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowEmployeePageServlet() {
+    public ShowEmployeePage() {
         super();
         // TODO Auto-generated constructor stub
     }
