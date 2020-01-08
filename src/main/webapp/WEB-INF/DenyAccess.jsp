@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -69,8 +73,15 @@
 									style="color: white"></i>
 							</div>
 							<div class="card-body">
-								<h2 class="my-auto mx-auto">Accesso negato per questa
-									pagina.</h2>
+								<h2 class="my-auto mx-auto">Accesso negato per questa pagina.</h2>
+								<c:if test="${not empty user}">
+								<br>
+								<h4 class="my-auto mx-auto"><a class="my-auto mx-auto" href=".">Clicca qui per ritornare alla homepage</a></h4>
+								</c:if>
+								<c:if test="${empty user}">
+								<br>
+								<h4 class="my-auto mx-auto"><a class="my-auto mx-auto" href=".">Clicca qui per ritornare alla pagina di login</a></h4>
+								</c:if>
 							</div>
 
 							<!-- FINE CARD -->
@@ -92,6 +103,11 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
+
+	<!--   Core JS Files   -->
+	<script src="js/core/jquery.3.2.1.min.js"></script>
+	<script src="js/core/popper.min.js"></script>
+	<script src="js/core/bootstrap.min.js"></script>
 
 </body>
 </html>

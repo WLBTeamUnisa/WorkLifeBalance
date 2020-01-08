@@ -57,136 +57,159 @@
 
 						<!-- CARD -->
 						<div class="card">
-							&nbsp;
-							<div class="card-header">Storico Prenotazioni</div>
-							&nbsp;
-							<div class="container">
-								<div class="row">
-									<div class="col-sm">
-										<select name="" class="custom-select text-center" id=""
-											style="height: 40px; weight: 150px" required>
-											<option value="Gennaio">Gennaio</option>
-											<option value="Febbraio">Febbraio</option>
-											<option value="Marzo">Marzo</option>
-											<option value="Aprile">Aprile</option>
-											<option value="Maggio">Maggio</option>
-											<option value="Giugno">Giugno</option>
-											<option value="Luglio">Luglio</option>
-											<option value="Agosto">Agosto</option>
-											<option value="Settembre">Settembre</option>
-											<option value="Ottobre">Ottobre</option>
-											<option value="Novembre">Novembre</option>
-											<option value="Dicembre">Dicembre</option>
-										</select>
-									</div>
-									<div class="col-sm">
+							<div class="card-header">
+								<h3 class="my-auto">Storico prenotazioni</h3>
 
-										<select class="custom-select text-center"
-											style="height: 40px; weight: 150px" required>
-											<option value="2010">2010</option>
-											<option value="2011">2011</option>
-											<option value="2012">2012</option>
-											<option value="2013">2013</option>
-											<option value="2014">2014</option>
-											<option value="2015">2015</option>
-											<option value="2016">2016</option>
-											<option value="2017">2017</option>
-											<option value="2018">2018</option>
-											<option value="2019">2019</option>
-											<option value="2020">2020</option>
+								<div class="row container mt-2">
+									<div class="col-sm-4 mx-auto">
+										<select name="" class="custom-select text-center"
+											id="monthSelect" style="height: 40px; weight: 150px" required>
+											<option value="1">Gennaio</option>
+											<option value="2">Febbraio</option>
+											<option value="3">Marzo</option>
+											<option value="4">Aprile</option>
+											<option value="5">Maggio</option>
+											<option value="6">Giugno</option>
+											<option value="7">Luglio</option>
+											<option value="8">Agosto</option>
+											<option value="9">Settembre</option>
+											<option value="10">Ottobre</option>
+											<option value="11">Novembre</option>
+											<option value="12">Dicembre</option>
 										</select>
 									</div>
-									<div class="col-sm">
-										<button style="height: 40px; width: 150px" type="submit" id=""
-											class="btn btn btn-success btn-block mx-auto" disabled>
-											Cerca</button>
+									<div class="col-sm-4 mx-auto">
+										<select class="custom-select text-center"
+											style="height: 40px; weight: 150px" id="yearSelect" required>
+										</select>
 									</div>
 								</div>
 							</div>
-							&nbsp; &nbsp;
-							<div style="overflow-y: scroll; height: 230px;">
+							<div class="card-body" id="myCard">
 
-								<table class="table table-bordered table-striped mb-0">
-									<thead>
-										<tr>
-											<th scope="col">DATA</th>
-											<th scope="col">MODALITA' DI LAVORO</th>
-											<th scope="col">POSTO</th>
-											<th scope="col">STANZA</th>
-											<th scope="col">PIANO</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-
-											<td>2019-10-31</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-30</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<tr>
-
-											<td>2019-10-29</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-28</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<tr>
-
-											<td>2019-10-27</td>
-											<td>Smart Working</td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-
-											<td>2019-10-26</td>
-											<td>In Azienda</td>
-											<td>25</td>
-											<td>10</td>
-											<td>1</td>
-										</tr>
-										<!-- FINE BODY TABLE-->
-									</tbody>
-									<!-- FINE TABLE -->
-								</table>
-
-								<!-- FINE CARD-BODY -->
+								<!-- FINE CARD BODY -->
 							</div>
+
 							<!-- FINE CARD -->
 						</div>
-					</div>
-					<!-- FINE COLONNA -->
-				</div>
-				<!-- FINE CONTAINER -->
-			</div>
-			<!-- FINE CONTENT -->
-		</div>
-		<jsp:include page="footer.jsp" />
 
-		<!-- FINE MAIN PANEL -->
+						<!-- FINE COLONNA -->
+					</div>
+
+					<!-- FINE CONTAINER -->
+				</div>
+
+				<!-- FINE CONTENT -->
+			</div>
+
+			<jsp:include page="footer.jsp" />
+
+			<!-- FINE MAIN-PANEL -->
+		</div>
+
+		<!-- FINE WRAPPER -->
 	</div>
 
-	<!-- FINE WRAPPER -->
+
+	<script>
+$(window).resize(function(){
+
+	if ($(window).width() <= 992) {
+		if(!($("#monthSelect").hasClass("mb-3"))){
+			$("#monthSelect").addClass("mb-3")
+		}
+	} else {
+		if($("#monthSelect").hasClass("mb-3")){
+			$("#monthSelect").removeClass("mb-3")
+		}
+	}
+
+});
+</script>
+	<script>
+$(document).ready(function () {
+
+	//INIZIALIZZO LE VARIE SELECT
+	var container = $("#myCard");
+    var monthSelect = $("#monthSelect");
+    var yearSelect = $("#yearSelect");
+    var emailEmployee = '${employeeSupervised}';
+    loadYears();
+
+    function loadYears()
+    {
+    	
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				 
+				var lista = JSON.parse(this.responseText);
+
+				var options = "";
+
+				for (i = 0; i < lista.length; i++) {
+					options += "<option>" + lista[i].year + "</option>";
+				}
+				document.getElementById("yearSelect").innerHTML = options;
+				yearSelect.val(new Date().getFullYear());
+				loadCalendarHistory();
+			}
+		}
+		xhttp.open("GET", "SuggestionsYear", true);
+		xhttp.send();
+    }
+	//Load CalendarHistory
+	    function loadCalendarHistory() {
+	        var month = monthSelect.val();
+	        var year = yearSelect.val();
+	        if (((monthSelect.val() != null) && (yearSelect.val() != null))) {
+	            var xhttp = new XMLHttpRequest();
+	            xhttp.onreadystatechange = function () {
+	                if (this.readyState == 4 && this.status == 200) {
+	                    var lista = JSON.parse(this.responseText);
+	                    
+	                    if(lista==null || lista.length==0){
+	                    		$("#calendarHistoryTable").remove();
+	                    		$("#myCard").html("");
+	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai effettuato nessuna prenotazione per questo mese.</h2></div>");
+		                    } else {
+		                    	lista.sort(function(a,b){
+		                            return a.date.localeCompare(b.date);
+		                        });
+		                    	
+		                    	$("#myCard").html("");
+		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>POSTO</th><th scope='col'>STANZA</th><th scope='col'>PIANO</th></tr></thead><tbody id='myTbody'>");
+		                    	
+		                    	for (var i = 0; i < lista.length; i++) {
+		                    		if(lista[i].type=="Smartworking"){
+		                    			$("#myTbody").append("<tr><td>" + lista[i].date +  "</td><td>" + lista[i].type +  "</td><td></td><td></td><td></td>");
+		                    		} else if(lista[i].type=="Workstation"){
+		                    			$("#myTbody").append("<tr><td>" + lista[i].date + "</td><td>" + lista[i].type + "</td><td>" + lista[i].floor + "</td><td>" + lista[i].room + "</td><td>" + lista[i].workstation + "</td>");
+		                    		}
+		                    	}
+		                    	$("#myCard").append("</tbody></table></div>");
+		                    }
+	                }
+	            }
+	            xhttp.open("GET", "ShowCalendarHistory?employeeEmail=" + emailEmployee + "&month=" + month + "&year=" + year, true);
+	            xhttp.send();
+	        } else {
+	        	container.html("");
+	        	container.append("<h2 class='mx-auto my-auto'>Seleziona un mese.</h2>");
+	        }
+	    }
+	    
+	    
+	  //SETTO GLI EVENTI ONCHANGE ALLE SELECT
+	    monthSelect.on("change", function () {
+	    	loadCalendarHistory();
+	    });
+	    
+	    yearSelect.on("change", function () {
+	    	loadCalendarHistory();
+	    });
+});
+</script>
 
 </body>
 

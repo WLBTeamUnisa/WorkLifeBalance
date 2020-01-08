@@ -118,18 +118,18 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="#sidebarLayouts"
+							<li class="nav-item"><a href="ShowCalendarHistoryPage"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
+
+							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
+								class="nav-link"><i class="fas fa-pen-square"></i>
+									<p class="b">Smart Working</p></a></li>
 
 							<li class="nav-item"><a
 								href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
-
-							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
-								class="nav-link"><i class="fas fa-pen-square"></i>
-									<p class="b">Smart Working</p></a></li>
 						</ul>
 					</c:if>
 
@@ -149,24 +149,18 @@
 								class="nav-link"><i class="fas fa-layer-group"></i>
 									<p class="b">Visualizza planimetria</p></a></li>
 
-							<li class="nav-item"><a href="#sidebarLayouts"
+							<li class="nav-item"><a href="ShowCalendarHistoryPage"
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
-
-							<li class="nav-item"><a
-								href="ShowWorkstationPrenotationPage" class="nav-link"><i
-									class="fas fa-pen-square"></i>
-									<p class="b">Prenota postazione</p></a></li>
 
 							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
 								class="nav-link"><i class="fas fa-pen-square"></i>
 									<p class="b">Smart Working</p></a></li>
 
-							<li class="nav-item"><a href="#base" class="nav-link"><i
-									class="fas fa-th-list"></i>
-									<p class="b">
-										Storico giornate<br> lavorative
-									</p></a></li>
+							<li class="nav-item"><a
+								href="ShowWorkstationPrenotationPage" class="nav-link"><i
+									class="fas fa-pen-square"></i>
+									<p class="b">Prenota postazione</p></a></li>
 
 							<li class="nav-item" id="Projects" onclick="showProject()"><a
 								data-toggle="collapse" class="nav-link" href=""> <i
@@ -202,22 +196,21 @@ $(document).ready(function(){
 	});
 
 function showProject() {
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var lista = JSON.parse(this.responseText);
-					var li = "";
-					
-					for (i = 0; i < lista.length; i++){
-						li += "<li><a href='.'><span class='sub-item'>"+lista[i].projectName+"</span></a></li>"
-						console.log(li);
-						document.getElementById("projectList").innerHTML = li;
-					}
-				}
-			}
-			xhttp.open("GET", "ShowAllSupervisedProjectsServlet", true);
-			xhttp.send();
-		}
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var lista = JSON.parse(this.responseText);
+            var li = "";
+
+            for (i = 0; i < lista.length; i++) {
+                li += "<li><a href=\"ShowSupervisedProject?projectName=" + lista[i].projectName + "\"><span class='sub-item'>" + lista[i].projectName + "</span></a></li>"
+                document.getElementById("projectList").innerHTML = li;
+            }
+        }
+    }
+    xhttp.open("GET", "ShowAllSupervisedProjectsServlet", true);
+    xhttp.send();
+}
 
 </script>
 <!-- End Sidebar -->

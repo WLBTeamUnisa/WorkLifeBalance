@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +14,13 @@ import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * Servlet implementation class CheckManagerServlet
  */
-@WebServlet("/CheckManager")
+@WebServlet(name="CheckManagerServlet", urlPatterns="/CheckManager")
+@Interceptors({LoggerSingleton.class})
 public class CheckManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

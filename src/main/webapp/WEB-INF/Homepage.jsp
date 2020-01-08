@@ -68,13 +68,13 @@
 
 								<c:otherwise>
 
-									<div class="card-body p-0">
+									<div class="card-body p-0" id="myCard">
 
 										<div class="card-header">
 											<h3 class="my-auto">Pianificazione settimanale</h3>
 										</div>
 
-										<table class="table table-striped">
+										<table class="table table-striped" id="myTable">
 											<tbody id="tbody">
 											</tbody>
 										</table>
@@ -113,8 +113,13 @@
 		
 		var listaJson = JSON.parse(lista);
 		
+		listaJson.sort(function(a,b){
+            return a.date.localeCompare(b.date);
+        });
+
 		if(listaJson.length==0){
-			tbody.html("<div class='card-body my-auto mx-auto'>	<h2>Non hai prenotato niente per questa settimana</h2></div>");
+			$("#myTable").remove();
+			$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai prenotato niente per questa settimana</h2></div>");
 		}
 		
 		for(var i = 0; i<listaJson.length; i++){

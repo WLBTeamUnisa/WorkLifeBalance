@@ -70,7 +70,7 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="dateSelect">Data:</label> <select
-												class="form-control form-control-sm" id="dateSelect">
+												class="custom-select form-control form-control-sm" id="dateSelect">
 												<c:forEach items="${availableDates}" var="data">
 													<option>${data}</option>
 												</c:forEach>
@@ -80,14 +80,14 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="floorSelect">Piano:</label> <select
-												class="form-control form-control-sm" id="floorSelect">
+												class="custom-select form-control form-control-sm" id="floorSelect">
 											</select>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="roomSelect">Stanza:</label> <select
-												class="form-control form-control-sm" id="roomSelect">
+												class="custom-select form-control form-control-sm" id="roomSelect">
 											</select>
 										</div>
 									</div>
@@ -221,35 +221,6 @@
 	        loadPlanimetry();
 	    });
 	});
-	</script>
-
-	<script>
-		function Suggestions(name) {
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-
-					var lista = JSON.parse(this.responseText);
-
-					var options = "";
-					var suggestionsList = "";
-
-					for (i = 0; i < lista.length; i++) {
-						options += "<option>" + lista[i].name + "</option>";
-						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="
-								+ lista[i].name
-								+ "' class='mx-auto nav-link' style='color: #2f3640'>"
-								+ lista[i].name + "</a></li>";
-					}
-					console.log(options);
-
-					document.getElementById("suggestionsList").innerHTML = suggestionsList;
-				}
-			}
-			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
-			xhttp.send();
-		}
 	</script>
 
 </body>
