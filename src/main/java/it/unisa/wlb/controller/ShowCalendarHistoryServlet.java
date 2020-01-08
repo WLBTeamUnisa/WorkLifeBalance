@@ -54,6 +54,13 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 		Integer year = Integer.parseInt(yearString);
 		Employee sessionEmployee = (Employee) session.getAttribute("user");
 		
+		System.out.println(month);
+		System.out.println(year);
+		System.out.println(sessionEmployee.getEmail());
+		
+		if(employeeString!=null)
+			System.out.println("Email employee cercato: " + employeeString);
+		
 		if(sessionEmployee!=null)
 		{
 			/**
@@ -63,8 +70,9 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			 */
 			if(employeeString==null || employeeString.equals(""))
 			{
-				List<SmartWorkingPrenotation> smartWorkingPrenotationList = sessionEmployee.getSmartWorkingPrenotations();
-				List<WorkstationPrenotation> workstationPrenotationList = sessionEmployee.getWorkstationPrenotations();
+				Employee employee = employeeDao.retrieveByEmail(sessionEmployee.getEmail());
+				List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
+				List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
 				JSONArray jsonArray=ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 				response.setContentType("application/json");
 				response.getWriter().append(jsonArray.toString());
@@ -80,9 +88,13 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 				try
 				{
 					Employee employee = employeeDao.retrieveByEmail(employeeString);
+					System.out.println("QUA");
 					List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
+					System.out.println("QUO");
 					List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
+					System.out.println("QUE");
 					JSONArray jsonArray = ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
+					System.out.println("QUAAA");
 					response.setContentType("application/json");
 					response.getWriter().append(jsonArray.toString());
 				}

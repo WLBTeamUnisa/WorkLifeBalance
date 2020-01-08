@@ -75,7 +75,7 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 						
 						if(flag==1)
 						{
-							request.setAttribute("employeeSupervised", employee);
+							request.setAttribute("employeeSupervised", employee.getEmail());
 							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 						}

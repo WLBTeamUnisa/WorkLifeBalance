@@ -223,34 +223,5 @@
 	});
 	</script>
 
-	<script>
-		function Suggestions(name) {
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-
-					var lista = JSON.parse(this.responseText);
-
-					var options = "";
-					var suggestionsList = "";
-
-					for (i = 0; i < lista.length; i++) {
-						options += "<option>" + lista[i].name + "</option>";
-						suggestionsList += "<li class='list-group-item'><a href='ShowProjectServlet?name="
-								+ lista[i].name
-								+ "' class='mx-auto nav-link' style='color: #2f3640'>"
-								+ lista[i].name + "</a></li>";
-					}
-					console.log(options);
-
-					document.getElementById("suggestionsList").innerHTML = suggestionsList;
-				}
-			}
-			xhttp.open("GET", "SearchProjectServlet?name=" + name, true);
-			xhttp.send();
-		}
-	</script>
-
 </body>
 </html>
