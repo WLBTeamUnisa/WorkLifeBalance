@@ -81,17 +81,6 @@
 									<div class="col-sm-3 mx-auto">
 										<select class="custom-select text-center"
 											style="height: 40px; weight: 150px" id="yearSelect" required>
-											<option value="2010">2010</option>
-											<option value="2011">2011</option>
-											<option value="2012">2012</option>
-											<option value="2013">2013</option>
-											<option value="2014">2014</option>
-											<option value="2015">2015</option>
-											<option value="2016">2016</option>
-											<option value="2017">2017</option>
-											<option value="2018">2018</option>
-											<option value="2019">2019</option>
-											<option value="2020">2020</option>
 										</select>
 									</div>
 								</div>
@@ -141,27 +130,43 @@ $(window).resize(function(){
 $(document).ready(function () {
 
 	//INIZIALIZZO LE VARIE SELECT
+	var container = $("#myCard");
     var monthSelect = $("#monthSelect");
     var yearSelect = $("#yearSelect");
-    yearSelect.val(new Date().getFullYear());
-    
     var emailEmployee = '${employeeSupervised}';
-    console.log(emailEmployee);
-    
-    loadCalendarHistory();
+    loadYears();
 
-	//LOAD CalendarHistory
+    function loadYears()
+    {
+    	
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				 
+				var lista = JSON.parse(this.responseText);
+
+				var options = "";
+
+				for (i = 0; i < lista.length; i++) {
+					options += "<option>" + lista[i].year + "</option>";
+				}
+				document.getElementById("yearSelect").innerHTML = options;
+				yearSelect.val(new Date().getFullYear());
+				loadCalendarHistory();
+			}
+		}
+		xhttp.open("GET", "SuggestionsYear", true);
+		xhttp.send();
+    }
+	//Load CalendarHistory
 	    function loadCalendarHistory() {
-
 	        var month = monthSelect.val();
 	        var year = yearSelect.val();
-
 	        if (((monthSelect.val() != null) && (yearSelect.val() != null))) {
 	            var xhttp = new XMLHttpRequest();
 	            xhttp.onreadystatechange = function () {
 	                if (this.readyState == 4 && this.status == 200) {
 	                    var lista = JSON.parse(this.responseText);
-	                    console.log(lista);
 	                    
 	                    if(lista==null || lista.length==0){
 	                    		$("#calendarHistoryTable").remove();
@@ -189,7 +194,6 @@ $(document).ready(function () {
 	            xhttp.open("GET", "ShowCalendarHistory?employeeEmail=" + emailEmployee + "&month=" + month + "&year=" + year, true);
 	            xhttp.send();
 	        } else {
-		        //Da cambiare
 	        	container.html("");
 	        	container.append("<h2 class='mx-auto my-auto'>Seleziona un mese.</h2>");
 	        }
@@ -200,6 +204,7 @@ $(document).ready(function () {
 	    monthSelect.on("change", function () {
 	    	loadCalendarHistory();
 	    });
+	    
 	    yearSelect.on("change", function () {
 	    	loadCalendarHistory();
 	    });
