@@ -1,11 +1,9 @@
 [![Build Status](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance.svg?branch=master)](https://travis-ci.com/WLBTeamUnisa/WorkLifeBalance)
  [![codecov](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance/branch/master/graphs/badge.svg)](https://codecov.io/gh/WLBTeamUnisa/WorkLifeBalance)
 
-<H1>Work Life Balance </H1 
-------
-
+<h1>Work Life Balance </h1> 
+ 
 <h2>Installation</h2>
-------
 
 <h3>Requirements</h3>
 - git
@@ -18,9 +16,9 @@
 ------
 
 <p>Download pre-configured wildfly</p>
-```
+
 https://download.jboss.org/wildfly/18.0.1.Final/wildfly-18.0.1.Final.zip
-```
+
 
 ------
 
@@ -74,9 +72,8 @@ copy target/WorkLifeBalance.war on {WILDFLY_HOME}/standalone/deployments (wait f
 Just run wildfly server on eclipse  and check on http://localhost:8080/WorkLifeBalance/  on any browser.
 
 
-
 <h2>Implementation</h2>
-------
+
 
 ### Code formatting
 
@@ -87,10 +84,9 @@ Project Properties --> Java Code Style --> Formatter --> Enable project specific
 ```
 
 <h3>Travis CI</h3>
-Go to `https://travis-ci.org/` after your commit and login with github. After login, you will be able to see if the single commit has passed the formatting constraints described in wlbFormatter.xml.
+Go to `https://travis-ci.org/` after your commit and login with github. After login, you will be able to see if the single commit has passed constraints defined in the .travis.yml file.
 
 <h2>Sprint</h2>
-------
 
 <h3> 1° Sprint - Consegna 22 Dicembre </h3>
 Di seguito i requisiti rilasciati per il primo sprint  5/32 (19 con priorità alta, 9 con priorità media, 4 con priorità bassa)
