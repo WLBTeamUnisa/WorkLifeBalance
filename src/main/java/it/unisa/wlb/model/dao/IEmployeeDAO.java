@@ -30,14 +30,6 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * @return a list of Employees whose email contains the email specified
 	 */
 	public List<Employee> suggestByEmail(String email);
-
-	/**
-	 * It is used to retrieve the list of Employees who is working to a particular project
-	 * 
-	 * @param ProjectId represents the id of the project interested
-	 * @return the list of Employees who is working to the project whose id is ProjectId
-	 */
-	public List<Employee> retrieveByProjectId(String ProjectId);
 	
 	/**
 	 * It is used to retrieve an Employee through his email and password

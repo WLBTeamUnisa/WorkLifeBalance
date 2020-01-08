@@ -73,14 +73,21 @@
 									style="color: white"></i>
 							</div>
 							<div class="card-body">
-								<h2 class="my-auto mx-auto">Accesso negato per questa pagina.</h2>
+								<h2 class="my-auto mx-auto">Accesso negato per questa
+									pagina.</h2>
 								<c:if test="${not empty user}">
-								<br>
-								<h4 class="my-auto mx-auto"><a class="my-auto mx-auto" href=".">Clicca qui per ritornare alla homepage</a></h4>
+									<br>
+									<h4 class="my-auto mx-auto">
+										<a class="my-auto mx-auto" href=".">Clicca qui per
+											ritornare alla homepage</a>
+									</h4>
 								</c:if>
 								<c:if test="${empty user}">
-								<br>
-								<h4 class="my-auto mx-auto"><a class="my-auto mx-auto" href=".">Clicca qui per ritornare alla pagina di login</a></h4>
+									<br>
+									<h4 class="my-auto mx-auto">
+										<a class="my-auto mx-auto" href=".">Clicca qui per
+											ritornare alla pagina di login</a>
+									</h4>
 								</c:if>
 							</div>
 

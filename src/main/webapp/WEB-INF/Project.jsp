@@ -144,7 +144,7 @@
 												value="${oldProject.employee.email}" required>
 										</div>
 										<span id="errorManager"> </span>
-										
+
 
 										<!-- LISTA DIPENDENTI -->
 										<div class="form-group row pb-1">

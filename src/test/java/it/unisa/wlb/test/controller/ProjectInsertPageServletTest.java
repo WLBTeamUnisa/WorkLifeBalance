@@ -8,6 +8,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +34,8 @@ class ProjectInsertPageServletTest {
 	private HttpServletRequest request;
 	@Mock
 	private HttpServletResponse response;
-	
+	@Mock
+	private HttpSession session;	
 	@Mock
 	private RequestDispatcher dispatcher;
 	
@@ -46,6 +49,7 @@ class ProjectInsertPageServletTest {
 	void test() throws ServletException, IOException {
 		String path = "WEB-INF/ProjectInsertion.jsp";
 		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(request.getSession()).thenReturn(session);
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 		servlet.doPost(request, response);
 		verify(request).getRequestDispatcher(captor.capture());

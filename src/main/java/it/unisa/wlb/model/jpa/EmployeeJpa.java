@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import it.unisa.wlb.model.bean.Employee;
@@ -109,12 +108,6 @@ public class EmployeeJpa implements IEmployeeDAO {
 		finally {
 			entityManager.close();
 		}
-	}
-	
-	@Override
-	public List<Employee> retrieveByProjectId(String ProjectId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
