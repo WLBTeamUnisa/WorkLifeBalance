@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -34,12 +35,17 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setProjectDao(IProjectDAO projectDao) {
+		this.projectDao = projectDao;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("projectName");
+		System.out.println(name);
 		Project project = null;
 		if(name!=null) {
 			project = projectDao.retrieveByName(name);
@@ -47,6 +53,7 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
 				request.setAttribute("project", project);
 				request.getRequestDispatcher("WEB-INF/SupervisedProject.jsp").forward(request, response);
 			} else {
+				request.setAttribute("result", "error");
 				request.getRequestDispatcher(".").forward(request, response);
 			}
 		}
@@ -55,7 +62,7 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
