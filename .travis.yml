@@ -12,7 +12,8 @@ cache:
 before_install:
   - mvn checkstyle:check
 
-script: "mvn test && mvn verify"
+script: | 
+    mvn test
   
 script: "mvn cobertura:cobertura"
 
