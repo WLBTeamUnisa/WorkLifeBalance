@@ -41,6 +41,13 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
     public ShowCalendarHistoryServlet() {
         super();
     }
+    
+    public void setEmployeeDAO(IEmployeeDAO employeeDAO) {
+		this.employeeDao=employeeDAO;
+		
+	}
+    
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,13 +68,18 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			 *	has to retrieve the calendar history of the employee's session
 			 * 
 			 */
+			//System.out.println(employeeString);
 			if(employeeString==null || employeeString.equals(""))
 			{
+				
 				List<SmartWorkingPrenotation> smartWorkingPrenotationList = sessionEmployee.getSmartWorkingPrenotations();
+			
 				List<WorkstationPrenotation> workstationPrenotationList = sessionEmployee.getWorkstationPrenotations();
+				
 				JSONArray jsonArray=ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 				response.setContentType("application/json");
 				response.getWriter().append(jsonArray.toString());
+				
 			}
 			
 			/**
@@ -85,6 +97,8 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 					JSONArray jsonArray = ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 					response.setContentType("application/json");
 					response.getWriter().append(jsonArray.toString());
+					
+					
 				}
 				
 				catch(Exception exception)
@@ -105,7 +119,7 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
@@ -126,12 +140,15 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 	 */
 	public static JSONArray buildJsonArray(List<SmartWorkingPrenotation> smartWorkingPrenotationList, List<WorkstationPrenotation> workstationPrenotationList, Integer month, Integer year)
 	{
+		
 			JSONArray jsonArray = new JSONArray();
 			if(smartWorkingPrenotationList!=null)
 			{
 				for(int i=0; i<smartWorkingPrenotationList.size(); i++)
 				{
+					
 					List<PrenotationDate> prenotationDateList = smartWorkingPrenotationList.get(i).getPrenotationDates();
+					
 					if(prenotationDateList!=null)
 					{
 						for(int j=0; j<prenotationDateList.size(); j++)
@@ -169,6 +186,7 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 					}
 				}
 			}
+			
 			return jsonArray;
 	}
 
