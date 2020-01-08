@@ -60,8 +60,8 @@
 							<div class="card-header">
 								<h3 class="my-auto">Storico prenotazioni</h3>
 
-								<div class="row container">
-									<div class="col-sm-3 mx-auto">
+								<div class="row container mt-2">
+									<div class="col-sm-4 mx-auto">
 										<select name="" class="custom-select text-center"
 											id="monthSelect" style="height: 40px; weight: 150px" required>
 											<option value="1">Gennaio</option>
@@ -78,7 +78,7 @@
 											<option value="12">Dicembre</option>
 										</select>
 									</div>
-									<div class="col-sm-3 mx-auto">
+									<div class="col-sm-4 mx-auto">
 										<select class="custom-select text-center"
 											style="height: 40px; weight: 150px" id="yearSelect" required>
 										</select>

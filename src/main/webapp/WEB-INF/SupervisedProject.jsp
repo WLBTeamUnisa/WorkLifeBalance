@@ -125,7 +125,7 @@
 																<ul class="list-group list-group-bordered"
 																	id="employeeList">
 																	<c:forEach items="${project.employees}" var="employee">
-																		<li class='list-group-item'><a href="ShowCalendarHistoryPage?employeeEmail=${employee.email}">
+																		<li class='list-group-item'><a href="ShowCalendarHistoryPage?employeeEmail=${employee.email}" style="color:black; text-decoration: none;">
 																			<i class='fas fa-user my-auto mr-2'></i>${employee.name} ${employee.surname} - ${employee.email}
 																			</a>
 																		</li>
