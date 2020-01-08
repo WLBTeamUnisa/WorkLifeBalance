@@ -15,7 +15,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Table(name="PRENOTATION_DATE")
 @NamedQueries({
 	@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p"),
-	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employee = :employeeEmail AND p.id.smartWorkingPrenotation = :idPrenotationSw")
+	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employee = ?2 AND p.id.smartWorkingPrenotation = ?1")
 })
 @Interceptors({LoggerSingleton.class})
 public class PrenotationDate implements Serializable {
