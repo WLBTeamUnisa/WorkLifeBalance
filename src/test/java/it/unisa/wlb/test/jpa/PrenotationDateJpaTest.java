@@ -252,16 +252,16 @@ class PrenotationDateJpaTest {
 		prenotationDate.getId().setEmployeeEmail("g.verdana72@wlb.it");
 		PrenotationDate modifyied = prenotationDateJpa.update(prenotationDate);
 		assertEquals(prenotationDate.getId().getEmployeeEmail(), modifyied.getId().getEmployeeEmail());
-		prenotationDate.getId().setEmployeeEmail("g.verdana12@wlb.it");
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-			entityManager.createNativeQuery("delete from PRENOTATION_DATE where DATE='2020-01-03' and EMPLOYEE_EMAIL='g.verdana72@wlb.it' and ID_PRENOTATION_SW=1").executeUpdate();
+			entityManager.createNativeQuery("delete from PRENOTATION_DATE where DATE=? and EMPLOYEE_EMAIL=? and ID_PRENOTATION_SW=?").setParameter(1, modifyied.getId().getDate()).setParameter(2, modifyied.getId().getEmployeeEmail()).setParameter(3, modifyied.getId().getIdPrenotationSw()).executeUpdate();
 			entityManager.getTransaction().commit();
 		}
 		finally {
 			entityManager.close();
 		}
+		prenotationDate.getId().setEmployeeEmail("g.verdana12@wlb.it");
 	}
 
 	@Test
