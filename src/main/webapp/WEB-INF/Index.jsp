@@ -36,14 +36,23 @@
 		}
 	});
 </script>
+
+<style>
+.container-login100, wrap-login100 {
+	background: url(img/bg.png);
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+</style>
 </head>
 <body>
 
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100 p-t-85 p-b-20">
-				<form class="login100-form validate-form" action="LoginServlet"
-					method="POST">
+			<div class="wrap-login100 rounded-lg p-4">
+				<form class="login100-form validate-form container"
+					action="LoginServlet" method="POST">
 					<span class="login100-form-title p-b-70"> Work Life Balance
 					</span> <span class="login100-form-avatar"> <img src="img/logo.png"
 						alt="AVATAR">
@@ -64,15 +73,10 @@
 							data-placeholder="Password"></span>
 					</div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">Accedi</button>
+					<div class="col mx-auto text-center">
+						<button class="btn btn-warning" type="submit">Accedi</button>
 					</div>
 				</form>
-
-				<ul class="login-more mt-4">
-					<li class="m-b-8"><span class="txt1"> Password </span> <a
-						href="" class="txt2"> dimenticata? </a></li>
-				</ul>
 			</div>
 		</div>
 	</div>

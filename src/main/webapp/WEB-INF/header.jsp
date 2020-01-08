@@ -122,14 +122,14 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
+							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
+								class="nav-link"><i class="fas fa-pen-square"></i>
+									<p class="b">Smart Working</p></a></li>
+
 							<li class="nav-item"><a
 								href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
-
-							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
-								class="nav-link"><i class="fas fa-pen-square"></i>
-									<p class="b">Smart Working</p></a></li>
 						</ul>
 					</c:if>
 
@@ -153,14 +153,14 @@
 								class="nav-link"><i class="fas fa-th-list"></i>
 									<p class="b">Storico</p></a></li>
 
+							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
+								class="nav-link"><i class="fas fa-pen-square"></i>
+									<p class="b">Smart Working</p></a></li>
+
 							<li class="nav-item"><a
 								href="ShowWorkstationPrenotationPage" class="nav-link"><i
 									class="fas fa-pen-square"></i>
 									<p class="b">Prenota postazione</p></a></li>
-
-							<li class="nav-item"><a href="ShowSmartWorkingPrenotation"
-								class="nav-link"><i class="fas fa-pen-square"></i>
-									<p class="b">Smart Working</p></a></li>
 
 							<li class="nav-item" id="Projects" onclick="showProject()"><a
 								data-toggle="collapse" class="nav-link" href=""> <i
