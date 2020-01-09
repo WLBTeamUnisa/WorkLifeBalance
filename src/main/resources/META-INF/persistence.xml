@@ -64,7 +64,7 @@
 		<properties>
 			<!-- Configuring JDBC properties -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM './database/creator.sql'" />
+				value="jdbc:h2:./worklifebalance;MODE=MYSQL;DATABASE_TO_UPPER=false;INIT=RUNSCRIPT FROM './database/creator.sql'" />
 
 			<!-- Hibernate properties -->
 			<property name="hibernate.show_sql" value="true" />
