@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="ROOM")
+@Table(name="room")
 @NamedQueries({
 	@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r"),
 	@NamedQuery(name="Room.countMaxByFloor", query="SELECT COUNT(r) FROM Room r WHERE r.id.numFloor =?1"),

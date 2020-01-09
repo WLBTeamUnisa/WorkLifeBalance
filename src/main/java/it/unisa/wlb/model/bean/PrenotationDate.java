@@ -12,7 +12,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  */
 @Entity
-@Table(name="PRENOTATION_DATE")
+@Table(name="prenotation_date")
 @NamedQueries({
 	@NamedQuery(name="PrenotationDate.findAll", query="SELECT p FROM PrenotationDate p"),
 	@NamedQuery(name="PrenotationDate.findBySmartWorking", query="SELECT p FROM PrenotationDate p WHERE p.id.employee = ?2 AND p.id.smartWorkingPrenotation = ?1")

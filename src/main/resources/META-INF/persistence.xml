@@ -22,17 +22,13 @@
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<!-- Configuring JDBC properties -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM './database/creator.sql'\;RUNSCRIPT FROM 'classpath:data.sql'" />
-			<property name="javax.persistence.jdbc.driver"
-				value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/worklifebalance" />
+				value="jdbc:mysql://worklifebalancedb.cxr51lv4yvuk.us-east-1.rds.amazonaws.com:3306/worklifebalance" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="root" />
+				value="worklifebalance" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5Dialect" />

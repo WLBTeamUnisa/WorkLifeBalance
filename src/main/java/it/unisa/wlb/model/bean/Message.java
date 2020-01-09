@@ -15,7 +15,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="MESSAGE")
+@Table(name="message")
 @NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
 @Interceptors({LoggerSingleton.class})
 public class Message implements Serializable {

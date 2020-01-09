@@ -16,7 +16,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="PROJECT")
+@Table(name="project")
 @NamedQueries({
 	@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p"),
 	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee.email=:email"),
@@ -66,7 +66,7 @@ public class Project implements Serializable {
 	//bi-directional many-to-many association to Employee
 	@ManyToMany
 	@JoinTable(
-			name="WORKS"
+			name="works"
 			, joinColumns={
 					@JoinColumn(name="ID_PROJECT", columnDefinition="int(20)", nullable=false)
 			}
