@@ -6,14 +6,10 @@ jdk:
 sudo: false
 
 cache:
+  timeout: 1000
   bundler: true
   directories:
     - ${HOME}/.m2
-    - ${HOME}/perl5
-    - ${HOME}/.cache
-
-before_install:
-  - mvn checkstyle:check
 
 script: | 
     mvn test
