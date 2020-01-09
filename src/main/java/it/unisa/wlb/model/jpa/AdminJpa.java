@@ -17,7 +17,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Stateless
 @Interceptors({LoggerSingleton.class})
 public class AdminJpa implements IAdminDAO {
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("TestWorkLifeBalance");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 
 	public Admin create(Admin entity) {

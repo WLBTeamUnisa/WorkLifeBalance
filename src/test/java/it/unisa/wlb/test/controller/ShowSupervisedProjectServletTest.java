@@ -1,7 +1,6 @@
 package it.unisa.wlb.test.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -13,13 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import it.unisa.wlb.controller.ShowCalendarHistoryServlet;
 import it.unisa.wlb.controller.ShowSupervisedProjectServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;

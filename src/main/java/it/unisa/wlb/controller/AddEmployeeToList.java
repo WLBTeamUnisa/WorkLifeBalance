@@ -45,7 +45,6 @@ public class AddEmployeeToList extends HttpServlet {
      */
     public AddEmployeeToList() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void setEmployeeDao(IEmployeeDAO employeeDao) {
