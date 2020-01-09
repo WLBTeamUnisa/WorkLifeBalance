@@ -8,7 +8,6 @@ services:
 
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS worklifebalance'
-  - mysql -u root -e 'ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';'
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
   
 cache:
