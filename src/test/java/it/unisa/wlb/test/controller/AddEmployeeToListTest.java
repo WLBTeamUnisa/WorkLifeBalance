@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import static org.mockito.Mockito.when;
-import it.unisa.wlb.controller.AddEmployeeToList;
+import it.unisa.wlb.controller.AddEmployeeToListServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
@@ -30,7 +30,7 @@ class AddEmployeeToListTest {
 	@Mock
 	private IEmployeeDAO employeeDao;
 	
-	private AddEmployeeToList servlet;
+	private AddEmployeeToListServlet servlet;
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private String email;
@@ -40,7 +40,7 @@ class AddEmployeeToListTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		servlet = new AddEmployeeToList();
+		servlet = new AddEmployeeToListServlet();
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		email = "m.rossi1@wlb.it";
