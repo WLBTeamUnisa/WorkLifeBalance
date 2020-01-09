@@ -96,7 +96,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * Name field inserted doesn't respect the specified lenght - TC_2.2_2
+	 * Name field inserted doesn't respect the specified length - TC_2.2_2
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -218,7 +218,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * Scope field doesn't respect the specified lenght - TC_2.2_6
+	 * Scope field doesn't respect the specified length - TC_2.2_6
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -349,7 +349,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * Description field doesn't respect the specified lenght - TC_2.2_12
+	 * Description field doesn't respect the specified length - TC_2.2_12
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -371,7 +371,7 @@ public class ModifyProjectTest extends Mockito {
 	}
 
 	/**
-	 * Description field doesn't respect the specified lenght - TC_2.2_13
+	 * Description field doesn't respect the specified length - TC_2.2_13
 	 * 
 	 * @throws ServletException
 	 * @throws IOException

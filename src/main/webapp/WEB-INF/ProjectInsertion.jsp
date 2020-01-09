@@ -43,7 +43,6 @@
 <meta name="msapplication-TileImage"
 	content="img/favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
-on" />
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
