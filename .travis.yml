@@ -6,11 +6,8 @@ jdk:
 sudo: false
 
 cache:
-  bundler: true
   directories:
     - ${HOME}/.m2
-    - ${HOME}/perl5
-    - ${HOME}/.cache
 
 before_install:
   - mvn checkstyle:check
