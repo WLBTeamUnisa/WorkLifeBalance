@@ -1,5 +1,5 @@
 coverage:
   round: up
-  range: 0..75
+  range: 0..100
 codecov:
   branch: master
