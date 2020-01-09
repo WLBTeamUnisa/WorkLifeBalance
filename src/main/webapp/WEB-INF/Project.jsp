@@ -436,7 +436,7 @@
 
 		function verificaManager() {
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]+\@wlb.it$/)) {
 				$("#managerEmail").css("border", borderOK);
 				managerOK = true;
 			} else {
