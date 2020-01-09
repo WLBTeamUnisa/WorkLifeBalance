@@ -5,9 +5,22 @@ jdk:
 
 services:
   - mysql
+  
+dist: trusty
+
+sudo: required
+
+addons:
+  apt:
+    packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
 
 before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS worklifebalance'
+  - mysql -u root -e 'CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';'
+  - mysql -u root -e 'GRANT ALL ON worklifebalance.* TO 'root'@'localhost';'
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
   
 cache:
