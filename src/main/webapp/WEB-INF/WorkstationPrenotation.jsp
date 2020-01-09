@@ -102,7 +102,7 @@
 							<div class="card-header">
 								<h3 class="my-auto">Seleziona il giorno e la postazione da
 									prenotare:</h3>
-								<div class="row">
+								<div class="row" id="selectRow">
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="dateSelect">Data:</label> <select
@@ -135,7 +135,7 @@
 							</div>
 
 							<div class="card-body">
-								<div style="overflow-y: scroll; height: 230px;">
+								<div style="overflow-y: scroll; height: 230px;" id="scrollDiv">
 									<div class="flex-container"></div>
 									<form action="WorkstationPrenotationServlet" id="finalForm"></form>
 								</div>
@@ -190,26 +190,36 @@
 	    //CONTAINER DEGLI OGGETTI SVG
 	    var container = $(".flex-container");
 
-	    //INIZIALIZZO ALLA PRIMA STANZA
-	    loadRoom(1);
-	    console.log(insertedPlanimetry.length);
+	    if(insertedPlanimetry.length > 0){
+	    	//INIZIALIZZO ALLA PRIMA STANZA
+		    loadRoom(1);
+		    console.log(insertedPlanimetry.length);
 
-	    //LOAD PIANI
-	    if (insertedPlanimetry.length > 0) {
-	        var arrayJson = JSON.parse(insertedPlanimetry);
-	        var arrayFloor = [];
-	        for (var i = 0; i < arrayJson.length; i++) {
-	            if (!(arrayFloor.includes(arrayJson[i].floor))) {
-	                arrayFloor.push(arrayJson[i].floor);
-	            }
-	        }
-	    }
-	    floorSelect.html("");
-	    for (var j = 0; j < arrayFloor.length; j++) {
-	        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
-	    }
+		    //LOAD PIANI
+		    if (insertedPlanimetry.length > 0) {
+		        var arrayJson = JSON.parse(insertedPlanimetry);
+		        var arrayFloor = [];
+		        for (var i = 0; i < arrayJson.length; i++) {
+		            if (!(arrayFloor.includes(arrayJson[i].floor))) {
+		                arrayFloor.push(arrayJson[i].floor);
+		            }
+		        }
+		    }
+		    floorSelect.html("");
+		    for (var j = 0; j < arrayFloor.length; j++) {
+		        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
+		    }
 
-	    loadPlanimetry();
+		    loadPlanimetry();
+	    } else {
+	    	$("#selectRow").remove();
+	    	$("#scrollDiv").remove();
+	    	$(".card-header").html("");
+	    	$(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
+	    	$(".card-body").html("");
+            $(".card-body").append("<h2 class='my-auto'>Planimetria non inserita</h2>");
+	    }
+	    
 
 
 	    //LOAD STANZE
@@ -293,7 +303,7 @@
 	            xhttp.send();
 	        } else {
 	            $(".card-header").html("");
-	            $(".card-header").append("<h3 class='my-auto'>Avviso:</h3>");
+	            $(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
 	            $(".card-body").html("");
 	            $(".card-body").prop("height:250px; display: flex; align-items: center;");
 	            $(".card-body").append("<h2 class='my-auto mx-auto'>Hai già prenotato il numero massimo di postazioni.</h2>");

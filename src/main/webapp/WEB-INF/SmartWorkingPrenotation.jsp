@@ -88,7 +88,7 @@
 							<c:choose>
 								<c:when test="${booking=='no'}">
 									<div class="card-header">
-										<h3 class="my-auto">Avviso:</h3>
+										<h3 class="my-auto">Avviso</h3>
 									</div>
 									<div class="card-body">
 										<h2 class="my-auto mx-auto">Hai già effettuato una
