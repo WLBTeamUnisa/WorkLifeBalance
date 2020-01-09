@@ -498,7 +498,7 @@ on" />
 
 			var errorMsg = "L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]+\@wlb.it$/)) {
 
 				var xmlHttpReq = new XMLHttpRequest();
 				xmlHttpReq.onreadystatechange = function() {

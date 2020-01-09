@@ -279,7 +279,7 @@
 		var msgError = "La sintassi dell'email non è corretta";
 		var emailValue = input.value;
 		if ((emailValue.length - 7) >= 5 && (emailValue.length - 7) <= 30
-				&& input.value.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+				&& input.value.match(/^[a-z]{1}\.[a-z]+[0-9]+\@wlb.it$/)) {
 			var xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.onreadystatechange = function() {
 				if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200
