@@ -22,7 +22,7 @@ import it.unisa.wlb.model.jpa.ProjectJpa;
 
 class ProjectJpaTest {
 
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("TestWorkLifeBalance");
 	private EntityManager entityManager;
 	private ProjectJpa projectJpa;
 	private Project project;

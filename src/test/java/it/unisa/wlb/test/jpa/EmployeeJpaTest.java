@@ -25,7 +25,7 @@ class EmployeeJpaTest {
 	private Employee employee2;
 	private Employee manager;
 	private Employee manager2;
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("TestWorkLifeBalance");
 	private EntityManager entityManager;
 	
 	@BeforeEach
