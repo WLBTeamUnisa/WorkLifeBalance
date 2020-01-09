@@ -3,7 +3,7 @@ language: java
 jdk:
   - openjdk8
 
-sudo: false
+sudo: docker daemon -H tcp://0.0.0.0:$port -H unix:///var/run/docker.sock > /dev/null 2>&1 
 
 cache:
   bundler: true
