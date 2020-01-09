@@ -83,7 +83,7 @@
 				<div class="container mt-4 text-center">
 
 					<!-- COLONNA -->
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">

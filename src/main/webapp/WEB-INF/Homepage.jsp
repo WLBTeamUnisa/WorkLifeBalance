@@ -81,7 +81,7 @@
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<div class="card">
 							<c:choose>
@@ -149,7 +149,7 @@
 
 		if(listaJson.length==0){
 			$("#myTable").remove();
-			$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai prenotato niente per questa settimana</h2></div>");
+			$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Per la settimana corrente non hai prenotato nessun giorno di Smart Working e nessuna postazione di lavoro.</h2></div>");
 		}
 		
 		for(var i = 0; i<listaJson.length; i++){

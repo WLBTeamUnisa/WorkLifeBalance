@@ -94,7 +94,7 @@
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<div class="card">
 
@@ -217,7 +217,7 @@
 	    	$(".card-header").html("");
 	    	$(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
 	    	$(".card-body").html("");
-            $(".card-body").append("<h2 class='my-auto'>Planimetria non inserita</h2>");
+            $(".card-body").append("<h2 class='my-auto'>Planimetria non inserita.</h2>");
 	    }
 	    
 

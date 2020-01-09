@@ -83,7 +83,7 @@
 				<div class="container mt-4 text-center">
 
 					<!-- COLONNA -->
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">
@@ -181,7 +181,7 @@
 												<!-- "conferma" and "reset" BUTTON-->
 												<div class="form-group">
 													<button type="submit" id="confirmForm"
-														class="btn btn-success  col-5">Conferma</button>
+														class="btn btn-success  col-5" disabled>Conferma</button>
 													<button type="button" id="resetForm"
 														onclick="clearPlanimetry()" class="btn btn-danger  col-5">Reset</button>
 												</div>
@@ -294,6 +294,8 @@
 
             //UPDATE JSON 
 			document.getElementById("hiddenParameter").value=JSON.stringify(jsondata);
+            
+			document.getElementById("confirmForm").disabled = false;
 
 		}
 
