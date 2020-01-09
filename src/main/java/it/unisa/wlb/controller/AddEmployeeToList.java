@@ -39,6 +39,7 @@ public class AddEmployeeToList extends HttpServlet {
     private IEmployeeDAO employeeDao; 
     
     private static final String EMAIL = "email";
+    private static final String EMAILMANAGER = "emailManager";
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,68 +58,88 @@ public class AddEmployeeToList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String emailEmployee=request.getParameter(EMAIL);
+	    String emailManager=request.getParameter(EMAILMANAGER);
 	    
 	    /**
 	     * Check about the existence of submitted email in the database 
 	     * 
 	     * */
-	    Employee employee = employeeDao.retrieveByEmail(emailEmployee);
-	    if(employee==null)
+	    if(!emailEmployee.equals(emailManager))
 	    {
-	        response.getWriter().append("The employee is not valid");
-	    }
+	    	Employee employee = employeeDao.retrieveByEmail(emailEmployee);
+	    	if(employee==null)
+	    	{
+	    		response.getWriter().append("The employee is not valid");
+	    	}
 	    
-	    else
-	    {
-	    	JSONObject obj = new JSONObject();
-	    	obj.put("emailEmployee", employee.getEmail());
+	    	else
+	    	{
+	    		HttpSession session=request.getSession();
+	    		List<Employee> currentEmployeeList = (List<Employee>) session.getAttribute("currentEmployees");
+	    		int flagList=0;
+	    		if(currentEmployeeList!=null)
+	    		{
+	    			for(int i=0; i<currentEmployeeList.size() && flagList==0; i++)
+	    			{
+	    				if(currentEmployeeList.get(i).getEmail().equals(employee.getEmail()))
+	    				{	
+	    					flagList=1;
+	    				}
+	    			}
+	    		}
+	    			
 	        
 	        /**
 	         * If employee exists, the employee will be inserted into the arraylist
 	         * 
 	         * */
-	    	HttpSession session=request.getSession();
-	        ArrayList<Employee> list=(ArrayList<Employee>) session.getAttribute("employeeList");
+	    	if(flagList==0)
+	    	{
+	    		JSONObject obj = new JSONObject();
+	    		obj.put("emailEmployee", employee.getEmail());
+	    		ArrayList<Employee> list=(ArrayList<Employee>) session.getAttribute("employeeList");
 	        
 	        /**
 	         * If the list, initially is empty, it will be created
 	         * 
 	         */
-	        if(list==null)
-	        {
-	        	list=new ArrayList<Employee>();
-	        	list.add(employee);
-	        	session.setAttribute("employeeList", list);
-		        response.getWriter().append(obj.toString());
-		        response.setContentType("application/json");
-	        }
+	    		if(list==null)
+	    		{
+	    			list=new ArrayList<Employee>();
+	    			list.add(employee);
+	    			session.setAttribute("employeeList", list);
+	    			response.getWriter().append(obj.toString());
+	    			response.setContentType("application/json");
+	    		}
 	        
 	        
 	        /**
 	         * Only if the employee there isn't yet into the list, it will be added 
 	         * 
 	         * */
-	        else
-	        {
-	          int flag=0;
-	          for(int i=0; i<list.size() && flag==0; i++)
-	          {
-	        	  if(list.get(i).getEmail().equals(employee.getEmail()))
-	        	  {
-	        		  flag=1;
-	        	  }
-	          }
+	    		else
+	    		{
+	    			int flag=0;
+	    			for(int i=0; i<list.size() && flag==0; i++)
+	    			{
+	    				if(list.get(i).getEmail().equals(employee.getEmail()))
+	    				{
+	    					flag=1;
+	    				}
+	    			}
 	          
-	          if(flag==0)
-	          {
-	        	  list.add(employee);
-        		  session.setAttribute("employeeList", list);
-        		  response.getWriter().append(obj.toString());
-        		  response.setContentType("application/json");
-	          }
-	        }
+	    			if(flag==0)
+	    			{
+	    				list.add(employee);
+	    				session.setAttribute("employeeList", list);
+	    				response.getWriter().append(obj.toString());
+	    				response.setContentType("application/json");
+	    			}
+	    		}
+	    	}
 	    }
 	}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

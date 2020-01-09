@@ -6,11 +6,9 @@ jdk:
 sudo: false
 
 cache:
+  bundler: true
   directories:
-    - $HOME/.m2
-
-before_install:
-  - mvn checkstyle:check
+    - ${HOME}/.m2
 
 script: | 
     mvn test
