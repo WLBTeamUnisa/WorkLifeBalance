@@ -6,7 +6,6 @@ jdk:
 sudo: false
 
 cache:
-  timeout: 1000
   bundler: true
   directories:
     - ${HOME}/.m2
