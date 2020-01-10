@@ -58,5 +58,11 @@ public class SmartWorkingPrenotationPK implements Serializable {
 	public String toString() {
 		return "SmartWorkingPrenotationPK [id=" + id + ", employee=" + employee + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 	
+
 }

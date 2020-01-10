@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="WORKSTATION")
+@Table(name="workstation")
 @NamedQueries({
 	@NamedQuery(name="Workstation.findAll", query="SELECT w FROM Workstation w"),
 	@NamedQuery(name="Workstation.retrieveByFloorAndRoom", query="SELECT w FROM Workstation w WHERE w.id.floor=?1 AND w.id.room=?2"),

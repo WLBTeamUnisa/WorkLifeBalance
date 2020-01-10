@@ -14,7 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="SMART_WORKING_PRENOTATION")
+@Table(name="smart_working_prenotation")
 @NamedQueries({
 	@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s"),
 	@NamedQuery(name="SmartWorkingPrenotation.findByEmployee", 

@@ -3,7 +3,8 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="WorkLifeBalance">
+	<persistence-unit name="WorkLifeBalanceTest"
+		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>it.unisa.wlb.model.bean.Admin</class>
 		<class>it.unisa.wlb.model.bean.PrenotationDate</class>
@@ -21,20 +22,19 @@
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotationPK</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="com.mysql.cj.jdbc.Driver" />
+			<!-- Configuring JDBC properties -->
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT 
+				FROM 'classpath:create.sql'\;RUNSCRIPT FROM 'classpath:data.sql'"/> -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://worklifebalancedb.cxr51lv4yvuk.us-east-1.rds.amazonaws.com:3306/worklifebalance" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password"
-				value="worklifebalance" />
-			<property name="hibernate.show_sql" value="true" />
+				value="jdbc:h2:mem:test" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.h2.Driver" />
+			<!-- Hibernate properties -->
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL5Dialect" />
-			<property name="hibernate.connection.autocommit"
-				value="true" />
-			<property name="hibernate.enable_lazy_load_no_trans"
-				value="true" />
+				value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>
