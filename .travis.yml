@@ -8,20 +8,13 @@ cache:
   directories:
     - ${HOME}/.m2
 
-services:
+service:
   - mysql
 
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-
-dist: trusty
-
 before_script:
-    - mysql -e 'create database worklifebalance;'
+  - mysql -e 'DROP DATABASE IF EXISTS worklifebalance'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS worklifebalance;'  
+  - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/DatabaseCreator.sql
 
 script: | 
     mvn test -Q
