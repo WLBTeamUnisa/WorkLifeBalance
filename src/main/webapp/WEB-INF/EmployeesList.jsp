@@ -91,16 +91,8 @@
 
 							<div class="card-body">
 
-								<a class="nav-link nav-item toggle-nav-search hidden-caret mb-3"
-									data-toggle="collapse" href="#search-nav" role="button"
-									aria-expanded="false" aria-controls="search-nav">
-									<button class="btn">
-										<i class="fa fa-search"></i>
-									</button>
-								</a>
-
 								<div class="collapse mx-auto mb-3" id="search-nav">
-									<form class="navbar-left navbar-form nav-search">
+									<form class="navbar-left navbar-form nav-search mb-4">
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<button type="submit" class="btn btn-search pr-1">
