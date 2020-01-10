@@ -11,7 +11,7 @@ cache:
     - ${HOME}/.m2
 
 script: | 
-    mvn test
+    mvn -q test
   
 script: "mvn cobertura:cobertura"
 
