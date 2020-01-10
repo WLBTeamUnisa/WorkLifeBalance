@@ -37,7 +37,7 @@ import it.unisa.wlb.model.jpa.PrenotationDateJpa;
  */
 class PrenotationDateJpaTest {
 	
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalanceTest");
 	private EntityManager entityManager;
 	private PrenotationDate prenotationDate;
 	private PrenotationDate prenotationDate2;

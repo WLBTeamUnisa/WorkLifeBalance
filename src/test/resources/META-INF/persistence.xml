@@ -22,19 +22,20 @@
 		<class>it.unisa.wlb.model.bean.WorkstationPrenotationPK</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<!-- Configuring JDBC properties -->
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT 
-				FROM 'classpath:create.sql'\;RUNSCRIPT FROM 'classpath:data.sql'"/> -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test" />
 			<property name="javax.persistence.jdbc.driver"
-				value="org.h2.Driver" />
-			<!-- Hibernate properties -->
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.format_sql" value="false" />
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://127.0.0.1:3306/worklifebalance" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password"
+				value="" />
 			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.autocommit"
+				value="true" />
+			<property name="hibernate.enable_lazy_load_no_trans"
+				value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>
