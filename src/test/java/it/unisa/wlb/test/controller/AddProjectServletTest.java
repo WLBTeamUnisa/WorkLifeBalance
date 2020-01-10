@@ -289,7 +289,7 @@ public class AddProjectServletTest extends Mockito {
 	 */
 	@Test
 	public void TC_2_2_11() throws ServletException, IOException {
-		request.addParameter("name", "");
+		request.addParameter("name", "WLB13PO");
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
 		request.addParameter("endDate", "2019-12-02");
@@ -388,7 +388,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 *  Inserted email doesn't correspond to any manager  -  TC_2.2_16
+	 *  Inserted email doesn't correspond to any employee  -  TC_2.2_16
 	 *  
 	 * @throws ServletException
 	 * @throws IOException

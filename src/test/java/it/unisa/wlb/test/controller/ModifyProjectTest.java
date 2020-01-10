@@ -137,7 +137,7 @@ public class ModifyProjectTest extends Mockito {
 
 	@Test
 	public void TC_2_3_3() throws ServletException, IOException {
-		request.addParameter("name", "WLBè");
+		request.addParameter("name", "WLB13è");
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
 		request.addParameter("endDate", "2019-12-02");
