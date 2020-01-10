@@ -79,7 +79,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		else
 			surnameOk=true;
 
-		if( email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
+		if( email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
 			emailOk=false;
 		else {
 			Employee employee = null;

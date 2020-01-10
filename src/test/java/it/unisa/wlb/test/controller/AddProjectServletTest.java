@@ -67,7 +67,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Name field inserted doesn't respect the specified lenght  - TC_2.2_2
+	 *  Name field inserted doesn't respect the specified length - TC_2.2_2
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -177,7 +177,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Scope field doesn't respect the specified lenght -  TC_2.2_6
+	 *  Scope field doesn't respect the specified length -  TC_2.2_6
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -289,7 +289,7 @@ public class AddProjectServletTest extends Mockito {
 	 */
 	@Test
 	public void TC_2_2_11() throws ServletException, IOException {
-		request.addParameter("name", "");
+		request.addParameter("name", "WLB13PO");
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
 		request.addParameter("endDate", "2019-12-02");
@@ -303,7 +303,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Description field doesn't respect the specified lenght -  TC_2.2_12
+	 *  Description field doesn't respect the specified length -  TC_2.2_12
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -324,7 +324,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Description field doesn't respect the specified lenght  -  TC_2.2_13
+	 *  Description field doesn't respect the specified length -  TC_2.2_13
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -388,7 +388,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 *  Inserted email doesn't correspond to any manager  -  TC_2.2_16
+	 *  Inserted email doesn't correspond to any employee  -  TC_2.2_16
 	 *  
 	 * @throws ServletException
 	 * @throws IOException

@@ -43,6 +43,7 @@
 		<servlet-name>ShowWorkstationPrenotationPageServlet</servlet-name>
 		<servlet-name>SmartWorkingDaysPrenotationServlet</servlet-name>
 		<servlet-name>SuggestionEmployees</servlet-name>
+		<servlet-name>SuggestionsYearServlet</servlet-name>
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
@@ -84,6 +85,7 @@
 		<servlet-name>SuggestionEmployees</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
 		<servlet-name>ShowEmployeePageServlet</servlet-name>
+		<servlet-name>ShowProjectServlet</servlet-name>
 		<servlet-name>ShowSupervisedProjectServlet</servlet-name>
 	</filter-mapping>
 
@@ -99,6 +101,7 @@
 		<servlet-name>ShowSmartWorkingPrenotationServlet</servlet-name>
 		<servlet-name>ShowWorkstationPrenotationPageServlet</servlet-name>
 		<servlet-name>SmartWorkingDaysPrenotationServlet</servlet-name>
+		<servlet-name>SuggestionsYearServlet</servlet-name>
 		<servlet-name>WorkstationPrenotationServlet</servlet-name>
 		<servlet-name>WorkstationsAvailabilityServlet</servlet-name>
 		<servlet-name>ShowAllSupervisedProjectsServlet</servlet-name>
