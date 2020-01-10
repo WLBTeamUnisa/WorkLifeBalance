@@ -20,8 +20,6 @@ addons:
 
 dist: trusty
 
-sudo: required
-
 before_script:
     - mysql -e 'create database worklifebalance;'
 
