@@ -18,9 +18,8 @@ addons:
     - mysql-client-5.6
     
 before_script:
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo service mysql restart
-  - mysql -e 'CREATE DATABASE worklifebalance;'
+  - mysql -u root -e "SET PASSWORD FOR 'root'@'127.0.0.1' = root;
+  - mysql -u root -e 'CREATE DATABASE worklifebalance;'
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
  
 cache:
