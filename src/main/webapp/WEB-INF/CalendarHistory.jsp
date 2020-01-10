@@ -142,20 +142,24 @@
 
 
 	<script>
-$(window).resize(function(){
-
-	if ($(window).width() <= 992) {
-		if(!($("#monthSelect").hasClass("mb-3"))){
-			$("#monthSelect").addClass("mb-3")
+		function checkSize(){
+			if ($(window).width() < 992) {
+				if(!($("#monthSelect").hasClass("mb-3"))){
+					$("#monthSelect").addClass("mb-3")
+				}
+			} else {
+				if($("#monthSelect").hasClass("mb-3")){
+					$("#monthSelect").removeClass("mb-3")
+				}
+			}
 		}
-	} else {
-		if($("#monthSelect").hasClass("mb-3")){
-			$("#monthSelect").removeClass("mb-3")
-		}
-	}
-
-});
-</script>
+		
+		checkSize();
+		
+		$(window).resize(function(){
+			checkSize();
+		});
+	</script>
 	<script>
 $(document).ready(function () {
 
