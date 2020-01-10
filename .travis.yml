@@ -11,7 +11,7 @@ cache:
     - ${HOME}/.m2
 
 script: | 
-    mvn --version && mvn clean test verify -B
+    mvn install
   
 script: "mvn cobertura:cobertura"
 
