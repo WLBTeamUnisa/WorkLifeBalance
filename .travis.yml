@@ -20,8 +20,8 @@ addons:
 before_script:
   - dpkg --get-selections | grep sql
   - mysqladmin --user=root password 'root'
-  - mysql -u root -e 'CREATE DATABASE worklifebalance;'
-  - mysql -u root -e "GRANT ALL ON worklifebalance.* TO 'root'@'localhost';"
+  - mysql -u root 'CREATE DATABASE worklifebalance;'
+  - mysql -u root "GRANT ALL ON worklifebalance.* TO 'root'@'localhost';"
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
  
 cache:
