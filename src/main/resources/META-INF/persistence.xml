@@ -24,10 +24,10 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://worklifebalancedb.cxr51lv4yvuk.us-east-1.rds.amazonaws.com:3306/worklifebalance" />
+				value="jdbc:mysql://127.0.0.1:3306/worklifebalance" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="worklifebalance" />
+				value="root" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5Dialect" />

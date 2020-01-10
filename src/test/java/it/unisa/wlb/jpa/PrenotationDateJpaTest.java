@@ -191,7 +191,7 @@ class PrenotationDateJpaTest {
 
 	}
 	
-	/*@Test
+	@Test
 	final void testRetrieveAll() {
 		boolean check1 = false;
 		boolean check2 = false;
@@ -208,7 +208,7 @@ class PrenotationDateJpaTest {
 				check2 = true;
 		}
 		assertTrue(check1 && check2);
-	}*/
+	}
 
 	@Test
 	final void testRemove() {
@@ -223,7 +223,7 @@ class PrenotationDateJpaTest {
 			
 		}
 		if(!check1) {
-			assertTrue(true); //qui c'era false
+			assertTrue(false);
 			return ;
 		}
 		
@@ -263,7 +263,7 @@ class PrenotationDateJpaTest {
 		prenotationDate.getId().setEmployeeEmail("g.verdana12@wlb.it");
 	}
 
-	/*@Test
+	@Test
 	final void testRetrieveBySmartWorking() {
 		boolean check1 = false;
 		boolean check2 = false;
@@ -281,6 +281,6 @@ class PrenotationDateJpaTest {
 				check2 = true;
 		}
 		assertTrue(check1 && check2);
-	}*/
+	}
 
 }
