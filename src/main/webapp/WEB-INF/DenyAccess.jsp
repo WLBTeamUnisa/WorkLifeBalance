@@ -12,7 +12,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Access Deny</title>
+<title>WLB - Accesso negato</title>
 
 <!-- Icon -->
 <link rel="apple-touch-icon" sizes="57x57"
@@ -140,11 +140,6 @@
 
 		<!-- FINE WRAPPER -->
 	</div>
-
-	<!--   Core JS Files   -->
-	<script src="js/core/jquery.3.2.1.min.js"></script>
-	<script src="js/core/popper.min.js"></script>
-	<script src="js/core/bootstrap.min.js"></script>
 
 </body>
 </html>
