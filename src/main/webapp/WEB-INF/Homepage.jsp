@@ -101,7 +101,7 @@
 									<div class="card-body p-0" id="myCard">
 
 										<div class="card-header">
-											<h3 class="my-auto">Pianificazione settimanale</h3>
+											<h3 class="my-auto">Pianificazione settimana corrente</h3>
 										</div>
 
 										<table class="table table-striped" id="myTable">

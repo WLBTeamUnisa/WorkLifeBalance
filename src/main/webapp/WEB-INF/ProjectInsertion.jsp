@@ -432,7 +432,7 @@
 
 		function verificaDate(startDate, endDate) {
 			//Matchano tutte e due
-			if (startDate <= endDate) {
+			if (startDate < endDate) {
 				//STARTDATE
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
@@ -462,7 +462,7 @@
 					$("#endDate").removeClass("is-valid");
 				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#endDate").addClass("is-invalid");
-				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
+				document.getElementById("errorDataFine").innerHTML = "La data di fine deve seguire quella di inzio!";
 				dataFineOK = false;
 			}
 		}
