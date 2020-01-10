@@ -45,10 +45,18 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("projectName");
-		System.out.println(name);
 		Project project = null;
 		if(name!=null) {
-			project = projectDao.retrieveByName(name);
+			try {
+				project = projectDao.retrieveByName(name);
+			}
+			
+			catch(Exception exception)
+			{
+				request.setAttribute("result", "error");
+				request.getRequestDispatcher(".").forward(request, response);
+			}
+			
 			if(project!=null) {
 				request.setAttribute("project", project);
 				request.getRequestDispatcher("WEB-INF/SupervisedProject.jsp").forward(request, response);
