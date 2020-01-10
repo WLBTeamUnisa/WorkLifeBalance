@@ -22,7 +22,6 @@ before_script:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS worklifebalance'
   - mysql -u root -e "SET PASSWORD FOR 'root' = PASSWORD('root');"
   - mysql -u root -e "GRANT ALL ON worklifebalance.* TO 'root'@'localhost';"
-  FLUSH PRIVILEGES;
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
   
 cache:
