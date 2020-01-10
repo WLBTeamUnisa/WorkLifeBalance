@@ -18,7 +18,7 @@ import it.unisa.wlb.model.jpa.AdminJpa;
 
 class AdminJpaTest {
 
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalanceTest");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 	private Admin admin;
 	private Admin admin2;

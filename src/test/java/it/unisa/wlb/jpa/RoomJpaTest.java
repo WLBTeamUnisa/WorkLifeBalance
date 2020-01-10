@@ -21,7 +21,7 @@ import it.unisa.wlb.model.jpa.RoomJpa;
 
 class RoomJpaTest {
 
-	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalanceTest");
+	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 	private RoomJpa roomJpa;
 	private Floor firstFloor;
