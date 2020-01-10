@@ -7,9 +7,6 @@ cache:
   bundler: true
   directories:
     - ${HOME}/.m2
-    
-services:
-  - mysql
   
 script: | 
     mvn test
