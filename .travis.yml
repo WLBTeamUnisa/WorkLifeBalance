@@ -7,6 +7,8 @@ cache:
   bundler: true
   directories:
     - ${HOME}/.m2
+    - ${HOME}/perl5
+    - ${HOME}/.cache
     
 services:
   - mysql
