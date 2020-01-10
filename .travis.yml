@@ -17,10 +17,6 @@ addons:
     - mysql-client-core-5.6
     - mysql-client-5.6
     
-before_script:
-  - mysql -u root -e 'CREATE DATABASE worklifebalance;'
-  - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
-  
 cache:
   bundler: true
   directories:
