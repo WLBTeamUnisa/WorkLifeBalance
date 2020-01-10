@@ -2,7 +2,17 @@ language: java
 
 jdk:
   - openjdk8
-
+  
+efore_deploy: 
+  - imagine code here
+  - pip install awscli 
+  - pip install travis-wait-improved 
+  - imagine more code
+  
+deploy: 
+ provider: script  
+ script: travis-wait-improved --timeout 20m aws s3 sync public s3://$BUCKET_NAME --region=$BUCKET_REGION --delete --quiet
+ 
 services:
   - mysql
   
