@@ -475,6 +475,7 @@
 		}
 
 		function insertEmployee(email) {
+			var manager = $("#managerEmail").val();
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -488,7 +489,7 @@
 
 				}
 			}
-			xhttp.open("GET", "AddEmployeeToList?email=" + email, true);
+			xhttp.open("GET", "AddEmployeeToList?email=" + email+"&emailManager="+manager, true);
 			xhttp.send();
 		}		
 		
