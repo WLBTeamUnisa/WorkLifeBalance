@@ -25,7 +25,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  */
 @WebServlet(name="SuggestionEmployees", urlPatterns="/SuggestionEmployees")
 @Interceptors({LoggerSingleton.class})
-public class SuggestionEmployees extends HttpServlet {
+public class SuggestionEmployeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	@EJB
@@ -44,7 +44,7 @@ public class SuggestionEmployees extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SuggestionEmployees() {
+    public SuggestionEmployeesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

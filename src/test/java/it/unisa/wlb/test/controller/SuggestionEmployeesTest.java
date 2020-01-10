@@ -16,7 +16,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import it.unisa.wlb.controller.SuggestionEmployees;
+import it.unisa.wlb.controller.SuggestionEmployeesServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
 
@@ -31,7 +31,7 @@ class SuggestionEmployeesTest {
 	@Mock 
 	private IEmployeeDAO employeeDao;
 	
-	private SuggestionEmployees servlet;
+	private SuggestionEmployeesServlet servlet;
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private String email;
@@ -44,7 +44,7 @@ class SuggestionEmployeesTest {
 		MockitoAnnotations.initMocks(this);
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		servlet = new SuggestionEmployees();
+		servlet = new SuggestionEmployeesServlet();
 		email = "m.rossi1@wlb.it";
 		employee = new Employee();
 		employee.setEmail(email);

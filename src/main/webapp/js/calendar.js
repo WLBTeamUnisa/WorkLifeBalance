@@ -142,11 +142,6 @@ $(document).ready(function () {
                         )
                     } else {
                         //ALTRIMENTI EFFETTUO LA SCELTA E ABILITO IL PULSANTE
-                        Swal.fire(
-                            'Successo!',
-                            'La prenotazione e\' stata effettuata.',
-                            'success'
-                        )
                         clicked.addClass("choose");
                         numGiorni.giorni.push({
                             "giorno": clicked.html(),
@@ -161,11 +156,6 @@ $(document).ready(function () {
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
-                    Swal.fire(
-                        'Cancellata!',
-                        'La prenotazione e\' stata eliminata',
-                        'error'
-                    )
                 }
             });
         });

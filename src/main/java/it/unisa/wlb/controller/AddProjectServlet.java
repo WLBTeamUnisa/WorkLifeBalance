@@ -136,7 +136,7 @@ public class AddProjectServlet extends HttpServlet {
 			throw new IllegalArgumentException();
 		}
 		
-		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
 		managerEmailOk = true;
 		}
 		

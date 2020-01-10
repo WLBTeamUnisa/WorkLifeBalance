@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import it.unisa.wlb.controller.ShowEmployeePage;
+import it.unisa.wlb.controller.ShowEmployeePageServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDAO;
@@ -34,7 +34,7 @@ class ShowEmployeePageTest {
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
-	private ShowEmployeePage servlet;
+	private ShowEmployeePageServlet servlet;
 	
 	private Admin admin;
 	private String name;
@@ -55,7 +55,7 @@ class ShowEmployeePageTest {
 		MockitoAnnotations.initMocks(this);
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
-		servlet = new ShowEmployeePage();
+		servlet = new ShowEmployeePageServlet();
 		
 		name = "Marco";
 		surname = "Rossi";
