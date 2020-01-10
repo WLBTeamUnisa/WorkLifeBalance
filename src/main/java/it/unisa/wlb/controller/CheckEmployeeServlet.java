@@ -49,7 +49,7 @@ public class CheckEmployeeServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		response.setContentType("text/xml");
 		
-		if( (email!=null) && (email.length()>=6) && email.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") ){
+		if( (email!=null) && (email.length()>=6) && email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") ){
 			try {
 				employeeDao.retrieveByEmail(email);
 				response.getWriter().write("<no/>");

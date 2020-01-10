@@ -42,7 +42,7 @@ public class CheckManagerServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		Employee employee;
 		JSONObject obj = new JSONObject();
-		if( (email!=null) && (email.matches("^[a-z]{1}\\.[a-z]+[0-9]*\\@wlb.it$"))) {
+		if( (email!=null) && (email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$"))) {
 			try {
 				employee = employeeDao.retrieveByEmail(email);
 				obj.put("status", employee.getStatus());

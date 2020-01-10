@@ -36,9 +36,8 @@
 
 <script>
 
-$(window).resize(function(){
-
-	if ($(window).width() <= 992) {
+function checkWidth(){
+	if ($(window).width() < 992) {
 		if($("#logoNavbar").hasClass("ml-3")){
 			$("#logoNavbar").removeClass("ml-3")
 		}
@@ -47,6 +46,13 @@ $(window).resize(function(){
 			$("#logoNavbar").addClass("ml-3")
 		}
 	}
+}
+
+checkWidth();
+
+$(window).resize(function(){
+
+	checkWidth();
 
 });
 	

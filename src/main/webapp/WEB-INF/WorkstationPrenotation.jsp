@@ -15,7 +15,37 @@
 <title>WLB - Smart Working</title>
 
 <!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -64,7 +94,7 @@
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<div class="card">
 
@@ -72,7 +102,7 @@
 							<div class="card-header">
 								<h3 class="my-auto">Seleziona il giorno e la postazione da
 									prenotare:</h3>
-								<div class="row">
+								<div class="row" id="selectRow">
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="dateSelect">Data:</label> <select
@@ -105,7 +135,7 @@
 							</div>
 
 							<div class="card-body">
-								<div style="overflow-y: scroll; height: 230px;">
+								<div style="overflow-y: scroll; height: 230px;" id="scrollDiv">
 									<div class="flex-container"></div>
 									<form action="WorkstationPrenotationServlet" id="finalForm"></form>
 								</div>
@@ -160,26 +190,36 @@
 	    //CONTAINER DEGLI OGGETTI SVG
 	    var container = $(".flex-container");
 
-	    //INIZIALIZZO ALLA PRIMA STANZA
-	    loadRoom(1);
-	    console.log(insertedPlanimetry.length);
+	    if(insertedPlanimetry.length > 0){
+	    	//INIZIALIZZO ALLA PRIMA STANZA
+		    loadRoom(1);
+		    console.log(insertedPlanimetry.length);
 
-	    //LOAD PIANI
-	    if (insertedPlanimetry.length > 0) {
-	        var arrayJson = JSON.parse(insertedPlanimetry);
-	        var arrayFloor = [];
-	        for (var i = 0; i < arrayJson.length; i++) {
-	            if (!(arrayFloor.includes(arrayJson[i].floor))) {
-	                arrayFloor.push(arrayJson[i].floor);
-	            }
-	        }
-	    }
-	    floorSelect.html("");
-	    for (var j = 0; j < arrayFloor.length; j++) {
-	        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
-	    }
+		    //LOAD PIANI
+		    if (insertedPlanimetry.length > 0) {
+		        var arrayJson = JSON.parse(insertedPlanimetry);
+		        var arrayFloor = [];
+		        for (var i = 0; i < arrayJson.length; i++) {
+		            if (!(arrayFloor.includes(arrayJson[i].floor))) {
+		                arrayFloor.push(arrayJson[i].floor);
+		            }
+		        }
+		    }
+		    floorSelect.html("");
+		    for (var j = 0; j < arrayFloor.length; j++) {
+		        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
+		    }
 
-	    loadPlanimetry();
+		    loadPlanimetry();
+	    } else {
+	    	$("#selectRow").remove();
+	    	$("#scrollDiv").remove();
+	    	$(".card-header").html("");
+	    	$(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
+	    	$(".card-body").html("");
+            $(".card-body").append("<h2 class='my-auto'>Planimetria non inserita.</h2>");
+	    }
+	    
 
 
 	    //LOAD STANZE
@@ -263,7 +303,7 @@
 	            xhttp.send();
 	        } else {
 	            $(".card-header").html("");
-	            $(".card-header").append("<h3 class='my-auto'>Avviso:</h3>");
+	            $(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
 	            $(".card-body").html("");
 	            $(".card-body").prop("height:250px; display: flex; align-items: center;");
 	            $(".card-body").append("<h2 class='my-auto mx-auto'>Hai già prenotato il numero massimo di postazioni.</h2>");
