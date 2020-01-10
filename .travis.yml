@@ -18,6 +18,7 @@ addons:
     - mysql-client-5.6
     
 before_script:
+  - dpkg --get-selections | grep sql
   - mysqladmin --user=root password 'root'
   - mysql -u root -e 'CREATE DATABASE worklifebalance;'
   - mysql -u root -e "GRANT ALL ON worklifebalance.* TO 'root'@'localhost';"
