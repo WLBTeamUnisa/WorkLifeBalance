@@ -18,7 +18,7 @@ addons:
     - mysql-client-5.6
     
 before_script:
-  - mysql -u root -e "SET PASSWORD FOR 'root'@'127.0.0.1' = root;
+  - mysql -u root -e "SET PASSWORD FOR 'root'@'127.0.0.1' = root;"
   - mysql -u root -e 'CREATE DATABASE worklifebalance;'
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
  
