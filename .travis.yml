@@ -12,9 +12,9 @@ service:
   - mysql
 
 before_script:
-  - mysql -e "UPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n"
   - mysql -e 'DROP DATABASE IF EXISTS worklifebalance'
   - mysql -e 'CREATE DATABASE IF NOT EXISTS worklifebalance;'  
+  - mysql -e "UPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n"
   - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/DatabaseCreator.sql
 
 script: | 
