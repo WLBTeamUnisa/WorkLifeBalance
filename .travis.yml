@@ -7,8 +7,6 @@ cache:
   bundler: true
   directories:
     - ${HOME}/.m2
-    - ${HOME}/perl5
-    - ${HOME}/.cache
     
 services:
   - mysql
@@ -29,7 +27,7 @@ before_script:
   - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
 
 script: | 
-    mvn test
+    mvn test -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
   
 script: "mvn cobertura:cobertura"
 
