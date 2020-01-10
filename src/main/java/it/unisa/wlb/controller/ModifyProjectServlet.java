@@ -188,7 +188,16 @@ public class ModifyProjectServlet extends HttpServlet {
 			oldProject.setEndDate(endDate);
 			oldProject.setDescription(description);
 			oldProject.setEmployee(manager);			
-			projectDao.update(oldProject);
+			try { 
+				projectDao.update(oldProject);
+			}
+
+			catch(Exception exception) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().write("\nErrore nell'aggiornamento del progetto");			
+				response.getWriter().flush();
+				return;
+			}
 
 			request.setAttribute("result", "success");
 			request.setAttribute("status", "modifying");
