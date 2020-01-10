@@ -38,6 +38,10 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void setEmployeeDAO(IEmployeeDAO employeeDao){
+    	this.employeeDao=employeeDao;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,6 +66,8 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 						List<Project> managerProjects = sessionEmployee.getProjects1();
 						List<Project> employeeProjects = employee.getProjects2();
 						int flag=0;
+						
+					
 						for(int i=0; i<managerProjects.size() && flag==0; i++)
 						{
 							for(int j=0; j<employeeProjects.size() && flag==0; j++)
@@ -121,7 +127,7 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
