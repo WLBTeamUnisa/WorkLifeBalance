@@ -11,10 +11,19 @@ cache:
 services:
   - mysql
 
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+
+dist: trusty
+
+sudo: required
+
 before_script:
-  - mysql "update user set authentication_string=PASSWORD('root') where User='root'; flush privileges;"
-  - mysql -u root -e 'CREATE DATABASE worklifebalance;'
-  - mysql -u root --default-character-set=utf8 worklifebalance < database/DatabaseCreator.sql
+    - mysql -e 'create database worklifebalance;'
 
 script: | 
     mvn test -Q
