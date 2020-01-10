@@ -215,7 +215,6 @@ class PrenotationDateJpaTest {
 		boolean check1 = false;
 		List<PrenotationDate> list = prenotationDateJpa.retrieveAll();	
 		for(PrenotationDate p : list) {
-			System.err.println("\n++++++++++++++++++++++++++"+p.toString());
 			if(p.getId().getDate().getTime()==prenotationDate.getId().getDate().getTime()
 					&& p.getId().getEmployeeEmail().equals(prenotationDate.getId().getEmployeeEmail())
 					&& p.getId().getIdPrenotationSw()==prenotationDate.getId().getIdPrenotationSw())

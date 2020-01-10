@@ -17,7 +17,7 @@ before_script:
   - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/DatabaseCreator.sql
 
 script: | 
-    mvn test -Q
+    mvn test "-Dlog4j.configuration=file:src/main/resources/log4j.properties"
   
 script: "mvn cobertura:cobertura"
 
