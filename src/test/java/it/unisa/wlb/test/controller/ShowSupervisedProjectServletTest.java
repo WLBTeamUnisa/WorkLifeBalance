@@ -87,4 +87,14 @@ public class ShowSupervisedProjectServletTest {
 		assertEquals(result, "error");
 		
 	}
+	
+	@Test
+	void projectDuplicate() throws ServletException, IOException {
+		when(projectDao.retrieveByName(project.getName())).thenThrow(Exception.class);
+		servlet.setProjectDao(projectDao);
+		servlet.doPost(request, response);
+		String result =(String) request.getAttribute("result");
+		assertEquals(result, "error");
+		
+	}
 }
