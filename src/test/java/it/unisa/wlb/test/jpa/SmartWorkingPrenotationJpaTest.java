@@ -30,7 +30,10 @@ class SmartWorkingPrenotationJpaTest {
 	private SmartWorkingPrenotationJpa prenotationJpa;
 	private SmartWorkingPrenotation prenotation;
 	private SmartWorkingPrenotationPK prenotationPk;
+	private SmartWorkingPrenotation secondPrenotation;
+	private SmartWorkingPrenotationPK secondPrenotationPk;
 	private Employee employee;
+	private Employee anEmployee;
 	private Date prenotationDate;
 	private int calendarWeek;
 	private int year;
@@ -41,6 +44,16 @@ class SmartWorkingPrenotationJpaTest {
 		prenotation = new SmartWorkingPrenotation();
 		prenotationPk = new SmartWorkingPrenotationPK();
 		employee = new Employee();
+		anEmployee = new Employee();
+		
+		secondPrenotation = new SmartWorkingPrenotation();
+		secondPrenotationPk = new SmartWorkingPrenotationPK();
+
+		anEmployee.setEmail("g.gialli1@wlb.it");
+		anEmployee.setPassword("Ciao1234.");
+		anEmployee.setName("Giovanni");
+		anEmployee.setSurname("Gialli");
+		anEmployee.setStatus(1);
 		
 		employee.setEmail("m.rossi1@wlb.it");
 		employee.setName("Mario");
@@ -52,6 +65,7 @@ class SmartWorkingPrenotationJpaTest {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.persist(employee);
+			entityManager.persist(anEmployee);
 			entityManager.getTransaction().commit();
 		} finally {
 			entityManager.close();
@@ -75,6 +89,13 @@ class SmartWorkingPrenotationJpaTest {
 		prenotation.setCalendarWeek(calendarWeek);
 		prenotation.setId(prenotationPk);
 		prenotation.setYear(year);
+	
+		secondPrenotationPk.setEmployeeEmail(anEmployee.getEmail());
+		secondPrenotationPk.setId(2);
+		secondPrenotation.setId(secondPrenotationPk);
+		secondPrenotation.setCalendarWeek(calendarWeek);
+		secondPrenotation.setYear(year);
+		secondPrenotation.setEmployee(anEmployee);
 	}
 
 	@AfterEach
@@ -84,6 +105,7 @@ class SmartWorkingPrenotationJpaTest {
 			entityManager.getTransaction().begin();
 			entityManager.remove(entityManager.merge(prenotation));
 			entityManager.remove(entityManager.merge(employee));
+			entityManager.remove(entityManager.merge(anEmployee));
 			entityManager.getTransaction().commit();
 		} finally {
 			entityManager.close();
@@ -189,12 +211,14 @@ class SmartWorkingPrenotationJpaTest {
 	@Test
 	void retrieveAllTest() {
 		List<SmartWorkingPrenotation> list;
-		boolean check = false;
+		boolean checkOne = false;
+		boolean checkTwo = false;
 		
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.persist(prenotation);
+			entityManager.persist(secondPrenotation);
 			entityManager.getTransaction().commit();
 		} finally {
 			entityManager.close();
@@ -202,14 +226,17 @@ class SmartWorkingPrenotationJpaTest {
 		
 		list = prenotationJpa.retrieveAll();
 		for(SmartWorkingPrenotation aPrenotation : list) {
-			if(aPrenotation.getId().getId() == prenotation.getId().getId()) check = true;
+			if(aPrenotation.getId().getId() == prenotation.getId().getId()) checkOne = true;
+			if(aPrenotation.getId().getId() == secondPrenotation.getId().getId()) checkTwo = true;
 		}
-		assertTrue(check);
+		assertTrue(checkOne);
+		assertTrue(checkTwo);
 		
 		try {
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
 			entityManager.remove(entityManager.merge(prenotation));
+			entityManager.remove(entityManager.merge(secondPrenotation));
 			entityManager.getTransaction().commit();
 		} finally {
 			entityManager.close();
