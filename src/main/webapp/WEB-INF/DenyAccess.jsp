@@ -133,7 +133,7 @@
 				<!-- FINE CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
 			<!-- FINE MAIN-PANEL -->
 		</div>

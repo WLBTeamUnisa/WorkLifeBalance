@@ -11,7 +11,7 @@
 				</a></li>
 			</ul>
 		</nav>
-		<div class="copyright ml-auto">2019, made by WLB Team</div>
+		<div class="copyright ml-auto">2020, made by WLB Team</div>
 	</div>
 </footer>
 

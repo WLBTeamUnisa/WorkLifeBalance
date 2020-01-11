@@ -73,7 +73,7 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
 			<!-- CORPO PAGINA-->
@@ -132,7 +132,7 @@
 				<!-- FINE CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
 			<!-- FINE MAIN-PANEL -->
 		</div>
