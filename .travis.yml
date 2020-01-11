@@ -7,9 +7,21 @@ cache:
   bundler: true
   directories:
     - ${HOME}/.m2
+<<<<<<< HEAD
   
+=======
+
+service:
+  - mysql
+
+before_script:
+  - mysql -e 'DROP DATABASE IF EXISTS worklifebalance'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS worklifebalance;'  
+  - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/DatabaseCreator.sql
+
+>>>>>>> b75a73f241e87d7e71950e736cb4ec667981466e
 script: | 
-    mvn test
+    mvn test "-Dlog4j.configuration=file:src/main/resources/log4j.properties"
   
 script: "mvn cobertura:cobertura"
 

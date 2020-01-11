@@ -71,5 +71,12 @@ public class WorkstationPK implements Serializable{
 	public String toString() {
 		return "WorkstationPK [workstation=" + workstation + ", floor=" + floor + ", room=" + room + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	
 }
 

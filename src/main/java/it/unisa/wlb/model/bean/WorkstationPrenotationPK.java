@@ -85,5 +85,11 @@ public class WorkstationPrenotationPK implements Serializable {
 		return "WorkstationPrenotationPK [emailEmployee=" + emailEmployee + ", prenotationDate=" + prenotationDate
 				+ ", id=" + id + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
 	
 }
