@@ -13,7 +13,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  */
 @Entity
-@Table(name="WORKSTATION_PRENOTATION")
+@Table(name="workstation_prenotation")
 @NamedQueries({
 	@NamedQuery(name="WorkstationPrenotation.findAll", query="SELECT w FROM WorkstationPrenotation w"),
 	@NamedQuery(name="WorkstationPrenotation.findByWeeklyPlanning", query="SELECT w FROM WorkstationPrenotation w WHERE w.calendarWeek=?1 AND w.year=?2 and w.id.emailEmployee=?3"),

@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="FLOOR")
+@Table(name="floor")
 @NamedQueries({
 	@NamedQuery(name="Floor.findAll", query="SELECT f FROM Floor f"),
 	@NamedQuery(name="Floor.findById", query="SELECT f FROM Floor f WHERE f.numFloor=?1"),

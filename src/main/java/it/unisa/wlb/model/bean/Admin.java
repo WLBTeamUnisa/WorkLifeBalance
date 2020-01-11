@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="ADMIN")
+@Table(name="admin")
 @NamedQueries({
 	@NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a"),
 	@NamedQuery(name = "Admin.findByEmailPassword", query = "SELECT a FROM Admin a WHERE a.email = :email AND a.password = :password")

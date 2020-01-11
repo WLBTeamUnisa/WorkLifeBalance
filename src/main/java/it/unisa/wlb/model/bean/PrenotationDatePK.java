@@ -69,4 +69,11 @@ public class PrenotationDatePK implements Serializable {
 		return "PrenotationDatePK [date=" + date + ", employee=" + employee + ", smartWorkingPrenotation="
 				+ smartWorkingPrenotation + "]";
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
+	
 }
