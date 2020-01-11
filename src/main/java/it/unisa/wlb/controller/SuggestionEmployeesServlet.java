@@ -70,7 +70,7 @@ public class SuggestionEmployeesServlet extends HttpServlet {
         	
         	int flag = Integer.parseInt(flagStr);
         	if(flag==0) {
-        		listaDipendenti=employeeDao.retrieveSuggestsEmployeeByEmail(email_employee);        		
+        		listaDipendenti=employeeDao.suggestByEmail(email_employee);        		
         	} else if(flag==1) {
         		listaDipendenti=employeeDao.retrieveSuggestsManagerByEmail(email_employee);
         	}

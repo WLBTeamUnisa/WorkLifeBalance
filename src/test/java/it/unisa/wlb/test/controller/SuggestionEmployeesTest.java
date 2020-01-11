@@ -58,7 +58,7 @@ class SuggestionEmployeesTest {
 		request.setParameter("flag", "0");
 		employee.setStatus(0);
 		employeeList.add(employee);
-		when(employeeDao.retrieveSuggestsEmployeeByEmail(email)).thenReturn(employeeList);
+		when(employeeDao.suggestByEmail(email)).thenReturn(employeeList);
 		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);
 		assertEquals(json, response.getContentAsString());
