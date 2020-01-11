@@ -40,7 +40,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 		try{
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-		    entityManager.remove(entity);
+		    entityManager.remove(entityManager.merge(entity));
 		    entityManager.getTransaction().commit();
 		}
 		finally{

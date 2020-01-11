@@ -39,7 +39,7 @@ public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{
 		try {
 			entityManager= factor.createEntityManager();
 			entityManager.getTransaction().begin();
-			entityManager.remove(entityClass);
+			entityManager.remove(entityManager.merge(entityClass));
 			entityManager.getTransaction().commit();
 		} finally {
 			entityManager.close();
