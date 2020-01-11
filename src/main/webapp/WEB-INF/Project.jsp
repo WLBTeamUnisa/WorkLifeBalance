@@ -385,7 +385,7 @@
 
 		function verificaDate(startDate, endDate) {
 			//Matchano tutte e due
-			if (startDate <= endDate) {
+			if (startDate < endDate) {
 				//STARTDATE
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");

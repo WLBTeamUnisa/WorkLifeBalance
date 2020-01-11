@@ -151,6 +151,12 @@
 						title: 'Ottimo!',
 						text: "Operazione effettuata con successo!"
 						})
+				} else if("${result}"=="error"){
+					Swal.fire({
+						icon: 'error',
+						title: 'Ops!',
+						text: "Si è verificato un errore!"
+						})
 				}
 				
 		</script>

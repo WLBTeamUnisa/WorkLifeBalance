@@ -211,6 +211,9 @@ public class ModifyProjectServlet extends HttpServlet {
 			} else {
 				request.getRequestDispatcher("/AddEmployeesToProjectServlet").forward(request, response);
 			}
+		} else {
+			request.setAttribute("result", "error");
+			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
 
