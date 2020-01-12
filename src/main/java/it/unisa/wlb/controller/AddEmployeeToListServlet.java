@@ -87,7 +87,7 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	    
 	    		else {
 	    			HttpSession session=request.getSession();
-	    			List<Employee> currentEmployeeList = (List<Employee>) session.getAttribute("currentEmployees");
+	    			List<Employee> currentEmployeeList = (List<Employee>) session.getAttribute("employeeList");
 	    			int flagList=0;
 	    			if(currentEmployeeList!=null) {
 	    				for(int i=0; i<currentEmployeeList.size() && flagList==0; i++) {
