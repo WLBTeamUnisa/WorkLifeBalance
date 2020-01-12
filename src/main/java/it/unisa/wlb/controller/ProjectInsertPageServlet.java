@@ -22,15 +22,35 @@ import it.unisa.wlb.utils.LoggerSingleton;
 public class ProjectInsertPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+     * Default constructor
+     */
     public ProjectInsertPageServlet() {
         super();
     }
 
+    /**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @post request.getSession().getAttribute("employeeList")==null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("employeeList");
 		request.getRequestDispatcher("WEB-INF/ProjectInsertion.jsp").forward(request, response);
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

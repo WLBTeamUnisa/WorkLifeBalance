@@ -29,16 +29,32 @@ import it.unisa.wlb.utils.LoggerSingleton;
  */
 @WebServlet(name="ShowSmartWorkingPrenotationServlet", urlPatterns="/ShowSmartWorkingPrenotation")
 @Interceptors({LoggerSingleton.class})
-public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
-	
+public class ShowSmartWorkingPrenotationServlet extends HttpServlet {	
 	private static final long serialVersionUID = 1L;
+	
 	@EJB
 	private ISmartWorkingPrenotationDao smartWorkingDao;
 
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param smartWorkingDao
+	 */
 	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getSession().getAttribute("user") != null
+	 * @pre request.getParameter(FLAG) != null
+	 * @post request.getAttribute("booking") !=null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("user")==null) {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
@@ -47,6 +63,7 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			 * Get information about the next calendar week (number and year)
 			 */
 			Calendar calendar = Calendar.getInstance();
+			@SuppressWarnings("unused")
 			SmartWorkingPrenotation smartWorkingPrenotation;
 			Employee employee;
 			employee = (Employee) request.getSession().getAttribute("user");
@@ -78,6 +95,14 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

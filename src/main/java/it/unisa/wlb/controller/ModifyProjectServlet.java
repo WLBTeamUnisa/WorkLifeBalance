@@ -86,7 +86,6 @@ public class ModifyProjectServlet extends HttpServlet {
      * @post project.getEndDate() == request.getParameter("endDate")
      * @post project.getDescription() == request.getParameter("description")
      * @post project.getEmployee().getEmail() = request.getParameter("managerEmail")
-     * @post project.getEmployees().size() = @pre project.getEmployees().size() + employeeList.size()
 	 * @throws ServletException
 	 * @throws IOException
 	 */

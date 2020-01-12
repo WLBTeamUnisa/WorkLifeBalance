@@ -47,38 +47,67 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 	private final static String FLOOR = "floor";
 	private final static String ROOM = "room";
 	private final static String PLANIMETRY = "insertedPlanimetry";
-	
+
 	@EJB
 	private IRoomDao roomDao;
-	
+
 	@EJB
 	private ISmartWorkingPrenotationDao smartWorkingDao;
-	
+
 	@EJB
 	private IPrenotationDateDao prenotationDateDao;
-	
+
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
-	
+
+	/**
+     * Default constructor
+     */
+	public ShowWorkstationPrenotationPageServlet() {
+		super();
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param roomDao
+	 */
 	public void setRoomDao(IRoomDao roomDao) {
 		this.roomDao = roomDao;
 	}
-	
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param smartWorkingDao
+	 */
 	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
-	
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationPrenotationDao
+	 */
 	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
 		this.workstationPrenotationDao = workstationPrenotationDao;
 	}
-	
-    public ShowWorkstationPrenotationPageServlet() {
-        super();
-    }
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getSession().getAttribute("user") != null
+	 * @pre request.getParameter(FLAG) != null
+	 * @post request.getAttribute("error") != null || request.getAttribute("availableDates") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Employee employee = (Employee) request.getSession().getAttribute("user");
-		
+
 		if(request.getSession().getAttribute("user")==null) {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
 		}
@@ -104,7 +133,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			listDates.add(newDate.plusDays(2));
 			listDates.add(newDate.plusDays(3));
 			listDates.add(newDate.plusDays(4));
-			
+
 			SmartWorkingPrenotation smartWorkingPrenotation=null;
 			try {
 				smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
@@ -117,7 +146,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 			try {
 				smartWorkingPrenotationDateList = smartWorkingPrenotation.getPrenotationDates();
 			} catch(Exception exception) {
-				
+
 			}			 
 			if(smartWorkingPrenotationDateList!=null) {
 				for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
@@ -126,7 +155,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 					listDates.remove(tempDateConverted);
 				}				
 			} 
-			
+
 			List<WorkstationPrenotation> workstationPrenotations = null;
 			try {
 				workstationPrenotations = workstationPrenotationDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
@@ -141,7 +170,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 					listDates.remove(tempDateConverted);
 				}
 			}
-			
+
 			try {
 				List<Room> rooms = roomDao.retrieveAll();
 				if(rooms!=null && rooms.size()>0) {
@@ -161,12 +190,21 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 				response.getWriter().flush();
 				return;
 			}
-						
+
 			request.setAttribute("availableDates", listDates);
 			request.getRequestDispatcher("WEB-INF/WorkstationPrenotation.jsp").forward(request, response);
 		}
 	}
-	
+
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

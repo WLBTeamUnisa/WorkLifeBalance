@@ -61,7 +61,7 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	 * @pre response != null
 	 * @pre request.getParameter("email") != null 
 	 * @pre response.getParameter("emailManager") != null
-	 * @post employeeJsonList.size() = @pre employeeJsonList.size() + 1
+	 * @post list.size() = @pre list.size() + 1
 	 * @throws ServletException
 	 * @throws IOException
 	 */

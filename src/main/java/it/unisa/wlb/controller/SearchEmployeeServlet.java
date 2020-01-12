@@ -31,7 +31,9 @@ public class SearchEmployeeServlet extends HttpServlet {
     @EJB
     private IEmployeeDao employeeDao;
 	
- 
+    /**
+     * Default constructor
+     */
     public SearchEmployeeServlet() {
         super();
     }
@@ -45,7 +47,16 @@ public class SearchEmployeeServlet extends HttpServlet {
     	this.employeeDao = employeeDao;
     }
     
-
+    /**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter("email")!=null
+	 * @post employeeEmailList.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeEmail;
 		employeeEmail = (String) request.getParameter("email");
@@ -79,6 +90,14 @@ public class SearchEmployeeServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

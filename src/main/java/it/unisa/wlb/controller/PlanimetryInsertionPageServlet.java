@@ -21,15 +21,14 @@ import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * It is used to access to PlanimetryInsertion.jsp.
+ * This servlet is used to access to PlanimetryInsertion.jsp.
  * 
  * @author Sabato Nocera
  *
  */
 @WebServlet(name="PlanimetryInsertionPageServlet", urlPatterns="/PlanimetryInsertionPage")
 @Interceptors({LoggerSingleton.class})
-public class PlanimetryInsertionPageServlet extends HttpServlet {
-	
+public class PlanimetryInsertionPageServlet extends HttpServlet {	
 	private static final long serialVersionUID = 1L;
 	
 	private final static String FLOOR = "floor";
@@ -42,12 +41,16 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
        
     /**
      * Default constructor
-     * 
      */
     public PlanimetryInsertionPageServlet() {
         super();
     }
 
+    /**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+     * 
+     * @param roomDao
+     */
     public void setRoomDao(IRoomDao roomDao) {
     	this.roomDao = roomDao;
     }
@@ -56,6 +59,13 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 	 * The aim of this method is to access to PlanimetryInsertion.jsp. In the case in which the planimetry is already inserted into the database,
 	 * the Servlet will send to the jsp the informations about the current planimetry.
 	 * 
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @post jsonArray.toString()!=null && request.getAttribute(PLANIMETRY)!=null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -83,6 +93,17 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/PlanimetryInsertion.jsp").forward(request, response);
 	}
 
+	/**
+	 * The aim of this method is to access to PlanimetryInsertion.jsp. In the case in which the planimetry is already inserted into the database,
+	 * the Servlet will send to the jsp the informations about the current planimetry.
+	 * 
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
