@@ -74,9 +74,6 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 		this.workstationPrenotationDao = workstationPrenotationDao;
 	}
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public WorkstationsAvailabilityServlet() {
 		super();
 	}
@@ -84,7 +81,6 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 	/**
 	 * The jsp calls this method through AJAX; it returns in the response the availability of the workstations of a room of a certain floor
 	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -163,9 +159,6 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 		response.getWriter().append(jsonArray.toString());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

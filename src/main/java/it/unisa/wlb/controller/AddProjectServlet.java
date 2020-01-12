@@ -13,16 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IAdminDAO;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 
 
 /**
- * Servlet implementation class AddProjectServlet
+ * The aim of this Servlet is to prepare the creation of the project
+ * 
+ * @author Michele Montano
+ * 
  */
 @WebServlet(name = "AddProjectServlet", urlPatterns = "/AddProjectServlet")
 @Interceptors({LoggerSingleton.class})
@@ -30,11 +33,11 @@ public class AddProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	@EJB
-	private IAdminDAO adminDao;
+	private IAdminDao adminDao;
 	
 	private static final String PROJECT_NAME = "name"; 
 	private static final String PROJECT_SCOPE = "scope";
@@ -49,15 +52,12 @@ public class AddProjectServlet extends HttpServlet {
         super();
     }
     
-    public AddProjectServlet(IProjectDAO projectDao, IEmployeeDAO employeeDao) {
+    public AddProjectServlet(IProjectDao projectDao, IEmployeeDao employeeDao) {
     	super();
     	this.projectDao = projectDao;
     	this.employeeDao = employeeDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/**
 		 * Project Parameters
@@ -85,11 +85,9 @@ public class AddProjectServlet extends HttpServlet {
 		boolean descriptionOk = false;
 		boolean managerEmailOk = false;
 		boolean roleOk = false;
-		//Ruolo admin 2 userRole attributo della sessione
 		
 		name = request.getParameter(PROJECT_NAME);
 		scope = request.getParameter(PROJECT_SCOPE);
-		//Prendo la data come una stringa, setto il formatter e converto String in Date
 		startDateString = request.getParameter(PROJECT_START_DATE);
 		endDateString = request.getParameter(PROJECT_END_DATE);
 		description = request.getParameter(PROJECT_DESCRIPTION);
@@ -105,7 +103,6 @@ public class AddProjectServlet extends HttpServlet {
 		}
 		
 		if(name.matches("^[A-Za-z0-9]+$") && name.length() > 3 && name.length() < 16 && !name.equals("") && !(name==null)) {
-			//Controllo se esiste nel db un progetto con lo stesso nome
 			nameOk = true;
 		}
 		
@@ -137,14 +134,14 @@ public class AddProjectServlet extends HttpServlet {
 		}
 		
 		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
-		managerEmailOk = true;
+			managerEmailOk = true;
 		}
 		
 		/**
 		 * Formats the dates in format yyyy-MM-dd
 		 */
 		if(startDateOk && endDateOk) {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");	// La m (minuscolo) nel format è minute
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				startDate = formatter.parse(startDateString);
 				endDate = formatter.parse(endDateString);
@@ -153,7 +150,6 @@ public class AddProjectServlet extends HttpServlet {
 					endDateOk = false;
 				}
 			} catch(Exception e) {
-				// Annulla l'inserimento poichè il formato della data è errato
 				request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
 				throw new IllegalArgumentException();
 			}
@@ -169,7 +165,6 @@ public class AddProjectServlet extends HttpServlet {
 			project.setEmployee(manager);
 			project.setAdmin(admin);
 			
-			// Rimando il controllo alla servlet che inserirà i dipendenti al progetto
 			request.setAttribute("Project", project);
 			request.setAttribute("manager", manager);
 			request.setAttribute("result", "success");
@@ -184,9 +179,6 @@ public class AddProjectServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			doGet(request, response);
 	}

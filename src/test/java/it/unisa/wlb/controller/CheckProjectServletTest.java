@@ -15,7 +15,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import it.unisa.wlb.controller.CheckProjectServlet;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 
 /**
  * The aim of this class is testing CheckProjectServlet.java
@@ -26,7 +26,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 class CheckProjectServletTest {
 
 	@Mock
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
 	private CheckProjectServlet servlet;
 	private MockHttpServletRequest request;

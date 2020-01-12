@@ -190,32 +190,32 @@
 
 
 
-										<!-- FINE CONTAINER -->
+										<!-- END CONTAINER -->
 									</div>
 
-									<!-- FINE FORM -->
+									<!-- END FORM -->
 								</form>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN PANEL -->
+			<!-- END MAIN PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<script>

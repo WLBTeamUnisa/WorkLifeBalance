@@ -13,6 +13,12 @@ import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IRoomDao
+ * 
+ * @author Sabato Nocera, Michele Montano
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
 public class RoomJpa implements IRoomDao{
@@ -20,7 +26,6 @@ public class RoomJpa implements IRoomDao{
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager = factor.createEntityManager();
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Room> retrieveByFloor(int idFloor) {
 		entityManager.getTransaction().begin();
@@ -28,6 +33,7 @@ public class RoomJpa implements IRoomDao{
 		entityManager.getTransaction().commit();
 		return (List<Room>) query.getResultList();
 	}
+	
 	@Override
 	public int countMaxByFloor(int idFloor) {
 		entityManager.getTransaction().begin();
@@ -35,6 +41,7 @@ public class RoomJpa implements IRoomDao{
 		entityManager.getTransaction().commit();
 		return query.getSingleResult().intValue();
 	}
+	
 	@Override
 	public Room create(Room entity) {
 		entityManager.getTransaction().begin();
@@ -42,12 +49,14 @@ public class RoomJpa implements IRoomDao{
 	    entityManager.getTransaction().commit();
 	    return entity;
 	}
+	
 	@Override
 	public void remove(Room entityClass) {
 		entityManager.getTransaction().begin();
 	    entityManager.remove(entityManager.merge(entityClass));
 	    entityManager.getTransaction().commit();		
 	}
+	
 	@Override
 	public Room update(Room entityClass) {
 		entityManager.getTransaction().begin();
@@ -55,6 +64,7 @@ public class RoomJpa implements IRoomDao{
 	    entityManager.getTransaction().commit();
 	    return entityClass;
 	}
+	
 	@Override
 	public List<Room> retrieveAll() {
 		entityManager.getTransaction().begin();

@@ -76,13 +76,13 @@
 		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
-					<!-- COLONNA -->
+					<!-- COLUMN -->
 					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
@@ -117,27 +117,27 @@
 							</div>
 							<div class="card-body" id="myCard">
 
-								<!-- FINE CARD BODY -->
+								<!-- END CARD BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLUMN -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 
@@ -163,7 +163,6 @@
 	<script>
 $(document).ready(function () {
 
-	//INIZIALIZZO LE VARIE SELECT
 	var container = $("#myCard");
     var monthSelect = $("#monthSelect");
     var yearSelect = $("#yearSelect");
@@ -192,7 +191,7 @@ $(document).ready(function () {
 		xhttp.open("GET", "SuggestionsYear", true);
 		xhttp.send();
     }
-	//Load CalendarHistory
+    
 	    function loadCalendarHistory() {
 	        var month = monthSelect.val();
 	        var year = yearSelect.val();
@@ -233,8 +232,6 @@ $(document).ready(function () {
 	        }
 	    }
 	    
-	    
-	  //SETTO GLI EVENTI ONCHANGE ALLE SELECT
 	    monthSelect.on("change", function () {
 	    	loadCalendarHistory();
 	    });

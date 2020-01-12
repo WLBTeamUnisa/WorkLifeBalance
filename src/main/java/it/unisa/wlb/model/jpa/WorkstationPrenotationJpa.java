@@ -14,6 +14,12 @@ import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IAdminDao
+ * 
+ * @author Vincenzo Fabiano, Sabato Nocera, Luigi Cerrone
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotationJpa implements IWorkstationPrenotationDao{

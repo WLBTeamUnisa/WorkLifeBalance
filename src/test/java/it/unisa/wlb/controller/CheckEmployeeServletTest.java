@@ -18,7 +18,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.CheckEmployeeServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * The aim of this class is testing CheckEmployeeServlet.java
@@ -40,7 +40,7 @@ public class CheckEmployeeServletTest {
 	private RequestDispatcher dispatcher;
 	
 	@Mock
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
 	private  CheckEmployeeServlet servlet;
 	private Employee employee;

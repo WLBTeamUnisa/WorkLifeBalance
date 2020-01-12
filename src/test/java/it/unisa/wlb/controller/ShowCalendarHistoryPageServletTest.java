@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,12 +18,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.ShowCalendarHistoryPageServlet;
-import it.unisa.wlb.controller.ShowCalendarHistoryServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 /**
  * The aim of this class is testing ShowCalendarHistoryPageServlet.java
@@ -35,11 +33,11 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 public class ShowCalendarHistoryPageServletTest {
 
 	@Mock
-	private IEmployeeDAO employeeDAO;
+	private IEmployeeDao employeeDAO;
 	@Mock
-	private ISmartWorkingPrenotationDAO smartWorkingPrenotationDAO;
+	private ISmartWorkingPrenotationDao smartWorkingPrenotationDAO;
 	@Mock
-	private IPrenotationDateDAO prenotationDateDAO;
+	private IPrenotationDateDao prenotationDateDAO;
 	@Mock
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
@@ -137,7 +135,6 @@ public class ShowCalendarHistoryPageServletTest {
 	
 	@Test
 	void testFlag0() throws ServletException, IOException {
-
 		employee.setEmail(email);
 		employee.setName(name);
 		employee.setSurname(surname);
@@ -155,8 +152,6 @@ public class ShowCalendarHistoryPageServletTest {
 		project.setName("WLB13");
 		project.setEmployee(manager);
 		
-		ArrayList<Employee> projectEmployee2= new ArrayList<>();
-		projectEmployee.add(employee);
 		project2.setName("WLB13");
 		project2.setEmployees(projectEmployee);
 		
@@ -170,14 +165,11 @@ public class ShowCalendarHistoryPageServletTest {
 		request.getSession().setAttribute("user", manager);
 		request.setParameter("employeeEmail", email);
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		//servlet.setEmployeeDAO(employeeDAO);
 		
 		servlet.setEmployeeDAO(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
-		
-		
 	}
 	
 	@Test
@@ -199,8 +191,7 @@ public class ShowCalendarHistoryPageServletTest {
 		projectEmployee.add(employee);
 		project.setName("WLB13");
 		project.setEmployee(manager);
-		
-		ArrayList<Employee> projectEmployee2= new ArrayList<>();
+	
 		projectEmployee.add(employee);
 		project2.setName("WLB13");
 		project2.setEmployees(projectEmployee);
@@ -226,31 +217,25 @@ public class ShowCalendarHistoryPageServletTest {
 	
 	@Test
 	void sessionEmployeeNull() throws ServletException, IOException {
-
-		
 		request.getSession().setAttribute("user", manager);
 		servlet.setEmployeeDAO(employeeDAO);;
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(null);
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "success");
-		
-		
 	}
 
 	
 	@Test
-	void emailEmployeeNull() throws ServletException, IOException {
-
-		
+	void emailEmployeeNull() throws ServletException, IOException {	
 		request.getSession().setAttribute("user", null);
 		servlet.setEmployeeDAO(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
-		
-		
+	
 	}
+	
 	@Test
 	void managerStatus0() throws ServletException, IOException {
 

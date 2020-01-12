@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import it.unisa.wlb.controller.EmployeeInsertPageServlet;
 import it.unisa.wlb.model.bean.Admin;
-import it.unisa.wlb.model.dao.IAdminDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -38,7 +38,7 @@ public class EmployeeInsertPageServletTest {
 	private EmployeeInsertPageServlet servlet;
 	
 	@Mock
-	private IAdminDAO adminDao;
+	private IAdminDao adminDao;
 	@Mock
 	private HttpSession session;
 	@Mock
@@ -66,10 +66,7 @@ public class EmployeeInsertPageServletTest {
 		admin.setSurname(surname);
 		admin.setEmail(email);
 		admin.setPassword(password);
-		
-	
 	}
-	
 	
 	@Test
 	void userRoleAdmin() throws ServletException, IOException {

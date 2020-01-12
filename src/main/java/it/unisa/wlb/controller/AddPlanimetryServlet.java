@@ -26,7 +26,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * The aim of this Servlet is to insert the planimetry into the database
  * 
- * @author Sabato, Michele
+ * @author Sabato Nocera, Michele Montano
  *
  */
 @WebServlet(name = "AddPlanimetryServlet", urlPatterns = "/AddPlanimetryServlet")
@@ -47,9 +47,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 	@EJB
 	private IWorkstationDao workstationDao;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AddPlanimetryServlet() {
 		super();
 	}
@@ -58,9 +55,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 		this.workstationDao = workstationDao;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Admin admin = (Admin) request.getSession().getAttribute("user");
@@ -175,9 +169,6 @@ public class AddPlanimetryServlet extends HttpServlet {
 		request.getRequestDispatcher("PlanimetryInsertionPage").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

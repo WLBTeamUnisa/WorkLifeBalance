@@ -62,7 +62,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 
 	/**
-	 * Floor field doesn't respect the specified format
+	 * TC_3.1_1: Floor field doesn't respect the specified format
 	 * 
 	 * 
 	 * @throws ServletException
@@ -82,7 +82,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of floors inserted is less than minimum
+	 * TC_3.1_2: Number of floors inserted is less than minimum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -100,7 +100,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of floors inserted exceeds the maximum
+	 * TC_3.1_3: Number of floors inserted exceeds the maximum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -119,7 +119,7 @@ public class AddPlanimetryServletTest extends Mockito {
 
 
 	/**
-	 * Room field doesn't respect the specified format
+	 * TC_3.1_4: Room field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -137,7 +137,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of rooms inserted is less than minimum
+	 * TC_3.1_5: Number of rooms inserted is less than minimum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -156,7 +156,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of rooms inserted exceeds the maximum
+	 * TC_3.1_6: Number of rooms inserted exceeds the maximum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -174,7 +174,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Floor inserted doesn't exists
+	 * TC_3.1_7: Floor inserted doesn't exists
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -223,7 +223,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Workstation field doesn't respect the specified format
+	 * TC_3.1_8: Workstation field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -241,7 +241,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of workstation inserted is less than minimum
+	 * TC_3.1_9: Number of workstation inserted is less than minimum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -259,7 +259,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Number of workstation inserted exceeds the maximum
+	 * TC_3.1_10: Number of workstation inserted exceeds the maximum
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -277,7 +277,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Room inserted doesn't exists
+	 * TC_3.1_11: Room inserted doesn't exists
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -326,7 +326,7 @@ public class AddPlanimetryServletTest extends Mockito {
 	}
 
 	/**
-	 * Planimetry insertion ended with success
+	 * TC_3.1_12: Planimetry insertion ended with success
 	 * 
 	 * @throws ServletException
 	 * @throws IOException

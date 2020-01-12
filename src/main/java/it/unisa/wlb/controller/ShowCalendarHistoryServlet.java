@@ -18,7 +18,7 @@ import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -33,25 +33,17 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	@EJB
-    private IEmployeeDAO employeeDao;
+    private IEmployeeDao employeeDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShowCalendarHistoryServlet() {
         super();
     }
     
-    public void setEmployeeDAO(IEmployeeDAO employeeDAO) {
+    public void setEmployeeDAO(IEmployeeDao employeeDAO) {
 		this.employeeDao=employeeDAO;
 		
 	}
     
-    
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String employeeString = request.getParameter("employeeEmail");
@@ -68,7 +60,6 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			 *	has to retrieve the calendar history of the employee's session
 			 * 
 			 */
-			//System.out.println(employeeString);
 			if(employeeString==null || employeeString.equals(""))
 			{
 
@@ -85,24 +76,16 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			/**
 			 *	If the parameter employeeEmail isn't null, or empty, it means that the system
 			 *	has to retrieve the calendar history of the employee's request
-			 *
 			 */
-			else
-			{
-				try
-				{
+			else {
+				try {
 					Employee employee = employeeDao.retrieveByEmail(employeeString);
 					List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
 					List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
 					JSONArray jsonArray = ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 					response.setContentType("application/json");
 					response.getWriter().append(jsonArray.toString());
-					
-					
-				}
-				
-				catch(Exception exception)
-				{
+				} catch(Exception exception) {
 					request.setAttribute("result", "error");
 					request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 				}
@@ -114,13 +97,9 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 			request.setAttribute("result", "error");
 			request.getRequestDispatcher(".").forward(request, response);	
 		}
-}
+	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 	
@@ -138,25 +117,19 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 	 * @param year
 	 * @return JSONArray
 	 */
-	public static JSONArray buildJsonArray(List<SmartWorkingPrenotation> smartWorkingPrenotationList, List<WorkstationPrenotation> workstationPrenotationList, Integer month, Integer year)
-	{
+	public static JSONArray buildJsonArray(List<SmartWorkingPrenotation> smartWorkingPrenotationList, List<WorkstationPrenotation> workstationPrenotationList, Integer month, Integer year) {
 		
 			JSONArray jsonArray = new JSONArray();
-			if(smartWorkingPrenotationList!=null)
-			{
-				for(int i=0; i<smartWorkingPrenotationList.size(); i++)
-				{
+			if(smartWorkingPrenotationList!=null) {
+				for(int i=0; i<smartWorkingPrenotationList.size(); i++) {
 					
 					List<PrenotationDate> prenotationDateList = smartWorkingPrenotationList.get(i).getPrenotationDates();
 					
-					if(prenotationDateList!=null)
-					{
-						for(int j=0; j<prenotationDateList.size(); j++)
-						{
+					if(prenotationDateList!=null) {
+						for(int j=0; j<prenotationDateList.size(); j++) {
 							Calendar calendar=Calendar.getInstance();
 							calendar.setTime(prenotationDateList.get(j).getId().getDate());
-							if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year)
-							{
+							if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year) {
 								JSONObject jsonObject = new JSONObject();
 								jsonObject.put("date", prenotationDateList.get(j).getId().getDate());
 								jsonObject.put("type", "Smartworking");
@@ -167,15 +140,12 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 				}
 			}
 			
-			if(workstationPrenotationList!=null)
-			{
-				for(int i=0; i<workstationPrenotationList.size(); i++)
-				{
+			if(workstationPrenotationList!=null) {
+				for(int i=0; i<workstationPrenotationList.size(); i++) {
 					WorkstationPK workstationLocal=workstationPrenotationList.get(i).getWorkstation().getId();
 					Calendar calendar=Calendar.getInstance();
 					calendar.setTime(workstationPrenotationList.get(i).getId().getPrenotationDate());
-					if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year)
-					{
+					if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year) {
 						JSONObject jsonObject = new JSONObject();
 						jsonObject.put("date", workstationPrenotationList.get(i).getId().getPrenotationDate());
 						jsonObject.put("type", "Workstation");

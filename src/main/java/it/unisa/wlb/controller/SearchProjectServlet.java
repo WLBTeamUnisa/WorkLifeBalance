@@ -15,13 +15,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
  * This servlet is used to retrieve project suggestions.
  * 
- * @author Michele
+ * @author Michele Montano
  */
 @WebServlet(name = "SearchProjectServlet", urlPatterns = "/SearchProjectServlet")
 @Interceptors({LoggerSingleton.class})
@@ -29,14 +29,10 @@ public class SearchProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     @EJB
-    private IProjectDAO projectDao;
+    private IProjectDao projectDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SearchProjectServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
 
@@ -45,14 +41,10 @@ public class SearchProjectServlet extends HttpServlet {
      *  
      * @param projectDao
      */
-    public SearchProjectServlet(IProjectDAO projectDao) {
+    public SearchProjectServlet(IProjectDao projectDao) {
     	this.projectDao = projectDao;
     }
     
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String projectName;
 		projectName = request.getParameter("name");
@@ -76,7 +68,6 @@ public class SearchProjectServlet extends HttpServlet {
 				object.put("name", list.get(i).getName());
 				projectList.put(object);
 			} 
-			System.out.println(projectList.toString());
 			response.setContentType("application/json");
 	        response.getWriter().append(projectList.toString());
 		}
@@ -84,9 +75,6 @@ public class SearchProjectServlet extends HttpServlet {
 		 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

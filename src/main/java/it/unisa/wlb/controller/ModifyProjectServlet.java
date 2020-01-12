@@ -7,18 +7,16 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -27,17 +25,16 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * @author Michele Montano, Luigi Cerrone
  *
  */
-
 @WebServlet(name="ModifyProjectServlet", urlPatterns="/ModifyProjectServlet")
 @Interceptors({LoggerSingleton.class})
 public class ModifyProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 
 	private static final String PROJECT_NAME = "name"; 
 	private static final String PROJECT_SCOPE = "scope";
@@ -47,25 +44,21 @@ public class ModifyProjectServlet extends HttpServlet {
 	private static final String PROJECT_MANAGER = "managerEmail"; 
 	private static final String USER_ROLE = "userRole";
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ModifyProjectServlet() {
 		super();
 	}
 	
-	public void setProjectDao(IProjectDAO projectDao) {
+	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao=projectDao;
 	}
 	
-	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao=employeeDao;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		/**
 		 * Declaration of variables of instance
 		 */
@@ -94,6 +87,7 @@ public class ModifyProjectServlet extends HttpServlet {
 
 		name = request.getParameter(PROJECT_NAME);
 		scope = request.getParameter(PROJECT_SCOPE);
+		
 		/**
 		 * Taking dates as strings
 		 */
@@ -217,11 +211,7 @@ public class ModifyProjectServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

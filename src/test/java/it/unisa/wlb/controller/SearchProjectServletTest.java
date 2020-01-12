@@ -18,9 +18,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.SearchProjectServlet;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 /**
- * 
  * This test class follows the specification of the section "TC_2.2 Ricerca progetto" Test Case Specification"
  * 
  * @author Vincenzo Fabiano
@@ -29,7 +28,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 class SearchProjectServletTest {
 	
 	@Mock
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;

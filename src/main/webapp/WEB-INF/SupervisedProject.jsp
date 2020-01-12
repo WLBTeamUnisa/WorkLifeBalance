@@ -73,7 +73,7 @@
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
@@ -101,7 +101,7 @@
 									</div>
 
 
-									<!-- DATA INIZIO -->
+									<!-- START DATE -->
 									<div class="form-group input-group mx-auto">
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i
@@ -113,7 +113,7 @@
 									</div>
 
 
-									<!-- DATA FINE -->
+									<!-- END DATE -->
 									<div class="form-group input-group mx-auto">
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i
@@ -124,7 +124,7 @@
 									</div>
 
 
-									<!-- DESCRIZIONE -->
+									<!-- DESCRIPTION -->
 									<div class="form-group input-group mx-auto">
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i
@@ -146,7 +146,7 @@
 											disabled>
 									</div>
 
-									<!-- LISTA DIPENDENTI -->
+									<!-- EMPLOYEES LIST -->
 									<div class="form-group">
 										<div class="container">
 											<div class="card col-lg-10 mx-auto">
@@ -174,30 +174,30 @@
 										</div>
 									</div>
 
-									<!-- FINE CONTAINER -->
+									<!-- END CONTAINER -->
 								</div>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 </body>
 </html>

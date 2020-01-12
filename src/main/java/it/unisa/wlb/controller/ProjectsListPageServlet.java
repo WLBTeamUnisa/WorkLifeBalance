@@ -12,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ProjectsListPageServlet
+ * The aim of this Servlet is redirecting to ProjectList.jsp
+ * 
+ * @author Michele Montano
+ * 
  */
 @WebServlet(name="ProjectsListPageServlet", urlPatterns="/ProjectsListPage")
 @Interceptors({LoggerSingleton.class})
@@ -24,22 +27,16 @@ public class ProjectsListPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
-	public void setProjectDao(IProjectDAO projectDao) {
+	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public ProjectsListPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Project> list = null;
 		try {
@@ -52,11 +49,7 @@ public class ProjectsListPageServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

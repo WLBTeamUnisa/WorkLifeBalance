@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.utils.Utils;
 
 /**
  * The aim of this Servlet is registering an Employee/Manager into the system.
  * 
- * @author Simranjit, Sabato
+ * @author Simranjit Singh, Sabato Nocera
  *
  */
 @WebServlet(name = "EmployeeRegistrationServlet", urlPatterns = "/EmployeeRegistrationServlet")
@@ -27,7 +27,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 
 	public EmployeeRegistrationServlet() {
 		super();
@@ -38,14 +38,11 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 	 * 
 	 * @param employeeDao
 	 */
-	public EmployeeRegistrationServlet(IEmployeeDAO employeeDao) {
+	public EmployeeRegistrationServlet(IEmployeeDao employeeDao) {
 		super();
 		this.employeeDao=employeeDao;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
 
 		/**
@@ -74,12 +71,12 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		else
 			nameOk=true;
 
-		if( surname==null || !surname.matches("^[A-Za-z\\s]+$") || surname.equals("") || surname.length()<2 || surname.length()>20)
+		if(surname==null || !surname.matches("^[A-Za-z\\s]+$") || surname.equals("") || surname.length()<2 || surname.length()>20)
 			surnameOk=false;
 		else
 			surnameOk=true;
 
-		if( email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
+		if(email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
 			emailOk=false;
 		else {
 			Employee employee = null;
@@ -137,9 +134,6 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 				request.setAttribute("result", "failure");
 			}					
 
-//			String url=response.encodeURL("WEB-INF/EmployeesList.jsp");
-//			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-//			dispatcher.forward(request, response);
 			request.getRequestDispatcher("EmployeesListPage").forward(request, response);
 		}
 		else {
@@ -150,9 +144,6 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

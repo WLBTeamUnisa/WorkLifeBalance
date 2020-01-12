@@ -18,7 +18,7 @@ import javax.servlet.ServletException;
 
 import it.unisa.wlb.controller.SuggestionEmployeesServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * The aim of this class is testing SuggestionEmployees.java
@@ -29,7 +29,7 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 class SuggestionEmployeesTest {
 
 	@Mock 
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
 	private SuggestionEmployeesServlet servlet;
 	private MockHttpServletRequest request;

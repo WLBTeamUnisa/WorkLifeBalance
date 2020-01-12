@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import it.unisa.wlb.controller.ShowProjectServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 
 /**
  * The aim of this class is testing ShowProjectServlet.java
@@ -31,7 +31,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 class ShowProjectServletTest {
 
 	@Mock
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;

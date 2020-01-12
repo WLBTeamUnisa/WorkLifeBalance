@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -25,7 +25,7 @@ public class ShowProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +34,7 @@ public class ShowProjectServlet extends HttpServlet {
         super();
     }
     
-    public void setProjectDao(IProjectDAO projectDao) {
+    public void setProjectDao(IProjectDao projectDao) {
     	this.projectDao = projectDao;
     }
 

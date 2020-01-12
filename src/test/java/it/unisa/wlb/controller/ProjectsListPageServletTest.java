@@ -22,7 +22,7 @@ import org.mockito.MockitoAnnotations;
 
 import it.unisa.wlb.controller.ProjectsListPageServlet;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 
 /**
  * The aim of this class is testing ProjectsListPageServletTest.java
@@ -33,7 +33,7 @@ import it.unisa.wlb.model.dao.IProjectDAO;
 class ProjectsListPageServletTest {
 
 	@Mock
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	@Mock
 	private HttpServletRequest request;
 	@Mock

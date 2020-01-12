@@ -13,8 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -29,12 +29,12 @@ public class SuggestionEmployeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	@EJB
-    private IProjectDAO projectDao;
+    private IProjectDao projectDao;
    
     @EJB
-    private IEmployeeDAO employeeDao;   
+    private IEmployeeDao employeeDao;   
     
-    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
     	this.employeeDao = employeeDao;
     }
 	

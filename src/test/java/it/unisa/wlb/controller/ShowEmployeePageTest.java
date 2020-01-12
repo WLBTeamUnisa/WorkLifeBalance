@@ -17,7 +17,7 @@ import javax.servlet.ServletException;
 import it.unisa.wlb.controller.ShowEmployeePageServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.Utils;
 
 
@@ -30,7 +30,7 @@ import it.unisa.wlb.utils.Utils;
 class ShowEmployeePageTest {
 
 	@Mock
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
@@ -132,7 +132,5 @@ class ShowEmployeePageTest {
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(message, attribute);
 	}
-	
-	
 
 }

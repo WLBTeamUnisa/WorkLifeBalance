@@ -7,8 +7,8 @@ import it.unisa.wlb.controller.AddProjectServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,14 +28,11 @@ import javax.servlet.ServletException;
  */
 public class AddProjectServletTest extends Mockito {
 
-
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
 
-
-
-	@BeforeEach
+@BeforeEach
 	public void setUp() {
 		servlet = new AddProjectServlet();
 		request = new MockHttpServletRequest();
@@ -46,7 +43,7 @@ public class AddProjectServletTest extends Mockito {
 
 
 	/**
-	 *  Name field not inserted - TC_2.1_1
+	 * TC_2.1_1: Name field not inserted 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -67,7 +64,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Name field inserted doesn't respect the specified length - TC_2.2_2
+	 * TC_2.2_2: Name field inserted doesn't respect the specified length 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -88,7 +85,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 *  Name field doesn't respect the specified format  -  TC_2.2_3
+	 * TC_2.2_3: Name field doesn't respect the specified format 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -109,7 +106,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Name field already exists  -  TC_2.2_4
+	 * TC_2.2_4: Name field already exists 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -134,8 +131,8 @@ public class AddProjectServletTest extends Mockito {
 	    pr.setEmployees(li);
 	    pr.setEmployee(em);
 		
-		IProjectDAO projectDao = mock(IProjectDAO.class);
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(projectDao.retrieveByName(commonName)).thenReturn(pr);		
 		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
 	   
@@ -156,7 +153,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Scope field not inserted  -  TC_2.2_5
+	 * TC_2.2_5: Scope field not inserted 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -177,7 +174,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Scope field doesn't respect the specified length -  TC_2.2_6
+	 * TC_2.2_6: Scope field doesn't respect the specified length 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -198,7 +195,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Scope field doesn't respect the specified format  -  TC_2.2_7
+	 * TC_2.2_7: Scope field doesn't respect the specified format 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -219,7 +216,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Start date field doesn't respect the specified format  -  TC_2.2_8
+	 * TC_2.2_8: Start date field doesn't respect the specified format 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -240,7 +237,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  End date field doesn't respect the specified format   -  TC_2.2_9
+	 * TC_2.2_9: End date field doesn't respect the specified format 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -261,7 +258,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Manager E-mail doesn't exist into database -  TC_2.2_10
+	 * TC_2.2_10: Manager E-mail doesn't exist into database 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -282,7 +279,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Email inserted doesn't correspond to any manager -  TC_2.2_11
+	 * TC_2.2_11: Email inserted doesn't correspond to any manager 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -303,7 +300,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Description field doesn't respect the specified length -  TC_2.2_12
+	 * TC_2.2_12: Description field doesn't respect the specified length 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -324,7 +321,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Description field doesn't respect the specified length -  TC_2.2_13
+	 * TC_2.2_13: Description field doesn't respect the specified length
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -346,7 +343,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Employees list field is empty -  TC_2.2_14
+	 * TC_2.2_14: Employees list field is empty 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -367,7 +364,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 *  Employee's email doens't exist into database  -  TC_2.2_15
+	 * TC_2.2_15: Employee's email doens't exist into database 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -388,7 +385,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 *  Inserted email doesn't correspond to any employee  -  TC_2.2_16
+	 * TC_2.2_16: Inserted email doesn't correspond to any employee 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -409,7 +406,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 *  Project inserted with succcess  -  TC_2.2_17
+	 * TC_2.2_17: Project inserted with succcess
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -432,9 +429,9 @@ public class AddProjectServletTest extends Mockito {
 		List<Employee> list = new ArrayList<Employee>();
 		list.add(employee);
 		
-		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
 		when(projectDao.retrieveByName(commonName)).thenReturn(project);	
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.retrieveByEmail(managerEmail)).thenReturn(manager);
 		AddProjectServlet temp = new AddProjectServlet(projectDao, employeeDao);
 		

@@ -28,8 +28,8 @@ import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.PrenotationDatePK;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -101,30 +101,30 @@ public class SmartWorkingDaysPrenotationServletTest extends Mockito{
 	}
 	
 	/**
-	 * Smart Working Prenotation insertion ended with success
+	 * TC_5.2_3: Smart Working Prenotation insertion ended with success
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Test
 	public void TC_5_2_3() throws ServletException, IOException {
-		Calendar CALENDAR = Calendar.getInstance();
-		TimeZone timeZone = CALENDAR.getTimeZone();
+		Calendar calendarDate = Calendar.getInstance();
+		TimeZone timeZone = calendarDate.getTimeZone();
 		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
-		LocalDate today = LocalDateTime.ofInstant(CALENDAR.toInstant(), zoneId).toLocalDate();
+		LocalDate today = LocalDateTime.ofInstant(calendarDate.toInstant(), zoneId).toLocalDate();
 		LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
 		LocalDate newDate;
 		newDate= nextMonday.plusDays(7);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String date = newDate.format(formatter);
-		CALENDAR.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
-		int nextCalendarWeek = CALENDAR.get(Calendar.WEEK_OF_YEAR);
-		int year = CALENDAR.get(Calendar.YEAR);
+		calendarDate.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
+		int nextCalendarWeek = calendarDate.get(Calendar.WEEK_OF_YEAR);
+		int year = calendarDate.get(Calendar.YEAR);
 		String[] dates = {date};
 		request.setParameter("dates", dates);
 		int idSmartWorking = 1;
-		ISmartWorkingPrenotationDAO smartWorkingDao = mock(ISmartWorkingPrenotationDAO.class);
-		IPrenotationDateDAO prenotationDateDao = mock(IPrenotationDateDAO.class);
+		ISmartWorkingPrenotationDao smartWorkingDao = mock(ISmartWorkingPrenotationDao.class);
+		IPrenotationDateDao prenotationDateDao = mock(IPrenotationDateDao.class);
 		SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
 		SmartWorkingPrenotationPK smartWorkingPk = new SmartWorkingPrenotationPK();
 		smartWorkingPk.setEmployeeEmail(employee.getEmail());

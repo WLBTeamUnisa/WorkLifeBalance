@@ -17,7 +17,7 @@ import it.unisa.wlb.controller.ChangeStatusEmployeeServlet;
 
 import it.unisa.wlb.model.bean.Employee;
 
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * This test class follows the specification of the section "3.1.3 TC_1.3 Modifica status dipendente" of the document "Test Case Specification"
@@ -32,14 +32,19 @@ public class ChangeStatusEmployeeServletTest extends Mockito {
 
 	@BeforeEach
 	public void setUp() {
-
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		servlet = new ChangeStatusEmployeeServlet();
 	}
 
+	/**
+	 * TC_1.3_1: Status parameter is not correct
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
-	public void TC_1_2_1() throws ServletException, IOException {
+	public void TC_1_3_1() throws ServletException, IOException {
 		Employee employee = new Employee();
 		employee.setName("Marco");
 		employee.setSurname("Rossi");
@@ -47,7 +52,7 @@ public class ChangeStatusEmployeeServletTest extends Mockito {
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(0);
 
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.create(employee)).thenReturn(employee);
 		when(employeeDao.update(employee)).thenReturn(employee);
 		when(employeeDao.retrieveByEmail(employee.getEmail())).thenReturn(employee);
@@ -61,9 +66,15 @@ public class ChangeStatusEmployeeServletTest extends Mockito {
 			servlet.doPost(request, response);
 		});
 	}
-
+	
+	/**
+	 * TC_1.3_2: Case of success
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
-	public void TC_1_2_2() throws ServletException, IOException {
+	public void TC_1_3_2() throws ServletException, IOException {
 		Employee employee = new Employee();
 		employee.setName("Marco");
 		employee.setSurname("Rossi");
@@ -71,7 +82,7 @@ public class ChangeStatusEmployeeServletTest extends Mockito {
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(0);
 
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.create(employee)).thenReturn(employee);
 		when(employeeDao.update(employee)).thenReturn(employee);
 		when(employeeDao.retrieveByEmail(employee.getEmail())).thenReturn(employee);

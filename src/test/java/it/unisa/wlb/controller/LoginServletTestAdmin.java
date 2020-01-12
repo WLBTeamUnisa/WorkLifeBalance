@@ -15,7 +15,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.LoginServlet;
 import it.unisa.wlb.model.bean.Admin;
-import it.unisa.wlb.model.dao.IAdminDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
 import it.unisa.wlb.utils.Utils;
 /**
  * The aims of this class it testing admin access
@@ -65,7 +65,7 @@ class LoginServletTestAdmin {
 		String message = "success";
 		
 
-		IAdminDAO adminDao = mock(IAdminDAO.class);
+		IAdminDao adminDao = mock(IAdminDao.class);
 		Mockito.when(adminDao.retrieveByEmailPassword(admin.getEmail(), admin.getPassword())).thenReturn(admin);
 
 		servlet = new LoginServlet();

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import it.unisa.wlb.controller.EmployeesListPageServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -34,7 +34,7 @@ import it.unisa.wlb.utils.Utils;
 class EmployeesListPageServletTest {
 
 	@Mock
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	@Mock
 	private HttpServletRequest request;
 	@Mock
@@ -74,14 +74,8 @@ class EmployeesListPageServletTest {
 		
 	}
 
-	/**
-	 * Retrieve all returns a list of employees
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@Test
-	void test() throws ServletException, IOException {
+	void retrieveListEmployeesTest() throws ServletException, IOException {
 		String path = "WEB-INF/EmployeesList.jsp";
 		when(request.getSession()).thenReturn(session);
 		when(session.getAttribute("userRole")).thenReturn("Admin");
@@ -95,15 +89,9 @@ class EmployeesListPageServletTest {
 		assertEquals(path, captor.getValue());
 	}
 
-	/**
-	 * Retrieve All throws an Exception
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	void test1() throws ServletException, IOException {
+	void retrieveListEmployeesFailTest() throws ServletException, IOException {
 		String path = ".";
 		when(request.getSession()).thenReturn(session);
 		when(session.getAttribute("userRole")).thenReturn("Admin");

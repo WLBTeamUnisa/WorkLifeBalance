@@ -17,7 +17,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import static org.mockito.Mockito.when;
 import it.unisa.wlb.controller.AddEmployeeToListServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * The aim of this class is testing AddEmployeeToListTest.java
@@ -28,7 +28,7 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 class AddEmployeeToListTest {
 
 	@Mock
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
 	private AddEmployeeToListServlet servlet;
 	private MockHttpServletRequest request;

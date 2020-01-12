@@ -4,7 +4,7 @@ import java.io.IOException;
 import it.unisa.wlb.controller.EmployeeRegistrationServlet;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,7 +38,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * Name field doesn't respect the specified length
+	 * TC_1.1_1: Name field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -57,7 +57,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Name field doesn't respect the specified length
+	 * TC_1.1_2: Name field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -76,7 +76,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Name field doesn't respect the specified format
+	 * TC_1.1_3: Name field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -95,7 +95,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Surname field doesn't respect the specified length
+	 * TC_1.1_4: Surname field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -114,7 +114,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Surname field doesn't respect the specified length
+	 * TC_1.1_5: Surname field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -134,12 +134,12 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * Surname field doesn't respect the specified format
+	 * TC_1.1_6: Surname field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@Test 
+	@Test
 	public void TC_1_1_6() throws ServletException, IOException {
 		request.addParameter("name", "Marco");
 		request.addParameter("surname", "Rossi90");
@@ -154,7 +154,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * Surname field doesn't respect the specified length
+	 * TC_1.1_7: Surname field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -173,7 +173,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Email field doesn't respect the specified length
+	 * TC_1.1_8: Email field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -193,7 +193,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * Email field doesn't respect the specified format
+	 * TC_1.1_9: Email field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -212,7 +212,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Email field already exists in the database
+	 * TC_1.1_10: Email field already exists in the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -229,7 +229,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(1);
 		
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.retrieveByEmail(commonEmail)).thenReturn(employee);		
 		
 		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);
@@ -249,7 +249,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 
 
 	/**
-	 * Password field doesn't respect the specified length
+	 * TC_1.1_11: Password field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -268,7 +268,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Password field doesn't respect the specified length
+	 * TC_1.1_12: Password field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -287,7 +287,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Password field doesn't respect the specified length
+	 * TC_1.1_13: Password field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -306,7 +306,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Password field doesn't respect the specified format
+	 * TC_1.1_14: Password field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -325,7 +325,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Verify Password field doesn't respect the specified length
+	 * TC_1.1_15: Verify Password field doesn't respect the specified length
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -344,7 +344,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Verify Password field doesn't respect the specified format
+	 * TC_1.1_16: Verify Password field doesn't respect the specified format
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -363,7 +363,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Password field and verify password field doesn't correspond
+	 * TC_1.1_17: Password field and verify password field doesn't correspond
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -382,7 +382,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Status field not inserted
+	 * TC_1.1_18: Status field not inserted
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -401,7 +401,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 	}
 
 	/**
-	 * Employee/Manager registration ended with success
+	 * TC_1.1_19: Employee/Manager registration ended with success
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -416,7 +416,7 @@ public class EmployeeRegistrationServletTest extends Mockito {
 		employee.setPassword("MarcoRossi1.");
 		employee.setStatus(1);
 		
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.create(employee)).thenReturn(employee);		
 		
 		EmployeeRegistrationServlet tmp = new EmployeeRegistrationServlet(employeeDao);

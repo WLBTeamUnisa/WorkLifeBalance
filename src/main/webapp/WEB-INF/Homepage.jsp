@@ -77,7 +77,7 @@
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
@@ -109,29 +109,29 @@
 											</tbody>
 										</table>
 
-										<!-- FINE CARD-BODY MANAGER -->
+										<!-- END CARD-BODY MANAGER -->
 									</div>
 
 								</c:otherwise>
 							</c:choose>
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<script>

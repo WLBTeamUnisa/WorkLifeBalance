@@ -7,10 +7,10 @@ import it.unisa.wlb.model.bean.Workstation;
 /**
  * This interface defines public methods offered by WorkstationJpa class
  * 
- * @author Sabato, Michele
+ * @author Sabato Nocera, Michele Montano
  *
  */
-public interface IWorkstationDao extends IGenericDAO<Workstation>{	
+public interface IWorkstationDao extends IGenericDao<Workstation>{	
  
 	 /**
 	  * It is used to retrieve the list of workstations of a certain room of a specific floor

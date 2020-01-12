@@ -77,7 +77,7 @@
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
@@ -125,27 +125,27 @@
 								<a class="btn btn-success mt-3" href="EmployeeInsertPage"
 									role="button">Inserisci nuovo dipendente</a>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLUMN -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 

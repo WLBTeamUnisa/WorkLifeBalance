@@ -22,7 +22,7 @@ import javax.servlet.ServletException;
 
 import it.unisa.wlb.controller.SearchEmployeeServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -36,7 +36,7 @@ class SearchEmployeeServletTest {
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;
 	private SearchEmployeeServlet servlet;
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	private String email;
 	private Employee employee;
 	private String password;
@@ -54,7 +54,7 @@ class SearchEmployeeServletTest {
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		
-		employeeDao = mock(IEmployeeDAO.class);
+		employeeDao = mock(IEmployeeDao.class);
 		
 		email="m.rossi1@wlb.it";
 		password="Ciao1234";

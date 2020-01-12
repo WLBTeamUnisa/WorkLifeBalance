@@ -20,7 +20,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import it.unisa.wlb.controller.ShowSupervisedProjectServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 
 public class ShowSupervisedProjectServletTest {
 	
@@ -28,7 +28,7 @@ public class ShowSupervisedProjectServletTest {
 	private MockHttpServletResponse response;
 	
 	@Mock
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	@Mock
 	private HttpSession session;
 	@Mock
@@ -37,6 +37,7 @@ public class ShowSupervisedProjectServletTest {
 	private ShowSupervisedProjectServlet servlet;
 	private Project project;
 	
+	@SuppressWarnings("deprecation")
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -85,6 +86,7 @@ public class ShowSupervisedProjectServletTest {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void projectDuplicate() throws ServletException, IOException {
 		when(projectDao.retrieveByName(project.getName())).thenThrow(Exception.class);

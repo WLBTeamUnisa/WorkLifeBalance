@@ -41,9 +41,9 @@ import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotationPK;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
 import it.unisa.wlb.model.dao.IRoomDao;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
@@ -71,10 +71,10 @@ class ShowWorkstationPrenotationPageServletTest {
 	private IRoomDao roomDao;
 	
 	@Mock
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 
 	@Mock
-	private IPrenotationDateDAO prenotationDateDao;
+	private IPrenotationDateDao prenotationDateDao;
 
 	@Mock
 	private IWorkstationPrenotationDao workstationPrenotationDao;

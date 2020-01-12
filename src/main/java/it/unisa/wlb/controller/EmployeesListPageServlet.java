@@ -12,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class EmployeeListPageServlet
+ * The aim of this Servlet is redirecting to EmployeesList.jsp
+ * 
+ * @author Emmanuel Tesauro
+ * 
  */
 @WebServlet(name="EmployeesListPageServlet", urlPatterns="/EmployeesListPage")
 @Interceptors({LoggerSingleton.class})
@@ -24,22 +27,16 @@ public class EmployeesListPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	IEmployeeDAO employeeDao;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	IEmployeeDao employeeDao;
+
     public EmployeesListPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
     	this.employeeDao = employeeDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Employee> list = null;
@@ -51,11 +48,7 @@ public class EmployeesListPageServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

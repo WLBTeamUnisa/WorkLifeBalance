@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IAdminDAO;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -26,37 +24,52 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * @author Luigi Cerrone
  *
  */
-
 @WebServlet(name="AddEmployeesToProjectServlet", urlPatterns="/AddEmployeesToProjectServlet")
 @Interceptors({LoggerSingleton.class})
 public class AddEmployeesToProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 
 	public AddEmployeesToProjectServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param employeeDao
+	 */
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 
-	public void setProjectDao(IProjectDAO projectDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param projectDao
+	 */
+	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getAttribute("Project") != null
+	 * @pre request.getSession().getAttribute("userRole").equals("Admin")
+	 * @pre request.getSession().getAttribute("employeeList") != null
+	 * @post project.getEmployees().size() = @pre project.getEmployees().size() + employeeList.size();
+	 * @throws ServletException
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Employee manager;
@@ -65,17 +78,17 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 		List<Employee> employeesList=(List<Employee>) request.getSession().getAttribute("employeeList");
 		List<Employee> currentEmployees;
 		String status;
-		status = (String)request.getAttribute("status");
+		status = (String) request.getAttribute("status");
+		
 		/**
 		 * Check about admin role
 		 * 
-		 * */
-
+		 */
 		if(userRole.equalsIgnoreCase("Admin")) {			  
+			
 			/**
 			 * Taking the project setted thanks to request's attribute
-			 * */
-
+			 */
 			if(project==null) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/AddEmployeesToProjectServlet");
 				dispatcher.forward(request, response);
@@ -89,11 +102,10 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 							currentEmployees.add(anEmployee);
 						}
 						project.setEmployees(currentEmployees);
+						
 						try { 
 							projectDao.update(project);
-						}
-
-						catch(Exception exception) {
+						} catch(Exception exception) {
 							response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 							response.getWriter().write("\nErrore nell'aggiornamento del progetto");			
 							response.getWriter().flush();
@@ -101,21 +113,19 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 						}
 
 					} else {
+						
 						/**
 						 * Insertion of employees into works table
 						 * 
-						 * */
+						 */
 						project.setEmployees(employeesList);
 
 						/**
 						 * Creation of the new project
 						 */
-
 						try {
 							projectDao.create(project);
-						}
-
-						catch(Exception exception) {
+						} catch(Exception exception) {
 							response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 							response.getWriter().write("\nErrore nella creazione del progetto");			
 							response.getWriter().flush();
@@ -149,12 +159,15 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -18,7 +18,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.LoginServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -46,6 +46,7 @@ public class LoginServletTest {
 	 * It should be email.length >= 5 and email.length <=30 - FAIL
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_1() throws ServletException,IOException {
@@ -61,6 +62,7 @@ public class LoginServletTest {
 	 * It should be email.length >= 5 and email.length <=30 - FAIL
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_2() throws ServletException,IOException {
@@ -78,6 +80,7 @@ public class LoginServletTest {
 	 * 	- [a-z]{1}\.[a-z]+[0-9]*\@wlbadmin.it) - FAIL
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_3() throws ServletException,IOException {
@@ -92,6 +95,7 @@ public class LoginServletTest {
 	 * TC_4.1_4: email doesn't exist in database. - FAIL
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_4() throws ServletException,IOException {
@@ -100,7 +104,7 @@ public class LoginServletTest {
 		String password = "MarcoRossi1.";		
 		request.setParameter("email", email);
 		request.setParameter("password", password);		
-		IEmployeeDAO eDao = mock(IEmployeeDAO.class);
+		IEmployeeDao eDao = mock(IEmployeeDao.class);
 		Mockito.when(eDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
 		servlet.setEmployeeDao(eDao);
 		servlet.doPost(request, response);		
@@ -113,6 +117,7 @@ public class LoginServletTest {
 	 * (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\.!@#\$%\^&\*])(?=.{8,20}) - FAIL
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_5() throws ServletException,IOException {
@@ -126,7 +131,8 @@ public class LoginServletTest {
 	/**
 	 * TC_4.1_6: password doesn't exist in database. - FAIL 
 	 * 
-	 * @throws Exception
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_6() throws ServletException,IOException {
@@ -135,7 +141,7 @@ public class LoginServletTest {
 		String password = "MarcoRossi2.";		
 		request.setParameter("email", email);
 		request.setParameter("password", password);		
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		Mockito.when(employeeDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
 		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);		
@@ -146,6 +152,7 @@ public class LoginServletTest {
 	 * TC_4.1_7: password doesn't correspond to the email inserted. - FAIL 
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_7() throws ServletException,IOException{
@@ -154,7 +161,7 @@ public class LoginServletTest {
 		String password = "MarcoRossi2.";		
 		request.setParameter("email", email);
 		request.setParameter("password", password);		
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		Mockito.when(employeeDao.retrieveByEmailPassword(email, Utils.generatePwd(password))).thenThrow(new NoResultException());		
 		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);
@@ -165,6 +172,7 @@ public class LoginServletTest {
 	 * TC_4.1_8: SUCCESS.
 	 * 
 	 * @throws ServletException
+	 * @throws IOException
 	 */
 	@Test
 	public void TC_4_1_8() throws ServletException,IOException {
@@ -176,7 +184,7 @@ public class LoginServletTest {
 		employee.setSurname("Rossi");
 		employee.setStatus(0);
 
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		Mockito.when(employeeDao.retrieveByEmailPassword(employee.getEmail(), employee.getPassword())).thenReturn(employee);
 
 		servlet.setEmployeeDao(employeeDao);

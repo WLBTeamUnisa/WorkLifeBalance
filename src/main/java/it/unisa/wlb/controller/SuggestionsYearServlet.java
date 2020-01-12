@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 /**
  * 
@@ -25,32 +25,25 @@ public class SuggestionsYearServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SuggestionsYearServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public void setEmployeeDAO(IEmployeeDAO employeeDao){
+    public void setEmployeeDAO(IEmployeeDao employeeDao){
     	this.employeeDao=employeeDao;
     }
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Employee employee=(Employee) request.getSession().getAttribute("user");
         if(employee!=null)
         {
         	JSONArray yearsListJson = new JSONArray();
-          /**
-           * Insertion of years in a JsonArray 
-           * 
-           * */
-        	
+           /**
+            * Insertion of years in a JsonArray 
+            * 
+            */
         	Date date=new Date();
         	Calendar calendar=Calendar.getInstance();
         	calendar.setTime(date);
@@ -69,11 +62,7 @@ public class SuggestionsYearServlet extends HttpServlet {
         }
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

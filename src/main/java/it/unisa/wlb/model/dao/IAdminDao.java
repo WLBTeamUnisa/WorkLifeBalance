@@ -11,12 +11,13 @@ import it.unisa.wlb.model.bean.Admin;
  *
  */
 @Local
-public interface IAdminDAO extends IGenericDAO<Admin> {
+public interface IAdminDao extends IGenericDao<Admin> {
 	/**
 	 * It is used to retrieve an Admin through his email and password
+	 * 
 	 * @param email
 	 * @param password
-	 * @return
+	 * @return an Admin
 	 */
 	public Admin retrieveByEmailPassword(String email, String password);
 	

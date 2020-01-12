@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
-import it.unisa.wlb.model.dao.IRoomDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -26,37 +25,26 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	IProjectDAO projectDao;
+	IProjectDao projectDao;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShowSupervisedProjectServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-    public void setProjectDao(IProjectDAO projectDao) {
+    public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("projectName");
 		Project project = null;
 		if(name!=null) {
 			try {
 				project = projectDao.retrieveByName(name);
-			}
-			
-			catch(Exception exception)
-			{
+			} catch(Exception exception) {
 				request.setAttribute("result", "error");
 				request.getRequestDispatcher(".").forward(request, response);
 			}
-			
 			if(project!=null) {
 				request.setAttribute("project", project);
 				request.getRequestDispatcher("WEB-INF/SupervisedProject.jsp").forward(request, response);
@@ -67,9 +55,6 @@ public class ShowSupervisedProjectServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

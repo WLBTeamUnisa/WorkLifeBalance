@@ -18,7 +18,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import it.unisa.wlb.controller.SuggestionsYearServlet;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
 public class SuggestionsYearServletTest {
 	
@@ -33,7 +33,7 @@ public class SuggestionsYearServletTest {
 	private RequestDispatcher dispatcher;
 	
 	@Mock
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
 	private SuggestionsYearServlet servlet;
 	private Employee employee;
@@ -65,14 +65,12 @@ public class SuggestionsYearServletTest {
 	}
 	
 	@Test
-	void test() throws ServletException, IOException {
+	void setYearsTest() throws ServletException, IOException {
 		String string="[{\"year\":2020},{\"year\":2019}]";
 		request.getSession().setAttribute("user", employee);
 		when(employeeDao.retrieveByEmail(email)).thenReturn(employee);
 		servlet.setEmployeeDAO(employeeDao);
 		servlet.doPost(request, response);
-	
-		assertEquals(string,response.getContentAsString());
-		
+		assertEquals(string,response.getContentAsString());	
 	}
 }

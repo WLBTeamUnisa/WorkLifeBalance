@@ -13,6 +13,12 @@ import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.dao.IFloorDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IFloorDao
+ * 
+ * @author Sabato Nocera, Michele Montano
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
 public class FloorJpa implements IFloorDao{

@@ -76,13 +76,13 @@
 		<jsp:include page="Header.jsp" />
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE -->
 			<div class="content" style="display: flex; align-items: center;">
 
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
-					<!-- COLONNA -->
+					<!-- COLUMN -->
 					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
@@ -101,7 +101,7 @@
 									<div class="container">
 
 
-										<!-- NOME -->
+										<!-- NAME -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -112,7 +112,7 @@
 
 
 
-										<!-- COGNOME -->
+										<!-- SURNAME -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -137,7 +137,7 @@
 
 
 
-										<!-- SELECT RUOLO -->
+										<!-- SELECT ROLE -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i
@@ -161,32 +161,32 @@
 										</div>
 										<!-- form-group//  Register button-->
 
-										<!-- FINE CONTAINER -->
+										<!-- END CONTAINER -->
 									</div>
 
-									<!-- FINE FORM -->
+									<!-- END FORM -->
 								</form>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN PANEL -->
+			<!-- END MAIN PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 </body>
@@ -213,8 +213,7 @@ function changeStatusFunction()
 		statusInt=1;
 	else
 		statusInt=0;
-
-	//document.getElementById("errorName").innerHTML = "${employee.status}";
+	
 	if("${employee.status}"!=statusInt)
 		{
 			document.getElementById("changeStatusButton").disabled=false;

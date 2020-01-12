@@ -90,7 +90,7 @@
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
@@ -142,24 +142,24 @@
 							</div>
 
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE CARD -->
+						<!-- END CARD -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<c:if test="${not empty result}">
@@ -179,23 +179,19 @@
 	<script>
 	$(document).ready(function () {
 
-	    //INIZIALIZZO LE VARIE SELECT
 	    var dateSelect = $("#dateSelect");
 	    var floorSelect = $("#floorSelect");
 	    var roomSelect = $("#roomSelect");
 
-	    //OGGETTO DELLA REQUEST
 	    var insertedPlanimetry = '${insertedPlanimetry}';
 
-	    //CONTAINER DEGLI OGGETTI SVG
 	    var container = $(".flex-container");
 
 	    if(insertedPlanimetry.length > 0){
-	    	//INIZIALIZZO ALLA PRIMA STANZA
 		    loadRoom(1);
 		    console.log(insertedPlanimetry.length);
 
-		    //LOAD PIANI
+		    //LOAD FLOORS
 		    if (insertedPlanimetry.length > 0) {
 		        var arrayJson = JSON.parse(insertedPlanimetry);
 		        var arrayFloor = [];
@@ -222,7 +218,7 @@
 	    
 
 
-	    //LOAD STANZE
+	    //LOAD ROOMS
 	    function loadRoom(piano) {
 	        if (insertedPlanimetry.length > 0) {
 	            var arrayJson = JSON.parse(insertedPlanimetry);
@@ -262,7 +258,7 @@
 	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
 	                        }
 	                    }
-	                    //ONCLICK DA CONTINUARE E RIVEDERE
+	                    //ONCLICK 
 	                    clickedElement = $(".flex-container > svg");
 	                    var clicked = "";
 
@@ -282,19 +278,17 @@
 	                            cancelButtonText: 'Cancella',
 	                            confirmButtonText: 'Si, voglio prenotare'
 	                        }).then((result) => {
-	                            //SE PREMO "PRENOTA"
 	                            if (result.value) {
 	                                $("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation':" + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
 	                                $("#finalForm").submit();
-	                            }	//Fine if
+	                            }	
 	                            else if (result.dismiss === Swal.DismissReason.cancel) {
-	                                //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
 	                                Swal.fire(
 	                                    'Cancellata!',
 	                                    'La prenotazione e\' stata annullata',
 	                                    'error'
 	                                )
-	                            }	//Fine else
+	                            }	
 	                        });
 	                    });
 	                }
@@ -311,7 +305,6 @@
 	    }
 
 
-	    //SETTO GLI EVENTI ONCHANGE ALLE SELECT
 	    roomSelect.on("change", function () {
 	        loadPlanimetry();
 	    });

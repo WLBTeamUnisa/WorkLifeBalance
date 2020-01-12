@@ -9,12 +9,18 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IProjectDao
+ * 
+ * @author Michele Montano, Luigi Cerrone
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
-public class ProjectJpa implements IProjectDAO {
+public class ProjectJpa implements IProjectDao {
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;

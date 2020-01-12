@@ -9,11 +9,11 @@ import it.unisa.wlb.model.bean.Employee;
 /**
  * This interface defines public methods offered by EmployeeJpa class
  * 
- * @author Sabato
+ * @author Sabato Nocera
  *
  */
 @Local
-public interface IEmployeeDAO extends IGenericDAO<Employee> {
+public interface IEmployeeDao extends IGenericDao<Employee> {
 
 	/**
 	 * It is used to retrieve an Employee through his email
@@ -52,7 +52,7 @@ public interface IEmployeeDAO extends IGenericDAO<Employee> {
 	 * It is used to retrieve a Manager through his email for suggests
 	 * 
 	 * @param email
-	 * @return
+	 * @return a list of Employees 
 	 */
 	public List<Employee> retrieveSuggestsManagerByEmail(String email);
 	

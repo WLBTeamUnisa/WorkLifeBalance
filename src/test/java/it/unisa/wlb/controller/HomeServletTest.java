@@ -39,7 +39,7 @@ import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotationPK;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
@@ -61,7 +61,7 @@ class HomeServletTest {
 	@Mock
 	private RequestDispatcher dispatcher;
 	@Mock
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 	@Mock
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	

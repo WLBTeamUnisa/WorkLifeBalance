@@ -25,9 +25,9 @@ import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Room;
 
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
 import it.unisa.wlb.model.dao.IRoomDao;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
@@ -47,29 +47,22 @@ public class ShowPlanimetryPageServlet extends HttpServlet {
 	private IRoomDao roomDao;
 	
 	@EJB
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 	
 	@EJB
-	private IPrenotationDateDAO prenotationDateDao;
+	private IPrenotationDateDao prenotationDateDao;
 	
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShowPlanimetryPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public void setRoomDao(IRoomDao roomDao) {
     	this.roomDao = roomDao;
     }
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Employee employee = (Employee) request.getSession().getAttribute("user");
 		
@@ -118,9 +111,6 @@ public class ShowPlanimetryPageServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

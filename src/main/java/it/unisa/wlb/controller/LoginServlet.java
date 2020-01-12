@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IAdminDAO;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.utils.Utils;
 
@@ -31,20 +31,21 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	IAdminDAO adminDao;
+	IAdminDao adminDao;
+	
 	@EJB
-	IEmployeeDAO employeeDao;
+	IEmployeeDao employeeDao;
 	
 
 	public LoginServlet() {
 		super();
 	}
 
-	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 
-	public void setAdminDao(IAdminDAO adminDao) {
+	public void setAdminDao(IAdminDao adminDao) {
 		this.adminDao = adminDao;
 	}
 	
@@ -71,9 +72,9 @@ public class LoginServlet extends HttpServlet {
 							request.setAttribute("login", "success");
 							request.getRequestDispatcher(".").forward(request, response);
 						}
-						/**
-						 * Checking if email respects admin email format
-						 */
+					/**
+					 * Checking if email respects admin email format
+					 */
 					} else if (email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
 						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
 						if (admin != null) {

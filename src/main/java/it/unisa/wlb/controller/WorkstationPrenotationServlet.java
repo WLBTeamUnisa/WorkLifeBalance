@@ -63,9 +63,6 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public WorkstationPrenotationServlet() {
         super();
     }
@@ -73,7 +70,6 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 	/**
 	 * The aim of this method is to insert a workstation prenotation into the database.
 	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Employee employee = (Employee) request.getSession().getAttribute("user");
@@ -164,9 +160,6 @@ public class WorkstationPrenotationServlet extends HttpServlet {
 		request.getRequestDispatcher("/ShowWorkstationPrenotationPage").forward(request, response);			
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

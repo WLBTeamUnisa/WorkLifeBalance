@@ -7,12 +7,12 @@ import javax.ejb.Stateless;
 /**
  * This interface defines public methods offered by Jpa classes
  * 
- * @author Sabato
+ * @author Sabato Nocera
  *
  * @param <E>
  */
 @Stateless
-public interface IGenericDAO<E> {
+public interface IGenericDao<E> {
 
 	/**
 	 * It is used to store an element into the database

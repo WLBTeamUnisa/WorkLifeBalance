@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -33,112 +33,107 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	@EJB
-    private IProjectDAO projectDao;
+    private IProjectDao projectDao;
    
     @EJB
-    private IEmployeeDAO employeeDao; 
+    private IEmployeeDao employeeDao; 
     
     private static final String EMAIL = "email";
     private static final String EMAILMANAGER = "emailManager";
     
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AddEmployeeToListServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    /**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param employeeDao
+	 */
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
     	this.employeeDao = employeeDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter("email") != null 
+	 * @pre response.getParameter("emailManager") != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String emailEmployee=request.getParameter(EMAIL);
-	    String emailManager=request.getParameter(EMAILMANAGER);
+	    String emailEmployee = request.getParameter(EMAIL);
+	    String emailManager = request.getParameter(EMAILMANAGER);
 	    
 	    /**
 	     * Check about the existence of submitted email in the database 
 	     * 
-	     * */
-	    if(emailEmployee!=null)
-	    {
-	    	if(emailManager==null)
-	    	{
+	     */
+	    if(emailEmployee!=null) {
+	    	if(emailManager==null) {
 	    		emailManager="";
 	    	}
-	    	if(!emailEmployee.equals(emailManager))
-	    	{
+	    	
+	    	if(!emailEmployee.equals(emailManager)) {
 	    		Employee employee = employeeDao.retrieveByEmail(emailEmployee);
-	    		if(employee==null)
-	    		{
+	    		if(employee==null) {
 	    			response.getWriter().append("The employee is not valid");
 	    		}
 	    
-	    		else
-	    		{
+	    		else {
 	    			HttpSession session=request.getSession();
 	    			List<Employee> currentEmployeeList = (List<Employee>) session.getAttribute("currentEmployees");
 	    			int flagList=0;
-	    			if(currentEmployeeList!=null)
-	    			{
-	    				for(int i=0; i<currentEmployeeList.size() && flagList==0; i++)
-	    				{
-	    					if(currentEmployeeList.get(i).getEmail().equals(employee.getEmail()))
-	    					{	
+	    			if(currentEmployeeList!=null) {
+	    				for(int i=0; i<currentEmployeeList.size() && flagList==0; i++) {
+	    					if(currentEmployeeList.get(i).getEmail().equals(employee.getEmail())) {	
 	    						flagList=1;
 	    					}
 	    				}
 	    			}
-	    			
 	        
-	        /**
-	         * If employee exists, the employee will be inserted into the arraylist
-	         * 
-	         * */
-	    			if(flagList==0)
-	    			{
-	    				JSONObject obj = new JSONObject();
-	    				obj.put("emailEmployee", employee.getEmail());
+			        /**
+			         * If employee exists, the employee will be inserted into the arraylist
+			         * 
+			         */
+	    			if(flagList==0) {
+	    				JSONObject object = new JSONObject();
+	    				object.put("emailEmployee", employee.getEmail());
 	    				ArrayList<Employee> list=(ArrayList<Employee>) session.getAttribute("employeeList");
 	        
-	        /**
-	         * If the list, initially is empty, it will be created
-	         * 
-	         */
-	    				if(list==null)
-	    				{
+				        /**
+				         * If the list, initially is empty, it will be created
+				         * 
+				         */
+	    				if(list==null) {
 	    					list=new ArrayList<Employee>();
 	    					list.add(employee);
 	    					session.setAttribute("employeeList", list);
-	    					response.getWriter().append(obj.toString());
+	    					response.getWriter().append(object.toString());
 	    					response.setContentType("application/json");
 	    				}
 	        
 	        
-	        /**
-	         * Only if the employee there isn't yet into the list, it will be added 
-	         * 
-	         * */
-	    				else
-	    				{
+				        /**
+				         * Only if the employee there isn't yet into the list, it will be added 
+				         * 
+				         * */
+	    				else {
 	    					int flag=0;
-	    					for(int i=0; i<list.size() && flag==0; i++)
-	    					{
-	    						if(list.get(i).getEmail().equals(employee.getEmail()))
-	    						{
+	    					for(int i=0; i<list.size() && flag==0; i++) {
+	    						if(list.get(i).getEmail().equals(employee.getEmail())) {
 	    							flag=1;
 	    						}
 	    					}
 	          
-	    					if(flag==0)
-	    					{
+	    					if(flag==0) {
 	    						list.add(employee);
 	    						session.setAttribute("employeeList", list);
-	    						response.getWriter().append(obj.toString());
+	    						response.getWriter().append(object.toString());
 	    						response.setContentType("application/json");
 	    					}
 	    				}
@@ -149,7 +144,12 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

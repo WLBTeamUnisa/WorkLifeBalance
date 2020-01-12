@@ -21,9 +21,9 @@ import it.unisa.wlb.model.dao.IRoomDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class PlanimetryInsertionPageServlet. It is used to access to PlanimetryInsertion.jsp.
+ * It is used to access to PlanimetryInsertion.jsp.
  * 
- * @author Sabato
+ * @author Sabato Nocera
  *
  */
 @WebServlet(name="PlanimetryInsertionPageServlet", urlPatterns="/PlanimetryInsertionPage")
@@ -43,7 +43,6 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
     /**
      * Default constructor
      * 
-     * @see HttpServlet#HttpServlet()
      */
     public PlanimetryInsertionPageServlet() {
         super();
@@ -52,11 +51,11 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
     public void setRoomDao(IRoomDao roomDao) {
     	this.roomDao = roomDao;
     }
+    
 	/**
 	 * The aim of this method is to access to PlanimetryInsertion.jsp. In the case in which the planimetry is already inserted into the database,
 	 * the Servlet will send to the jsp the informations about the current planimetry.
 	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -84,9 +83,6 @@ public class PlanimetryInsertionPageServlet extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/PlanimetryInsertion.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,20 +33,20 @@ import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotationPK;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 
 
 public class ShowCalendarHistoryServletTest {
 	
 	@Mock
-	private IEmployeeDAO employeeDAO;
+	private IEmployeeDao employeeDAO;
 	@Mock
-	private ISmartWorkingPrenotationDAO smartWorkingPrenotationDAO;
+	private ISmartWorkingPrenotationDao smartWorkingPrenotationDAO;
 	@Mock
-	private IPrenotationDateDAO prenotationDateDAO;
+	private IPrenotationDateDao prenotationDateDAO;
 	@Mock
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
@@ -89,7 +88,6 @@ public class ShowCalendarHistoryServletTest {
 		employee.setPassword(password);
 		employee.setStatus(status);
 		
-		//add SmartWorkingPrenotation to employee
 		SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
 		SmartWorkingPrenotationPK smartWorkingPk = new SmartWorkingPrenotationPK();
 		smartWorkingPk.setEmployeeEmail(employee.getEmail());
@@ -105,7 +103,6 @@ public class ShowCalendarHistoryServletTest {
 		PrenotationDatePK prenotationDatePk = new PrenotationDatePK();
 		prenotationDate.setSmartWorkingPrenotation(smartWorking);
 		
-		LocalDate localDate = LocalDate.parse("2020-01-01");
 		prenotationDatePk.setDate(new Date());
 		
 		prenotationDatePk.setEmployeeEmail(employee.getEmail());
@@ -114,16 +111,14 @@ public class ShowCalendarHistoryServletTest {
 		ArrayList<PrenotationDate> prenotationDates= new ArrayList<>();
 		prenotationDates.add(prenotationDate);
 		smartWorking.setPrenotationDates(prenotationDates);
-		//System.out.println(smartWorkingPrenotations.get(0).getPrenotationDates().get(0).getId().getDate());
 		employee.setSmartWorkingPrenotations(smartWorkingPrenotations);
 		
 		
-		//add workstationPrenotation to employee
+		
 	
 		int existingFloor = 6;
 		int existingRoom = 8;
-		int existingWorkstation = 27;
-		String datePrenotation = "2019-11-25";		
+		int existingWorkstation = 27;	
 
 		Floor floor = new Floor();
 		floor.setNumFloor(existingFloor);	
@@ -166,8 +161,6 @@ public class ShowCalendarHistoryServletTest {
 		
 		employee.setWorkstationPrenotations(workstationPrenotationList);
 		
-		
-		//employee.setWorkstationPrenotations(null);
 	}
 	
 	@Test
@@ -175,7 +168,6 @@ public class ShowCalendarHistoryServletTest {
 		Date actualDate= new Date();
 		String string="[{\"date\":\""+actualDate+"\",\"type\":\"Smartworking\"},{\"date\":\""+actualDate+"\",\"workstation\":27,\"type\":\"Workstation\",\"floor\":6,\"room\":8}]";
 		request.getSession().setAttribute("user", employee);
-		//when(request.getSession()).thenReturn(session);
 		request.setParameter("employeeEmail", email);
 		request.setParameter("month","1");
 		request.setParameter("year", "2020");
@@ -188,34 +180,25 @@ public class ShowCalendarHistoryServletTest {
 		
 	}
 	
-	//funziona
 	@Test
 	void retriveFail() throws ServletException, IOException {
 		request.getSession().setAttribute("user", employee);
-		//when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		request.setParameter("employeeEmail", email);
 		request.setParameter("month","12");
 		request.setParameter("year", "2020");
 		request.setParameter("year", "2020");
-	
-		//when(employeeDAO.retrieveByEmail(email)).thenReturn(f);
 		servlet.setEmployeeDAO(employeeDAO);
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
 		
 	}
-	//funziona
+	
 	@Test
 	void employeeSessionNull() throws ServletException, IOException {
-		//request.getSession().setAttribute("user", employee);
-		//when(request.getSession()).thenReturn(session);
-	//	request.setParameter("employeeEmail", "ciao");
-	
 		request.setParameter("month","12");
 		request.setParameter("year", "2020");
 		request.setParameter("year", "2020");
-		
 		servlet.setEmployeeDAO(employeeDAO);
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
@@ -223,28 +206,18 @@ public class ShowCalendarHistoryServletTest {
 		
 	}
 	
-	
-	//funziona
 	@Test
 	void employeeStringNull() throws ServletException, IOException {
-		
-		
 		Date actualDate= new Date();
 		String string="[{\"date\":\""+actualDate+"\",\"type\":\"Smartworking\"},{\"date\":\""+actualDate+"\",\"workstation\":27,\"type\":\"Workstation\",\"floor\":6,\"room\":8}]";
 		request.getSession().setAttribute("user", employee);
-		
-		//request.setParameter("employeeEmail", "ciao");
 		request.setParameter("month","1");
 		request.setParameter("year", "2020");
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);	
 		servlet.setEmployeeDAO(employeeDAO);
 		servlet.doPost(request, response);
-
-
 		assertEquals(string, response.getContentAsString());
-		
-	
+
 	}
 
 }

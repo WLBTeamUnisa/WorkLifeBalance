@@ -133,27 +133,27 @@
 									<div class="flex-container"></div>
 								</div>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<script>
@@ -161,24 +161,19 @@
 				.ready(
 						function() {
 
-							//INIZIALIZZO LE VARIE SELECT
 							var dateSelect = $("#dateSelect");
 							var floorSelect = $("#floorSelect");
 							var roomSelect = $("#roomSelect");
 
-							//OGGETTO DELLA REQUEST
 							var insertedPlanimetry = '${insertedPlanimetry}';
 
-							//CONTAINER DEGLI OGGETTI SVG
 							var container = $(".flex-container");
 
 							if (insertedPlanimetry.length > 0) {
 
-								//INIZIALIZZO ALLA PRIMA STANZA
 								loadRoom(1);
 								console.log(insertedPlanimetry.length);
 
-								//LOAD PIANI
 								if (insertedPlanimetry.length > 0) {
 									var arrayJson = JSON
 											.parse(insertedPlanimetry);
@@ -211,7 +206,6 @@
 												"<h2 class='my-auto'>Planimetria non inserita.</h2>");
 							}
 
-							//LOAD STANZE
 							function loadRoom(piano) {
 								if (insertedPlanimetry.length > 0) {
 									var arrayJson = JSON
@@ -232,7 +226,6 @@
 								}
 							}
 
-							//LOAD PLANIMETRY
 							function loadPlanimetry() {
 
 								var date = dateSelect.val();
@@ -280,7 +273,6 @@
 								}
 							}
 
-							//SETTO GLI EVENTI ONCHANGE ALLE SELECT
 							roomSelect.on("change", function() {
 								loadPlanimetry();
 							});

@@ -27,9 +27,9 @@ import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.Room;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
 import it.unisa.wlb.model.dao.IRoomDao;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
@@ -52,10 +52,10 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 	private IRoomDao roomDao;
 	
 	@EJB
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 	
 	@EJB
-	private IPrenotationDateDAO prenotationDateDao;
+	private IPrenotationDateDao prenotationDateDao;
 	
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
@@ -64,7 +64,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 		this.roomDao = roomDao;
 	}
 	
-	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
@@ -159,6 +159,7 @@ public class ShowWorkstationPrenotationPageServlet extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().write("Planimetria assente nel database");	
 				response.getWriter().flush();
+				return;
 			}
 						
 			request.setAttribute("availableDates", listDates);

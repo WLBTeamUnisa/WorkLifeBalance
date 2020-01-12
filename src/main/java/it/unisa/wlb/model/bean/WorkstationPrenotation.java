@@ -33,12 +33,16 @@ public class WorkstationPrenotation implements Serializable {
 	@Column(name="YEAR", columnDefinition="int(4)", nullable=false)
 	private int year;
 
-	//bi-directional many-to-one association to Employee
+	/**
+	 * bi-directional many-to-one association to Employee
+	 */
 	@ManyToOne
 	@JoinColumn(name="EMPLOYEE_EMAIL", insertable=false, updatable=false,nullable=false,columnDefinition="varchar(37)")
 	private Employee employee;
 
-	//bi-directional many-to-one association to Workstation
+	/**
+	 * bi-directional many-to-one association to Workstation
+	 */
 	@ManyToOne
 	@JoinColumns({
 		@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM", columnDefinition="int(2)", nullable=false), @JoinColumn(name="NUM_WORKSTATION", columnDefinition="int(3)", nullable=false)

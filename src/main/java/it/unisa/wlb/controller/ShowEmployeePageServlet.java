@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ShowEmployeePage
+ * The aim of this servlet is redirecting to Employee.jsp
+ * 
+ * @author Simranjit Singh
  */
 @WebServlet(name="ShowEmployeePageServlet", urlPatterns="/ShowEmployeePage")
 @Interceptors({LoggerSingleton.class})
@@ -27,23 +27,16 @@ public class ShowEmployeePageServlet extends HttpServlet {
        
     
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShowEmployeePageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-    public void setEmployeeDao(IEmployeeDAO employeeDao) {
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
     	this.employeeDao = employeeDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		if(session.getAttribute("userRole").equals("Admin")) {
@@ -59,7 +52,7 @@ public class ShowEmployeePageServlet extends HttpServlet {
 					request.setAttribute("result", "error");
 					request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
 				} 
-			} else {//if email is null or email is empty
+			} else {
 				request.setAttribute("result", "error");
 				request.getRequestDispatcher("/EmployeeListPageServlet").forward(request, response);
 			}
@@ -70,11 +63,8 @@ public class ShowEmployeePageServlet extends HttpServlet {
 		}
 		
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

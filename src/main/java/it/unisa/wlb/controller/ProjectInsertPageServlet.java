@@ -12,33 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ProjectInsertPageServlet
+ * The aim of this servlet is redirecting to ProjectInsertion.jsp 
+ * 
+ * @author Luigi Cerrone
+ * 
  */
 @WebServlet(name="ProjectInsertPageServlet", urlPatterns="/ProjectInsertPage")
 @Interceptors({LoggerSingleton.class})
 public class ProjectInsertPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public ProjectInsertPageServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("employeeList");
 		request.getRequestDispatcher("WEB-INF/ProjectInsertion.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

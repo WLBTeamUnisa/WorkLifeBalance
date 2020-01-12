@@ -28,44 +28,32 @@ import it.unisa.wlb.utils.LoggerSingleton;
 public class ShowAllSupervisedProjectsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShowAllSupervisedProjectsServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        
 	        Employee employee=(Employee) request.getSession().getAttribute("user");
-	        if(employee!=null && employee.getStatus()==1)
-	        {
-	        	List<Project> projectList=employee.getProjects1();
-	        	JSONArray projectListJson = new JSONArray();
-	          /**
-	           * Insertion of supervised projects in a JsonArray 
-	           * 
-	           * */
-	           for(int i = 0; i<projectList.size();i++) {
-	        	   JSONObject obj = new JSONObject();
-	        	   obj.put("projectName", projectList.get(i).getName());
-	        	   projectListJson.put(obj);
-	           }
+	        if(employee!=null && employee.getStatus()==1) {
+		        List<Project> projectList=employee.getProjects1();
+		        JSONArray projectListJson = new JSONArray();
+			    /**
+			     * Insertion of supervised projects in a JsonArray 
+			     * 
+			     */
+		        for(int i = 0; i<projectList.size();i++) {
+				    JSONObject object = new JSONObject();
+				    object.put("projectName", projectList.get(i).getName());
+				    projectListJson.put(object);
+		        }
 	           
 	           response.setContentType("application/json");
 	           response.getWriter().append(projectListJson.toString());
 	        }
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

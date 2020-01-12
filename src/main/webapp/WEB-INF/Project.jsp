@@ -75,13 +75,13 @@
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
-					<!-- COLONNA -->
+					<!-- COLUMN -->
 					<div class="col-lg-7 mx-auto">
 
 						<!-- CARD -->
@@ -99,7 +99,7 @@
 									<!-- CONTAINER -->
 									<div class="container">
 
-										<!-- NOME -->
+										<!-- NAME -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -124,7 +124,7 @@
 										<span id="errorScope"> </span>
 
 
-										<!-- DATA INIZIO -->
+										<!-- START DATE -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i
@@ -137,7 +137,7 @@
 										<span id="errorDataInizio"> </span>
 
 
-										<!-- DATA FINE -->
+										<!-- END DATE -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i
@@ -150,7 +150,7 @@
 										<span id="errorDataFine"> </span>
 
 
-										<!-- DESCRIZIONE -->
+										<!-- DESCRIPTION -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i
@@ -176,7 +176,7 @@
 										<span id="errorManager"> </span>
 
 
-										<!-- LISTA DIPENDENTI -->
+										<!-- EMPLOYEES LIST -->
 										<div class="form-group row pb-1">
 											<div class="col-lg-7">
 												<div class="card">
@@ -199,7 +199,7 @@
 											</div>
 
 
-											<!-- INSERISCI DIPENDENTE (BOTTONE TRIGGER) -->
+											<!-- INSERT EMPLOYEE (BOTTONE TRIGGER) -->
 											<div class="col-lg-5 mx-auto mb-auto">
 												<!-- Button trigger modal -->
 												<button type="button" class="btn btn-warning mx-auto"
@@ -216,9 +216,9 @@
 												id="insertButton">Modifica</button>
 										</div>
 
-										<!-- FINE CONTAINER -->
+										<!-- END CONTAINER -->
 									</div>
-									<!-- FINE FORM DI INSERIMENTO PROGETTO -->
+									<!-- END FORM INSERT PROJECT -->
 								</form>
 
 								<!-- Modal -->
@@ -259,27 +259,27 @@
 									</div>
 								</div>
 
-								<!-- FINE CARD BODY -->
+								<!-- END CARD BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 
@@ -290,7 +290,7 @@
 		var dataFineOK = true;
 		var descrizioneOK = true;
 		var managerOK = true;
-		//TEMPLATE
+
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
 		function verificaNome() {
@@ -331,19 +331,17 @@
 					var dateEndDate = new Date(endDate);
 					verificaDate(dateStartDate, dateEndDate);
 				} else {
-					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 					if ($("#startDate").hasClass("is-invalid"))
 						$("#startDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
+					
 					$("#startDate").addClass("is-valid");
 					document.getElementById("errorDataInizio").innerHTML = "";
 					dataInizioOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#startDate").hasClass("is-valid"))
 					$("#startDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#startDate").addClass("is-invalid");
 				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
@@ -363,19 +361,17 @@
 					var dateEndDate = new Date(endDate);
 					verificaDate(dateStartDate, dateEndDate);
 				} else {
-					//ENDDATE
 					if ($("#endDate").hasClass("is-invalid"))
 						$("#endDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
 					$("#endDate").addClass("is-valid");
 					document.getElementById("errorDataFine").innerHTML = "";
 					dataFineOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#endDate").addClass("is-invalid");
 				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
@@ -384,36 +380,32 @@
 		}
 
 		function verificaDate(startDate, endDate) {
-			//Matchano tutte e due
 			if (startDate < endDate) {
-				//STARTDATE
+			
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#startDate").addClass("is-valid");
 				document.getElementById("errorDataInizio").innerHTML = "";
 				dataInizioOK = true;
-
-				//ENDDATE
+				
 				if ($("#endDate").hasClass("is-invalid"))
 					$("#endDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#endDate").addClass("is-valid");
 				document.getElementById("errorDataFine").innerHTML = "";
 				dataFineOK = true;
 			} else {
-				//STARTDATE
+			
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#startDate").addClass("is-valid");
 				document.getElementById("errorDataInizio").innerHTML = "";
 				dataInizioOK = true;
 
-				//ENDDATE
+				
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
 				$("#endDate").addClass("is-invalid");
 				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
 				dataFineOK = false;

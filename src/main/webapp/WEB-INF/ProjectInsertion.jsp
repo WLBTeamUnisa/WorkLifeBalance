@@ -259,27 +259,27 @@
 									</div>
 								</div>
 
-								<!-- FINE CARD BODY -->
+								<!-- END CARD BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
 			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<script>
@@ -305,18 +305,16 @@
 						var json = JSON.parse(xmlHttpReq.responseText);
 						if (json != null) {
 							if (json.available == "yes") {
-								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 								if ($("#name").hasClass("is-invalid"))
 									$("#name").removeClass("is-invalid");
-								//AGGIUNGO LA CLASSE 'IS-VALID'
+								
 								$("#name").addClass("is-valid");
 								document.getElementById("errorName").innerHTML = "";
 								nomeOK = true;
 							} else {
-								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 								if ($("#name").hasClass("is-valid"))
 									$("#name").removeClass("is-valid");
-								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								
 								$("#name").addClass("is-invalid");
 								document.getElementById("errorName").innerHTML = "Attenzione! Questo nome è già associato ad un altro progetto.";
 								nomeOK = false;
@@ -329,10 +327,9 @@
 						+ encodeURIComponent(input), true);
 				xmlHttpReq.send();
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#name").hasClass("is-valid"))
 					$("#name").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#name").addClass("is-invalid");
 				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
@@ -346,18 +343,16 @@
 			var input = $("#scope").val();
 			if (input.trim().length >= 3 && input.trim().length <= 25
 					&& input.match(/^[A-Za-z\s]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 				if ($("#scope").hasClass("is-invalid"))
 					$("#scope").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#scope").addClass("is-valid");
 				document.getElementById("errorScope").innerHTML = "";
 				scopeOK = true;
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#scope").hasClass("is-valid"))
 					$("#scope").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+			
 				$("#scope").addClass("is-invalid");
 				document.getElementById("errorScope").innerHTML = errorMsg;
 				scopeOK = false;
@@ -378,19 +373,17 @@
 					var dateEndDate = new Date(endDate);
 					verificaDate(dateStartDate, dateEndDate);
 				} else {
-					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 					if ($("#startDate").hasClass("is-invalid"))
 						$("#startDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
+					
 					$("#startDate").addClass("is-valid");
 					document.getElementById("errorDataInizio").innerHTML = "";
 					dataInizioOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#startDate").hasClass("is-valid"))
 					$("#startDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#startDate").addClass("is-invalid");
 				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
@@ -413,16 +406,15 @@
 					//ENDDATE
 					if ($("#endDate").hasClass("is-invalid"))
 						$("#endDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 					$("#endDate").addClass("is-valid");
 					document.getElementById("errorDataFine").innerHTML = "";
 					dataFineOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#endDate").addClass("is-invalid");
 				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
@@ -431,12 +423,11 @@
 		}
 
 		function verificaDate(startDate, endDate) {
-			//Matchano tutte e due
+		
 			if (startDate < endDate) {
 				//STARTDATE
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#startDate").addClass("is-valid");
 				document.getElementById("errorDataInizio").innerHTML = "";
 				dataInizioOK = true;
@@ -444,7 +435,7 @@
 				//ENDDATE
 				if ($("#endDate").hasClass("is-invalid"))
 					$("#endDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#endDate").addClass("is-valid");
 				document.getElementById("errorDataFine").innerHTML = "";
 				dataFineOK = true;
@@ -460,7 +451,7 @@
 				//ENDDATE
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#endDate").addClass("is-invalid");
 				document.getElementById("errorDataFine").innerHTML = "La data di fine deve seguire quella di inzio!";
 				dataFineOK = false;
@@ -474,18 +465,17 @@
 
 			if (input.trim().length >= 20 && input.trim().length <= 250
 					&& input.match(/^[\s\S]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				
 				if ($("#description").hasClass("is-invalid"))
 					$("#description").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+			
 				$("#description").addClass("is-valid");
 				document.getElementById("errorDescrizione").innerHTML = "";
 				descrizioneOK = true;
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#description").hasClass("is-valid"))
 					$("#description").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+			
 				$("#description").addClass("is-invalid");
 				document.getElementById("errorDescrizione").innerHTML = errorMsg;
 				descrizioneOK = false;
@@ -505,19 +495,18 @@
 						var json = JSON.parse(xmlHttpReq.responseText);
 						if (json != null) {
 							if (json.status == 1) {
-								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 								if ($("#managerEmail").hasClass("is-invalid"))
 									$("#managerEmail")
 											.removeClass("is-invalid");
-								//AGGIUNGO LA CLASSE 'IS-VALID'
+								
 								$("#managerEmail").addClass("is-valid");
 								document.getElementById("errorManager").innerHTML = "";
 								managerOK = true;
 							} else {
-								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								
 								if ($("#managerEmail").hasClass("is-valid"))
 									$("#managerEmail").removeClass("is-valid");
-								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								
 								$("#managerEmail").addClass("is-invalid");
 								document.getElementById("errorManager").innerHTML = "L'utente selezionato non è un manager!";
 								managerOK = false;
@@ -530,10 +519,10 @@
 						+ encodeURIComponent(input), true);
 				xmlHttpReq.send();
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				
 				if ($("#managerEmail").hasClass("is-valid"))
 					$("#managerEmail").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#managerEmail").addClass("is-invalid");
 				document.getElementById("errorManager").innerHTML = errorMsg;
 				managerOK = false;

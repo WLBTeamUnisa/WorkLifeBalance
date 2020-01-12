@@ -13,7 +13,7 @@ import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
  *
  */
 @Local
-public interface ISmartWorkingPrenotationDAO extends IGenericDAO<SmartWorkingPrenotation>{
+public interface ISmartWorkingPrenotationDao extends IGenericDao<SmartWorkingPrenotation>{
 	
 	/**
 	 * It is used to retrieve a Smart Working Prenotation through his calendar week, year and email
@@ -21,7 +21,7 @@ public interface ISmartWorkingPrenotationDAO extends IGenericDAO<SmartWorkingPre
 	 * @param calendarWeek
 	 * @param year
 	 * @param email
-	 * @return
+	 * @return a Smart Working Prenotartion
 	 */
 	SmartWorkingPrenotation retrieveByWeeklyPlanning(int calendarWeek, int year, String email);
 	
@@ -29,7 +29,7 @@ public interface ISmartWorkingPrenotationDAO extends IGenericDAO<SmartWorkingPre
 	 * It is used to retrieve a List of Smart Working Prenotation through his email
 	 * 
 	 * @param email
-	 * @return
+	 * @return a list of Smart Working Prenotation
 	 */
 	List<SmartWorkingPrenotation> retrieveByEmployee(String email);
 	

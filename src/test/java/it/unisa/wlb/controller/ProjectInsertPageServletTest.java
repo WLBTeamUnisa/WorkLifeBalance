@@ -46,7 +46,7 @@ class ProjectInsertPageServletTest {
 	}
 
 	@Test
-	void test() throws ServletException, IOException {
+	void dispatchOk() throws ServletException, IOException {
 		String path = "WEB-INF/ProjectInsertion.jsp";
 		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
 		when(request.getSession()).thenReturn(session);

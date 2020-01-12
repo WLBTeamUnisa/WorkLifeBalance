@@ -19,8 +19,8 @@ import it.unisa.wlb.controller.AddEmployeesToProjectServlet;
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 /**
  * This test class follows the specification of the section "3.2.4 TC_2.4 Inserisci dipendente ad un progetto" of the document "Test Case Specification"
  * 
@@ -48,7 +48,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 
 	
 	/**
-	 * EmployeeList is empty
+	 * TC_2.4_1: EmployeeList is empty
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -62,7 +62,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		project.setScope("SmartWorking");
 		project.setStartDate(new Date(2019-11-02));
 		project.setEndDate(new Date(2019-12-02));
-		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
 		
 		when(projectDao.retrieveByName("WorkLifeBalance")).thenReturn(project);
 		
@@ -78,7 +78,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 * Employee doesn't exists into the database
+	 * TC_2.4_2: Employee doesn't exists into the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -92,7 +92,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		project.setScope("SmartWorking");
 		project.setStartDate(new Date(2019-11-02));
 		project.setEndDate(new Date(2019-12-02));
-		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
 		
 		when(projectDao.retrieveByName("WorkLifeBalance")).thenReturn(project);
 		
@@ -109,7 +109,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 * Employee doesn't exists into the database
+	 * TC_2.4_3: Employee doesn't exists into the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -123,14 +123,14 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		project.setScope("SmartWorking");
 		project.setStartDate(new Date(2019-11-02));
 		project.setEndDate(new Date(2019-12-02));
-		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
 		
 		Employee employee = new Employee();
 		employee.setEmail("l.rossi1@wlb.it");
 		employee.setName("Luca");
 		employee.setSurname("Rossi");
 		employee.setPassword("Ciao123.");
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		
 		when(projectDao.retrieveByName("WorkLifeBalance")).thenReturn(project);
 		when(employeeDao.retrieveByEmail("l.rossi1@wlb.it")).thenReturn(employee);
@@ -149,7 +149,7 @@ class AddEmployeesToProjectServletTest extends Mockito {
 	}
 	
 	/**
-	 * Employee doesn't exists into the database
+	 * TC_2.4_4: Employee doesn't exists into the database
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -184,8 +184,8 @@ class AddEmployeesToProjectServletTest extends Mockito {
 		employee.setPassword("Ciao123.");
 		employee.setStatus(0);
 		
-		IEmployeeDAO employeeDao = mock(IEmployeeDAO.class);
-		IProjectDAO projectDao = mock(IProjectDAO.class);
+		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
+		IProjectDao projectDao = mock(IProjectDao.class);
 		
 		when(projectDao.create(project)).thenReturn(project);
 		when(employeeDao.update(manager)).thenReturn(manager);

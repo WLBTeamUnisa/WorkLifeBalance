@@ -28,7 +28,7 @@ import it.unisa.wlb.controller.ShowSmartWorkingPrenotationServlet;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
@@ -50,7 +50,7 @@ class ShowSmartWorkingPrenotationServletTest {
 	private ShowSmartWorkingPrenotationServlet servlet;
 	
 	@Mock
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 	
 	private SmartWorkingPrenotation smartWorkingPrenotation;
 	

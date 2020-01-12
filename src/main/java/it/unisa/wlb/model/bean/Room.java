@@ -29,13 +29,17 @@ public class Room implements Serializable {
 	@EmbeddedId
 	private RoomPK id;
 
-	//bi-directional many-to-one association to Floor
+	/**
+	 * bi-directional many-to-one association to Floor
+	 */
 	@ManyToOne
 	@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
 	@MapsId("numFloor")
 	private Floor floor;
 
-	//bi-directional many-to-one association to Workstation
+	/**
+	 * bi-directional many-to-one association to Workstation
+	 */
 	@OneToMany(mappedBy="room")
 	private List<Workstation> workstations;
 
