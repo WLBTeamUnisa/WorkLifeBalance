@@ -9,12 +9,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Luigi Cerrone
- * 
  * This filter deny a resource to an employee
+ * 
+ * @author Luigi Cerrone
  */
 @WebFilter("/DenyAdmin")
 public class DenyAdmin implements Filter {
@@ -23,32 +22,25 @@ public class DenyAdmin implements Filter {
      * Default constructor. 
      */
     public DenyAdmin() {
-        // TODO Auto-generated constructor stub
+    	
     }
 
-	/**
-	 * @see Filter#destroy()
-	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		Object user=((HttpServletRequest) request).getSession().getAttribute("user");
 	    if(user.getClass().getSimpleName().equals("Admin")) {
 	    	((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
 	      }
-	    chain.doFilter(request, response);
+	    	chain.doFilter(request, response);
 	    }
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+	
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }
