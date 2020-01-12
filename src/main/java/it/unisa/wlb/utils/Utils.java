@@ -5,6 +5,12 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The aim of this class is implementing useful methods
+ * 
+ * @author Vincenzo Fabiano
+ *
+ */
 public class Utils {
   public Utils() {}
 

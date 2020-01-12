@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 
-/**
- * 
+/** 
  * This servlet aims to suggest years for the visualization of Calendar History
  * 
  * @author Luigi Cerrone
@@ -23,57 +22,71 @@ import it.unisa.wlb.model.dao.IEmployeeDAO;
 @WebServlet(name="SuggestionsYearServlet", urlPatterns="/SuggestionsYear")
 public class SuggestionsYearServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	private IEmployeeDAO employeeDao;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SuggestionsYearServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    public void setEmployeeDAO(IEmployeeDAO employeeDao){
-    	this.employeeDao=employeeDao;
-    }
+	@EJB
+	private IEmployeeDao employeeDao;
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Employee employee=(Employee) request.getSession().getAttribute("user");
-        if(employee!=null)
-        {
-        	JSONArray yearsListJson = new JSONArray();
-          /**
-           * Insertion of years in a JsonArray 
-           * 
-           * */
-        	
-        	Date date=new Date();
-        	Calendar calendar=Calendar.getInstance();
-        	calendar.setTime(date);
-        	int currentYear=calendar.get(Calendar.YEAR);
-        	while(currentYear>=2019)
-        	{
-        		JSONObject object=new JSONObject();
-        		object.put("year", currentYear);
-        		yearsListJson.put(object);
-        		currentYear--;
-        	}
-           
-           response.setContentType("application/json");
-           response.getWriter().append(yearsListJson.toString());
-           
-        }
+     * Default constructor
+     */
+	public SuggestionsYearServlet() {
+		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
+	public void setEmployeeDao(IEmployeeDao employeeDao){
+		this.employeeDao=employeeDao;
+	}
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getSession().getAttribute("user") != null
+	 * @post yearsListJson.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Employee employee=(Employee) request.getSession().getAttribute("user");
+		if(employee!=null)
+		{
+			JSONArray yearsListJson = new JSONArray();
+			/**
+			 * Insertion of years in a JsonArray 
+			 * 
+			 */
+			Date date=new Date();
+			Calendar calendar=Calendar.getInstance();
+			calendar.setTime(date);
+			int currentYear=calendar.get(Calendar.YEAR);
+			while(currentYear>=2019) {
+				JSONObject object=new JSONObject();
+				object.put("year", currentYear);
+				yearsListJson.put(object);
+				currentYear--;
+			}
+
+			response.setContentType("application/json");
+			response.getWriter().append(yearsListJson.toString());
+
+		}
+	}
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

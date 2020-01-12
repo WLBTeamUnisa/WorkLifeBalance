@@ -14,7 +14,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Embeddable
 @Interceptors({LoggerSingleton.class})
 public class SmartWorkingPrenotationPK implements Serializable {
-	// default serial version id, required for serializable classes.
+	
 	private static final long serialVersionUID = 1L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +58,11 @@ public class SmartWorkingPrenotationPK implements Serializable {
 	public String toString() {
 		return "SmartWorkingPrenotationPK [id=" + id + ", employee=" + employee + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 	
+
 }

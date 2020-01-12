@@ -56,46 +56,74 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
-	
-	
-	public void setFloorDao(IFloorDao floorDao) {
-		this.floorDao = floorDao;
-	}
-	
-	public void setRoomDao(IRoomDao roomDao) {
-		this.roomDao = roomDao;
-	}
-	
-	public void setWorkstationDao(IWorkstationDao workstationDao) {
-		this.workstationDao = workstationDao;
-	}
-	
-	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
-		this.workstationPrenotationDao = workstationPrenotationDao;
-	}
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+     * Default constructor
+     */
 	public WorkstationsAvailabilityServlet() {
 		super();
 	}
 
 	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param floorDao
+	 */
+	public void setFloorDao(IFloorDao floorDao) {
+		this.floorDao = floorDao;
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param roomDao
+	 */
+	public void setRoomDao(IRoomDao roomDao) {
+		this.roomDao = roomDao;
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationDao
+	 */
+	public void setWorkstationDao(IWorkstationDao workstationDao) {
+		this.workstationDao = workstationDao;
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationPrenotationDao
+	 */
+	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
+		this.workstationPrenotationDao = workstationPrenotationDao;
+	}
+
+	/**
 	 * The jsp calls this method through AJAX; it returns in the response the availability of the workstations of a room of a certain floor
 	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter(FLOOR) != null
+	 * @pre request.getParameter(ROOM) != null
+	 * @pre request.getParameter(DATE) != null
+	 * @post jsonArray.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int floor = Integer.parseInt(request.getParameter(FLOOR));
 		int room = Integer.parseInt(request.getParameter(ROOM));
 		String datePrenotation = request.getParameter(DATE);
-		
+
 		try {			
 			maxFloor = floorDao.countMax();
 			maxRoom = roomDao.countMaxByFloor(floor);
-			
+
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("\nErrore nel recupero delle informazioni relative al piano massimo, alla stanza massima e alla postazione massima");			
@@ -164,7 +192,14 @@ public class WorkstationsAvailabilityServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * The jsp calls this method through AJAX; it returns in the response the availability of the workstations of a room of a certain floor
+	 * 
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

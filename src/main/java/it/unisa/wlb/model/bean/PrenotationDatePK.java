@@ -14,7 +14,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Embeddable
 @Interceptors({LoggerSingleton.class})
 public class PrenotationDatePK implements Serializable {
-	//default serial version id, required for serializable classes.
+	
 	private static final long serialVersionUID = 1L;
 
 	@Temporal(TemporalType.DATE)
@@ -69,4 +69,11 @@ public class PrenotationDatePK implements Serializable {
 		return "PrenotationDatePK [date=" + date + ", employee=" + employee + ", smartWorkingPrenotation="
 				+ smartWorkingPrenotation + "]";
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
+	
 }

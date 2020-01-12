@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="ROOM")
+@Table(name="room")
 @NamedQueries({
 	@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r"),
 	@NamedQuery(name="Room.countMaxByFloor", query="SELECT COUNT(r) FROM Room r WHERE r.id.numFloor =?1"),
@@ -29,13 +29,17 @@ public class Room implements Serializable {
 	@EmbeddedId
 	private RoomPK id;
 
-	//bi-directional many-to-one association to Floor
+	/**
+	 * bi-directional many-to-one association to Floor
+	 */
 	@ManyToOne
 	@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false)
 	@MapsId("numFloor")
 	private Floor floor;
 
-	//bi-directional many-to-one association to Workstation
+	/**
+	 * bi-directional many-to-one association to Workstation
+	 */
 	@OneToMany(mappedBy="room")
 	private List<Workstation> workstations;
 

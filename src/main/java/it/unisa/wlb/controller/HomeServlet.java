@@ -27,7 +27,7 @@ import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
@@ -43,19 +43,40 @@ public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 	
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
-	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param smartWorkingDao
+	 */
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationPrenotationDao
+	 */
 	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
 		this.workstationPrenotationDao = workstationPrenotationDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getSession().getAttribute("user") != null
+     * @pre request.getSession().getAttribute("userRole") == null
+     * @pre request.getSession().getAttribute("user") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getSession().getAttribute("user")==null) {
@@ -86,10 +107,7 @@ public class HomeServlet extends HttpServlet {
 				try {
 					smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, employee.getEmail());
 				} catch(Exception exception) {
-					/*
-						request.setAttribute("error", "Prima devi prenotare i giorni di Smart Working!");
-						request.getRequestDispatcher("/ShowSmartWorkingPrenotation").forward(request, response);
-					*/
+		
 				}
 				
 				List<PrenotationDate> smartWorkingPrenotationDateList=null;
@@ -101,11 +119,10 @@ public class HomeServlet extends HttpServlet {
 					for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
 						Date tempDate = smartWorkingPrenotationDateList.get(i).getId().getDate();
 						LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						JSONObject obj = new JSONObject();
-						obj.put("date", tempDateConverted);
-						obj.put("type", "smartWorking");
-						jsonList.put(obj);
-						//listDates.add(tempDateConverted);
+						JSONObject object = new JSONObject();
+						object.put("date", tempDateConverted);
+						object.put("type", "smartWorking");
+						jsonList.put(object);
 					}				
 				}
 				
@@ -121,22 +138,15 @@ public class HomeServlet extends HttpServlet {
 					for(int i=0; i<workstationPrenotations.size(); i++) {
 						Date tempDate = workstationPrenotations.get(i).getId().getPrenotationDate();
 						LocalDate tempDateConverted = new Date(tempDate.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						JSONObject obj = new JSONObject();
-						obj.put("date", tempDateConverted);
-						obj.put("floor", workstationPrenotations.get(i).getWorkstation().getRoom().getFloor().getNumFloor());
-						obj.put("room", workstationPrenotations.get(i).getWorkstation().getRoom().getId().getNumRoom());
-						obj.put("workstation", workstationPrenotations.get(i).getWorkstation().getId().getWorkstation());
-						obj.put("type", "workstation");
-						jsonList.put(obj);
-						//listDates.add(tempDateConverted);
+						JSONObject object = new JSONObject();
+						object.put("date", tempDateConverted);
+						object.put("floor", workstationPrenotations.get(i).getWorkstation().getRoom().getFloor().getNumFloor());
+						object.put("room", workstationPrenotations.get(i).getWorkstation().getRoom().getId().getNumRoom());
+						object.put("workstation", workstationPrenotations.get(i).getWorkstation().getId().getWorkstation());
+						object.put("type", "workstation");
+						jsonList.put(object);
 					}
 				}
-				
-				/*
-				obj = {["data":"2019-12-12", "piano":1, "stanza":1, ,"postazione":1],
-						["data":"2019-12-12", "piano":1, "stanza":1, ,"postazione":1],
-						["data":"2019-12-12", "piano":, "stanza":, ,"postazione":]}
-				*/
 				
 			}
 			
@@ -146,8 +156,15 @@ public class HomeServlet extends HttpServlet {
 		
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

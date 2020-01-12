@@ -19,38 +19,51 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ShowSmartWorkingPrenotationServlet
+ * This servlet aims to redirect to the booking page for Smart Working days
+ * 
+ * @author Vincenzo Fabiano, Luigi Cerrone
  */
 @WebServlet(name="ShowSmartWorkingPrenotationServlet", urlPatterns="/ShowSmartWorkingPrenotation")
 @Interceptors({LoggerSingleton.class})
-public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
-	
-	/**
-	 * This servlet aims to redirect to the booking page for Smart Working days
-	 * 
-	 * @author Vincenzo Fabiano, Luigi Cerrone
-	 */
+public class ShowSmartWorkingPrenotationServlet extends HttpServlet {	
 	private static final long serialVersionUID = 1L;
+	
 	@EJB
-	private ISmartWorkingPrenotationDAO smartWorkingDao;
+	private ISmartWorkingPrenotationDao smartWorkingDao;
 
-	public void setSmartWorkingDao(ISmartWorkingPrenotationDAO smartWorkingDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param smartWorkingDao
+	 */
+	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getSession().getAttribute("user") != null
+	 * @pre request.getParameter(FLAG) != null
+	 * @post request.getAttribute("booking") !=null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("user")==null) {
 			request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
-		}
-		else {
+		} else {
 			/**
 			 * Get information about the next calendar week (number and year)
 			 */
 			Calendar calendar = Calendar.getInstance();
+			@SuppressWarnings("unused")
 			SmartWorkingPrenotation smartWorkingPrenotation;
 			Employee employee;
 			employee = (Employee) request.getSession().getAttribute("user");
@@ -67,25 +80,29 @@ public class ShowSmartWorkingPrenotationServlet extends HttpServlet {
 			if((nextMonday.getYear() == newDate.getYear()) && nextCalendarWeek==1) {
 				year = year + 1;
 			}
-			
-			System.out.println(nextCalendarWeek);
-			System.out.println(year);
-				try {
-					/**
-					 * If the user has made a reservation for the next week he will not be able to make a new reservation
-					 */
-					smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
-					request.setAttribute("booking", "no");
-					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
+			try {
+				/**
+				 * If the user has made a reservation for the next week he will not be able to make a new reservation
+				 */
+				smartWorkingPrenotation = smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, employee.getEmail());
+				request.setAttribute("booking", "no");
+				request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
 					
-				} catch(Exception e) {
-					System.out.println("Posso effettuare la prenotazione");
-					request.setAttribute("booking", "yes");
-					request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
-				} 
+			} catch(Exception e) {
+				request.setAttribute("booking", "yes");
+				request.getRequestDispatcher("WEB-INF/SmartWorkingPrenotation.jsp").forward(request, response);
+			} 
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

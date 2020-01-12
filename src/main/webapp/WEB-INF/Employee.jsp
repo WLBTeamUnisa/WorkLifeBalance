@@ -11,7 +11,39 @@
 <title>WLB - Profilo Dipendente</title>
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+
+<!-- Icon -->
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -41,17 +73,17 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE -->
 			<div class="content" style="display: flex; align-items: center;">
 
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
-					<!-- COLONNA -->
-					<div class="col-lg-7 mx-auto">
+					<!-- COLUMN -->
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">
@@ -69,7 +101,7 @@
 									<div class="container">
 
 
-										<!-- NOME -->
+										<!-- NAME -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -80,7 +112,7 @@
 
 
 
-										<!-- COGNOME -->
+										<!-- SURNAME -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -105,7 +137,7 @@
 
 
 
-										<!-- SELECT RUOLO -->
+										<!-- SELECT ROLE -->
 										<div class="form-group input-group mx-auto">
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i
@@ -129,32 +161,32 @@
 										</div>
 										<!-- form-group//  Register button-->
 
-										<!-- FINE CONTAINER -->
+										<!-- END CONTAINER -->
 									</div>
 
-									<!-- FINE FORM -->
+									<!-- END FORM -->
 								</form>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN PANEL -->
+			<!-- END MAIN PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 </body>
@@ -181,8 +213,7 @@ function changeStatusFunction()
 		statusInt=1;
 	else
 		statusInt=0;
-
-	//document.getElementById("errorName").innerHTML = "${employee.status}";
+	
 	if("${employee.status}"!=statusInt)
 		{
 			document.getElementById("changeStatusButton").disabled=false;

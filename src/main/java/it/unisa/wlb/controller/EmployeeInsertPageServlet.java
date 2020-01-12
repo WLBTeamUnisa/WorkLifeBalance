@@ -12,33 +12,40 @@ import javax.servlet.http.HttpServletResponse;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class EmployeeInsertPageServlet
+ * The aim of this Servlet is redirecting to EmployeeRegistration.jsp
+ * 
+ * @author Emmanuel Tesauro
  */
 @WebServlet(name="EmployeeInsertPageServlet", urlPatterns="/EmployeeInsertPage")
 @Interceptors({LoggerSingleton.class})
 public class EmployeeInsertPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public EmployeeInsertPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/EmployeeRegistration.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

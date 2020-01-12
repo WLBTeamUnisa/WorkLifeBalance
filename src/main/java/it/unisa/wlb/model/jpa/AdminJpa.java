@@ -11,15 +11,22 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.Admin;
-import it.unisa.wlb.model.dao.IAdminDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IAdminDao
+ * 
+ * @author Vincenzo Fabiano
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
-public class AdminJpa implements IAdminDAO {
+public class AdminJpa implements IAdminDao {
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 
+	
 	public Admin create(Admin entity) {
 		try {
 			entityManager = factor.createEntityManager();
@@ -27,13 +34,11 @@ public class AdminJpa implements IAdminDAO {
 			entityManager.persist(entity);
 			entityManager.getTransaction().commit();
 			return entity;
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
-
+	
 	@Override
 	public void remove(Admin entityClass) {
 		try {
@@ -41,9 +46,7 @@ public class AdminJpa implements IAdminDAO {
 			entityManager.getTransaction().begin();
 			entityManager.remove(entityManager.merge(entityClass));
 			entityManager.getTransaction().commit();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -56,13 +59,12 @@ public class AdminJpa implements IAdminDAO {
 			entityManager.merge(entityClass);
 			entityManager.getTransaction().commit();
 			return entityClass;
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Admin> retrieveAll() {
 		try {
@@ -71,9 +73,7 @@ public class AdminJpa implements IAdminDAO {
 			Query q = entityManager.createQuery("SELECT admin FROM Admin admin");
 			entityManager.getTransaction().commit();
 			return (List<Admin>) q.getResultList();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -88,9 +88,7 @@ public class AdminJpa implements IAdminDAO {
 			q.setParameter("password", password);
 			entityManager.getTransaction().commit();
 			return (Admin) q.getSingleResult();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}

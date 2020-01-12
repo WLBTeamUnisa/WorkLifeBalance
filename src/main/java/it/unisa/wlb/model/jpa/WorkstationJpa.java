@@ -13,6 +13,12 @@ import it.unisa.wlb.model.bean.Workstation;
 import it.unisa.wlb.model.dao.IWorkstationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IWorkstationDao
+ * 
+ * @author Sabato Nocera, Michele Montano
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
 public class WorkstationJpa implements IWorkstationDao{

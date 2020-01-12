@@ -6,18 +6,22 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
-import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDAO;
+import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of ISmartWorkingPrenotationDao
+ * 
+ * @author Vincenzo Fabiano, Luigi Cerrone
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
-public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
+public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDao{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
@@ -40,10 +44,9 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 		try{
 			entityManager = factor.createEntityManager();
 			entityManager.getTransaction().begin();
-		    entityManager.remove(entity);
+		    entityManager.remove(entityManager.merge(entity));
 		    entityManager.getTransaction().commit();
-		}
-		finally{
+		} finally { 
 			entityManager.close();
 		}
 	}
@@ -57,8 +60,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 		    entityManager.merge(entity);
 		    entityManager.getTransaction().commit();
 		    return entity;
-		}
-		finally{
+		} finally {
 			entityManager.close();
 		}
 		
@@ -72,8 +74,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 			TypedQuery<SmartWorkingPrenotation> query = entityManager.createNamedQuery("SmartWorkingPrenotation.findAll", SmartWorkingPrenotation.class);
 			entityManager.getTransaction().commit();
 			return (List<SmartWorkingPrenotation>) query.getResultList();
-		}
-		finally{
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -89,8 +90,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 			query.setParameter("year", year);
 			entityManager.getTransaction().commit();
 			return query.getSingleResult();
-		}
-		finally{
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -104,8 +104,7 @@ public class SmartWorkingPrenotationJpa implements ISmartWorkingPrenotationDAO{
 			query.setParameter("employee", email);
 			entityManager.getTransaction().commit();
 			return (List<SmartWorkingPrenotation>) query.getResultList();
-		}
-		finally{
+		} finally {
 			entityManager.close();
 		}
 	}

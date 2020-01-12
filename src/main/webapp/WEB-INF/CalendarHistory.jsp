@@ -15,7 +15,37 @@
 <title>WLB - Storico Prenotazioni</title>
 
 <!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -43,17 +73,17 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 
 				<!-- CONTAINER -->
 				<div class="container mt-4 text-center">
 
-					<!-- COLONNA -->
-					<div class="col-lg-7 mx-auto">
+					<!-- COLUMN -->
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">
@@ -87,49 +117,52 @@
 							</div>
 							<div class="card-body" id="myCard">
 
-								<!-- FINE CARD BODY -->
+								<!-- END CARD BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLUMN -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 
 	<script>
-$(window).resize(function(){
-
-	if ($(window).width() <= 992) {
-		if(!($("#monthSelect").hasClass("mb-3"))){
-			$("#monthSelect").addClass("mb-3")
+		function checkSize(){
+			if ($(window).width() < 992) {
+				if(!($("#monthSelect").hasClass("mb-3"))){
+					$("#monthSelect").addClass("mb-3")
+				}
+			} else {
+				if($("#monthSelect").hasClass("mb-3")){
+					$("#monthSelect").removeClass("mb-3")
+				}
+			}
 		}
-	} else {
-		if($("#monthSelect").hasClass("mb-3")){
-			$("#monthSelect").removeClass("mb-3")
-		}
-	}
-
-});
-</script>
+		
+		checkSize();
+		
+		$(window).resize(function(){
+			checkSize();
+		});
+	</script>
 	<script>
 $(document).ready(function () {
 
-	//INIZIALIZZO LE VARIE SELECT
 	var container = $("#myCard");
     var monthSelect = $("#monthSelect");
     var yearSelect = $("#yearSelect");
@@ -158,7 +191,7 @@ $(document).ready(function () {
 		xhttp.open("GET", "SuggestionsYear", true);
 		xhttp.send();
     }
-	//Load CalendarHistory
+    
 	    function loadCalendarHistory() {
 	        var month = monthSelect.val();
 	        var year = yearSelect.val();
@@ -199,8 +232,6 @@ $(document).ready(function () {
 	        }
 	    }
 	    
-	    
-	  //SETTO GLI EVENTI ONCHANGE ALLE SELECT
 	    monthSelect.on("change", function () {
 	    	loadCalendarHistory();
 	    });

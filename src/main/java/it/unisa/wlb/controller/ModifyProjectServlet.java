@@ -7,18 +7,16 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -27,17 +25,16 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * @author Michele Montano, Luigi Cerrone
  *
  */
-
 @WebServlet(name="ModifyProjectServlet", urlPatterns="/ModifyProjectServlet")
 @Interceptors({LoggerSingleton.class})
 public class ModifyProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 
 	@EJB
-	private IEmployeeDAO employeeDao;
+	private IEmployeeDao employeeDao;
 
 	private static final String PROJECT_NAME = "name"; 
 	private static final String PROJECT_SCOPE = "scope";
@@ -47,25 +44,54 @@ public class ModifyProjectServlet extends HttpServlet {
 	private static final String PROJECT_MANAGER = "managerEmail"; 
 	private static final String USER_ROLE = "userRole";
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ModifyProjectServlet() {
 		super();
 	}
 	
-	public void setProjectDao(IProjectDAO projectDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param projectDao
+	 */
+	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao=projectDao;
 	}
 	
-	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao=employeeDao;
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("name") != null
+     * @pre request.getParameter("scope") != null
+     * @pre request.getParameter("startDate") != null
+     * @pre request.getParameter("endDate") != null
+     * @pre request.getParameter("description") != null
+     * @pre request.getParameter("managerEmail") != null
+     * @pre request.getSession().getAttribute("oldProject") != null
+     * @pre request.getSession().getAttribute("userRole").equals("Admin") == true
+     * @pre request.getSession().getAttribute("employeeList") != null OR request.getSession().getAttribute("employeeList") == null
+     * @post oldProject.getName() == request.getParameter("name")
+     * @post oldProject.getScope() == request.getParameter("scope") 
+     * @post oldProject.getStartDate() == request.getParameter("startDate")
+     * @post oldProject.getEndDate() == request.getParameter("endDate")
+     * @post oldProject.getDescription() == request.getParameter("description")
+     * @post oldProject.getEmployee().getEmail() = request.getParameter("managerEmail")
+	 * @throws ServletException
+	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		/**
 		 * Declaration of variables of instance
 		 */
@@ -94,6 +120,7 @@ public class ModifyProjectServlet extends HttpServlet {
 
 		name = request.getParameter(PROJECT_NAME);
 		scope = request.getParameter(PROJECT_SCOPE);
+		
 		/**
 		 * Taking dates as strings
 		 */
@@ -144,7 +171,7 @@ public class ModifyProjectServlet extends HttpServlet {
 			throw new IllegalArgumentException();
 		}
 
-		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]+\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
 			managerEmailOk = true;
 		}
 
@@ -188,7 +215,16 @@ public class ModifyProjectServlet extends HttpServlet {
 			oldProject.setEndDate(endDate);
 			oldProject.setDescription(description);
 			oldProject.setEmployee(manager);			
-			projectDao.update(oldProject);
+			try { 
+				projectDao.update(oldProject);
+			}
+
+			catch(Exception exception) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().write("\nErrore nell'aggiornamento del progetto");			
+				response.getWriter().flush();
+				return;
+			}
 
 			request.setAttribute("result", "success");
 			request.setAttribute("status", "modifying");
@@ -202,14 +238,21 @@ public class ModifyProjectServlet extends HttpServlet {
 			} else {
 				request.getRequestDispatcher("/AddEmployeesToProjectServlet").forward(request, response);
 			}
+		} else {
+			request.setAttribute("result", "error");
+			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

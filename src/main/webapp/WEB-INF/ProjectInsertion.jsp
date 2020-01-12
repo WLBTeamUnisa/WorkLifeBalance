@@ -12,7 +12,37 @@
 <title>WLB - Inserimento progetto</title>
 
 <!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,7 +70,7 @@
 <body>
 
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
 
@@ -51,7 +81,7 @@
 				<div class="container mt-4 text-center">
 
 					<!-- COLONNA -->
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">
@@ -229,27 +259,27 @@
 									</div>
 								</div>
 
-								<!-- FINE CARD BODY -->
+								<!-- END CARD BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLONNA -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<script>
@@ -275,18 +305,16 @@
 						var json = JSON.parse(xmlHttpReq.responseText);
 						if (json != null) {
 							if (json.available == "yes") {
-								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 								if ($("#name").hasClass("is-invalid"))
 									$("#name").removeClass("is-invalid");
-								//AGGIUNGO LA CLASSE 'IS-VALID'
+								
 								$("#name").addClass("is-valid");
 								document.getElementById("errorName").innerHTML = "";
 								nomeOK = true;
 							} else {
-								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 								if ($("#name").hasClass("is-valid"))
 									$("#name").removeClass("is-valid");
-								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								
 								$("#name").addClass("is-invalid");
 								document.getElementById("errorName").innerHTML = "Attenzione! Questo nome è già associato ad un altro progetto.";
 								nomeOK = false;
@@ -299,10 +327,9 @@
 						+ encodeURIComponent(input), true);
 				xmlHttpReq.send();
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#name").hasClass("is-valid"))
 					$("#name").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#name").addClass("is-invalid");
 				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
@@ -316,18 +343,16 @@
 			var input = $("#scope").val();
 			if (input.trim().length >= 3 && input.trim().length <= 25
 					&& input.match(/^[A-Za-z\s]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 				if ($("#scope").hasClass("is-invalid"))
 					$("#scope").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#scope").addClass("is-valid");
 				document.getElementById("errorScope").innerHTML = "";
 				scopeOK = true;
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#scope").hasClass("is-valid"))
 					$("#scope").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+			
 				$("#scope").addClass("is-invalid");
 				document.getElementById("errorScope").innerHTML = errorMsg;
 				scopeOK = false;
@@ -337,7 +362,7 @@
 
 		function verificaDataInizio() {
 
-			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "La data di inizio deve essere del seguente tipo: dd-MM-yyyy";
 			var input = $("#startDate").val();
 			if (input
 				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
@@ -348,19 +373,17 @@
 					var dateEndDate = new Date(endDate);
 					verificaDate(dateStartDate, dateEndDate);
 				} else {
-					//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 					if ($("#startDate").hasClass("is-invalid"))
 						$("#startDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
+					
 					$("#startDate").addClass("is-valid");
 					document.getElementById("errorDataInizio").innerHTML = "";
 					dataInizioOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#startDate").hasClass("is-valid"))
 					$("#startDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#startDate").addClass("is-invalid");
 				document.getElementById("errorDataInizio").innerHTML = errorMsg;
 				dataInizioOK = false;
@@ -370,7 +393,7 @@
 
 		function verificaDataFine() {
 
-			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "La data di fine deve essere del seguente tipo: dd-MM-yyyy";
 			var input = $("#endDate").val();
 			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				var startDate = $("#startDate").val();
@@ -383,16 +406,15 @@
 					//ENDDATE
 					if ($("#endDate").hasClass("is-invalid"))
 						$("#endDate").removeClass("is-invalid");
-					//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 					$("#endDate").addClass("is-valid");
 					document.getElementById("errorDataFine").innerHTML = "";
 					dataFineOK = true;
 				}
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#endDate").addClass("is-invalid");
 				document.getElementById("errorDataFine").innerHTML = errorMsg;
 				dataFineOK = false;
@@ -401,12 +423,11 @@
 		}
 
 		function verificaDate(startDate, endDate) {
-			//Matchano tutte e due
-			if (startDate <= endDate) {
+		
+			if (startDate < endDate) {
 				//STARTDATE
 				if ($("#startDate").hasClass("is-invalid"))
 					$("#startDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
 				$("#startDate").addClass("is-valid");
 				document.getElementById("errorDataInizio").innerHTML = "";
 				dataInizioOK = true;
@@ -414,7 +435,7 @@
 				//ENDDATE
 				if ($("#endDate").hasClass("is-invalid"))
 					$("#endDate").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+				
 				$("#endDate").addClass("is-valid");
 				document.getElementById("errorDataFine").innerHTML = "";
 				dataFineOK = true;
@@ -430,9 +451,9 @@
 				//ENDDATE
 				if ($("#endDate").hasClass("is-valid"))
 					$("#endDate").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#endDate").addClass("is-invalid");
-				document.getElementById("errorDataFine").innerHTML = "La data di fine non puo' precedere quella di inzio!";
+				document.getElementById("errorDataFine").innerHTML = "La data di fine deve seguire quella di inzio!";
 				dataFineOK = false;
 			}
 		}
@@ -444,18 +465,17 @@
 
 			if (input.trim().length >= 20 && input.trim().length <= 250
 					&& input.match(/^[\s\S]+$/)) {
-				//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
+				
 				if ($("#description").hasClass("is-invalid"))
 					$("#description").removeClass("is-invalid");
-				//AGGIUNGO LA CLASSE 'IS-VALID'
+			
 				$("#description").addClass("is-valid");
 				document.getElementById("errorDescrizione").innerHTML = "";
 				descrizioneOK = true;
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
 				if ($("#description").hasClass("is-valid"))
 					$("#description").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+			
 				$("#description").addClass("is-invalid");
 				document.getElementById("errorDescrizione").innerHTML = errorMsg;
 				descrizioneOK = false;
@@ -467,7 +487,7 @@
 
 			var errorMsg = "L'email del manager deve essere del seguente tipo: m.rossi1@wlb.it.";
 			var input = $("#managerEmail").val();
-			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]*\@wlb.it$/)) {
+			if (input.match(/^[a-z]{1}\.[a-z]+[0-9]+\@wlb.it$/)) {
 
 				var xmlHttpReq = new XMLHttpRequest();
 				xmlHttpReq.onreadystatechange = function() {
@@ -475,19 +495,18 @@
 						var json = JSON.parse(xmlHttpReq.responseText);
 						if (json != null) {
 							if (json.status == 1) {
-								//SE HA LA CLASSE 'IS-INVALID' LA RIMUOVO
 								if ($("#managerEmail").hasClass("is-invalid"))
 									$("#managerEmail")
 											.removeClass("is-invalid");
-								//AGGIUNGO LA CLASSE 'IS-VALID'
+								
 								$("#managerEmail").addClass("is-valid");
 								document.getElementById("errorManager").innerHTML = "";
 								managerOK = true;
 							} else {
-								//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+								
 								if ($("#managerEmail").hasClass("is-valid"))
 									$("#managerEmail").removeClass("is-valid");
-								//AGGIUNGO LA CLASSE 'IS-INVALID'
+								
 								$("#managerEmail").addClass("is-invalid");
 								document.getElementById("errorManager").innerHTML = "L'utente selezionato non è un manager!";
 								managerOK = false;
@@ -500,10 +519,10 @@
 						+ encodeURIComponent(input), true);
 				xmlHttpReq.send();
 			} else {
-				//SE HA LA CLASSE 'IS-VALID' LA RIMUOVO
+				
 				if ($("#managerEmail").hasClass("is-valid"))
 					$("#managerEmail").removeClass("is-valid");
-				//AGGIUNGO LA CLASSE 'IS-INVALID'
+				
 				$("#managerEmail").addClass("is-invalid");
 				document.getElementById("errorManager").innerHTML = errorMsg;
 				managerOK = false;
@@ -571,6 +590,7 @@
 		}
 
 		function insertEmployee(email) {
+			var manager = $("#managerEmail").val();
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -583,7 +603,7 @@
 
 				}
 			}
-			xhttp.open("GET", "AddEmployeeToList?email=" + email, true);
+			xhttp.open("GET", "AddEmployeeToList?email=" + email+"&emailManager="+manager, true);
 			xhttp.send();
 		}
 	</script>

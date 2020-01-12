@@ -18,7 +18,7 @@ import it.unisa.wlb.model.bean.PrenotationDate;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.WorkstationPK;
 import it.unisa.wlb.model.bean.WorkstationPrenotation;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
@@ -31,26 +31,39 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Interceptors({LoggerSingleton.class})
 public class ShowCalendarHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	@EJB
-    private IEmployeeDAO employeeDao;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ShowCalendarHistoryServlet() {
-        super();
-    }
-    
-    public void setEmployeeDAO(IEmployeeDAO employeeDAO) {
-		this.employeeDao=employeeDAO;
-		
-	}
-    
-    
+	private IEmployeeDao employeeDao;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * Default constructor
+     */
+	public ShowCalendarHistoryServlet() {
+		super();
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDAO
+	 */
+	public void setEmployeeDAO(IEmployeeDao employeeDAO) {
+		this.employeeDao=employeeDAO;		
+	}
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter(EMAIL_EMPLOYEE) != null
+	 * @pre request.getSession().getAttribute("user")!=null
+	 * @pre request.getParameter("employeeEmail")!=null
+	 * @pre request.getParameter("month")!=null
+	 * @pre request.getParameter("year")!=null
+	 * @post request.getAttribute("result")!=null || jsonArray.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -60,18 +73,14 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 		String yearString = request.getParameter("year");
 		Integer year = Integer.parseInt(yearString);
 		Employee sessionEmployee = (Employee) session.getAttribute("user");
-		
-		if(sessionEmployee!=null)
-		{
+
+		if(sessionEmployee!=null) {
 			/**
 			 *	If the parameter employeeEmail is null, or empty, it means that the system
 			 *	has to retrieve the calendar history of the employee's session
 			 * 
 			 */
-			//System.out.println(employeeString);
-			if(employeeString==null || employeeString.equals(""))
-			{
-
+			if(employeeString==null || employeeString.equals("")) {
 				Employee employee = employeeDao.retrieveByEmail(sessionEmployee.getEmail());
 				List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
 				List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
@@ -79,51 +88,41 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 				JSONArray jsonArray=ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 				response.setContentType("application/json");
 				response.getWriter().append(jsonArray.toString());
-				
-			}
-			
-			/**
-			 *	If the parameter employeeEmail isn't null, or empty, it means that the system
-			 *	has to retrieve the calendar history of the employee's request
-			 *
-			 */
-			else
-			{
-				try
-				{
+			} else {
+				/**
+				 *	If the parameter employeeEmail isn't null, or empty, it means that the system
+				 *	has to retrieve the calendar history of the employee's request
+				 */
+				try {
 					Employee employee = employeeDao.retrieveByEmail(employeeString);
 					List<SmartWorkingPrenotation> smartWorkingPrenotationList = employee.getSmartWorkingPrenotations();
 					List<WorkstationPrenotation> workstationPrenotationList = employee.getWorkstationPrenotations();
 					JSONArray jsonArray = ShowCalendarHistoryServlet.buildJsonArray(smartWorkingPrenotationList, workstationPrenotationList, month, year);
 					response.setContentType("application/json");
 					response.getWriter().append(jsonArray.toString());
-					
-					
-				}
-				
-				catch(Exception exception)
-				{
+				} catch(Exception exception) {
 					request.setAttribute("result", "error");
 					request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 				}
 			}
-		}
-		
-		else
-		{
+		} else {
 			request.setAttribute("result", "error");
 			request.getRequestDispatcher(".").forward(request, response);	
 		}
-}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
+
 	/**
 	 * This method build a JsonArray that will contain a list of JSON object with these attributes: date,type,floor,room and workstation
 	 * 
@@ -138,56 +137,47 @@ public class ShowCalendarHistoryServlet extends HttpServlet {
 	 * @param year
 	 * @return JSONArray
 	 */
-	public static JSONArray buildJsonArray(List<SmartWorkingPrenotation> smartWorkingPrenotationList, List<WorkstationPrenotation> workstationPrenotationList, Integer month, Integer year)
-	{
-		
-			JSONArray jsonArray = new JSONArray();
-			if(smartWorkingPrenotationList!=null)
-			{
-				for(int i=0; i<smartWorkingPrenotationList.size(); i++)
-				{
-					
-					List<PrenotationDate> prenotationDateList = smartWorkingPrenotationList.get(i).getPrenotationDates();
-					
-					if(prenotationDateList!=null)
-					{
-						for(int j=0; j<prenotationDateList.size(); j++)
-						{
-							Calendar calendar=Calendar.getInstance();
-							calendar.setTime(prenotationDateList.get(j).getId().getDate());
-							if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year)
-							{
-								JSONObject jsonObject = new JSONObject();
-								jsonObject.put("date", prenotationDateList.get(j).getId().getDate());
-								jsonObject.put("type", "Smartworking");
-								jsonArray.put(jsonObject);
-							}
+	public static JSONArray buildJsonArray(List<SmartWorkingPrenotation> smartWorkingPrenotationList, List<WorkstationPrenotation> workstationPrenotationList, Integer month, Integer year) {
+
+		JSONArray jsonArray = new JSONArray();
+		if(smartWorkingPrenotationList!=null) {
+			for(int i=0; i<smartWorkingPrenotationList.size(); i++) {
+
+				List<PrenotationDate> prenotationDateList = smartWorkingPrenotationList.get(i).getPrenotationDates();
+
+				if(prenotationDateList!=null) {
+					for(int j=0; j<prenotationDateList.size(); j++) {
+						Calendar calendar=Calendar.getInstance();
+						calendar.setTime(prenotationDateList.get(j).getId().getDate());
+						if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year) {
+							JSONObject jsonObject = new JSONObject();
+							jsonObject.put("date", prenotationDateList.get(j).getId().getDate());
+							jsonObject.put("type", "Smartworking");
+							jsonArray.put(jsonObject);
 						}
 					}
 				}
 			}
-			
-			if(workstationPrenotationList!=null)
-			{
-				for(int i=0; i<workstationPrenotationList.size(); i++)
-				{
-					WorkstationPK workstationLocal=workstationPrenotationList.get(i).getWorkstation().getId();
-					Calendar calendar=Calendar.getInstance();
-					calendar.setTime(workstationPrenotationList.get(i).getId().getPrenotationDate());
-					if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year)
-					{
-						JSONObject jsonObject = new JSONObject();
-						jsonObject.put("date", workstationPrenotationList.get(i).getId().getPrenotationDate());
-						jsonObject.put("type", "Workstation");
-						jsonObject.put("floor", workstationLocal.getFloor());
-						jsonObject.put("room", workstationLocal.getRoom());
-						jsonObject.put("workstation", workstationLocal.getWorkstation());
-						jsonArray.put(jsonObject);
-					}
+		}
+
+		if(workstationPrenotationList!=null) {
+			for(int i=0; i<workstationPrenotationList.size(); i++) {
+				WorkstationPK workstationLocal=workstationPrenotationList.get(i).getWorkstation().getId();
+				Calendar calendar=Calendar.getInstance();
+				calendar.setTime(workstationPrenotationList.get(i).getId().getPrenotationDate());
+				if(calendar.get(Calendar.MONTH)+1==month && calendar.get(Calendar.YEAR)==year) {
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("date", workstationPrenotationList.get(i).getId().getPrenotationDate());
+					jsonObject.put("type", "Workstation");
+					jsonObject.put("floor", workstationLocal.getFloor());
+					jsonObject.put("room", workstationLocal.getRoom());
+					jsonObject.put("workstation", workstationLocal.getWorkstation());
+					jsonArray.put(jsonObject);
 				}
 			}
-			
-			return jsonArray;
+		}
+
+		return jsonArray;
 	}
 
 }

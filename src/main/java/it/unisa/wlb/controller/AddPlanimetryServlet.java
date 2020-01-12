@@ -26,7 +26,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * The aim of this Servlet is to insert the planimetry into the database
  * 
- * @author Sabato, Michele
+ * @author Sabato Nocera, Michele Montano
  *
  */
 @WebServlet(name = "AddPlanimetryServlet", urlPatterns = "/AddPlanimetryServlet")
@@ -47,19 +47,31 @@ public class AddPlanimetryServlet extends HttpServlet {
 	@EJB
 	private IWorkstationDao workstationDao;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AddPlanimetryServlet() {
 		super();
 	}
 
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationDao
+	 */
 	public void setWorkstationDao(IWorkstationDao workstationDao) {
 		this.workstationDao = workstationDao;
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getSession().getAttribute("user") != null
+	 * @pre request.getParameter("jsonObject") != null
+	 * @post floor.countMax() > 0
+	 * @post room.countMaxByFloor(floor) > 0
+	 * @post workstation.countMaxByFloorAndRoom(floor, room) > 0
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -79,10 +91,8 @@ public class AddPlanimetryServlet extends HttpServlet {
 		 {"floor"=2,"room"=5,"workstation"=40},		 
 		 ...]	 
 		 */
-		
 		String jsonString = request.getParameter(JSON_STRING);
-		if(jsonString==null)
-		{	
+		if(jsonString==null) {	
 			request.getRequestDispatcher("WEB-INF/PlanimetryInsertion.jsp").forward(request, response);
 		}
 		JSONArray jsonArray =  new JSONArray(jsonString);
@@ -172,11 +182,16 @@ public class AddPlanimetryServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("result", "success");
-		request.getRequestDispatcher(".").forward(request, response);
+		request.getRequestDispatcher("PlanimetryInsertionPage").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

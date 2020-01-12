@@ -15,7 +15,6 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Interceptors({LoggerSingleton.class})
 public class RoomPK implements Serializable {
 
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="NUM_ROOM", columnDefinition="int(2)", nullable=false)
@@ -59,5 +58,11 @@ public class RoomPK implements Serializable {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
+	
 }

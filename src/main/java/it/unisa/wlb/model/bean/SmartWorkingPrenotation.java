@@ -14,7 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="SMART_WORKING_PRENOTATION")
+@Table(name="smart_working_prenotation")
 @NamedQueries({
 	@NamedQuery(name="SmartWorkingPrenotation.findAll", query="SELECT s FROM SmartWorkingPrenotation s"),
 	@NamedQuery(name="SmartWorkingPrenotation.findByEmployee", 
@@ -35,11 +35,15 @@ public class SmartWorkingPrenotation implements Serializable {
 	@Column(name="YEAR", columnDefinition="int(4)", nullable=false)
 	private int year;
 
-	//bi-directional many-to-one association to PrenotationDate
+	/**
+	 * bi-directional many-to-one association to PrenotationDate
+	 */
 	@OneToMany(mappedBy="smartWorkingPrenotation")
 	private List<PrenotationDate> prenotationDates;
 
-	//bi-directional many-to-one association to Employee
+	/**
+	 * bi-directional many-to-one association to Employee
+	 */
 	@ManyToOne
 	@JoinColumn(name="EMPLOYEE_EMAIL", columnDefinition="varchar(37)", nullable=false, insertable=false, updatable=false)
 	private Employee employee;

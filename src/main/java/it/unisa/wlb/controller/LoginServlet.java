@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Admin;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IAdminDAO;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IAdminDao;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 import it.unisa.wlb.utils.Utils;
 
@@ -31,23 +31,44 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	IAdminDAO adminDao;
+	IAdminDao adminDao;
+	
 	@EJB
-	IEmployeeDAO employeeDao;
+	IEmployeeDao employeeDao;
 	
 
 	public LoginServlet() {
 		super();
 	}
 
-	public void setEmployeeDao(IEmployeeDAO employeeDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 
-	public void setAdminDao(IAdminDAO adminDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param adminDao
+	 */
+	public void setAdminDao(IAdminDao adminDao) {
 		this.adminDao = adminDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("email") != null
+     * @pre request.getParameter("password") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -71,9 +92,9 @@ public class LoginServlet extends HttpServlet {
 							request.setAttribute("login", "success");
 							request.getRequestDispatcher(".").forward(request, response);
 						}
-						/**
-						 * Checking if email respects admin email format
-						 */
+					/**
+					 * Checking if email respects admin email format
+					 */
 					} else if (email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
 						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
 						if (admin != null) {
@@ -101,10 +122,24 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
+	/** 
+	 * @param password
+	 * @pre password != null
+	 * 
+	 * @return a boolean, true if password is ok and false if it is not ok
+	 */
 	public static boolean checkPasswordLogin(String password) {
 		if (password.length() >= 8 && password.length() <= 20
 				&& password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
@@ -113,6 +148,12 @@ public class LoginServlet extends HttpServlet {
 		return false;
 	}
 
+	/**
+	 * @param email
+	 * @pre email != null
+	 * 
+	 * @return a boolean value, true if employee's email is ok and false if it is not ok
+	 */
 	public static boolean checkEmailEmployee(String email) {
 		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("")
 				|| (email.length() - 7) < 5 || (email.length() - 7) > 30) {
@@ -121,6 +162,12 @@ public class LoginServlet extends HttpServlet {
 			return true;
 	}
 
+	/**
+	 * @param email
+	 * @pre email != null
+	 * 
+	 * @return a boolean value, true if admin's email is ok and false if it is not ok
+	 */
 	public static boolean checkEmailAdmin(String email) {
 		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlbadmin.it$") || email.equals("")
 				|| (email.length() - 12) < 5 || (email.length() - 12) > 30) {

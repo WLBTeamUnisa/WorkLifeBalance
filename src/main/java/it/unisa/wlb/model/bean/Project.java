@@ -16,7 +16,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="PROJECT")
+@Table(name="project")
 @NamedQueries({
 	@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p"),
 	@NamedQuery(name="Project.findByManager", query="SELECT project FROM Project project WHERE project.employee.email=:email"),
@@ -49,31 +49,39 @@ public class Project implements Serializable {
 	@Column(name="START_DATE", nullable=false)
 	private Date startDate;
 
-	//bi-directional many-to-one association to Message
+	/**
+	 * bi-directional many-to-one association to Message
+	 */
 	@OneToMany(mappedBy="project")
 	private List<Message> messages;
 
-	//bi-directional many-to-one association to Admin
+	/**
+	 * bi-directional many-to-one association to Admin
+	 */
 	@ManyToOne
 	@JoinColumn(name="EMAIL_ADMIN", columnDefinition="varchar(37)", nullable=false)
 	private Admin admin;
 
-	//bi-directional many-to-one association to Employee
+	/**
+	 * bi-directional many-to-one association to Employee
+	 */
 	@ManyToOne
 	@JoinColumn(name="EMAIL_MANAGER", columnDefinition="varchar(37)", nullable=false)
 	private Employee employee;
 
-	//bi-directional many-to-many association to Employee
+	/**
+	 * bi-directional many-to-many association to Employee
+	 */
 	@ManyToMany
 	@JoinTable(
-			name="WORKS"
+			name="works"
 			, joinColumns={
 					@JoinColumn(name="ID_PROJECT", columnDefinition="int(20)", nullable=false)
 			}
 			, inverseJoinColumns={
 					@JoinColumn(name="EMAIL_EMPLOYEE", columnDefinition="varchar(37)", nullable=false)
 			}
-			)
+	)
 	private List<Employee> employees;
 
 	public Project() {

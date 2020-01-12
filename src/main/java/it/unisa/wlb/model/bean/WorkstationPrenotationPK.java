@@ -16,7 +16,6 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Interceptors({LoggerSingleton.class})
 public class WorkstationPrenotationPK implements Serializable {
 
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="EMPLOYEE_EMAIL", length=37, nullable=false)
@@ -85,5 +84,11 @@ public class WorkstationPrenotationPK implements Serializable {
 		return "WorkstationPrenotationPK [emailEmployee=" + emailEmployee + ", prenotationDate=" + prenotationDate
 				+ ", id=" + id + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
 	
 }

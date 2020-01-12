@@ -9,12 +9,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import it.unisa.wlb.model.bean.Employee;
-import it.unisa.wlb.model.dao.IEmployeeDAO;
+import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+
+/**
+ * The aim of this class is implementing methods of IEmployeeDao
+ * 
+ * @author Sabato Nocera
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
-public class EmployeeJpa implements IEmployeeDAO {
+public class EmployeeJpa implements IEmployeeDao {
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
@@ -27,9 +34,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			entityManager.persist(entity);
 			entityManager.getTransaction().commit();
 			return entity;
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -41,9 +46,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			entityManager.getTransaction().begin();
 			entityManager.remove(entityManager.merge(entityClass));
 			entityManager.getTransaction().commit();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -56,9 +59,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			entityManager.merge(entityClass);
 			entityManager.getTransaction().commit();
 			return entityClass;
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -71,9 +72,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			TypedQuery<Employee> query = entityManager.createNamedQuery("Employee.findAll", Employee.class);
 			entityManager.getTransaction().commit();
 			return (List<Employee>) query.getResultList();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -87,9 +86,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			query.setParameter("email", email);
 			entityManager.getTransaction().commit();
 			return (Employee) query.getSingleResult();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -103,9 +100,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			query.setParameter("email", email);
 			entityManager.getTransaction().commit();
 			return (List<Employee>) query.getResultList();
-		}
-		
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -120,9 +115,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			query.setParameter("password", password);
 			entityManager.getTransaction().commit();
 			return (Employee) query.getSingleResult();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -137,9 +130,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			query.setParameter("email", email);
 			entityManager.getTransaction().commit();
 			return (List<Employee>) query.getResultList();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}
@@ -154,9 +145,7 @@ public class EmployeeJpa implements IEmployeeDAO {
 			query.setParameter("email", email);
 			entityManager.getTransaction().commit();
 			return (List<Employee>) query.getResultList();
-		}
-
-		finally {
+		} finally {
 			entityManager.close();
 		}
 	}

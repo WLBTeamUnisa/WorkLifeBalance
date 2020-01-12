@@ -2,16 +2,15 @@ package it.unisa.wlb.model.dao;
 
 import java.util.List;
 
-import it.unisa.wlb.model.bean.Floor;
 import it.unisa.wlb.model.bean.Room;
 
 /**
  * This interface defines public methods offered by RoomJpa class
  * 
- * @author Sabato, Michele
+ * @author Sabato Nocera, Michele Montano
  *
  */
-public interface IRoomDao extends IGenericDAO<Room>{
+public interface IRoomDao extends IGenericDao<Room>{
 	
 	/**
 	 * It is used to retrieve the list of rooms of a certain floor

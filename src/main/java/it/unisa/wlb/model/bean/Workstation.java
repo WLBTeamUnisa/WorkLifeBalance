@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="WORKSTATION")
+@Table(name="workstation")
 @NamedQueries({
 	@NamedQuery(name="Workstation.findAll", query="SELECT w FROM Workstation w"),
 	@NamedQuery(name="Workstation.retrieveByFloorAndRoom", query="SELECT w FROM Workstation w WHERE w.id.floor=?1 AND w.id.room=?2"),
@@ -29,7 +29,9 @@ public class Workstation implements Serializable {
 	@EmbeddedId
 	private WorkstationPK id;
 
-	//bi-directional many-to-one association to Room
+	/**
+	 * bi-directional many-to-one association to Room
+	 */
 	@ManyToOne
 	@JoinColumns(value={
 			@JoinColumn(name="NUM_FLOOR", columnDefinition="int(3)", nullable=false), @JoinColumn(name="NUM_ROOM",columnDefinition="int(2)", nullable=false)
@@ -37,7 +39,9 @@ public class Workstation implements Serializable {
 	@MapsId(value="WorkstationPK")
 	private Room room;
 
-	//bi-directional many-to-one association to WorkstationPrenotation
+	/**
+	 * bi-directional many-to-one association to WorkstationPrenotation
+	 */
 	@OneToMany(mappedBy="workstation")
 	private List<WorkstationPrenotation> workstationPrenotations;
 

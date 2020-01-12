@@ -10,12 +10,18 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import it.unisa.wlb.model.bean.PrenotationDate;
-import it.unisa.wlb.model.dao.IPrenotationDateDAO;
+import it.unisa.wlb.model.dao.IPrenotationDateDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
+/**
+ * The aim of this class is implementing methods of IPrenotationDateDao
+ * 
+ * @author Luigi Cerrone, Vincenzo Fabiano
+ *
+ */
 @Stateless
 @Interceptors({LoggerSingleton.class})
-public class PrenotationDateJpa implements IPrenotationDateDAO{
+public class PrenotationDateJpa implements IPrenotationDateDao{
 
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;

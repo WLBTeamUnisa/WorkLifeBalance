@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class CheckProjectServlet
+ * The aim of this Servlet is checking a Project 
+ * 
+ * @author Emmanuel Tesauro
  */
 @WebServlet(name="CheckProjectServlet", urlPatterns="/CheckProject")
 @Interceptors({LoggerSingleton.class})
@@ -24,36 +26,52 @@ public class CheckProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 
-	public void setProjectDao(IProjectDAO projectDao) {
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param projectDao
+	 */
+	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("name") != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		JSONObject obj = new JSONObject();
-		System.out.println(name);
+		JSONObject object = new JSONObject();
 		
 		if( (name!=null) && (name.trim().length()>=4) && (name.trim().length()<=15) && (name.matches("^[A-Za-z0-9]+$")) ){
 			try {
 				projectDao.retrieveByName(name);
-				obj.put("available", "no");
+				object.put("available", "no");
 			} catch (Exception e) {
-				obj.put("available", "yes");
+				object.put("available", "yes");
 			}		
 		} else {
-			obj.put("available", "no");
+			object.put("available", "no");
 		}
 		
 		response.setContentType("application/json");
-		response.getWriter().append(obj.toString());
+		response.getWriter().append(object.toString());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

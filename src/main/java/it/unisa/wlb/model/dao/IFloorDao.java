@@ -8,7 +8,7 @@ import it.unisa.wlb.model.bean.Floor;
  * @author Sabato, Michele
  *
  */
-public interface IFloorDao extends IGenericDAO<Floor>{
+public interface IFloorDao extends IGenericDao<Floor>{
 	
 	/**
 	 * It is used to count the total number of floors

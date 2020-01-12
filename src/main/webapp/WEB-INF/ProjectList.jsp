@@ -11,7 +11,37 @@
 <title>WLB - Lista progetti</title>
 
 <!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -39,15 +69,15 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<div class="card">
 
@@ -57,16 +87,8 @@
 
 							<div class="card-body">
 
-								<a class="nav-link nav-item toggle-nav-search hidden-caret mb-3"
-									data-toggle="collapse" href="#search-nav" role="button"
-									aria-expanded="false" aria-controls="search-nav">
-									<button class="btn">
-										<i class="fa fa-search"></i>
-									</button>
-								</a>
-
-								<div class="collapse mx-auto mb-3" id="search-nav">
-									<form class="navbar-left navbar-form nav-search">
+								<div class="collapse mx-auto" id="search-nav">
+									<form class="navbar-left navbar-form nav-search mb-4">
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<i class="fa fa-search search-icon my-auto ml-2"></i>
@@ -97,27 +119,27 @@
 								<a class="btn btn-success mt-3" href="ProjectInsertPage"
 									role="button">Inserisci nuovo progetto</a>
 
-								<!-- FINE CARD-BODY -->
+								<!-- END CARD-BODY -->
 							</div>
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE COLONNA -->
+						<!-- END COLUMN -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<c:if test="${not empty result}">
@@ -128,6 +150,12 @@
 						icon: 'success',
 						title: 'Ottimo!',
 						text: "Operazione effettuata con successo!"
+						})
+				} else if("${result}"=="error"){
+					Swal.fire({
+						icon: 'error',
+						title: 'Ops!',
+						text: "Si è verificato un errore!"
 						})
 				}
 				

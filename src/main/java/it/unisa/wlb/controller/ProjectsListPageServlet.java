@@ -12,33 +12,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ProjectsListPageServlet
+ * The aim of this Servlet is redirecting to ProjectList.jsp
+ * 
+ * @author Michele Montano
+ * 
  */
-@WebServlet(name="ProjectListPageServlet", urlPatterns="/ProjectsListPage")
+@WebServlet(name="ProjectsListPageServlet", urlPatterns="/ProjectsListPage")
 @Interceptors({LoggerSingleton.class})
 public class ProjectsListPageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	@EJB
-	private IProjectDAO projectDao;
+	private static final long serialVersionUID = 1L;     
 	
-	public void setProjectDao(IProjectDAO projectDao) {
-		this.projectDao = projectDao;
-	}
-    /**
-     * @see HttpServlet#HttpServlet()
+	@EJB
+	private IProjectDao projectDao;
+
+	/**
+     * Default constructor
      */
     public ProjectsListPageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
+	
+    /**
+     * This contructor is used during the testing to simulate the behaviour of the dao class
+     * 
+     * @param projectDao
+     */
+	public void setProjectDao(IProjectDao projectDao) {
+		this.projectDao = projectDao;
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @post request.getAttribute("projectList")!=null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Project> list = null;
@@ -48,15 +62,18 @@ public class ProjectsListPageServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/ProjectList.jsp").forward(request, response);
 		} catch(Exception e) {
 			request.getRequestDispatcher(".").forward(request, response);
-		}
-		
+		}		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

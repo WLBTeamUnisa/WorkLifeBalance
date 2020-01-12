@@ -13,11 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import it.unisa.wlb.model.bean.Project;
-import it.unisa.wlb.model.dao.IProjectDAO;
+import it.unisa.wlb.model.dao.IProjectDao;
 import it.unisa.wlb.utils.LoggerSingleton;
 
 /**
- * Servlet implementation class ShowProjectServlet
+ * The aim of this Servlet is to show a specific project
+ * 
+ * @author Emmanuel Tesauro
+ *
  */
 @WebServlet(name="ShowProjectServlet", urlPatterns="/ShowProjectServlet")
 @Interceptors({LoggerSingleton.class})
@@ -25,32 +28,44 @@ public class ShowProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	private IProjectDAO projectDao;
+	private IProjectDao projectDao;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
+	/**
+     * Default constructor
      */
     public ShowProjectServlet() {
         super();
     }
     
-    public void setProjectDao(IProjectDAO projectDao) {
+    /** 
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+     * 
+     * @param projectDao
+     */
+    public void setProjectDao(IProjectDao projectDao) {
     	this.projectDao = projectDao;
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter("name") != null
+	 * @pre request.getSession().getAttribute("userRole").equals("Admin")
+	 * @post request.getAttribute("result")!=null && request.getAttribute("projectList")==null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		HttpSession session=request.getSession();
-		if(session.getAttribute("userRole").equals("Admin"))
-		{
+
+		session.removeAttribute("employeeList");
+		if(session.getAttribute("userRole").equals("Admin")){
 			String name=request.getParameter("name");
-			if(name!=null && name!="")
-			{
-				try
-				{
+			
+			if(name!=null && name!="") {
+				try {
 					String startDateString;
 					String endDateString;
 					
@@ -64,26 +79,17 @@ public class ShowProjectServlet extends HttpServlet {
 					session.setAttribute("currentEmployees", project.getEmployees());
 					request.setAttribute("result", "ok");
 					request.getRequestDispatcher("WEB-INF/Project.jsp").forward(request, response);
-				}
-			
-				catch(Exception ex)
-				{
+				} catch(Exception exception) {
 					request.setAttribute("result", "error");
 					request.removeAttribute("projectList");
 					request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 				}
-			}
-			
-			else
-			{
+			} else {
 				request.setAttribute("result", "error");
 				request.removeAttribute("projectList");
 				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 			}
-		}
-		
-		else
-		{
+		} else {
 			request.setAttribute("result", "error");
 			request.removeAttribute("projectList");
 			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);

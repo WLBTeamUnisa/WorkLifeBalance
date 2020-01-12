@@ -15,7 +15,37 @@
 <title>WLB - Smart Working</title>
 
 <!-- Icon -->
-<link rel="icon" href="img/icon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="57x57"
+	href="img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60"
+	href="img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76"
+	href="img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120"
+	href="img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144"
+	href="img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152"
+	href="img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"
+	href="img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96"
+	href="img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="img/favicon/favicon-16x16.png">
+<link rel="manifest" href="img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -56,15 +86,15 @@
 
 <body>
 	<div class="wrapper">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="Header.jsp" />
 
 		<div class="main-panel">
 
-			<!-- CORPO PAGINA-->
+			<!-- BODY PAGE-->
 			<div class="content" style="display: flex; align-items: center;">
 				<div class="container mt-4 text-center">
 
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<div class="card">
 
@@ -72,7 +102,7 @@
 							<div class="card-header">
 								<h3 class="my-auto">Seleziona il giorno e la postazione da
 									prenotare:</h3>
-								<div class="row">
+								<div class="row" id="selectRow">
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label for="dateSelect">Data:</label> <select
@@ -105,31 +135,31 @@
 							</div>
 
 							<div class="card-body">
-								<div style="overflow-y: scroll; height: 230px;">
+								<div style="overflow-y: scroll; height: 230px;" id="scrollDiv">
 									<div class="flex-container"></div>
 									<form action="WorkstationPrenotationServlet" id="finalForm"></form>
 								</div>
 							</div>
 
 
-							<!-- FINE CARD -->
+							<!-- END CARD -->
 						</div>
 
-						<!-- FINE CARD -->
+						<!-- END CARD -->
 					</div>
 
-					<!-- FINE CONTAINER -->
+					<!-- END CONTAINER -->
 				</div>
 
-				<!-- FINE CONTENT -->
+				<!-- END CONTENT -->
 			</div>
 
-			<jsp:include page="footer.jsp" />
+			<jsp:include page="Footer.jsp" />
 
-			<!-- FINE MAIN-PANEL -->
+			<!-- END MAIN-PANEL -->
 		</div>
 
-		<!-- FINE WRAPPER -->
+		<!-- END WRAPPER -->
 	</div>
 
 	<c:if test="${not empty result}">
@@ -149,40 +179,46 @@
 	<script>
 	$(document).ready(function () {
 
-	    //INIZIALIZZO LE VARIE SELECT
 	    var dateSelect = $("#dateSelect");
 	    var floorSelect = $("#floorSelect");
 	    var roomSelect = $("#roomSelect");
 
-	    //OGGETTO DELLA REQUEST
 	    var insertedPlanimetry = '${insertedPlanimetry}';
 
-	    //CONTAINER DEGLI OGGETTI SVG
 	    var container = $(".flex-container");
 
-	    //INIZIALIZZO ALLA PRIMA STANZA
-	    loadRoom(1);
-	    console.log(insertedPlanimetry.length);
+	    if(insertedPlanimetry.length > 0){
+		    loadRoom(1);
+		    console.log(insertedPlanimetry.length);
 
-	    //LOAD PIANI
-	    if (insertedPlanimetry.length > 0) {
-	        var arrayJson = JSON.parse(insertedPlanimetry);
-	        var arrayFloor = [];
-	        for (var i = 0; i < arrayJson.length; i++) {
-	            if (!(arrayFloor.includes(arrayJson[i].floor))) {
-	                arrayFloor.push(arrayJson[i].floor);
-	            }
-	        }
+		    //LOAD FLOORS
+		    if (insertedPlanimetry.length > 0) {
+		        var arrayJson = JSON.parse(insertedPlanimetry);
+		        var arrayFloor = [];
+		        for (var i = 0; i < arrayJson.length; i++) {
+		            if (!(arrayFloor.includes(arrayJson[i].floor))) {
+		                arrayFloor.push(arrayJson[i].floor);
+		            }
+		        }
+		    }
+		    floorSelect.html("");
+		    for (var j = 0; j < arrayFloor.length; j++) {
+		        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
+		    }
+
+		    loadPlanimetry();
+	    } else {
+	    	$("#selectRow").remove();
+	    	$("#scrollDiv").remove();
+	    	$(".card-header").html("");
+	    	$(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
+	    	$(".card-body").html("");
+            $(".card-body").append("<h2 class='my-auto'>Planimetria non inserita.</h2>");
 	    }
-	    floorSelect.html("");
-	    for (var j = 0; j < arrayFloor.length; j++) {
-	        floorSelect.append("<option value=" + arrayFloor[j] + ">" + arrayFloor[j] + "</option>");
-	    }
-
-	    loadPlanimetry();
+	    
 
 
-	    //LOAD STANZE
+	    //LOAD ROOMS
 	    function loadRoom(piano) {
 	        if (insertedPlanimetry.length > 0) {
 	            var arrayJson = JSON.parse(insertedPlanimetry);
@@ -222,7 +258,7 @@
 	                            container.append("<svg width='50' height='50'> <rect width='50' height='50' style='fill:red;stroke:black;stroke-width:5;opacity:0.5' class='unavailable' /> <text x='50%' y='50%' text-anchor='middle' fill='black' font-family='Lato' dy='.4em' font-weight='bold' style='opacity: 0.6;'>" + lista[i].workstation + "</text> </svg>");
 	                        }
 	                    }
-	                    //ONCLICK DA CONTINUARE E RIVEDERE
+	                    //ONCLICK 
 	                    clickedElement = $(".flex-container > svg");
 	                    var clicked = "";
 
@@ -242,19 +278,17 @@
 	                            cancelButtonText: 'Cancella',
 	                            confirmButtonText: 'Si, voglio prenotare'
 	                        }).then((result) => {
-	                            //SE PREMO "PRENOTA"
 	                            if (result.value) {
 	                                $("#finalForm").html("<input type='hidden' name='jsonObject' value=\"{'date':'" + dateSelect.find(":selected").text() + "', 'workstation':" + clicked.children('text').text() + ", 'room':'" + roomSelect.find(":selected").text() + "', 'floor':" + floorSelect.find(":selected").text() + "}\">");
 	                                $("#finalForm").submit();
-	                            }	//Fine if
+	                            }	
 	                            else if (result.dismiss === Swal.DismissReason.cancel) {
-	                                //PREMO SU "ELIMINA" PER NON SCEGLIERE IL GIORNO CHE HO CLICCATO
 	                                Swal.fire(
 	                                    'Cancellata!',
 	                                    'La prenotazione e\' stata annullata',
 	                                    'error'
 	                                )
-	                            }	//Fine else
+	                            }	
 	                        });
 	                    });
 	                }
@@ -263,7 +297,7 @@
 	            xhttp.send();
 	        } else {
 	            $(".card-header").html("");
-	            $(".card-header").append("<h3 class='my-auto'>Avviso:</h3>");
+	            $(".card-header").append("<h3 class='my-auto'>Avviso</h3>");
 	            $(".card-body").html("");
 	            $(".card-body").prop("height:250px; display: flex; align-items: center;");
 	            $(".card-body").append("<h2 class='my-auto mx-auto'>Hai già prenotato il numero massimo di postazioni.</h2>");
@@ -271,7 +305,6 @@
 	    }
 
 
-	    //SETTO GLI EVENTI ONCHANGE ALLE SELECT
 	    roomSelect.on("change", function () {
 	        loadPlanimetry();
 	    });
