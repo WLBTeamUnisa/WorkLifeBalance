@@ -59,8 +59,9 @@ public class ShowProjectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		HttpSession session=request.getSession();
-		
-		if(session.getAttribute("userRole").equals("Admin")) {
+
+		session.removeAttribute("employeeList");
+		if(session.getAttribute("userRole").equals("Admin")){
 			String name=request.getParameter("name");
 			
 			if(name!=null && name!="") {
