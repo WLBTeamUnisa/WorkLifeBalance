@@ -126,7 +126,7 @@ public class ShowCalendarHistoryPageServletTest {
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		//servlet.setEmployeeDAO(employeeDAO);
 		
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "success");
@@ -166,7 +166,7 @@ public class ShowCalendarHistoryPageServletTest {
 		request.setParameter("employeeEmail", email);
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
@@ -207,7 +207,7 @@ public class ShowCalendarHistoryPageServletTest {
 		request.setParameter("employeeEmail", email);
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
@@ -218,7 +218,7 @@ public class ShowCalendarHistoryPageServletTest {
 	@Test
 	void sessionEmployeeNull() throws ServletException, IOException {
 		request.getSession().setAttribute("user", manager);
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(null);
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
@@ -229,7 +229,7 @@ public class ShowCalendarHistoryPageServletTest {
 	@Test
 	void emailEmployeeNull() throws ServletException, IOException {	
 		request.getSession().setAttribute("user", null);
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");
@@ -266,7 +266,7 @@ public class ShowCalendarHistoryPageServletTest {
 		request.setParameter("employeeEmail", email);
 		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
 		
-		servlet.setEmployeeDAO(employeeDAO);;
+		servlet.setEmployeeDao(employeeDAO);;
 		servlet.doPost(request, response);
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(attribute, "error");

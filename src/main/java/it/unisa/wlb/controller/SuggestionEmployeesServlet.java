@@ -27,74 +27,83 @@ import it.unisa.wlb.utils.LoggerSingleton;
 @Interceptors({LoggerSingleton.class})
 public class SuggestionEmployeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
+	private static final String EMAIL_EMPLOYEE = "email";
+	private static final String FLAG = "flag";
+
 	@EJB
-    private IProjectDao projectDao;
-   
-    @EJB
-    private IEmployeeDao employeeDao;   
-    
-    public void setEmployeeDao(IEmployeeDao employeeDao) {
-    	this.employeeDao = employeeDao;
-    }
-	
-    private static final String EMAIL_EMPLOYEE = "email";
-    private static final String FLAG = "flag";
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SuggestionEmployeesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private IProjectDao projectDao;
+
+	@EJB
+	private IEmployeeDao employeeDao;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * Default constructor
+     */
+	public SuggestionEmployeesServlet() {
+		super();
+	}
+
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
+	public void setEmployeeDao(IEmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter(EMAIL_EMPLOYEE) != null
+	 * @pre request.getParameter(FLAG) != null
+	 * @post jsonList.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONArray lista_json=new JSONArray();
-        
-        String email_employee=request.getParameter(EMAIL_EMPLOYEE);
-        String flagStr = request.getParameter(FLAG);
-        
-        
-        List<Employee> listaDipendenti=null;
-        
-        if((email_employee!=null || email_employee!="") && flagStr!=null)
-        {
-          /**
-           * Restituisco una lista di suggerimenti dei dipendenti tramite l'email
-           * 
-           * */
-        	
-        	int flag = Integer.parseInt(flagStr);
-        	if(flag==0) {
-        		listaDipendenti=employeeDao.suggestByEmail(email_employee);        		
-        	} else if(flag==1) {
-        		listaDipendenti=employeeDao.retrieveSuggestsManagerByEmail(email_employee);
-        	}
-           
-        	if(listaDipendenti==null) {
-        		//Eccezione
-        	}
-        	
-           for(int i = 0; i<listaDipendenti.size();i++) {
-        	   JSONObject obj = new JSONObject();
-        	   obj.put("email", listaDipendenti.get(i).getEmail());
-        	   lista_json.put(obj);
-           }
-           
-           response.setContentType("application/json");
-           response.getWriter().append(lista_json.toString());
-        }
-      }
+		JSONArray jsonList=new JSONArray();
+
+		String employeeEmail=request.getParameter(EMAIL_EMPLOYEE);
+		String flagString = request.getParameter(FLAG);
+
+		List<Employee> employeesList=null;
+
+		if((employeeEmail!=null || employeeEmail!="") && flagString!=null) {
+			int flag = Integer.parseInt(flagString);
+			if(flag==0) {
+				employeesList=employeeDao.suggestByEmail(employeeEmail);        		
+			} else if(flag==1) {
+				employeesList=employeeDao.retrieveSuggestsManagerByEmail(employeeEmail);
+			}
+
+//			if(employeesList==null) {
+//				//Eccezione
+//			}
+
+			for(int i = 0; i<employeesList.size();i++) {
+				JSONObject obj = new JSONObject();
+				obj.put("email", employeesList.get(i).getEmail());
+				jsonList.put(obj);
+			}
+
+			response.setContentType("application/json");
+			response.getWriter().append(jsonList.toString());
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
