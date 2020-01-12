@@ -26,6 +26,7 @@ public class AdminJpa implements IAdminDao {
 	private static final EntityManagerFactory factor = Persistence.createEntityManagerFactory("WorkLifeBalance");
 	private EntityManager entityManager;
 
+	
 	public Admin create(Admin entity) {
 		try {
 			entityManager = factor.createEntityManager();
@@ -37,7 +38,7 @@ public class AdminJpa implements IAdminDao {
 			entityManager.close();
 		}
 	}
-
+	
 	@Override
 	public void remove(Admin entityClass) {
 		try {

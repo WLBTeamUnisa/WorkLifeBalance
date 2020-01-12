@@ -48,14 +48,47 @@ public class ModifyProjectServlet extends HttpServlet {
 		super();
 	}
 	
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param projectDao
+	 */
 	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao=projectDao;
 	}
 	
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
 	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao=employeeDao;
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("name") != null
+     * @pre request.getParameter("scope") != null
+     * @pre request.getParameter("startDate") != null
+     * @pre request.getParameter("endDate") != null
+     * @pre request.getParameter("description") != null
+     * @pre request.getParameter("managerEmail") != null
+     * @pre request.getSession().getAttribute("oldProject") != null
+     * @pre request.getSession().getAttribute("userRole").equals("Admin") == true
+     * @pre request.getSession().getAttribute("employeeList") != null OR request.getSession().getAttribute("employeeList") == null
+     * @post project.getName() == request.getParameter("name")
+     * @post project.getScope() == request.getParameter("scope") 
+     * @post project.getStartDate() == request.getParameter("startDate")
+     * @post project.getEndDate() == request.getParameter("endDate")
+     * @post project.getDescription() == request.getParameter("description")
+     * @post project.getEmployee().getEmail() = request.getParameter("managerEmail")
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -138,7 +171,7 @@ public class ModifyProjectServlet extends HttpServlet {
 			throw new IllegalArgumentException();
 		}
 
-		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]*\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
+		if(!(manager==null) && managerEmail.matches("^[a-z]{1}\\.[a-z]+[1-9]+\\@wlb.it$") && !managerEmail.equals("") && !(managerEmail==null) && manager.getStatus()==1) {
 			managerEmailOk = true;
 		}
 
@@ -211,6 +244,14 @@ public class ModifyProjectServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

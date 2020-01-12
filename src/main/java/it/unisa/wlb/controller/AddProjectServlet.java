@@ -52,12 +52,34 @@ public class AddProjectServlet extends HttpServlet {
         super();
     }
     
+    /**
+     * This constructor is used during testing in order to simulate the behaviour of the dao class
+     * 
+     * @param projectDao
+     * @param employeeDao
+     */
     public AddProjectServlet(IProjectDao projectDao, IEmployeeDao employeeDao) {
     	super();
     	this.projectDao = projectDao;
     	this.employeeDao = employeeDao;
     }
 
+    /**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter("name") != null
+	 * @pre request.getParameter("scope") != null
+	 * @pre request.getParameter("startDate") != null
+	 * @pre request.getParameter("endDate") != null
+	 * @pre request.getParameter("description") != null
+	 * @pre request.getParameter("managerEmail") != null
+	 * @pre request.getParameter("user") != null
+	 * @pre request.getSession().getAttribute("userRole").equals("Admin") 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/**
 		 * Project Parameters
@@ -179,6 +201,14 @@ public class AddProjectServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			doGet(request, response);
 	}

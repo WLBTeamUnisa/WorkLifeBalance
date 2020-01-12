@@ -48,14 +48,35 @@ public class HomeServlet extends HttpServlet {
 	@EJB
 	private IWorkstationPrenotationDao workstationPrenotationDao;
 	
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 *
+	 * @param smartWorkingDao
+	 */
 	public void setSmartWorkingDao(ISmartWorkingPrenotationDao smartWorkingDao) {
 		this.smartWorkingDao = smartWorkingDao;
 	}
 	
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param workstationPrenotationDao
+	 */
 	public void setWorkstationPrenotationDao(IWorkstationPrenotationDao workstationPrenotationDao) {
 		this.workstationPrenotationDao = workstationPrenotationDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getSession().getAttribute("user") != null
+     * @pre request.getSession().getAttribute("userRole") == null
+     * @pre request.getSession().getAttribute("user") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getSession().getAttribute("user")==null) {
@@ -135,6 +156,14 @@ public class HomeServlet extends HttpServlet {
 		
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

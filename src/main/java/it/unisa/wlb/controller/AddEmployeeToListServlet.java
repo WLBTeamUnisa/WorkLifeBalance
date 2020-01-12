@@ -61,6 +61,7 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	 * @pre response != null
 	 * @pre request.getParameter("email") != null 
 	 * @pre response.getParameter("emailManager") != null
+	 * @post list.size() = @pre list.size() + 1
 	 * @throws ServletException
 	 * @throws IOException
 	 */
@@ -121,7 +122,7 @@ public class AddEmployeeToListServlet extends HttpServlet {
 				        /**
 				         * Only if the employee there isn't yet into the list, it will be added 
 				         * 
-				         * */
+				         */
 	    				else {
 	    					int flag=0;
 	    					for(int i=0; i<list.size() && flag==0; i++) {

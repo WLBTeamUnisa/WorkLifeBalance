@@ -28,10 +28,24 @@ public class CheckProjectServlet extends HttpServlet {
 	@EJB
 	private IProjectDao projectDao;
 
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param projectDao
+	 */
 	public void setProjectDao(IProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("name") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		JSONObject object = new JSONObject();
@@ -51,6 +65,14 @@ public class CheckProjectServlet extends HttpServlet {
 		response.getWriter().append(object.toString());
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

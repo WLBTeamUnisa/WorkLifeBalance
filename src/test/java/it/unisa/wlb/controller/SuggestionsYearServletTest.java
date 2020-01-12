@@ -69,7 +69,7 @@ public class SuggestionsYearServletTest {
 		String string="[{\"year\":2020},{\"year\":2019}]";
 		request.getSession().setAttribute("user", employee);
 		when(employeeDao.retrieveByEmail(email)).thenReturn(employee);
-		servlet.setEmployeeDAO(employeeDao);
+		servlet.setEmployeeDao(employeeDao);
 		servlet.doPost(request, response);
 		assertEquals(string,response.getContentAsString());	
 	}

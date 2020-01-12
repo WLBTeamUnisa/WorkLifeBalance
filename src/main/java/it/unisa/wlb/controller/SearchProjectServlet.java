@@ -28,53 +28,71 @@ import it.unisa.wlb.utils.LoggerSingleton;
 public class SearchProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    @EJB
-    private IProjectDao projectDao;
-	
-    public SearchProjectServlet() {
-        super();
-    }
-    
+	@EJB
+	private IProjectDao projectDao;
 
-    /**
-     * This contructor is used during the testing to simulate the behaviour of the dao class
-     *  
-     * @param projectDao
+	/**
+     * Default constructor
      */
-    public SearchProjectServlet(IProjectDao projectDao) {
-    	this.projectDao = projectDao;
-    }
-    
+	public SearchProjectServlet() {
+		super();
+	}
+
+	/**
+	 * This contructor is used during the testing to simulate the behaviour of the dao class
+	 *  
+	 * @param projectDao
+	 */
+	public SearchProjectServlet(IProjectDao projectDao) {
+		this.projectDao = projectDao;
+	}
+
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @pre request.getParameter("name")!=null
+	 * @post projectList.toString()!=null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String projectName;
 		projectName = request.getParameter("name");
 		List<Project> list = null;
-		
+
 		if(projectName.length() > 15) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().write("Il parametro non rispetta la lunghezza");
 			response.getWriter().flush();
 		}
 		JSONArray projectList = new JSONArray();
-		
+
 		if(projectName != null) {
 			if(projectName.equals(""))
 				list=projectDao.retrieveAll();
 			else
 				list = projectDao.searchByName(projectName);
-			
+
 			for(int i = 0; i < list.size(); i++) {
 				JSONObject object = new JSONObject();
 				object.put("name", list.get(i).getName());
 				projectList.put(object);
 			} 
 			response.setContentType("application/json");
-	        response.getWriter().append(projectList.toString());
+			response.getWriter().append(projectList.toString());
 		}
-		
-		 
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
