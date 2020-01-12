@@ -63,8 +63,9 @@ public class AddEmployeesToProjectServlet extends HttpServlet {
 	 * @pre request != null
 	 * @pre response != null
 	 * @pre request.getAttribute("Project") != null
-	 * @pre request.getSession().getAttribute("userRole").equals("Admin")
+	 * @pre request.getSession().getAttribute("userRole").equals("Admin") == true
 	 * @pre request.getSession().getAttribute("employeeList") != null
+	 * @post projectList.size() = @pre projectList.size() + 1
 	 * @post project.getEmployees().size() = @pre project.getEmployees().size() + employeeList.size();
 	 * @throws ServletException
 	 * @throws IOException

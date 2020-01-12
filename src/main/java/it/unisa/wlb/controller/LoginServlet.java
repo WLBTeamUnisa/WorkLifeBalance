@@ -41,14 +41,34 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param employeeDao
+	 */
 	public void setEmployeeDao(IEmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 
+	/**
+	 * This set method is used during testing in order to simulate the behaviour of the dao class
+	 * 
+	 * @param adminDao
+	 */
 	public void setAdminDao(IAdminDao adminDao) {
 		this.adminDao = adminDao;
 	}
 	
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("email") != null
+     * @pre request.getParameter("password") != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -102,10 +122,24 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
+	/** 
+	 * @param password
+	 * @pre password != null
+	 * 
+	 * @return a boolean, true if password is ok and false if it is not ok
+	 */
 	public static boolean checkPasswordLogin(String password) {
 		if (password.length() >= 8 && password.length() <= 20
 				&& password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
@@ -114,6 +148,12 @@ public class LoginServlet extends HttpServlet {
 		return false;
 	}
 
+	/**
+	 * @param email
+	 * @pre email != null
+	 * 
+	 * @return a boolean value, true if employee's email is ok and false if it is not ok
+	 */
 	public static boolean checkEmailEmployee(String email) {
 		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("")
 				|| (email.length() - 7) < 5 || (email.length() - 7) > 30) {
@@ -122,6 +162,12 @@ public class LoginServlet extends HttpServlet {
 			return true;
 	}
 
+	/**
+	 * @param email
+	 * @pre email != null
+	 * 
+	 * @return a boolean value, true if admin's email is ok and false if it is not ok
+	 */
 	public static boolean checkEmailAdmin(String email) {
 		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlbadmin.it$") || email.equals("")
 				|| (email.length() - 12) < 5 || (email.length() - 12) > 30) {

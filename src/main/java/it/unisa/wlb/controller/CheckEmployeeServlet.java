@@ -30,15 +30,26 @@ public class CheckEmployeeServlet extends HttpServlet {
     public CheckEmployeeServlet() {
         super();
     }
-    
-    public void setEmployeeDao(IEmployeeDao employeeDao)
-    {
+   
+    /**
+     * This set method is used during testing in order to simulate the behaviour of the dao class
+     * 
+     * @param employeeDao
+     */
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
     	this.employeeDao=employeeDao;
     }
 
 	/**
 	 * If the Employee already exists, the response (written in XML) will be <no/>, otherwise it will be <ok/>, meaning that the email is not yet associated with any Employee.
 	 * 
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @pre request.getParameter("email") != null
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -57,6 +68,14 @@ public class CheckEmployeeServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * @param request Object that identifies an HTTP request
+	 * @param response Object that identifies an HTTP response
+	 * @pre request != null
+	 * @pre response != null
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
