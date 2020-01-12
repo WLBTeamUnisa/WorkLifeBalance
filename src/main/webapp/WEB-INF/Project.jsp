@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html lang="it">
 
+<% 		response.setHeader("cache-Control","no-cache,no-store,must-revalidate"); 
+response.setHeader("Pragma","no-cache");    
+response.setHeader("Expires","0");
+%>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
