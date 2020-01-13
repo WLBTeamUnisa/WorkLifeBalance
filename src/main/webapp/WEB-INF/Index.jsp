@@ -91,8 +91,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-t-85 m-b-35"
-						data-validate="m.rossi1@wlb.it or 
-					m.rossi1@wlbadmin.it">
+						data-validate="m.rossi1@wlb.it">
 						<input class="input100" type="text" id="email" name="email" /> <span
 							class="focus-input100" data-placeholder="Email"></span>
 					</div>
