@@ -176,8 +176,9 @@ response.setHeader("Expires","0");
 												name="managerEmail" id="managerEmail"
 												onchange="verificaManager()"
 												onkeypress="SuggestionsManager(this.value)"
-												value="${oldProject.employee.email}" required list="suggestionsManager">
-												<datalist id="suggestionsManager"></datalist>
+												value="${oldProject.employee.email}" required
+												list="suggestionsManager">
+											<datalist id="suggestionsManager"></datalist>
 										</div>
 										<span id="errorManager"> </span>
 

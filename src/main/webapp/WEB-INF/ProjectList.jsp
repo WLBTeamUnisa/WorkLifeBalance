@@ -93,7 +93,8 @@
 											<div class="input-group-prepend">
 												<i class="fa fa-search search-icon my-auto ml-2"></i>
 											</div>
-											<input type="text" placeholder="Inserisci il nome del progetto... "
+											<input type="text"
+												placeholder="Inserisci il nome del progetto... "
 												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
 										<!--  		<datalist id="suggestions"></datalist>  -->

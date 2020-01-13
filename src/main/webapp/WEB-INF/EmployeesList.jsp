@@ -99,7 +99,8 @@
 													<i class="fa fa-search search-icon"></i>
 												</button>
 											</div>
-											<input type="text" placeholder="Inserisci l'e-mail del dipendente..."
+											<input type="text"
+												placeholder="Inserisci l'e-mail del dipendente..."
 												class="form-control" onkeyup="Suggestions(this.value)">
 										</div>
 									</form>

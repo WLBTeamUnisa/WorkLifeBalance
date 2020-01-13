@@ -131,8 +131,7 @@
 												<div class="form-group input-group mx-auto">
 													<div class="input-group-prepend col-sm-3 px-0">
 														<span class="input-group-text w-100">
-															<h5 class="b my-auto mx-auto">Postazioni</h5>
-															</i>
+															<h5 class="b my-auto mx-auto">Postazioni</h5> </i>
 														</span>
 													</div>
 													<input name="workstation" id="Workstation"
