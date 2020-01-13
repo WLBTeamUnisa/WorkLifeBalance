@@ -8,29 +8,18 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 /**
- * @author Luigi Cerrone
- * 
  * This filter ensures that only logged user can access to a resource
  * 
- * @see javax.servlet.Filter
+ * @author Luigi Cerrone
  */
 public class UserFilter implements Filter {
 
   /** Default constructor. */
   public UserFilter() {}
 
-  /**
-   * Override.
-   * 
-   * @see Filter#destroy()
-   */
   public void destroy() {}
 
-  /**
-   * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-   */
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
@@ -51,10 +40,6 @@ public class UserFilter implements Filter {
     }
   }
 
-  /**
-   * Override.
-   * 
-   * @see Filter#init(FilterConfig)
-   */
   public void init(FilterConfig fConfig) throws ServletException {}
+  
 }

@@ -5,21 +5,32 @@ import java.util.Date;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
+/**
+ * The aim of this logger is printing a message when a method is called
+ * 
+ * @author Luigi Cerrone
+ *
+ */
 public class LoggerSingleton {
 
+	/**
+	 * Method for logging
+	 * 
+	 * @param ic
+	 * @return Object
+	 * @throws Exception
+	 */
 	@SuppressWarnings("deprecation")
 	@AroundInvoke
-	public Object logMethod(InvocationContext ic) throws Exception
+	public Object logMethod(InvocationContext invocationContext) throws Exception
 	{
 		Date entryDate=new Date();
-		String methodName=ic.getMethod().getName();
-		String classOfMethod=ic.getTarget().getClass().getSimpleName();
+		String methodName=invocationContext.getMethod().getName();
+		String classOfMethod=invocationContext.getTarget().getClass().getSimpleName();
 		System.out.println("Calling the method "+methodName +" of "+classOfMethod+" class to the instant "+entryDate.toLocaleString());
 		try {
-			return ic.proceed();
-		}
-		
-		finally {
+			return invocationContext.proceed();
+		} finally {
 			Date exitDate=new Date();
 			System.out.println("The method "+ methodName+" of "+classOfMethod+" lasted for "+ (exitDate.getTime()-entryDate.getTime())+" ms");
 		}

@@ -80,12 +80,12 @@ public class ModifyProjectServlet extends HttpServlet {
      * @pre request.getSession().getAttribute("oldProject") != null
      * @pre request.getSession().getAttribute("userRole").equals("Admin") == true
      * @pre request.getSession().getAttribute("employeeList") != null OR request.getSession().getAttribute("employeeList") == null
-     * @post project.getName() == request.getParameter("name")
-     * @post project.getScope() == request.getParameter("scope") 
-     * @post project.getStartDate() == request.getParameter("startDate")
-     * @post project.getEndDate() == request.getParameter("endDate")
-     * @post project.getDescription() == request.getParameter("description")
-     * @post project.getEmployee().getEmail() = request.getParameter("managerEmail")
+     * @post oldProject.getName() == request.getParameter("name")
+     * @post oldProject.getScope() == request.getParameter("scope") 
+     * @post oldProject.getStartDate() == request.getParameter("startDate")
+     * @post oldProject.getEndDate() == request.getParameter("endDate")
+     * @post oldProject.getDescription() == request.getParameter("description")
+     * @post oldProject.getEmployee().getEmail() = request.getParameter("managerEmail")
 	 * @throws ServletException
 	 * @throws IOException
 	 */
