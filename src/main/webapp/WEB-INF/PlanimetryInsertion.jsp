@@ -138,7 +138,7 @@
 													<input name="workstation" id="Workstation"
 														oninput="validWorkstation()"
 														class="form-control text-center col-sm-9 px-0"
-														placeholder="Postazioni*" type="text">
+														placeholder="Postazioni*" type="number">
 												</div>
 												<span id="errorWorkstation"></span>
 
