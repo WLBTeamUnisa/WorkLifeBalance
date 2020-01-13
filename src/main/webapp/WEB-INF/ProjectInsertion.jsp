@@ -362,7 +362,7 @@
 
 		function verificaDataInizio() {
 
-			var errorMsg = "La data di inizio deve essere del seguente tipo: dd-MM-yyyy";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#startDate").val();
 			if (input
 				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
@@ -393,7 +393,7 @@
 
 		function verificaDataFine() {
 
-			var errorMsg = "La data di fine deve essere del seguente tipo: dd-MM-yyyy";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#endDate").val();
 			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				var startDate = $("#startDate").val();

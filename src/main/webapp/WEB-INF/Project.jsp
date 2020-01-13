@@ -174,8 +174,10 @@ response.setHeader("Expires","0");
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()"
-												value="${oldProject.employee.email}" required>
+												onchange="verificaManager()"
+												onkeypress="SuggestionsManager(this.value)"
+												value="${oldProject.employee.email}" required list="suggestionsManager">
+												<datalist id="suggestionsManager"></datalist>
 										</div>
 										<span id="errorManager"> </span>
 
@@ -324,7 +326,7 @@ response.setHeader("Expires","0");
 
 		function verificaDataInizio() {
 
-			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#startDate").val();
 			if (input
 				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
@@ -355,7 +357,7 @@ response.setHeader("Expires","0");
 
 		function verificaDataFine() {
 
-			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#endDate").val();
 			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				var startDate = $("#startDate").val();
