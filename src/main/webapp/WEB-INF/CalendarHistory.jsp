@@ -202,10 +202,16 @@ $(document).ready(function () {
 	                    var lista = JSON.parse(this.responseText);
 	                    
 	                    if(lista==null || lista.length==0){
+	                    	if(emailEmployee==null || emailEmployee==""){
 	                    		$("#calendarHistoryTable").remove();
 	                    		$("#myCard").html("");
 	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai effettuato nessuna prenotazione per questo mese.</h2></div>");
-		                    } else {
+	                    	} else {
+	                    		$("#calendarHistoryTable").remove();
+	                    		$("#myCard").html("");
+	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>" + emailEmployee + " non ha effettuato nessuna prenotazione per questo mese.</h2></div>");
+	                    	}
+	                    } else {
 		                    	lista.sort(function(a,b){
 		                            return a.date.localeCompare(b.date);
 		                        });

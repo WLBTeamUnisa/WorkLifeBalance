@@ -85,122 +85,143 @@
 					<!-- COLONNA -->
 					<div class="col-lg-9 mx-auto">
 
-						<!-- CARD -->
-						<div class="card">
-							<div class="card-header">
-								<h3>Inserimento planimetria</h3>
-							</div>
+						 <!-- CARD -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Inserimento planimetria</h3>
+                            </div>
 
-							<!-- CARD-BODY -->
-							<div class="card-body">
+                            <!-- CARD-BODY -->
+                            <div class="card-body">
 
-								<!-- FORM -->
-								<form method="post" action="AddPlanimetryServlet">
+                                <!-- FORM -->
+                                <form method="post" action="AddPlanimetryServlet">
 
-									<!-- CONTAINER -->
-									<div class="container col-lg-10 mx-auto"
-										id="containerPlanimetry">
+                                    <!-- CONTAINER -->
+                                    <div class="container col-lg-10 mx-auto" id="containerPlanimetry">
 
-										<!-- FLOOR -->
-										<div class="form-group input-group mx-auto ">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i
-													class="fas fa-layer-group"></i></span>
-											</div>
-											<input name="floor" id="Floor" oninput="validFloor()"
-												class="form-control text-center col-sm-7" value='1'
-												placeholder="Piano*" type="text" disabled>
-											<!-- "NEXT" BUTTON-->
-											&nbsp; &nbsp;
-											<button type="button" id="nextbtn" onclick="updateFloor()"
-												class="btn btn-dark" disabled>Nuovo</button>
-										</div>
+                                        <!-- FLOOR -->
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <div class="form-group input-group mx-auto">
+                                                    <div class="input-group-prepend col-sm-4 px-0">
+                                                        <span class="input-group-text w-100">
+                                                            <h5 class="b my-auto mx-auto">Piano</h5>
+                                                        </span>
+                                                    </div>
+                                                    <input name="floor" id="Floor" oninput="validFloor()"
+                                                        class="form-control text-center" value='1' placeholder="Piano*"
+                                                        type="text" disabled>
+                                                </div>
+                                            </div>
 
-
-										<!-- ROOM -->
-										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i
-													class="fas fa-door-closed"></i></span>
-											</div>
-											<input name="room" id="Room" oninput="validRoom()"
-												class="form-control text-center col-sm-7" value='1'
-												placeholder="Stanza*" type="text" disabled>
-										</div>
+                                            <div class="col-sm-3 my-auto text-right pr-4" id="buttonColumn">
+                                                <button type="button" id="nextbtn" onclick="updateFloor()"
+                                                    class="btn btn-dark" disabled><i class="fas fa-plus"></i></button>
+                                            </div>
+                                        </div>
 
 
+                                        <!-- ROOM -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group input-group mx-auto">
+                                                    <div class="input-group-prepend col-sm-3 px-0">
+                                                        <span class="input-group-text w-100">
+                                                            <h5 class="b my-auto mx-auto">Stanza</h5>
+                                                        </span>
+                                                    </div>
+                                                    <input name="room" id="Room" oninput="validRoom()"
+                                                        class="form-control text-center" value='1' placeholder="Stanza*"
+                                                        type="text" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
 
-										<!-- WORKSTATION  -->
-										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i class="fas fa-box"></i></span>
-											</div>
-											<input name="workstation" id="Workstation"
-												oninput="validWorkstation()"
-												class="form-control text-center col-sm-7 "
-												placeholder="Postazioni*" type="text">
-										</div>
-										<span id="errorWorkstation"></span>
-
-
-
-										<!-- "INSERISCI" BUTTON-->
-										<div class="form-group   mr-auto col-5 offset-md-3">
-											<button type="button" id="insertButtton"
-												class="btn btn-success mx-auto "
-												onclick="updatePlanimetryArray()" disabled>
-												Inserisci</button>
-										</div>
-
-
-										<!-- LIST PLANIMETRY-->
-										<div class="form-group row justify-content-md-center"
-											id="PlanimetryActuallyInserted">
-											<div class="col-lg-12">
-												<div class="card my-auto">
-													<div class="card-header p-2 "
-														id="TitlePlanimetryActuallyInserted">
-														<h3 class="my-auto">Planimetria attualmente inserita</h3>
-													</div>
-
-													<div class="card-body">
-														<div class="form-group text-center mx-auto"
-															style="overflow-y: scroll; height: 200px;">
-															<ul class="list-group list-group-bordered "
-																id="PlanimetryList">
-															</ul>
-														</div>
-													</div>
+                                        <!-- WORKSTATION  -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group input-group mx-auto">
+                                                    <div class="input-group-prepend col-sm-3 px-0">
+                                                        <span class="input-group-text w-100">
+                                                            <h5 class="b my-auto mx-auto">Postazioni</h5></i>
+                                                        </span>
+                                                    </div>
+                                                    <input name="workstation" id="Workstation"
+                                                        oninput="validWorkstation()"
+                                                        class="form-control text-center col-sm-9 px-0"
+                                                        placeholder="Postazioni*" type="text">
+                                                </div>
+                                                <span id="errorWorkstation"></span>
+                                            </div>
+                                        </div>
 
 
-												</div>
-
-												<!-- INPUT HIDDEN FOR JSON-->
-												<input type="hidden" id="hiddenParameter" name="jsonObject" />
-
-												<!-- "conferma" and "reset" BUTTON-->
-												<div class="form-group">
-													<button type="submit" id="confirmForm"
-														class="btn btn-success  col-5" disabled>Conferma</button>
-													<button type="button" id="resetForm"
-														onclick="clearPlanimetry()" class="btn btn-danger  col-5">Reset</button>
-												</div>
-											</div>
-										</div>
+                                        <!-- "INSERISCI" BUTTON-->
+                                        <div class="form-group col-sm-5 mx-auto">
+                                            <button type="button" id="insertButtton" class="btn btn-success mx-auto "
+                                                onclick="updatePlanimetryArray()" disabled>
+                                                Inserisci</button>
+                                        </div>
 
 
+                                        <!-- LIST PLANIMETRY-->
+                                        <div class="form-group row justify-content-md-center"
+                                            id="PlanimetryActuallyInserted">
+                                            <div class="col-lg-12">
+                                                <div class="card my-auto">
+                                                    <div class="card-header p-2 " id="TitlePlanimetryActuallyInserted">
+                                                        <h3 class="my-auto">Planimetria attualmente inserita</h3>
+                                                    </div>
 
-										<!-- END CONTAINER -->
-									</div>
+                                                    <div class="card-body">
+                                                        <div class="form-group text-center mx-auto"
+                                                            style="overflow-y: scroll; height: 200px;">
+                                                            <ul class="list-group list-group-bordered "
+                                                                id="PlanimetryList">
+                                                            </ul>
+                                                        </div>
+                                                    </div>
 
-									<!-- END FORM -->
-								</form>
 
-								<!-- END CARD-BODY -->
-							</div>
+                                                </div>
 
-							<!-- END CARD -->
-						</div>
+                                                <!-- INPUT HIDDEN FOR JSON-->
+                                                <input type="hidden" id="hiddenParameter" name="jsonObject" />
+
+                                                <!-- "conferma" and "reset" BUTTON-->
+                                                <div class="row mt-4">
+                                                    <div class="col-sm-8 row mx-auto">
+                                                        <div class="col-sm-5 mx-auto">
+                                                            <button type="submit" id="confirmForm"
+                                                                class="btn btn-success col-sm-12 mx-auto"
+                                                                disabled>Conferma</button>
+                                                        </div>
+
+                                                        <div class="col-sm-5 mx-auto">
+                                                            <button type="button" id="resetForm"
+                                                                onclick="clearPlanimetry()"
+                                                                class="btn btn-danger col-sm-12 mx-auto">Reset</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- END CONTAINER -->
+                                    </div>
+
+                                    <!-- END FORM -->
+                                </form>
+
+                                <!-- END CARD-BODY -->
+                            </div>
+
+                            <!-- END CARD -->
+                        </div>
 
 						<!-- END COLONNA -->
 					</div>
@@ -249,6 +270,36 @@
 
 </body>
 
+
+<script>
+
+function checkSizeWidth(){
+	if ($(window).width() < 576) {
+		if($("#buttonColumn").hasClass("text-right")){
+			$("#buttonColumn").removeClass("text-right")
+		}
+		if($("#buttonColumn").hasClass("pr-4")){
+			$("#buttonColumn").removeClass("pr-4")
+		}
+	} else {
+		if(!($("#buttonColumn").hasClass("text-right"))){
+			$("#buttonColumn").addClass("text-right")
+		}
+		if(!($("#buttonColumn").hasClass("pr-4"))){
+			$("#buttonColumn").addClass("pr-4")
+		}
+	}
+}
+
+checkSizeWidth();
+
+$(window).resize(function(){
+
+	checkSizeWidth();
+
+});
+
+</script>
 
 <script>
 
