@@ -40,6 +40,7 @@ public class ProjectInsertPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().removeAttribute("employeeList");
+		request.getSession().removeAttribute("currentEmployees");
 		request.getRequestDispatcher("WEB-INF/ProjectInsertion.jsp").forward(request, response);
 	}
 

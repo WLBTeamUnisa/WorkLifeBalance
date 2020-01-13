@@ -80,10 +80,6 @@ public class SuggestionEmployeesServlet extends HttpServlet {
 				employeesList=employeeDao.retrieveSuggestsManagerByEmail(employeeEmail);
 			}
 
-//			if(employeesList==null) {
-//				//Eccezione
-//			}
-
 			for(int i = 0; i<employeesList.size();i++) {
 				JSONObject obj = new JSONObject();
 				obj.put("email", employeesList.get(i).getEmail());

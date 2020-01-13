@@ -59,8 +59,8 @@ public class ShowProjectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		HttpSession session=request.getSession();
-
 		session.removeAttribute("employeeList");
+		session.removeAttribute("currentEmployees");
 		if(session.getAttribute("userRole").equals("Admin")){
 			String name=request.getParameter("name");
 			
@@ -82,16 +82,19 @@ public class ShowProjectServlet extends HttpServlet {
 				} catch(Exception exception) {
 					request.setAttribute("result", "error");
 					request.removeAttribute("projectList");
+					session.removeAttribute("currentEmployees");
 					request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 				}
 			} else {
 				request.setAttribute("result", "error");
 				request.removeAttribute("projectList");
+				session.removeAttribute("currentEmployees");
 				request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 			}
 		} else {
 			request.setAttribute("result", "error");
 			request.removeAttribute("projectList");
+			session.removeAttribute("currentEmployees");
 			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 		}
 	}
