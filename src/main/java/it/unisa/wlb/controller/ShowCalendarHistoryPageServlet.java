@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.bean.Project;
 import it.unisa.wlb.model.dao.IEmployeeDao;
@@ -84,6 +86,10 @@ public class ShowCalendarHistoryPageServlet extends HttpServlet {
 						
 						if(flag==1) {
 							request.setAttribute("employeeSupervised", employee.getEmail());
+							JSONObject obj = new JSONObject();
+							obj.put("name", employee.getName());
+							obj.put("surname", employee.getSurname());
+							request.setAttribute("employeeJson", obj.toString());
 							request.setAttribute("result", "success");
 							request.getRequestDispatcher("WEB-INF/CalendarHistory.jsp").forward(request, response);
 						}
