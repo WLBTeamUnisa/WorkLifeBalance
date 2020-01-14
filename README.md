@@ -69,7 +69,6 @@ Just run wildfly server on eclipse  and check on http://localhost:8080/WorkLifeB
 
 
 <h2>Implementation</h2>
-
 ### Code formatting
 
 Set `wlbFormatter.xml` as formatter configuration file
@@ -82,31 +81,32 @@ Project Properties --> Java Code Style --> Formatter --> Enable project specific
 Go to `https://travis-ci.org/` after your commit and login with github. After login, you will be able to see if the single commit has passed constraints defined in the .travis.yml file.
 
 <h2>Sprint</h2>
+<p> 19 requisiti con priorità alta, 9 con priorità media, 4 con priorità bassa </p>
 <h3> 1° Sprint - Consegna 22 Dicembre </h3>
-Di seguito i requisiti rilasciati per il primo sprint  5/32 (19 con priorità alta, 9 con priorità media, 4 con priorità bassa)
+Di seguito i requisiti rilasciati per il primo sprint  5/32 
 
 - RF_GA_17 : Login (100%)
 - RF_GA_18 : Logout (100%)
 - RF_GD_1 : Registra dipendente (100%)
 - RF_GP_7 : Inserisci progetto (100%)
-- RF_GP_12 : Inserisci dipendenti ad un progetto (100%) - inerente all'inserimento del progetto
+- RF_GP_12 : Inserisci dipendenti ad un progetto (80%) - inerente all'inserimento del progetto
 
 - Configurazione dell'ambiente di sviluppo
 
 
 
 <h3> 2° Sprint - Consegna 29 Dicembre </h3>
-Di seguito i requisiti rilasciati per il secondo sprint  10/32 (19 con priorità alta, 9 con priorità media, 4 con priorità bassa)
+Di seguito sono elencati i requisiti rilasciati per il secondo sprint 10/32
 
 - RF_GP_10 : Modifica progetto (100%)
 - RF_GP_14 : Inserisci planimetria (100%)
 - RF_GP_8 : Ricerca progetto (100%)
 - RF_GD_5 : Ricerca dipendente (100%)
 - RF_GL_23 : Prenota giorni di Smart Working (100%)
+- RF_GP_12 : Inserisci dipendenti ad un progetto (100%) - inerente all'inserimento del progetto
 
 <h3> 3° Sprint - Consegna 05 Gennaio </h3>
-
-Di seguito i requisiti rilasciati per il terzo sprint 15/32 (19 con priorità alta, 9 con priorità media, 4 con priorità bassa)
+Di seguito sono elencati i requisiti rilasciati per il terzo sprint 15/32 
 
 - RF_GD_3 : Modifica status dipendente (100%)
 - RF_GD_4 : Visualizza profilo dipendente (100%)
@@ -116,8 +116,16 @@ Di seguito i requisiti rilasciati per il terzo sprint 15/32 (19 con priorità al
 
 ### 4° Sprint - Consegna 12 Gennaio
 
-Di seguito i requisiti rilasciati per il quarto sprint  (19 con priorità alta, 9 con priorità media, 4 con priorità bassa) 
+Di seguito sono elencati i requisiti rilasciati per il quarto sprint   20/32
 
 - RF_GL_22 : Visualizza storico calendario (100%)
-- RF_GM_29 : Ricerca storico giornate lavorative(100%)
+
+- RF_GP_19 : Visualizza planimetria (100%)
+
+- RF_GM_29 : Ricerca storico giornate lavorative (100%)
+
+- RF_GM_31 : Visualizza tutti i progetti supervisionati (100%)
+
 - RF_GM_32 : Visualizza progetto supervisionato (100%)
+
+  
