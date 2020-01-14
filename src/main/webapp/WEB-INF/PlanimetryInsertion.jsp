@@ -254,14 +254,15 @@
 				result += "<tr><td>" + jsonArray[i].floor + "</td><td>" + jsonArray[i].room + "</td><td>" + jsonArray[i].workstation + "</td></tr>";
 			}
 			result += "</table>";
+			
+			
 			document.getElementById("PlanimetryList").innerHTML = result;
 			
-			$(".card-header").hide();			
-			$("#containerPlanimetry").children().hide(); 
-			$("#PlanimetryActuallyInserted").show();
-			$("#TitlePlanimetryActuallyInserted").show();			
-			$("#confirmForm").hide();
-			$("#resetForm").hide();			
+			$(".card-header").html("");
+			$(".card-header").append("<h3 class='my-auto'>Planimetria attualmente inserita</h3>");
+			
+			$(".card-body").html("");
+			$(".card-body").append("<div style='overflow-y: scroll; height: 300px;'>" + result + "</div>");
 		}
 		
 	</script>
