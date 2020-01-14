@@ -138,7 +138,7 @@
 
 	<c:if test="${not empty result}">
 		<script>
-			if ("${result}" == "error") {
+			if ("${result}" == "Email e/o password non validi") {
 				Swal.fire({
 					icon : 'error',
 					title : 'Ops!',

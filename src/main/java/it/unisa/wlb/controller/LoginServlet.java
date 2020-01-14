@@ -104,15 +104,15 @@ public class LoginServlet extends HttpServlet {
 							request.getRequestDispatcher(".").forward(request, response);
 						}
 					} else {
-						request.setAttribute("result", "error");
+						request.setAttribute("result", "Email e/o password non validi");
 						request.getRequestDispatcher(".").forward(request, response);
 					}
 				} catch (Exception exception) {
-					request.setAttribute("result", "error");
+					request.setAttribute("result", "Email e/o password non validi");
 					request.getRequestDispatcher(".").forward(request, response);
 				}
 			} else {
-				request.setAttribute("result", "error");
+				request.setAttribute("result", "Email e/o password non validi");
 				request.getRequestDispatcher(".").forward(request, response);
 			}
 		}
