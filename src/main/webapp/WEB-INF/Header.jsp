@@ -55,9 +55,9 @@
 				</a>
 
 					<div class="dropdown-menu animated fadeIn text-center">
-						<div class="dropdown-item">
+						<div class="dropdown-item" id="SVGLogo">
 							<form action="LogoutServlet">
-								<button class="btn btn-link" style="color: black;" role="link">Logout</button>
+								<button class="btn btn-link" style="color: black;" role="link" id="SVGLogo">Logout</button>
 							</form>
 						</div>
 					</div></li>
