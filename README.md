@@ -96,17 +96,19 @@ Di seguito i requisiti rilasciati per il primo sprint  5/32
 
 
 <h3> 2° Sprint - Consegna 29 Dicembre </h3>
-Di seguito sono elencati i requisiti rilasciati per il secondo sprint 10/32
+Di seguito sono elencati i requisiti rilasciati per il secondo sprint 12/32
 
 - RF_GP_10 : Modifica progetto (100%)
 - RF_GP_14 : Inserisci planimetria (100%)
+- RF_GP_11: Visualizza tutti i progetti (100%)
 - RF_GP_8 : Ricerca progetto (100%)
 - RF_GD_5 : Ricerca dipendente (100%)
+- RF_GD_6: Visualizza lista dipendenti (100%)
 - RF_GL_23 : Prenota giorni di Smart Working (100%)
 - RF_GP_12 : Inserisci dipendenti ad un progetto (100%) - inerente all'inserimento del progetto
 
 <h3> 3° Sprint - Consegna 05 Gennaio </h3>
-Di seguito sono elencati i requisiti rilasciati per il terzo sprint 15/32 
+Di seguito sono elencati i requisiti rilasciati per il terzo sprint 17/32 
 
 - RF_GD_3 : Modifica status dipendente (100%)
 - RF_GD_4 : Visualizza profilo dipendente (100%)
@@ -116,7 +118,7 @@ Di seguito sono elencati i requisiti rilasciati per il terzo sprint 15/32
 
 ### 4° Sprint - Consegna 12 Gennaio
 
-Di seguito sono elencati i requisiti rilasciati per il quarto sprint   20/32
+Di seguito sono elencati i requisiti rilasciati per il quarto sprint   22/32
 
 - RF_GL_22 : Visualizza storico calendario (100%)
 
