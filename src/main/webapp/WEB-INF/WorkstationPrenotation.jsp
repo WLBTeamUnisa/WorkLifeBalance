@@ -12,7 +12,7 @@
 	name='viewport' />
 
 <!-- Title -->
-<title>WLB - Smart Working</title>
+<title>WLB - Prenotazione postazione</title>
 
 <!-- Icon -->
 <link rel="apple-touch-icon" sizes="57x57"
