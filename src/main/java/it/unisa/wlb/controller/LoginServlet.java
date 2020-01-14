@@ -104,20 +104,16 @@ public class LoginServlet extends HttpServlet {
 							request.getRequestDispatcher(".").forward(request, response);
 						}
 					} else {
-						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						response.getWriter().write("Email e/o password non validi");
-						response.getWriter().flush();
+						request.setAttribute("result", "error");
+						request.getRequestDispatcher(".").forward(request, response);
 					}
 				} catch (Exception exception) {
-					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-					response.getWriter().write("Email e/o password non validi");
-					response.getWriter().flush();
-					return;
+					request.setAttribute("result", "error");
+					request.getRequestDispatcher(".").forward(request, response);
 				}
 			} else {
-				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				response.getWriter().write("Email e/o password non validi");
-				response.getWriter().flush();
+				request.setAttribute("result", "error");
+				request.getRequestDispatcher(".").forward(request, response);
 			}
 		}
 	}

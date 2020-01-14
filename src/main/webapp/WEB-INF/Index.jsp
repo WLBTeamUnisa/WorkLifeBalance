@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib prefix="c"
+	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,6 +135,19 @@
 	<script src="js/atlantis.min.js"></script>
 
 	<script src="js/login.js"></script>
+
+	<c:if test="${not empty result}">
+		<script>
+			if ("${result}" == "error") {
+				Swal.fire({
+					icon : 'error',
+					title : 'Ops!',
+					text : "Username e/o password errati!"
+				});
+				$("#email").focus();
+			}
+		</script>
+	</c:if>
 
 
 </body>
