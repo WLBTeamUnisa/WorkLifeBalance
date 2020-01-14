@@ -167,6 +167,7 @@ public class ModifyProjectServlet extends HttpServlet {
 		try {
 			manager = employeeDao.retrieveByEmail(managerEmail);
 		} catch(Exception e) {
+			request.setAttribute("result", "error");
 			request.getRequestDispatcher("/ProjectsListPage").forward(request, response);
 			throw new IllegalArgumentException();
 		}

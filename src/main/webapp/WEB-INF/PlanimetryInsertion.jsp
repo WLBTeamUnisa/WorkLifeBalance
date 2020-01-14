@@ -100,54 +100,64 @@
 									<!-- CONTAINER -->
 									<div class="container col-lg-10 mx-auto"
 										id="containerPlanimetry">
+										<div class="row">
+											<div class="col sm-10">
+												<!-- FLOOR -->
+												<div class="form-group input-group mx-auto">
+													<div class="input-group-prepend col-sm-3 px-0">
+														<span class="input-group-text w-100">
+															<h5 class="b my-auto mx-auto">Piano</h5>
+														</span>
+													</div>
+													<input name="floor" id="Floor" oninput="validFloor()"
+														class="form-control text-center" value='1'
+														placeholder="Piano*" type="text" disabled>
+												</div>
+												<!-- END FLOOR-->
 
-										<!-- FLOOR -->
-										<div class="form-group input-group mx-auto ">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i
-													class="fas fa-layer-group"></i></span>
+												<!-- ROOM -->
+												<div class="form-group input-group mx-auto">
+													<div class="input-group-prepend col-sm-3 px-0">
+														<span class="input-group-text w-100">
+															<h5 class="b my-auto mx-auto">Stanza</h5>
+														</span>
+													</div>
+													<input name="room" id="Room" oninput="validRoom()"
+														class="form-control text-center" value='1'
+														placeholder="Stanza*" type="text" disabled>
+												</div>
+
+												<!-- WORKSTATION  -->
+												<div class="form-group input-group mx-auto">
+													<div class="input-group-prepend col-sm-3 px-0">
+														<span class="input-group-text w-100">
+															<h5 class="b my-auto mx-auto">Postazioni</h5> </i>
+														</span>
+													</div>
+													<input name="workstation" id="Workstation"
+														oninput="validWorkstation()"
+														class="form-control text-center col-sm-9 px-0"
+														placeholder="Postazioni*" type="number">
+												</div>
+												<span id="errorWorkstation"></span>
+
 											</div>
-											<input name="floor" id="Floor" oninput="validFloor()"
-												class="form-control text-center col-sm-7" value='1'
-												placeholder="Piano*" type="text" disabled>
-											<!-- "NEXT" BUTTON-->
-											&nbsp; &nbsp;
-											<button type="button" id="nextbtn" onclick="updateFloor()"
-												class="btn btn-dark" disabled>Nuovo</button>
-										</div>
+											<!--FINE COLONNA 10-->
 
-
-										<!-- ROOM -->
-										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i
-													class="fas fa-door-closed"></i></span>
+											<div class="col-sm-2">
+												<div class="col-sm-3 my-auto">
+													<button type="button" id="nextbtn" onclick="updateFloor()"
+														class="btn btn-dark mt-2" disabled>
+														<i class="fas fa-plus"></i>
+													</button>
+												</div>
 											</div>
-											<input name="room" id="Room" oninput="validRoom()"
-												class="form-control text-center col-sm-7" value='1'
-												placeholder="Stanza*" type="text" disabled>
 										</div>
-
-
-
-										<!-- WORKSTATION  -->
-										<div class="form-group input-group mx-auto">
-											<div class="input-group-prepend offset-md-1">
-												<span class="input-group-text"><i class="fas fa-box"></i></span>
-											</div>
-											<input name="workstation" id="Workstation"
-												oninput="validWorkstation()"
-												class="form-control text-center col-sm-7 "
-												placeholder="Postazioni*" type="text">
-										</div>
-										<span id="errorWorkstation"></span>
-
-
 
 										<!-- "INSERISCI" BUTTON-->
-										<div class="form-group   mr-auto col-5 offset-md-3">
+										<div class="form-group col-sm-5 mx-auto">
 											<button type="button" id="insertButtton"
-												class="btn btn-success mx-auto "
+												class="btn btn-success mx-auto"
 												onclick="updatePlanimetryArray()" disabled>
 												Inserisci</button>
 										</div>
@@ -179,11 +189,20 @@
 												<input type="hidden" id="hiddenParameter" name="jsonObject" />
 
 												<!-- "conferma" and "reset" BUTTON-->
-												<div class="form-group">
-													<button type="submit" id="confirmForm"
-														class="btn btn-success  col-5" disabled>Conferma</button>
-													<button type="button" id="resetForm"
-														onclick="clearPlanimetry()" class="btn btn-danger  col-5">Reset</button>
+												<div class="row mt-4">
+													<div class="col-sm-8 row mx-auto">
+														<div class="col-sm-5 mx-auto">
+															<button type="submit" id="confirmForm"
+																class="btn btn-success col-sm-12 mx-auto" disabled>Conferma</button>
+														</div>
+
+														<div class="col-sm-5 mx-auto">
+															<button type="button" id="resetForm"
+																onclick="clearPlanimetry()"
+																class="btn btn-danger col-sm-12 mx-auto">Reset</button>
+														</div>
+
+													</div>
 												</div>
 											</div>
 										</div>
@@ -249,6 +268,32 @@
 
 </body>
 
+
+<script>
+
+function checkSizeWidth(){
+	if ($(window).width() < 576) {
+		$("#insertButtton").css({'width':'150px'});
+		$("#nextbtn").css({'width':'150px'});
+		$("#nextbtn").html("");
+		$("#nextbtn").html("Nuovo piano");
+	} else {
+		$("#insertButtton").css({'width':''});
+		$("#nextbtn").css({'width':''});
+		$("#nextbtn").html("");
+		$("#nextbtn").html("<i class='fas fa-plus'></i>");
+	}
+}
+
+checkSizeWidth();
+
+$(window).resize(function(){
+
+	checkSizeWidth();
+
+});
+
+</script>
 
 <script>
 
