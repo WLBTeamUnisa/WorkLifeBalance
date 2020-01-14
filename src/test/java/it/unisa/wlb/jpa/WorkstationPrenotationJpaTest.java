@@ -168,41 +168,7 @@ class WorkstationPrenotationJpaTest {
 			entityManager.close();
 		}
 	}
-/*	
-	@Test
-	void updateTest() {
-		WorkstationPrenotation updated;
-		aWorkstation.setRoom(firstRoom);
-		aStationPk.setFloor(firstFloor.getNumFloor());
-		aStationPk.setRoom(firstRoom.getId().getNumRoom());
-		aStationPk.setWorkstation(2);
-		aWorkstation.setId(aStationPk);
-		
-		try {
-			entityManager = factor.createEntityManager();
-			entityManager.getTransaction().begin();
-			entityManager.persist(prenotation);
-			entityManager.persist(aWorkstation);
-			entityManager.getTransaction().commit();
-		} finally {
-			entityManager.close();
-		}
-		
-		prenotation.setWorkstation(aWorkstation);
-		prenotation.getId().setId(1);
-		updated = prenotationJpa.update(prenotation);
-		assertEquals(updated.getId().getId(), prenotation.getId().getId());
-		
-		try {
-			entityManager = factor.createEntityManager();
-			entityManager.getTransaction().begin();
-			entityManager.remove(entityManager.merge(prenotation));
-			entityManager.getTransaction().commit();
-		} finally {
-			entityManager.close();
-		}
-	}	
-*/	
+
 	@Test
 	void removeTest() {		
 		try {
