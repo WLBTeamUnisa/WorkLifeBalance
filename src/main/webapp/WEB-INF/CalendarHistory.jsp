@@ -242,7 +242,7 @@ $(document).ready(function () {
 		                    	}
 		                    	
 		                    	$("#myCard").html("");
-		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>POSTO</th><th scope='col'>STANZA</th><th scope='col'>PIANO</th></tr></thead><tbody id='myTbody'>");
+		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>PIANO</th><th scope='col'>STANZA</th><th scope='col'>POSTAZIONE</th></tr></thead><tbody id='myTbody'>");
 		                    	
 		                    	for (var i = 0; i < lista.length; i++) {
 		                    		if(lista[i].type=="Smartworking"){
