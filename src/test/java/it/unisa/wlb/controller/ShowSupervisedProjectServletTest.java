@@ -67,18 +67,17 @@ public class ShowSupervisedProjectServletTest {
 	
 	@Test
 	void test() throws ServletException, IOException {
+		request.addParameter("projectName", "WLB13PO");
 		when(projectDao.retrieveByName(project.getName())).thenReturn(project);
 		servlet.setProjectDao(projectDao);
 		servlet.doPost(request, response);
 		Project p = (Project) request.getAttribute("project");
 		assertEquals(p.getName(), "WLB13PO");
-
-		
 	}
 	
 	@Test
 	void projectNull() throws ServletException, IOException {
-		when(projectDao.retrieveByName(project.getName())).thenReturn(null);
+		request.addParameter("projectName", "WLB13PO");
 		servlet.setProjectDao(projectDao);
 		servlet.doPost(request, response);
 		String result =(String) request.getAttribute("result");
@@ -89,6 +88,7 @@ public class ShowSupervisedProjectServletTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void projectDuplicate() throws ServletException, IOException {
+		request.addParameter("projectName", "WLB13PO");
 		when(projectDao.retrieveByName(project.getName())).thenThrow(Exception.class);
 		servlet.setProjectDao(projectDao);
 		servlet.doPost(request, response);

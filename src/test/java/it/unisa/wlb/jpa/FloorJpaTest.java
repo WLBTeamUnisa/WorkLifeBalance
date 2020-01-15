@@ -24,6 +24,7 @@ class FloorJpaTest {
 	private Floor secondFloor;
 	private Admin admin;
 	private Admin newAdmin;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		floorJpa = new FloorJpa();
@@ -31,7 +32,6 @@ class FloorJpaTest {
 		secondFloor = new Floor();
 		admin = new Admin();
 		newAdmin = new Admin();
-		
 		newAdmin.setEmail("t.caio1@wlb.it");
 		newAdmin.setName("Tizio");
 		newAdmin.setSurname("Caio");

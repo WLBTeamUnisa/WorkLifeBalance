@@ -72,7 +72,7 @@ public class SuggestionEmployeesServlet extends HttpServlet {
 
 		List<Employee> employeesList=null;
 
-		if((employeeEmail!=null || employeeEmail!="") && flagString!=null) {
+		if((employeeEmail!=null && employeeEmail!="") && flagString!=null) {
 			int flag = Integer.parseInt(flagString);
 			if(flag==0) {
 				employeesList=employeeDao.suggestByEmail(employeeEmail);        		

@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -78,7 +79,7 @@ class ShowWorkstationPrenotationPageServletTest {
 
 	@Mock
 	private IWorkstationPrenotationDao workstationPrenotationDao;
-	
+	private MockHttpServletResponse responseMock;
 	private ShowWorkstationPrenotationPageServlet servlet;
 
 	private Employee employee;
@@ -114,7 +115,7 @@ class ShowWorkstationPrenotationPageServletTest {
 	void setUp() throws Exception {
 		
 		MockitoAnnotations.initMocks(this);
-		
+		responseMock = new MockHttpServletResponse();
 		servlet = new ShowWorkstationPrenotationPageServlet();
 		smartWorkingPrenotation = new SmartWorkingPrenotation();
 		smartWorkingPrenotationPk = new SmartWorkingPrenotationPK();
@@ -245,5 +246,54 @@ class ShowWorkstationPrenotationPageServletTest {
 		servlet.doPost(request, response);
 		verify(request).getRequestDispatcher(captor.capture());
 		assertEquals(path, captor.getValue());
+	}
+	
+	@Test
+	void userNull() throws ServletException, IOException {
+		String path = "WEB-INF/Index.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(null);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	void noSmartWorkingPrenotation() throws ServletException, IOException {
+		String path = "/ShowSmartWorkingPrenotation";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenThrow(Exception.class);
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		try {
+			servlet.doPost(request, response);
+		} catch(Exception e) {
+			;
+		} finally {
+			verify(request).getRequestDispatcher(captor.capture());
+			assertEquals(path, captor.getValue());
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	void noPlanimetry() throws ServletException, IOException {
+		String errorMessage = "Planimetria assente nel database";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(request.getRequestDispatcher(errorMessage)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(nextCalendarWeek, year, email)).thenReturn(workstationPrenotationList);
+		when(roomDao.retrieveAll()).thenThrow(Exception.class);
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setRoomDao(roomDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		servlet.doPost(request, responseMock);
+		assertEquals(errorMessage, responseMock.getContentAsString());
 	}
 }

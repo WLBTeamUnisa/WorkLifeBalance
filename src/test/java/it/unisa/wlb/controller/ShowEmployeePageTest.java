@@ -133,4 +133,13 @@ class ShowEmployeePageTest {
 		assertEquals(message, attribute);
 	}
 
+	@Test
+	void userNull() throws ServletException, IOException {
+		String message = "error";
+		request.getSession().setAttribute("user", admin);
+		request.getSession().setAttribute("userRole", "Admin");
+		servlet.doPost(request, response);
+		String attribute = (String) request.getAttribute("result");
+		assertEquals(message, attribute);
+	}
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +105,23 @@ class ShowPlanimetryPageServletTest {
 			assertTrue(response.getContentAsString().contains(errorMessage) && response.getStatus()==HttpServletResponse.SC_BAD_REQUEST);
 		}
 	}
+	
+	@Test
+	void roomNull() throws ServletException, IOException  {
+		String errorMessage = "Planimetria assente nel database";
+		employee = new Employee();
+		request.getSession().setAttribute("user", employee);
+		when(roomDao.retrieveAll()).thenReturn(null);
+		servlet.setRoomDao(roomDao);
+		try {
+			servlet.doPost(request, response);
+		} catch (Exception e) {
+			;
+		} finally {
+			ArrayList<String> attribute = (ArrayList<String>) request.getAttribute("availableDates");
+			assertTrue(attribute != null);
+		}
+	}
+	
 
 }

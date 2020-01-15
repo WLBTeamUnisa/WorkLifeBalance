@@ -1,6 +1,7 @@
 package it.unisa.wlb.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -73,4 +74,13 @@ public class SuggestionsYearServletTest {
 		servlet.doPost(request, response);
 		assertEquals(string,response.getContentAsString());	
 	}
+	
+	@Test
+	void emailNull() throws ServletException, IOException {
+		employee = null;
+		request.getSession().setAttribute("user", employee);
+		servlet.doPost(request, response);
+		assertEquals("", response.getContentAsString());
+	}
+	
 }

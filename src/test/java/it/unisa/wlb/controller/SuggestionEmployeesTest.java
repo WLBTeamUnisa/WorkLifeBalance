@@ -75,4 +75,29 @@ class SuggestionEmployeesTest {
 		servlet.doPost(request, response);
 		assertEquals(json, response.getContentAsString());
 	}
+	
+	@Test
+	void emanagerSuggestionsFlagTwo() throws ServletException, IOException {
+		request.setParameter("email", email);
+		request.setParameter("flag", "2");
+		try {
+			servlet.doPost(request, response);
+		} catch (Exception e) {
+			;
+		} finally {
+			assertEquals("", response.getContentAsString());
+		}
+	}
+	
+	@Test
+	void emailNull() throws ServletException, IOException {
+		request.setParameter("email", "");
+		try {
+			servlet.doPost(request, response);
+		} catch (Exception e) {
+			;
+		} finally {
+			assertEquals("", response.getContentAsString());
+		}
+	}
 }

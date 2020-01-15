@@ -49,11 +49,11 @@ class SmartWorkingPrenotationZeroDaysTest {
 		employee.setSurname("Rossi");
 		employee.setStatus(0);
 		employee.setPassword(Utils.generatePwd("MarcoRossi1."));
-		request.getSession().setAttribute("user", employee);
 	}
 
 	@Test
 	void zeroPrenotationTest() throws ServletException, IOException {
+		request.getSession().setAttribute("user", employee);
 		Calendar calendarDate = Calendar.getInstance();
 		TimeZone timeZone = calendarDate.getTimeZone();
 		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
@@ -85,5 +85,22 @@ class SmartWorkingPrenotationZeroDaysTest {
 			assertEquals("success",attribute);
 		}
 	}
+	
+	
+	
+	@Test
+	void userNull() throws ServletException, IOException {
+		request.getSession().setAttribute("user", null);
+		
+		try {
+			servlet.doPost(request, response);
+		} catch (Exception e) {
+			;
+		} finally {
+			String attribute = (String) request.getAttribute("result");
+			assertEquals("NotLogged",attribute);
+		}
+	}
+	
 
 }

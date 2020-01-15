@@ -115,5 +115,14 @@ class ShowProjectServletTest {
 		String attribute = (String) request.getAttribute("result");
 		assertEquals(message, attribute);		
 	}
+	
+	@Test
+	void projecNameNull() throws ServletException, IOException {
+		String message = "error";
+		request.getSession().setAttribute("userRole", "Admin");
+		servlet.doPost(request, response);
+		String attribute = (String) request.getAttribute("result");
+		assertEquals(message, attribute);		
+	}
 
 }
