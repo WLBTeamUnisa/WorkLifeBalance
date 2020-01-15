@@ -62,6 +62,21 @@ class ShowAllSupervisedProjectsServletTest {
 		json = "[{\"projectName\":\"WLBG13\"}]";
 	}
 
+	@Test
+	void testFailure() throws ServletException, IOException {
+		employee.setStatus(0);
+		request.getSession().setAttribute("user", employee);
+		servlet.doPost(request, response);
+		assertEquals(response.getContentAsString(), "");
+	}
+	
+	@Test 
+	void nullTest() throws ServletException, IOException {
+		employee = null;
+		request.getSession().setAttribute("user", employee);
+		servlet.doPost(request, response);
+		assertEquals(response.getContentAsString(), "");
+	}
 	
 	@Test
 	void testSuccess() throws ServletException, IOException {

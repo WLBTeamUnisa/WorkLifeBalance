@@ -131,3 +131,10 @@ Di seguito sono elencati i requisiti rilasciati per il quarto sprint   22/32
 - RF_GM_32 : Visualizza progetto supervisionato (100%)
 
   
+
+### Resoconto:
+
+- I requisiti a priorità alta implementati sono 19/19	
+- I requisiti a priorità media implementati sono 3/9
+- I requisiti a priorità bassa implementati sono 0/4
+

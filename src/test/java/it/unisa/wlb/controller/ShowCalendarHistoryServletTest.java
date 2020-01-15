@@ -219,5 +219,87 @@ public class ShowCalendarHistoryServletTest {
 		assertEquals(string, response.getContentAsString());
 
 	}
+	
+	@Test
+	void employeeStringEmpty() throws ServletException, IOException {
+		request.setParameter("employeeEmail", "");
+		Date actualDate= new Date();
+		String string="[{\"date\":\""+actualDate+"\",\"type\":\"Smartworking\"},{\"date\":\""+actualDate+"\",\"workstation\":27,\"type\":\"Workstation\",\"floor\":6,\"room\":8}]";
+		request.getSession().setAttribute("user", employee);
+		request.setParameter("month","1");
+		request.setParameter("year", "2020");
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);	
+		servlet.setEmployeeDAO(employeeDAO);
+		servlet.doPost(request, response);
+		assertEquals(string, response.getContentAsString());
 
+	}
+
+	@Test
+	void smartWorkingPrenotationNull() throws ServletException, IOException {
+		employee.setSmartWorkingPrenotations(null);
+		employee.setWorkstationPrenotations(null);
+		Date actualDate= new Date();
+		String string="[{\"date\":\""+actualDate+"\",\"type\":\"Smartworking\"},{\"date\":\""+actualDate+"\",\"workstation\":27,\"type\":\"Workstation\",\"floor\":6,\"room\":8}]";
+		request.getSession().setAttribute("user", employee);
+		request.setParameter("employeeEmail", email);
+		request.setParameter("month","1");
+		request.setParameter("year", "2020");
+		request.setParameter("year", "2020");
+	
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+		servlet.setEmployeeDAO(employeeDAO);
+		servlet.doPost(request, response);
+		assertEquals("[]", response.getContentAsString());
+	}
+	
+	@Test
+	void prenotationDateListNull() throws ServletException, IOException {
+		ArrayList<SmartWorkingPrenotation> smartWorkingPrenotations= new ArrayList<>();
+		SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
+		smartWorking.setPrenotationDates(null);
+		smartWorkingPrenotations.add(smartWorking);
+		employee.setSmartWorkingPrenotations(smartWorkingPrenotations);
+		employee.setWorkstationPrenotations(null);
+		Date actualDate= new Date();
+		String string="[{\"date\":\""+actualDate+"\",\"type\":\"Smartworking\"},{\"date\":\""+actualDate+"\",\"workstation\":27,\"type\":\"Workstation\",\"floor\":6,\"room\":8}]";
+		request.getSession().setAttribute("user", employee);
+		request.setParameter("employeeEmail", email);
+		request.setParameter("month","1");
+		request.setParameter("year", "2020");
+		request.setParameter("year", "2020");
+	
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+		servlet.setEmployeeDAO(employeeDAO);
+		servlet.doPost(request, response);
+		assertEquals("[]", response.getContentAsString());
+	}
+	
+	@Test
+	void monthTestFailed() throws ServletException, IOException {
+		request.getSession().setAttribute("user", employee);
+		request.setParameter("employeeEmail", email);
+		request.setParameter("month","0");
+		request.setParameter("year", "2020");
+	
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+		servlet.setEmployeeDAO(employeeDAO);
+		servlet.doPost(request, response);
+		assertEquals("[]", response.getContentAsString());
+		
+	}
+	
+	@Test
+	void yearTestFailed() throws ServletException, IOException {
+		request.getSession().setAttribute("user", employee);
+		request.setParameter("employeeEmail", email);
+		request.setParameter("month","1");
+		request.setParameter("year", "2050");
+	
+		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+		servlet.setEmployeeDAO(employeeDAO);
+		servlet.doPost(request, response);
+		assertEquals("[]", response.getContentAsString());
+		
+	}
 }

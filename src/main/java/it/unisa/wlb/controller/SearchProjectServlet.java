@@ -68,7 +68,6 @@ public class SearchProjectServlet extends HttpServlet {
 			response.getWriter().flush();
 		}
 		JSONArray projectList = new JSONArray();
-
 		if(projectName != null) {
 			if(projectName.equals(""))
 				list=projectDao.retrieveAll();

@@ -125,5 +125,26 @@ class PlanimetryInsertionPageServletTest {
 		
 	}
 	
-
+	@Test
+	void nullRooms() throws ServletException, IOException {
+		Employee employee = new Employee();
+		request.getSession().setAttribute("user", employee);
+		when(roomDao.retrieveAll()).thenReturn(null);
+		servlet.setRoomDao(roomDao);
+		servlet.doPost(request, response);
+		String attribute = (String) request.getAttribute("insertedPlanimetry");
+		assertEquals(attribute, null);
+	}
+	
+	@Test
+	void voidRooms() throws ServletException, IOException{
+		Employee employee = new Employee();
+		request.getSession().setAttribute("user", employee);
+		roomList = new ArrayList<>();
+		when(roomDao.retrieveAll()).thenReturn(roomList);
+		servlet.setRoomDao(roomDao);
+		servlet.doPost(request, response);
+		assertEquals(response.getContentAsString(), "");
+	}
+	
 }

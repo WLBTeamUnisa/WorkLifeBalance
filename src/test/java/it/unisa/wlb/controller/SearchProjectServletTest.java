@@ -87,5 +87,26 @@ class SearchProjectServletTest {
 		assertEquals(json, response.getContentAsString().toString());
 		
 	}
+		
+	@Test
+	void voidName() throws ServletException, IOException {
+		name = "";
+		request.setParameter("name", name);
+		project = new Project();
+		project.setName(name);
+		projectList = new ArrayList<>();
+		projectList.add(project);
+		when(projectDao.searchByName(name)).thenReturn(projectList);
+		
+		servlet = new SearchProjectServlet(projectDao);
+		try {
+			servlet.doPost(request, response);
+		} catch(Exception exception) {
+			;
+		} finally {
+			assertEquals("[]", response.getContentAsString().toString());
+		}
+			
+	}
 
 }
