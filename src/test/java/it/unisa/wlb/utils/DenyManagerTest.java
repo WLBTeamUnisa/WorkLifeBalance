@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.utils.DenyManager;
 import it.unisa.wlb.utils.Utils;
+
 /**
  * The aim of this class is testing DenyManager.java
  * 
@@ -30,49 +31,48 @@ import it.unisa.wlb.utils.Utils;
  */
 class DenyManagerTest {
 
+    @Mock
+    private HttpServletRequest request;
 
-	@Mock
-	private HttpServletRequest request;
-	
-	@Mock
-	private ServletResponse response;
-	
-	@Mock
-	private HttpSession session;
-	
-	@Mock
-	private RequestDispatcher dispatcher;
-	
-	@Mock
-	private FilterChain chain;
-	
-	private Employee employee;
-	
-	private DenyManager denyManager;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		denyManager = new DenyManager();
-		employee = new Employee();
-		employee.setEmail("m.rossi1@wlbadmin.it");
-		employee.setName("Marco");
-		employee.setSurname("Rossi");
-		employee.setPassword(Utils.generatePwd("MarcoRossi1."));
-		employee.setStatus(1);
-		
-	}
+    @Mock
+    private ServletResponse response;
 
-	@Test
-	void accessDeniedTest() throws IOException, ServletException {
-		String path = "WEB-INF/DenyAccess.jsp";
-		when(request.getSession()).thenReturn(session);
-		when(session.getAttribute("user")).thenReturn(employee);
-		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		denyManager.doFilter(request, response, chain);
-		verify(request).getRequestDispatcher(captor.capture());
-		assertEquals(path, captor.getValue());
-	}
+    @Mock
+    private HttpSession session;
+
+    @Mock
+    private RequestDispatcher dispatcher;
+
+    @Mock
+    private FilterChain chain;
+
+    private Employee employee;
+
+    private DenyManager denyManager;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        denyManager = new DenyManager();
+        employee = new Employee();
+        employee.setEmail("m.rossi1@wlbadmin.it");
+        employee.setName("Marco");
+        employee.setSurname("Rossi");
+        employee.setPassword(Utils.generatePwd("MarcoRossi1."));
+        employee.setStatus(1);
+
+    }
+
+    @Test
+    void accessDeniedTest() throws IOException, ServletException {
+        String path = "WEB-INF/DenyAccess.jsp";
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(employee);
+        when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        denyManager.doFilter(request, response, chain);
+        verify(request).getRequestDispatcher(captor.capture());
+        assertEquals(path, captor.getValue());
+    }
 
 }

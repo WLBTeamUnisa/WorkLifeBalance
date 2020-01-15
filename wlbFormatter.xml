@@ -282,7 +282,7 @@
 			id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_method"
 			value="insert" />
 		<setting id="org.eclipse.jdt.core.formatter.indentation.size"
-			value="4" />
+			value="2" />
 		<setting
 			id="org.eclipse.jdt.core.formatter.insert_space_between_empty_parens_in_method_declaration"
 			value="do not insert" />

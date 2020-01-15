@@ -43,9 +43,9 @@
 
 	    function validate(input) {
 		if ($(input).attr('type') == 'text' || $(input).attr('name') == 'email') {
-			if (($(input).val().trim().match(/^[a-z]{1}\.[a-z]+[1-9]*\@wlb.it/) == null)
+			if (($(input).val().trim().match(/^[a-z]{1}\.[a-z]+[0-9]+\@wlb.it/) == null)
 					&& ($(input).val().trim().match(
-							/^[a-z]{1}\.[a-z]+[1-9]*\@wlbadmin.it/) == null)) {
+							/^[a-z]{1}\.[a-z]+[0-9]+\@wlbadmin.it/) == null)) {
 				return false;
 			}
 	

@@ -42,7 +42,7 @@
 					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
 						<div class="avatar-sm">
-							<svg height="100%" width="100%">
+							<svg height="100%" width="100%" id="SVGLogo">
 								<circle cx="50%" cy="50%" r="19" fill="white" />
 								<text x="50%" y="50%" text-anchor="middle" fill="black"
 									font-family="Lato" dy=".3em" font-weight="bold">
@@ -55,9 +55,10 @@
 				</a>
 
 					<div class="dropdown-menu animated fadeIn text-center">
-						<div class="dropdown-item">
+						<div class="dropdown-item" id="SVGLogo">
 							<form action="LogoutServlet">
-								<button class="btn btn-link" style="color: black;" role="link">Logout</button>
+								<button class="btn btn-link" style="color: black;" role="link"
+									id="SVGLogo">Logout</button>
 							</form>
 						</div>
 					</div></li>

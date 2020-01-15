@@ -32,46 +32,46 @@ import it.unisa.wlb.utils.Utils;
  */
 class DenyAdminTest {
 
-	@Mock
-	private HttpServletRequest request;
-	
-	@Mock
-	private ServletResponse response;
-	
-	@Mock
-	private HttpSession session;
-	
-	@Mock
-	private RequestDispatcher dispatcher;
-	
-	@Mock
-	private FilterChain chain;
-	
-	private Admin admin;
-	
-	private DenyAdmin denyAdmin;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		denyAdmin = new DenyAdmin();
-		admin = new Admin();
-		admin.setEmail("m.rossi1@wlbadmin.it");
-		admin.setName("Marco");
-		admin.setSurname("Rossi");
-		admin.setPassword(Utils.generatePwd("MarcoRossi1."));
-	}
+    @Mock
+    private HttpServletRequest request;
 
-	@Test
-	void accessDeniedTest() throws IOException, ServletException {
-		String path = "WEB-INF/DenyAccess.jsp";
-		when(request.getSession()).thenReturn(session);
-		when(session.getAttribute("user")).thenReturn(admin);
-		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		denyAdmin.doFilter(request, response, chain);
-		verify(request).getRequestDispatcher(captor.capture());
-		assertEquals(path, captor.getValue());
-	}
+    @Mock
+    private ServletResponse response;
+
+    @Mock
+    private HttpSession session;
+
+    @Mock
+    private RequestDispatcher dispatcher;
+
+    @Mock
+    private FilterChain chain;
+
+    private Admin admin;
+
+    private DenyAdmin denyAdmin;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        denyAdmin = new DenyAdmin();
+        admin = new Admin();
+        admin.setEmail("m.rossi1@wlbadmin.it");
+        admin.setName("Marco");
+        admin.setSurname("Rossi");
+        admin.setPassword(Utils.generatePwd("MarcoRossi1."));
+    }
+
+    @Test
+    void accessDeniedTest() throws IOException, ServletException {
+        String path = "WEB-INF/DenyAccess.jsp";
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(admin);
+        when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        denyAdmin.doFilter(request, response, chain);
+        verify(request).getRequestDispatcher(captor.capture());
+        assertEquals(path, captor.getValue());
+    }
 
 }

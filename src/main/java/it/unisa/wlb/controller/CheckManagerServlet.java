@@ -21,54 +21,68 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  * @author Emmanuel Tesauro
  */
-@WebServlet(name="CheckManagerServlet", urlPatterns="/CheckManager")
-@Interceptors({LoggerSingleton.class})
+@WebServlet(name = "CheckManagerServlet", urlPatterns = "/CheckManager")
+@Interceptors({ LoggerSingleton.class })
 public class CheckManagerServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	IEmployeeDao employeeDao;
-       
+    private static final long serialVersionUID = 1L;
+
+    @EJB
+    IEmployeeDao employeeDao;
+
     public CheckManagerServlet() {
         super();
     }
 
     /**
-	 * @param request Object that identifies an HTTP request
-	 * @param response Object that identifies an HTTP response
-	 * @pre request != null
-	 * @pre response != nul
-	 * @pre request.getParameter("email") != null
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		Employee employee;
-		JSONObject object = new JSONObject();
-		if( (email!=null) && (email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$"))) {
-			try {
-				employee = employeeDao.retrieveByEmail(email);
-				object.put("status", employee.getStatus());
-			} catch (Exception exception) {
-				
-			}
-			
-			response.setContentType("application/json");
-			response.getWriter().append(object.toString());
-		}
-	}
+     * This set method is used during testing in order to simulate the behaviour of the dao class
+     *
+     * @param employeeDao
+     */
+    public void setEmployeeDao(IEmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
 
-	/**
-	 * @param request Object that identifies an HTTP request
-	 * @param response Object that identifies an HTTP response
-	 * @pre request != null
-	 * @pre response != null
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+    /**
+     * @param request
+     *            Object that identifies an HTTP request
+     * @param response
+     *            Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != nul
+     * @pre request.getParameter("email") != null
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String email = request.getParameter("email");
+        Employee employee;
+        JSONObject object = new JSONObject();
+        if ((email != null) && (email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$"))) {
+            try {
+                employee = employeeDao.retrieveByEmail(email);
+                object.put("status", employee.getStatus());
+            } catch (Exception exception) {
+
+            }
+
+            response.setContentType("application/json");
+            response.getWriter().append(object.toString());
+        }
+    }
+
+    /**
+     * @param request
+     *            Object that identifies an HTTP request
+     * @param response
+     *            Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
 }

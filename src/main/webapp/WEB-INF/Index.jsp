@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib prefix="c"
+	uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,15 +92,13 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-t-85 m-b-35"
-						data-validate="m.rossi1@wlb.it or 
-					m.rossi1@wlbadmin.it">
+						data-validate="Esempio: m.rossi1@wlb.it">
 						<input class="input100" type="text" id="email" name="email" /> <span
 							class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-50"
-						data-validate="Inserire una password 8-20 caratteri con almeno una maiuscola,minuscola e carattere speciale.
-						Caratteri speciali consentiti: .!@#$%^&">
+						data-validate="Formato errato!">
 						<input class="input100" type="password" id="password"
 							name="password"> <span class="focus-input100"
 							data-placeholder="Password"></span>
@@ -136,6 +135,19 @@
 	<script src="js/atlantis.min.js"></script>
 
 	<script src="js/login.js"></script>
+
+	<c:if test="${not empty result}">
+		<script>
+			if ("${result}" == "Email e/o password non validi") {
+				Swal.fire({
+					icon : 'error',
+					title : 'Ops!',
+					text : "Username e/o password errati!"
+				});
+				$("#email").focus();
+			}
+		</script>
+	</c:if>
 
 
 </body>

@@ -30,90 +30,99 @@ import it.unisa.wlb.model.dao.IProjectDao;
  */
 class ShowProjectServletTest {
 
-	@Mock
-	private IProjectDao projectDao;
-	
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
-	private ShowProjectServlet servlet;
-	private Project project;
-	private Employee employee1;
-	private Employee employee2;
-	private String name;
-	private String description;
-	private String scope;
-	private Date startDate;
-	private Date endDate;
-	private List<Employee> employeeList;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		servlet = new ShowProjectServlet();
-		employee1 = new Employee();
-		employee2 = new Employee();
-		
-		name = "WLBG13";
-		startDate = new Date();
-		endDate = new Date();
-		scope = "smart working";
-		description = "flessibilità sul lavoro";
-		project = new Project();
-		project.setEndDate(endDate);
-		project.setStartDate(startDate);
-		project.setDescription(description);
-		project.setScope(scope);
-		employeeList = new ArrayList<>();
-		employeeList.add(employee1);
-		employeeList.add(employee2);
-		project.setEmployees(employeeList);
-		
-	}
+    @Mock
+    private IProjectDao projectDao;
 
-	@Test
-	void projectExists() throws ServletException, IOException {
-		String message = "ok";
-		request.setParameter("name", name);
-		request.getSession().setAttribute("userRole", "Admin");
-		when(projectDao.retrieveByName(name)).thenReturn(project);
-		servlet.setProjectDao(projectDao);
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(message, attribute);		
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	void projectNotExists() throws ServletException, IOException {
-		String message = "error";
-		request.setParameter("name", name);
-		request.getSession().setAttribute("userRole", "Admin");
-		when(projectDao.retrieveByName(name)).thenThrow(Exception.class);
-		servlet.setProjectDao(projectDao);
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(message, attribute);		
-	}
-	
-	@Test
-	void projecNameEmpty() throws ServletException, IOException {
-		String message = "error";
-		request.setParameter("name", "");
-		request.getSession().setAttribute("userRole", "Admin");
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(message, attribute);		
-	}
-	
-	@Test
-	void userIsNotAdmin() throws ServletException, IOException {
-		String message = "error";
-		request.getSession().setAttribute("userRole", "");
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(message, attribute);		
-	}
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
+    private ShowProjectServlet servlet;
+    private Project project;
+    private Employee employee1;
+    private Employee employee2;
+    private String name;
+    private String description;
+    private String scope;
+    private Date startDate;
+    private Date endDate;
+    private List<Employee> employeeList;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        servlet = new ShowProjectServlet();
+        employee1 = new Employee();
+        employee2 = new Employee();
+
+        name = "WLBG13";
+        startDate = new Date();
+        endDate = new Date();
+        scope = "smart working";
+        description = "flessibilità sul lavoro";
+        project = new Project();
+        project.setEndDate(endDate);
+        project.setStartDate(startDate);
+        project.setDescription(description);
+        project.setScope(scope);
+        employeeList = new ArrayList<>();
+        employeeList.add(employee1);
+        employeeList.add(employee2);
+        project.setEmployees(employeeList);
+
+    }
+
+    @Test
+    void projectExists() throws ServletException, IOException {
+        String message = "ok";
+        request.setParameter("name", name);
+        request.getSession().setAttribute("userRole", "Admin");
+        when(projectDao.retrieveByName(name)).thenReturn(project);
+        servlet.setProjectDao(projectDao);
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(message, attribute);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    void projectNotExists() throws ServletException, IOException {
+        String message = "error";
+        request.setParameter("name", name);
+        request.getSession().setAttribute("userRole", "Admin");
+        when(projectDao.retrieveByName(name)).thenThrow(Exception.class);
+        servlet.setProjectDao(projectDao);
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(message, attribute);
+    }
+
+    @Test
+    void projecNameEmpty() throws ServletException, IOException {
+        String message = "error";
+        request.setParameter("name", "");
+        request.getSession().setAttribute("userRole", "Admin");
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(message, attribute);
+    }
+
+    @Test
+    void userIsNotAdmin() throws ServletException, IOException {
+        String message = "error";
+        request.getSession().setAttribute("userRole", "");
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(message, attribute);
+    }
+
+    @Test
+    void projecNameNull() throws ServletException, IOException {
+        String message = "error";
+        request.getSession().setAttribute("userRole", "Admin");
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(message, attribute);
+    }
 
 }

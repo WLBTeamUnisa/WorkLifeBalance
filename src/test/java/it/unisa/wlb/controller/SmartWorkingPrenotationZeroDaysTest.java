@@ -25,6 +25,7 @@ import it.unisa.wlb.model.bean.SmartWorkingPrenotation;
 import it.unisa.wlb.model.bean.SmartWorkingPrenotationPK;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.utils.Utils;
+
 /**
  * The aim of this class is testing the case with zero prenotation dates
  * 
@@ -33,57 +34,71 @@ import it.unisa.wlb.utils.Utils;
  */
 class SmartWorkingPrenotationZeroDaysTest {
 
-	private SmartWorkingDaysPrenotationServlet servlet;
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
-	private Employee employee;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		servlet = new SmartWorkingDaysPrenotationServlet();
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		employee = new Employee();
-		employee.setEmail("m.rossi1@wlb.it");
-		employee.setName("Marco");
-		employee.setSurname("Rossi");
-		employee.setStatus(0);
-		employee.setPassword(Utils.generatePwd("MarcoRossi1."));
-		request.getSession().setAttribute("user", employee);
-	}
+    private SmartWorkingDaysPrenotationServlet servlet;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
+    private Employee employee;
 
-	@Test
-	void zeroPrenotationTest() throws ServletException, IOException {
-		Calendar calendarDate = Calendar.getInstance();
-		TimeZone timeZone = calendarDate.getTimeZone();
-		ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
-		LocalDate today = LocalDateTime.ofInstant(calendarDate.toInstant(), zoneId).toLocalDate();
-		LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
-		LocalDate newDate;
-		newDate= nextMonday.plusDays(7);
-		calendarDate.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
-		int nextCalendarWeek = calendarDate.get(Calendar.WEEK_OF_YEAR);
-		int year = calendarDate.get(Calendar.YEAR);
-		int idSmartWorking = 1;
-		ISmartWorkingPrenotationDao smartWorkingDao = mock(ISmartWorkingPrenotationDao.class);
-		SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
-		SmartWorkingPrenotationPK smartWorkingPk = new SmartWorkingPrenotationPK();
-		smartWorkingPk.setEmployeeEmail(employee.getEmail());
-		smartWorking.setCalendarWeek(nextCalendarWeek);
-		smartWorkingPk.setId(idSmartWorking);
-		smartWorking.setYear(year);
-		smartWorking.setEmployee(employee);
-		smartWorking.setId(smartWorkingPk);
-		when(smartWorkingDao.create(smartWorking)).thenReturn(smartWorking);
-		servlet.setSmartWorkingPrenotationDao(smartWorkingDao);
-		try {
-			servlet.doPost(request, response);
-		} catch (Exception e) {
-			;
-		} finally {
-			String attribute = (String) request.getAttribute("result");
-			assertEquals("success",attribute);
-		}
-	}
+    @BeforeEach
+    void setUp() throws Exception {
+        servlet = new SmartWorkingDaysPrenotationServlet();
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        employee = new Employee();
+        employee.setEmail("m.rossi1@wlb.it");
+        employee.setName("Marco");
+        employee.setSurname("Rossi");
+        employee.setStatus(0);
+        employee.setPassword(Utils.generatePwd("MarcoRossi1."));
+    }
+
+    @Test
+    void zeroPrenotationTest() throws ServletException, IOException {
+        request.getSession().setAttribute("user", employee);
+        Calendar calendarDate = Calendar.getInstance();
+        TimeZone timeZone = calendarDate.getTimeZone();
+        ZoneId zoneId = timeZone == null ? ZoneId.systemDefault() : timeZone.toZoneId();
+        LocalDate today = LocalDateTime.ofInstant(calendarDate.toInstant(), zoneId).toLocalDate();
+        LocalDate nextMonday = today.with(DayOfWeek.MONDAY);
+        LocalDate newDate;
+        newDate = nextMonday.plusDays(7);
+        calendarDate.setTime(Date.from(newDate.atStartOfDay().atZone(zoneId).toInstant()));
+        int nextCalendarWeek = calendarDate.get(Calendar.WEEK_OF_YEAR);
+        int year = calendarDate.get(Calendar.YEAR);
+        int idSmartWorking = 1;
+        ISmartWorkingPrenotationDao smartWorkingDao = mock(ISmartWorkingPrenotationDao.class);
+        SmartWorkingPrenotation smartWorking = new SmartWorkingPrenotation();
+        SmartWorkingPrenotationPK smartWorkingPk = new SmartWorkingPrenotationPK();
+        smartWorkingPk.setEmployeeEmail(employee.getEmail());
+        smartWorking.setCalendarWeek(nextCalendarWeek);
+        smartWorkingPk.setId(idSmartWorking);
+        smartWorking.setYear(year);
+        smartWorking.setEmployee(employee);
+        smartWorking.setId(smartWorkingPk);
+        when(smartWorkingDao.create(smartWorking)).thenReturn(smartWorking);
+        servlet.setSmartWorkingPrenotationDao(smartWorkingDao);
+        try {
+            servlet.doPost(request, response);
+        } catch (Exception e) {
+            ;
+        } finally {
+            String attribute = (String) request.getAttribute("result");
+            assertEquals("success", attribute);
+        }
+    }
+
+    @Test
+    void userNull() throws ServletException, IOException {
+        request.getSession().setAttribute("user", null);
+
+        try {
+            servlet.doPost(request, response);
+        } catch (Exception e) {
+            ;
+        } finally {
+            String attribute = (String) request.getAttribute("result");
+            assertEquals("NotLogged", attribute);
+        }
+    }
 
 }

@@ -152,6 +152,10 @@
 											<div class="card col-lg-10 mx-auto">
 												<div class="card-header p-2">
 													<h3 class="my-auto">Dipendenti</h3>
+													<p class="m-0" style="color: grey">
+														<small>Clicca su un dipendente per visualizzarne
+															lo storico.</small>
+													</p>
 												</div>
 												<div class="card-body">
 													<div class="form-group text-center mx-auto">
@@ -161,7 +165,8 @@
 																<c:forEach items="${project.employees}" var="employee">
 																	<li class='list-group-item'><a
 																		href="ShowCalendarHistoryPage?employeeEmail=${employee.email}"
-																		style="color: black; text-decoration: none;"> <i
+																		style="color: black; text-decoration: none;"
+																		class="mx-auto w-100"> <i
 																			class='fas fa-user my-auto mr-2'></i>${employee.name}
 																			${employee.surname} - ${employee.email}
 																	</a></li>

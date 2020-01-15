@@ -14,8 +14,7 @@ service:
 before_script:
   - mysql -e 'DROP DATABASE IF EXISTS worklifebalance'
   - mysql -e 'CREATE DATABASE IF NOT EXISTS worklifebalance;'  
-  - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/DatabaseCreator.sql
-
+  - mysql -u root --default-character-set=utf8 worklifebalance< src/test/resources/sql/Creator.sql
 
 before_install:
   - mvn checkstyle:check

@@ -86,7 +86,7 @@ response.setHeader("Expires","0");
 				<div class="container mt-4 text-center">
 
 					<!-- COLUMN -->
-					<div class="col-lg-7 mx-auto">
+					<div class="col-lg-9 mx-auto">
 
 						<!-- CARD -->
 						<div class="card">
@@ -174,8 +174,11 @@ response.setHeader("Expires","0");
 											</div>
 											<input type="text" class="form-control text-center"
 												name="managerEmail" id="managerEmail"
-												onkeyup="verificaManager()"
-												value="${oldProject.employee.email}" required>
+												onchange="verificaManager()"
+												onkeypress="SuggestionsManager(this.value)"
+												value="${oldProject.employee.email}" required
+												list="suggestionsManager">
+											<datalist id="suggestionsManager"></datalist>
 										</div>
 										<span id="errorManager"> </span>
 
@@ -298,16 +301,49 @@ response.setHeader("Expires","0");
 		var borderOK = '1px solid #080';
 		var borderNO = '1px solid #f00';
 		function verificaNome() {
+
+			var errorMsg = "Il nome può contenere solo lettere minuscole e maiuscole e deve avere una lunghezza tra 4 e 15 caratteri.";
 			var input = $("#name").val();
+
 			if (input.trim().length >= 4 && input.trim().length <= 15
 					&& input.match(/^[A-Za-z0-9]+$/)) {
-				$("#name").css("border", borderOK);
-				nomeOK = true;
+
+				var xmlHttpReq = new XMLHttpRequest();
+				xmlHttpReq.onreadystatechange = function() {
+					if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200) {
+						var json = JSON.parse(xmlHttpReq.responseText);
+						if (json != null) {
+							if (json.available == "yes") {
+								if ($("#name").hasClass("is-invalid"))
+									$("#name").removeClass("is-invalid");
+								
+								$("#name").addClass("is-valid");
+								document.getElementById("errorName").innerHTML = "";
+								nomeOK = true;
+							} else {
+								if ($("#name").hasClass("is-valid"))
+									$("#name").removeClass("is-valid");
+								
+								$("#name").addClass("is-invalid");
+								document.getElementById("errorName").innerHTML = "Attenzione! Questo nome è già associato ad un altro progetto.";
+								nomeOK = false;
+							}
+						}
+					}
+					changeInsertButtonState();
+				}
+				xmlHttpReq.open("GET", "CheckProject?name="
+						+ encodeURIComponent(input), true);
+				xmlHttpReq.send();
 			} else {
-				$("#name").css("border", borderNO);
+				if ($("#name").hasClass("is-valid"))
+					$("#name").removeClass("is-valid");
+				
+				$("#name").addClass("is-invalid");
+				document.getElementById("errorName").innerHTML = errorMsg;
 				nomeOK = false;
+				changeInsertButtonState();
 			}
-			changeInsertButtonState();
 		}
 		function verificaScope() {
 			var input = $("#scope").val();
@@ -324,7 +360,7 @@ response.setHeader("Expires","0");
 
 		function verificaDataInizio() {
 
-			var errorMsg = "La data di inizio deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#startDate").val();
 			if (input
 				.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
@@ -355,7 +391,7 @@ response.setHeader("Expires","0");
 
 		function verificaDataFine() {
 
-			var errorMsg = "La data di fine deve essere del seguente tipo: yyyy-MM-dd";
+			var errorMsg = "Formato non corretto!";
 			var input = $("#endDate").val();
 			if (input.match(/^(19|20)\d{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/)) {
 				var startDate = $("#startDate").val();

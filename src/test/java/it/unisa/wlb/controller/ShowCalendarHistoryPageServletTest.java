@@ -24,6 +24,7 @@ import it.unisa.wlb.model.dao.IEmployeeDao;
 import it.unisa.wlb.model.dao.IPrenotationDateDao;
 import it.unisa.wlb.model.dao.ISmartWorkingPrenotationDao;
 import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
+
 /**
  * The aim of this class is testing ShowCalendarHistoryPageServlet.java
  * 
@@ -32,245 +33,246 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
  */
 public class ShowCalendarHistoryPageServletTest {
 
-	@Mock
-	private IEmployeeDao employeeDAO;
-	@Mock
-	private ISmartWorkingPrenotationDao smartWorkingPrenotationDAO;
-	@Mock
-	private IPrenotationDateDao prenotationDateDAO;
-	@Mock
-	private IWorkstationPrenotationDao workstationPrenotationDao;
-	
-	private MockHttpServletRequest request;
-	
-	private MockHttpServletResponse response;
-	@Mock
-	private HttpSession session;
-	@Mock
-	private RequestDispatcher dispatcher;
-	
-	private ShowCalendarHistoryPageServlet servlet;
-	
-	private Employee employee;
-	private Employee manager;
-	private String name;
-	private String surname;
-	private String email;
-	private String password;
-	private int status;
-	
-	private String nameManager;
-	private String surnameManager;
-	private String emailManager;
-	private String passwordManager;
-	private int statusManager;
-	private Project project;
-	private Project project2;
-	
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		servlet = new ShowCalendarHistoryPageServlet();
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		employee = new Employee();
-		manager= new Employee();
-		project= new Project();
-		project2= new Project();
-		
-		name="Marco";
-		surname="Rossi";
-		email="m.rossi1@wlb.it";
-		password="Ciao1234.";
-		status=0;
-		
-		nameManager="Vincenzo";
-		surnameManager="Bianchi";
-		emailManager="v.bianchi@wlb.it";
-		passwordManager="Ciao1234.";
-		statusManager=1;
-		
-		
-		
-}
-	
-	@Test
-	void testFlag1() throws ServletException, IOException {
+    @Mock
+    private IEmployeeDao employeeDAO;
+    @Mock
+    private ISmartWorkingPrenotationDao smartWorkingPrenotationDAO;
+    @Mock
+    private IPrenotationDateDao prenotationDateDAO;
+    @Mock
+    private IWorkstationPrenotationDao workstationPrenotationDao;
 
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setSurname(surname);
-		employee.setPassword(password);
-		employee.setStatus(status);
-		
-		manager.setEmail(emailManager);
-		manager.setName(nameManager);
-		manager.setSurname(surnameManager);
-		manager.setPassword(passwordManager);
-		manager.setStatus(statusManager);
-		
-		ArrayList<Employee> projectEmployee= new ArrayList<>();
-		projectEmployee.add(employee);
-		project.setName("WLB13");
-		project.setEmployee(manager);
-		project.setEmployees(projectEmployee);
-		
-		ArrayList<Project> projectList= new ArrayList<>();
-		projectList.add(project);
-		manager.setProjects1(projectList);
-		employee.setProjects2(projectList);
-		
-		request.getSession().setAttribute("user", manager);
-		request.setParameter("employeeEmail", email);
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		//servlet.setEmployeeDAO(employeeDAO);
-		
-		servlet.setEmployeeDao(employeeDAO);;
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "success");
-		
-	}
-	
-	@Test
-	void testFlag0() throws ServletException, IOException {
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setSurname(surname);
-		employee.setPassword(password);
-		employee.setStatus(status);
-		
-		manager.setEmail(emailManager);
-		manager.setName(nameManager);
-		manager.setSurname(surnameManager);
-		manager.setPassword(passwordManager);
-		manager.setStatus(statusManager);
-		
-		ArrayList<Employee> projectEmployee= new ArrayList<>();
-		projectEmployee.add(employee);
-		project.setName("WLB13");
-		project.setEmployee(manager);
-		
-		project2.setName("WLB13");
-		project2.setEmployees(projectEmployee);
-		
-		ArrayList<Project> projectList= new ArrayList<>();
-		projectList.add(project);
-		ArrayList<Project> projectList2= new ArrayList<>();
-		projectList.add(project2);
-		manager.setProjects1(projectList);
-		employee.setProjects2(projectList2);
-		
-		request.getSession().setAttribute("user", manager);
-		request.setParameter("employeeEmail", email);
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		
-		servlet.setEmployeeDao(employeeDAO);;
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "error");
-	}
-	
-	@Test
-	void getProjectManagerFail() throws ServletException, IOException {
+    private MockHttpServletRequest request;
 
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setSurname(surname);
-		employee.setPassword(password);
-		employee.setStatus(status);
-		
-		manager.setEmail(emailManager);
-		manager.setName(nameManager);
-		manager.setSurname(surnameManager);
-		manager.setPassword(passwordManager);
-		manager.setStatus(statusManager);
-		
-		ArrayList<Employee> projectEmployee= new ArrayList<>();
-		projectEmployee.add(employee);
-		project.setName("WLB13");
-		project.setEmployee(manager);
-	
-		projectEmployee.add(employee);
-		project2.setName("WLB13");
-		project2.setEmployees(projectEmployee);
-		
-		ArrayList<Project> projectList= new ArrayList<>();
-		projectList.add(project);
-		ArrayList<Project> projectList2= new ArrayList<>();
-		projectList.add(project2);
-		//manager.setProjects1(projectList);
-		employee.setProjects2(projectList2);
-		
-		request.getSession().setAttribute("user", manager);
-		request.setParameter("employeeEmail", email);
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		
-		servlet.setEmployeeDao(employeeDAO);;
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "error");
-		
-		
-	}
-	
-	@Test
-	void sessionEmployeeNull() throws ServletException, IOException {
-		request.getSession().setAttribute("user", manager);
-		servlet.setEmployeeDao(employeeDAO);;
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(null);
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "success");
-	}
+    private MockHttpServletResponse response;
+    @Mock
+    private HttpSession session;
+    @Mock
+    private RequestDispatcher dispatcher;
 
-	
-	@Test
-	void emailEmployeeNull() throws ServletException, IOException {	
-		request.getSession().setAttribute("user", null);
-		servlet.setEmployeeDao(employeeDAO);;
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "error");
-	
-	}
-	
-	@Test
-	void managerStatus0() throws ServletException, IOException {
+    private ShowCalendarHistoryPageServlet servlet;
 
-		employee.setEmail(email);
-		employee.setName(name);
-		employee.setSurname(surname);
-		employee.setPassword(password);
-		employee.setStatus(status);
-		
-		manager.setEmail(emailManager);
-		manager.setName(nameManager);
-		manager.setSurname(surnameManager);
-		manager.setPassword(passwordManager);
-		manager.setStatus(0);
-		
-		ArrayList<Employee> projectEmployee= new ArrayList<>();
-		projectEmployee.add(employee);
-		project.setName("WLB13");
-		project.setEmployee(manager);
-		project.setEmployees(projectEmployee);
-		
-		ArrayList<Project> projectList= new ArrayList<>();
-		projectList.add(project);
-		manager.setProjects1(projectList);
-		employee.setProjects2(projectList);
-		
-		request.getSession().setAttribute("user", manager);
-		request.setParameter("employeeEmail", email);
-		when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
-		
-		servlet.setEmployeeDao(employeeDAO);;
-		servlet.doPost(request, response);
-		String attribute = (String) request.getAttribute("result");
-		assertEquals(attribute, "error");
-		
-	}
-	
+    private Employee employee;
+    private Employee manager;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
+    private int status;
+
+    private String nameManager;
+    private String surnameManager;
+    private String emailManager;
+    private String passwordManager;
+    private int statusManager;
+    private Project project;
+    private Project project2;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        servlet = new ShowCalendarHistoryPageServlet();
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        employee = new Employee();
+        manager = new Employee();
+        project = new Project();
+        project2 = new Project();
+
+        name = "Marco";
+        surname = "Rossi";
+        email = "m.rossi1@wlb.it";
+        password = "Ciao1234.";
+        status = 0;
+
+        nameManager = "Vincenzo";
+        surnameManager = "Bianchi";
+        emailManager = "v.bianchi@wlb.it";
+        passwordManager = "Ciao1234.";
+        statusManager = 1;
+
+    }
+
+    @Test
+    void testFlag1() throws ServletException, IOException {
+
+        employee.setEmail(email);
+        employee.setName(name);
+        employee.setSurname(surname);
+        employee.setPassword(password);
+        employee.setStatus(status);
+
+        manager.setEmail(emailManager);
+        manager.setName(nameManager);
+        manager.setSurname(surnameManager);
+        manager.setPassword(passwordManager);
+        manager.setStatus(statusManager);
+
+        ArrayList<Employee> projectEmployee = new ArrayList<>();
+        projectEmployee.add(employee);
+        project.setName("WLB13");
+        project.setEmployee(manager);
+        project.setEmployees(projectEmployee);
+
+        ArrayList<Project> projectList = new ArrayList<>();
+        projectList.add(project);
+        manager.setProjects1(projectList);
+        employee.setProjects2(projectList);
+
+        request.getSession().setAttribute("user", manager);
+        request.setParameter("employeeEmail", email);
+        when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+        // servlet.setEmployeeDAO(employeeDAO);
+
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "success");
+
+    }
+
+    @Test
+    void testFlag0() throws ServletException, IOException {
+        employee.setEmail(email);
+        employee.setName(name);
+        employee.setSurname(surname);
+        employee.setPassword(password);
+        employee.setStatus(status);
+
+        manager.setEmail(emailManager);
+        manager.setName(nameManager);
+        manager.setSurname(surnameManager);
+        manager.setPassword(passwordManager);
+        manager.setStatus(statusManager);
+
+        ArrayList<Employee> projectEmployee = new ArrayList<>();
+        projectEmployee.add(employee);
+        project.setName("WLB13");
+        project.setEmployee(manager);
+
+        project2.setName("WLB13");
+        project2.setEmployees(projectEmployee);
+
+        ArrayList<Project> projectList = new ArrayList<>();
+        projectList.add(project);
+        ArrayList<Project> projectList2 = new ArrayList<>();
+        projectList.add(project2);
+        manager.setProjects1(projectList);
+        employee.setProjects2(projectList2);
+
+        request.getSession().setAttribute("user", manager);
+        request.setParameter("employeeEmail", email);
+        when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "error");
+    }
+
+    @Test
+    void getProjectManagerFail() throws ServletException, IOException {
+
+        employee.setEmail(email);
+        employee.setName(name);
+        employee.setSurname(surname);
+        employee.setPassword(password);
+        employee.setStatus(status);
+
+        manager.setEmail(emailManager);
+        manager.setName(nameManager);
+        manager.setSurname(surnameManager);
+        manager.setPassword(passwordManager);
+        manager.setStatus(statusManager);
+
+        ArrayList<Employee> projectEmployee = new ArrayList<>();
+        projectEmployee.add(employee);
+        project.setName("WLB13");
+        project.setEmployee(manager);
+
+        projectEmployee.add(employee);
+        project2.setName("WLB13");
+        project2.setEmployees(projectEmployee);
+
+        ArrayList<Project> projectList = new ArrayList<>();
+        projectList.add(project);
+        ArrayList<Project> projectList2 = new ArrayList<>();
+        projectList.add(project2);
+        // manager.setProjects1(projectList);
+        employee.setProjects2(projectList2);
+
+        request.getSession().setAttribute("user", manager);
+        request.setParameter("employeeEmail", email);
+        when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "error");
+
+    }
+
+    @Test
+    void sessionEmployeeNull() throws ServletException, IOException {
+        request.getSession().setAttribute("user", manager);
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        when(employeeDAO.retrieveByEmail(email)).thenReturn(null);
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "success");
+    }
+
+    @Test
+    void emailEmployeeNull() throws ServletException, IOException {
+        request.getSession().setAttribute("user", null);
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "error");
+
+    }
+
+    @Test
+    void managerStatus0() throws ServletException, IOException {
+
+        employee.setEmail(email);
+        employee.setName(name);
+        employee.setSurname(surname);
+        employee.setPassword(password);
+        employee.setStatus(status);
+
+        manager.setEmail(emailManager);
+        manager.setName(nameManager);
+        manager.setSurname(surnameManager);
+        manager.setPassword(passwordManager);
+        manager.setStatus(0);
+
+        ArrayList<Employee> projectEmployee = new ArrayList<>();
+        projectEmployee.add(employee);
+        project.setName("WLB13");
+        project.setEmployee(manager);
+        project.setEmployees(projectEmployee);
+
+        ArrayList<Project> projectList = new ArrayList<>();
+        projectList.add(project);
+        manager.setProjects1(projectList);
+        employee.setProjects2(projectList);
+
+        request.getSession().setAttribute("user", manager);
+        request.setParameter("employeeEmail", email);
+        when(employeeDAO.retrieveByEmail(email)).thenReturn(employee);
+
+        servlet.setEmployeeDao(employeeDAO);
+        ;
+        servlet.doPost(request, response);
+        String attribute = (String) request.getAttribute("result");
+        assertEquals(attribute, "error");
+
+    }
+
 }

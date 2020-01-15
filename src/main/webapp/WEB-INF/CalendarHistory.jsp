@@ -88,7 +88,7 @@
 						<!-- CARD -->
 						<div class="card">
 							<div class="card-header">
-								<h3 class="my-auto">Storico prenotazioni</h3>
+								<h3 class="my-auto" id="title">Storico prenotazioni</h3>
 
 								<div class="row container mt-2">
 									<div class="col-sm-4 mx-auto">
@@ -167,6 +167,7 @@ $(document).ready(function () {
     var monthSelect = $("#monthSelect");
     var yearSelect = $("#yearSelect");
     var emailEmployee = '${employeeSupervised}';
+    var employeeJson = '${employeeJson}';
     loadYears();
 
     function loadYears()
@@ -202,16 +203,46 @@ $(document).ready(function () {
 	                    var lista = JSON.parse(this.responseText);
 	                    
 	                    if(lista==null || lista.length==0){
+	                    	if(emailEmployee==null || emailEmployee==""){
+	                    		$("#title").html("");
+	                    		$("#title").append("Storico prenotazioni");
 	                    		$("#calendarHistoryTable").remove();
 	                    		$("#myCard").html("");
 	                    		$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>Non hai effettuato nessuna prenotazione per questo mese.</h2></div>");
-		                    } else {
+	                    	} else {
+	                    		var jsonObj = "";
+	                    		if(employeeJson!=null){
+	                    			jsonObj = JSON.parse(employeeJson);
+	                    		}
+	                    		if(jsonObj!=""){
+	                    			$("#title").html("");
+		                    		$("#title").append("Storico prenotazioni di " + jsonObj.name + " " + jsonObj.surname);
+	                    			$("#calendarHistoryTable").remove();
+	                    			$("#myCard").html("");
+	                    			$("#myCard").append("<div class='card-body my-auto mx-auto'><h2>" + jsonObj.name + " non ha effettuato nessuna prenotazione per questo mese.</h2></div>");
+	                    		}
+	                    	}
+	                    } else {
 		                    	lista.sort(function(a,b){
 		                            return a.date.localeCompare(b.date);
 		                        });
 		                    	
+		                    	if(emailEmployee==null || emailEmployee==""){
+		                    		$("#title").html("");
+		                    		$("#title").append("Storico prenotazioni");
+		                    	} else {
+		                    		var jsonObj = "";
+		                    		if(employeeJson!=null){
+		                    			jsonObj = JSON.parse(employeeJson);
+		                    		}
+		                    		if(jsonObj!=""){
+		                    		$("#title").html("");
+		                    		$("#title").append("Storico prenotazioni di " + jsonObj.name + " " + jsonObj.surname);
+		                    		}
+		                    	}
+		                    	
 		                    	$("#myCard").html("");
-		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>POSTO</th><th scope='col'>STANZA</th><th scope='col'>PIANO</th></tr></thead><tbody id='myTbody'>");
+		                    	$("#myCard").append("<div style='overflow-y: scroll; height: 300px;' id='calendarHistoryTable'><table class='table table-bordered table-striped'><thead><tr><th scope='col'>DATA</th><th scope='col'>MODALITA' DI LAVORO</th><th scope='col'>PIANO</th><th scope='col'>STANZA</th><th scope='col'>POSTAZIONE</th></tr></thead><tbody id='myTbody'>");
 		                    	
 		                    	for (var i = 0; i < lista.length; i++) {
 		                    		if(lista[i].type=="Smartworking"){

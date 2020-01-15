@@ -123,13 +123,13 @@ $(document).ready(function () {
             //SWEETALERT
             Swal.fire({
                 title: 'Sei sicuro?',
-                text: "Stai prenotando un giorno di SW per questa data: " + clicked.html() + "/" + (passed_month + 1) + "/" + passed_year,
+                text: "Stai selezionando questa data: " + clicked.html() + "/" + (passed_month + 1) + "/" + passed_year,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Cancella',
-                confirmButtonText: 'Si, voglio prenotare'
+                confirmButtonText: 'Si, seleziona'
             }).then((result) => {
                 //SE PREMO "PRENOTA"
                 if (result.value) {

@@ -28,32 +28,32 @@ import it.unisa.wlb.controller.ProjectInsertPageServlet;
  */
 class ProjectInsertPageServletTest {
 
-	private ProjectInsertPageServlet servlet;
-	
-	@Mock
-	private HttpServletRequest request;
-	@Mock
-	private HttpServletResponse response;
-	@Mock
-	private HttpSession session;	
-	@Mock
-	private RequestDispatcher dispatcher;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		servlet = new ProjectInsertPageServlet();
-	}
+    private ProjectInsertPageServlet servlet;
 
-	@Test
-	void dispatchOk() throws ServletException, IOException {
-		String path = "WEB-INF/ProjectInsertion.jsp";
-		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-		when(request.getSession()).thenReturn(session);
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		servlet.doPost(request, response);
-		verify(request).getRequestDispatcher(captor.capture());
-		assertEquals(path, captor.getValue());
-	}
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private HttpServletResponse response;
+    @Mock
+    private HttpSession session;
+    @Mock
+    private RequestDispatcher dispatcher;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        servlet = new ProjectInsertPageServlet();
+    }
+
+    @Test
+    void dispatchOk() throws ServletException, IOException {
+        String path = "WEB-INF/ProjectInsertion.jsp";
+        when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+        when(request.getSession()).thenReturn(session);
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        servlet.doPost(request, response);
+        verify(request).getRequestDispatcher(captor.capture());
+        assertEquals(path, captor.getValue());
+    }
 
 }
