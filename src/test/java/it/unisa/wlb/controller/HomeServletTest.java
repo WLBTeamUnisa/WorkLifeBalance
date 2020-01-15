@@ -44,10 +44,9 @@ import it.unisa.wlb.model.dao.IWorkstationPrenotationDao;
 import it.unisa.wlb.utils.Utils;
 
 /**
- * 
  * This class tests HomeServlet.java
  * 
- * @author Vincenzo Fabiano
+ * @author Vincenzo Fabiano, Sabato Nocera
  *
  */
 class HomeServletTest {
@@ -216,6 +215,88 @@ class HomeServletTest {
 		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
 		when(workstationPrenotationDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(workstationPrenotationList);
 		
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		
+		
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
+	}
+	
+	@Test
+	void notNullUserRole() throws ServletException, IOException {
+		String path = "WEB-INF/Homepage.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(session.getAttribute("userRole")).thenReturn("Manager");
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(workstationPrenotationList);
+		
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		
+		
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
+	}
+	
+	@Test
+	void nullPrenotationDates() throws ServletException, IOException {
+		smartWorkingPrenotation.setPrenotationDates(null);
+		String path = "WEB-INF/Homepage.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(session.getAttribute("userRole")).thenReturn(null);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(workstationPrenotationList);
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		
+		
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
+	}
+	
+	@Test
+	void notNullPrenotationDates() throws ServletException, IOException {
+		String path = "WEB-INF/Homepage.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(session.getAttribute("userRole")).thenReturn(null);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(workstationPrenotationList);
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		
+		servlet.setSmartWorkingDao(smartWorkingDao);
+		servlet.setWorkstationPrenotationDao(workstationPrenotationDao);
+		
+		
+		servlet.doPost(request, response);
+		verify(request).getRequestDispatcher(captor.capture());
+		assertEquals(path, captor.getValue());
+	}
+	
+	@Test
+	void nullWorkstationPrenotations() throws ServletException, IOException {
+		String path = "WEB-INF/Homepage.jsp";
+		when(request.getSession()).thenReturn(session);
+		when(session.getAttribute("user")).thenReturn(employee);
+		when(session.getAttribute("userRole")).thenReturn(null);
+		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+		when(smartWorkingDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(smartWorkingPrenotation);
+		when(workstationPrenotationDao.retrieveByWeeklyPlanning(calendarWeek, year, email)).thenReturn(null);
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 		
 		servlet.setSmartWorkingDao(smartWorkingDao);

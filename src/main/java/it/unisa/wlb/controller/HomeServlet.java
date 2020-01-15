@@ -114,7 +114,6 @@ public class HomeServlet extends HttpServlet {
 				try {
 					smartWorkingPrenotationDateList = smartWorkingPrenotation.getPrenotationDates();
 				} catch(Exception exception) {}			 
-				
 				if(smartWorkingPrenotationDateList!=null) {
 					for(int i=0; i<smartWorkingPrenotationDateList.size(); i++) {
 						Date tempDate = smartWorkingPrenotationDateList.get(i).getId().getDate();

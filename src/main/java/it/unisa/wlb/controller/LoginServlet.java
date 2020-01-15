@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) {
 			request.getRequestDispatcher(".").forward(request, response);
+			throw new IllegalArgumentException();
 		}
 
 		else {
@@ -95,7 +96,7 @@ public class LoginServlet extends HttpServlet {
 					/**
 					 * Checking if email respects admin email format
 					 */
-					} else if (email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
+					} else if (!email.equals("") && email.endsWith("@wlbadmin.it") && checkEmailAdmin(email)) {
 						Admin admin = adminDao.retrieveByEmailPassword(email, generatedPassword);
 						if (admin != null) {
 							session.setAttribute("userRole", "Admin");
@@ -137,8 +138,7 @@ public class LoginServlet extends HttpServlet {
 	 * @return a boolean, true if password is ok and false if it is not ok
 	 */
 	public static boolean checkPasswordLogin(String password) {
-		if (password.length() >= 8 && password.length() <= 20
-				&& password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
+		if (password.length() >= 8 && password.length() <= 20 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$")) {
 			return true;
 		}
 		return false;
@@ -151,8 +151,7 @@ public class LoginServlet extends HttpServlet {
 	 * @return a boolean value, true if employee's email is ok and false if it is not ok
 	 */
 	public static boolean checkEmailEmployee(String email) {
-		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("")
-				|| (email.length() - 7) < 5 || (email.length() - 7) > 30) {
+		if ((email.length() - 7) < 5 || (email.length() - 7) > 30 || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") ) {
 			return false;
 		} else
 			return true;
@@ -165,8 +164,7 @@ public class LoginServlet extends HttpServlet {
 	 * @return a boolean value, true if admin's email is ok and false if it is not ok
 	 */
 	public static boolean checkEmailAdmin(String email) {
-		if (email == null || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlbadmin.it$") || email.equals("")
-				|| (email.length() - 12) < 5 || (email.length() - 12) > 30) {
+		if ((email.length() - 12) < 5 || (email.length() - 12) > 30 || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlbadmin.it$") ) {
 			return false;
 		} else
 			return true;

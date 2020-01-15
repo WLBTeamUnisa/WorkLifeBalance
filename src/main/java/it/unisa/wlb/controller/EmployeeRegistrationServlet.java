@@ -82,17 +82,17 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 		/**
 		 * Employee Registration parameters check
 		 */
-		if(name==null || !name.matches("^[A-Za-z]+$") || name.equals("") || name.length()<2 || name.length()>20)
+		if(name==null || name.equals("") || name.length()<2 || name.length()>20 || !name.matches("^[A-Za-z]+$"))
 			nameOk=false;
 		else
 			nameOk=true;
 
-		if(surname==null || !surname.matches("^[A-Za-z\\s]+$") || surname.equals("") || surname.length()<2 || surname.length()>20)
+		if(surname==null || surname.equals("") || surname.length()<2 || surname.length()>20 || !surname.matches("^[A-Za-z\\s]+$") )
 			surnameOk=false;
 		else
 			surnameOk=true;
 
-		if(email==null ||  !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 )
+		if(email==null || email.equals("") || (email.length()-7)<5 || (email.length()-7)>30 || !email.matches("^[a-z]{1}\\.[a-z]+[0-9]+\\@wlb.it$") )
 			emailOk=false;
 		else {
 			Employee employee = null;
@@ -107,12 +107,12 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 				emailOk=false;						
 		}
 
-		if(password== null || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") || password.length()<8 || password.length()>20)
+		if(password== null || password.length()<8 || password.length()>20 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") )
 			passwordOk=false;
 		else
 			passwordOk=true;
 
-		if(verifyPassword== null || !verifyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") || verifyPassword.length()<8 || verifyPassword.length()>20 || !verifyPassword.equals(password))
+		if(verifyPassword== null || verifyPassword.length()<8 || verifyPassword.length()>20 || !verifyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\.!@#\\$%\\^&\\*]).{8,20}$") ||  !verifyPassword.equals(password))
 			verifyPasswordOk=false;
 		else
 			verifyPasswordOk=true;
@@ -168,7 +168,7 @@ public class EmployeeRegistrationServlet extends HttpServlet {
 	* @throws ServletException
 	* @throws IOException
 	*/
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

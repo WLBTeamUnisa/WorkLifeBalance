@@ -83,6 +83,7 @@ public class AddEmployeeToListServlet extends HttpServlet {
 	    		Employee employee = employeeDao.retrieveByEmail(emailEmployee);
 	    		if(employee==null) {
 	    			response.getWriter().append("The employee is not valid");
+	    			return ;
 	    		}
 	    
 	    		else {
