@@ -1,0 +1,7 @@
+it.unisa.wlb.bean
+it.unisa.wlb.controller
+it.unisa.wlb.jpa
+it.unisa.wlb.model.bean
+it.unisa.wlb.model.dao
+it.unisa.wlb.model.jpa
+it.unisa.wlb.utils

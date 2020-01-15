@@ -16,7 +16,7 @@ public class LoggerSingleton {
 	/**
 	 * Method for logging
 	 * 
-	 * @param ic
+	 * @param invocationContext
 	 * @return Object
 	 * @throws Exception
 	 */

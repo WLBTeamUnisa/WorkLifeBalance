@@ -42,8 +42,8 @@ public class LoginServletTest {
 	}
 
 	/**
-	 * TC_4.1_1: email.length() < 5. 
-	 * It should be email.length >= 5 and email.length <=30 - FAIL
+	 * TC_4.1_1: email.length() &lt; 5. 
+	 * It should be email.length &gt;= 5 and email.length &lt;=30 - FAIL
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -59,8 +59,8 @@ public class LoginServletTest {
 	}
 
 	/**
-	 * TC_4.1_2: email.length() > 30. 
-	 * It should be email.length >= 5 and email.length <=30 - FAIL
+	 * TC_4.1_2: email.length() &gt; 30. 
+	 * It should be email.length &gt;= 5 and email.length &lt;=30 - FAIL
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -117,8 +117,7 @@ public class LoginServletTest {
 
 	/**
 	 * TC_4.1_5: password doesn't respect the format. 
-	 * The format that should be respected is:
-	 * (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\.!@#\$%\^&\*])(?=.{8,20}) - FAIL
+	 * The format is not respected - FAIL
 	 * 
 	 * @throws ServletException
 	 * @throws IOException

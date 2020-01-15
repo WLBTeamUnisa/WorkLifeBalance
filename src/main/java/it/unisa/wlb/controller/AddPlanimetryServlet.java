@@ -67,9 +67,9 @@ public class AddPlanimetryServlet extends HttpServlet {
 	 * @pre response != null
 	 * @pre request.getSession().getAttribute("user") != null
 	 * @pre request.getParameter("jsonObject") != null
-	 * @post floor.countMax() > 0
-	 * @post room.countMaxByFloor(floor) > 0
-	 * @post workstation.countMaxByFloorAndRoom(floor, room) > 0
+	 * @post floor.countMax() &gt; 0
+	 * @post room.countMaxByFloor(floor) &gt; 0
+	 * @post workstation.countMaxByFloorAndRoom(floor, room) &gt; 0
 	 * @throws ServletException
 	 * @throws IOException
 	 */

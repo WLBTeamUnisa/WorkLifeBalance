@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.unisa.wlb.bean"},{"l":"it.unisa.wlb.controller"},{"l":"it.unisa.wlb.jpa"},{"l":"it.unisa.wlb.model.bean"},{"l":"it.unisa.wlb.model.dao"},{"l":"it.unisa.wlb.model.jpa"},{"l":"it.unisa.wlb.utils"}]

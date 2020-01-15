@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,9 +105,9 @@ class ShowPlanimetryPageServletTest {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void roomNull() throws ServletException, IOException  {
-		String errorMessage = "Planimetria assente nel database";
 		employee = new Employee();
 		request.getSession().setAttribute("user", employee);
 		when(roomDao.retrieveAll()).thenReturn(null);
