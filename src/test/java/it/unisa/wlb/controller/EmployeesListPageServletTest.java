@@ -33,75 +33,74 @@ import it.unisa.wlb.utils.Utils;
  */
 class EmployeesListPageServletTest {
 
-	@Mock
-	private IEmployeeDao employeeDao;
-	@Mock
-	private HttpServletRequest request;
-	@Mock
-	private HttpServletResponse response;
-	@Mock
-	private HttpSession session;
-	@Mock
-	private RequestDispatcher dispatcher;
-	
-	private EmployeesListPageServlet servlet;
-	private Employee employee1;
-	private Employee employee2;
-	private List<Employee> employeeList;
-	
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		employee1 = new Employee();
-		employee1.setName("Marco");
-		employee1.setSurname("Rossi");
-		employee1.setEmail("m.rossi1@wlb.it");
-		employee1.setPassword(Utils.generatePwd("Ciao1234."));
-		employee1.setStatus(1);
-		
-		employee2 = new Employee();
-		employee2.setName("Vincenzo");
-		employee2.setSurname("Verdi");
-		employee2.setEmail("v.verdi1@wlb.it");
-		employee2.setPassword(Utils.generatePwd("Ciao123."));
-		employee2.setStatus(0);
-		
-		employeeList = new ArrayList<>();
-		employeeList.add(employee1);
-		employeeList.add(employee2);
-		servlet = new EmployeesListPageServlet();
-		
-	}
+    @Mock
+    private IEmployeeDao employeeDao;
+    @Mock
+    private HttpServletRequest request;
+    @Mock
+    private HttpServletResponse response;
+    @Mock
+    private HttpSession session;
+    @Mock
+    private RequestDispatcher dispatcher;
 
-	@Test
-	void retrieveListEmployeesTest() throws ServletException, IOException {
-		String path = "WEB-INF/EmployeesList.jsp";
-		when(request.getSession()).thenReturn(session);
-		when(session.getAttribute("userRole")).thenReturn("Admin");
-		when(session.getAttribute("user")).thenReturn(null);
-		when(employeeDao.retrieveAll()).thenReturn(employeeList);
-		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		servlet.setEmployeeDao(employeeDao);
-		servlet.doPost(request, response);
-		verify(request).getRequestDispatcher(captor.capture());
-		assertEquals(path, captor.getValue());
-	}
+    private EmployeesListPageServlet servlet;
+    private Employee employee1;
+    private Employee employee2;
+    private List<Employee> employeeList;
 
-	@SuppressWarnings("unchecked")
-	@Test
-	void retrieveListEmployeesFailTest() throws ServletException, IOException {
-		String path = ".";
-		when(request.getSession()).thenReturn(session);
-		when(session.getAttribute("userRole")).thenReturn("Admin");
-		when(session.getAttribute("user")).thenReturn(null);
-		when(employeeDao.retrieveAll()).thenThrow(Exception.class);
-		when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		servlet.setEmployeeDao(employeeDao);
-		servlet.doPost(request, response);
-		verify(request).getRequestDispatcher(captor.capture());
-		assertEquals(path, captor.getValue());
-	}
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        employee1 = new Employee();
+        employee1.setName("Marco");
+        employee1.setSurname("Rossi");
+        employee1.setEmail("m.rossi1@wlb.it");
+        employee1.setPassword(Utils.generatePwd("Ciao1234."));
+        employee1.setStatus(1);
+
+        employee2 = new Employee();
+        employee2.setName("Vincenzo");
+        employee2.setSurname("Verdi");
+        employee2.setEmail("v.verdi1@wlb.it");
+        employee2.setPassword(Utils.generatePwd("Ciao123."));
+        employee2.setStatus(0);
+
+        employeeList = new ArrayList<>();
+        employeeList.add(employee1);
+        employeeList.add(employee2);
+        servlet = new EmployeesListPageServlet();
+
+    }
+
+    @Test
+    void retrieveListEmployeesTest() throws ServletException, IOException {
+        String path = "WEB-INF/EmployeesList.jsp";
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("userRole")).thenReturn("Admin");
+        when(session.getAttribute("user")).thenReturn(null);
+        when(employeeDao.retrieveAll()).thenReturn(employeeList);
+        when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        servlet.setEmployeeDao(employeeDao);
+        servlet.doPost(request, response);
+        verify(request).getRequestDispatcher(captor.capture());
+        assertEquals(path, captor.getValue());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    void retrieveListEmployeesFailTest() throws ServletException, IOException {
+        String path = ".";
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("userRole")).thenReturn("Admin");
+        when(session.getAttribute("user")).thenReturn(null);
+        when(employeeDao.retrieveAll()).thenThrow(Exception.class);
+        when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        servlet.setEmployeeDao(employeeDao);
+        servlet.doPost(request, response);
+        verify(request).getRequestDispatcher(captor.capture());
+        assertEquals(path, captor.getValue());
+    }
 }

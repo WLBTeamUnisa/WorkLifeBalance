@@ -16,34 +16,39 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  * @author Vincenzo Fabiano
  */
-@WebServlet(name="LogoutServlet", urlPatterns="/LogoutServlet")
-@Interceptors({LoggerSingleton.class})
+@WebServlet(name = "LogoutServlet", urlPatterns = "/LogoutServlet")
+@Interceptors({ LoggerSingleton.class })
 public class LogoutServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @param request Object that identifies an HTTP request
-	 * @param response Object that identifies an HTTP response
-     * @pre request != null
-     * @pre response != null
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().invalidate();
-		response.sendRedirect(".");
-	}
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @param request Object that identifies an HTTP request
-	 * @param response Object that identifies an HTTP response
+    /**
+     * @param request
+     *            Object that identifies an HTTP request
+     * @param response
+     *            Object that identifies an HTTP response
      * @pre request != null
      * @pre response != null
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getSession().invalidate();
+        response.sendRedirect(".");
+    }
+
+    /**
+     * @param request
+     *            Object that identifies an HTTP request
+     * @param response
+     *            Object that identifies an HTTP response
+     * @pre request != null
+     * @pre response != null
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
 }

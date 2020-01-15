@@ -25,35 +25,34 @@ import it.unisa.wlb.controller.LogoutServlet;
  *
  */
 class LogoutServletTest extends Mockito {
-	@Mock
-	HttpServletRequest request;
-	@Mock
-	HttpServletResponse response;
-	
-	LogoutServlet servlet;
-	MockHttpSession session;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		servlet = new LogoutServlet();
-		session = new MockHttpSession();
-	}
+    @Mock
+    HttpServletRequest request;
+    @Mock
+    HttpServletResponse response;
 
-	/**
-	 * This method tests a success logout
-	 * 
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	@Test
-	void logoutTest() throws IOException, ServletException {
-		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-		when(request.getSession()).thenReturn(session);
-		servlet.doPost(request, response);
-		verify(response).sendRedirect(captor.capture());
-		assertEquals(".", captor.getValue());
-	}
+    LogoutServlet servlet;
+    MockHttpSession session;
 
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        servlet = new LogoutServlet();
+        session = new MockHttpSession();
+    }
+
+    /**
+     * This method tests a success logout
+     * 
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Test
+    void logoutTest() throws IOException, ServletException {
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        when(request.getSession()).thenReturn(session);
+        servlet.doPost(request, response);
+        verify(response).sendRedirect(captor.capture());
+        assertEquals(".", captor.getValue());
+    }
 
 }

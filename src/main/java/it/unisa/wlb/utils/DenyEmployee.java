@@ -19,28 +19,29 @@ import it.unisa.wlb.model.bean.Employee;
 public class DenyEmployee implements Filter {
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public DenyEmployee() {
-    	
+
     }
 
-	public void destroy() {
-		
-	}
+    public void destroy() {
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-		      throws IOException, ServletException {
-		    Object user=((HttpServletRequest) request).getSession().getAttribute("user");
-		    if(user.getClass().getSimpleName().equals("Employee") && ((Employee) user).getStatus()==0) {
-		    	((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
-		        return;
-		      }
-		    chain.doFilter(request, response);
-	}
-	
-	public void init(FilterConfig fConfig) throws ServletException {
-		
-	}
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        Object user = ((HttpServletRequest) request).getSession().getAttribute("user");
+        if (user.getClass().getSimpleName().equals("Employee") && ((Employee) user).getStatus() == 0) {
+            ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);
+            ;
+            return;
+        }
+        chain.doFilter(request, response);
+    }
+
+    public void init(FilterConfig fConfig) throws ServletException {
+
+    }
 
 }

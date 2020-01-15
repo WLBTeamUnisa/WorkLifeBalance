@@ -19,28 +19,28 @@ import javax.servlet.http.HttpServletRequest;
 public class DenyAdmin implements Filter {
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public DenyAdmin() {
-    	
+
     }
 
-	public void destroy() {
-		
-	}
+    public void destroy() {
 
+    }
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		Object user=((HttpServletRequest) request).getSession().getAttribute("user");
-	    if(user.getClass().getSimpleName().equals("Admin")) {
-	    	((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
-	      }
-	    	chain.doFilter(request, response);
-	    }
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        Object user = ((HttpServletRequest) request).getSession().getAttribute("user");
+        if (user.getClass().getSimpleName().equals("Admin")) {
+            ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);
+            ;
+        }
+        chain.doFilter(request, response);
+    }
 
-	
-	public void init(FilterConfig fConfig) throws ServletException {
-		
-	}
+    public void init(FilterConfig fConfig) throws ServletException {
+
+    }
 
 }

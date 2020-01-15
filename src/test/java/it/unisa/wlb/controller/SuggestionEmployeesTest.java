@@ -28,76 +28,76 @@ import it.unisa.wlb.model.dao.IEmployeeDao;
  */
 class SuggestionEmployeesTest {
 
-	@Mock 
-	private IEmployeeDao employeeDao;
-	
-	private SuggestionEmployeesServlet servlet;
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
-	private String email;
-	private Employee employee;
-	private List<Employee> employeeList;
-	private String json;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		servlet = new SuggestionEmployeesServlet();
-		email = "m.rossi1@wlb.it";
-		employee = new Employee();
-		employee.setEmail(email);
-		employeeList = new ArrayList<>();
-		json = "[{\"email\":\"m.rossi1@wlb.it\"}]";
-	}
+    @Mock
+    private IEmployeeDao employeeDao;
 
-	@Test
-	void employeeSuggestionsSuccess() throws ServletException, IOException {
-		request.setParameter("email", email);
-		request.setParameter("flag", "0");
-		employee.setStatus(0);
-		employeeList.add(employee);
-		when(employeeDao.suggestByEmail(email)).thenReturn(employeeList);
-		servlet.setEmployeeDao(employeeDao);
-		servlet.doPost(request, response);
-		assertEquals(json, response.getContentAsString());
-	}
+    private SuggestionEmployeesServlet servlet;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
+    private String email;
+    private Employee employee;
+    private List<Employee> employeeList;
+    private String json;
 
-	@Test
-	void emanagerSuggestionsSuccess() throws ServletException, IOException {
-		request.setParameter("email", email);
-		request.setParameter("flag", "1");
-		employee.setStatus(1);
-		employeeList.add(employee);
-		when(employeeDao.retrieveSuggestsManagerByEmail(email)).thenReturn(employeeList);
-		servlet.setEmployeeDao(employeeDao);
-		servlet.doPost(request, response);
-		assertEquals(json, response.getContentAsString());
-	}
-	
-	@Test
-	void emanagerSuggestionsFlagTwo() throws ServletException, IOException {
-		request.setParameter("email", email);
-		request.setParameter("flag", "2");
-		try {
-			servlet.doPost(request, response);
-		} catch (Exception e) {
-			;
-		} finally {
-			assertEquals("", response.getContentAsString());
-		}
-	}
-	
-	@Test
-	void emailNull() throws ServletException, IOException {
-		request.setParameter("email", "");
-		try {
-			servlet.doPost(request, response);
-		} catch (Exception e) {
-			;
-		} finally {
-			assertEquals("", response.getContentAsString());
-		}
-	}
+    @BeforeEach
+    void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        servlet = new SuggestionEmployeesServlet();
+        email = "m.rossi1@wlb.it";
+        employee = new Employee();
+        employee.setEmail(email);
+        employeeList = new ArrayList<>();
+        json = "[{\"email\":\"m.rossi1@wlb.it\"}]";
+    }
+
+    @Test
+    void employeeSuggestionsSuccess() throws ServletException, IOException {
+        request.setParameter("email", email);
+        request.setParameter("flag", "0");
+        employee.setStatus(0);
+        employeeList.add(employee);
+        when(employeeDao.suggestByEmail(email)).thenReturn(employeeList);
+        servlet.setEmployeeDao(employeeDao);
+        servlet.doPost(request, response);
+        assertEquals(json, response.getContentAsString());
+    }
+
+    @Test
+    void emanagerSuggestionsSuccess() throws ServletException, IOException {
+        request.setParameter("email", email);
+        request.setParameter("flag", "1");
+        employee.setStatus(1);
+        employeeList.add(employee);
+        when(employeeDao.retrieveSuggestsManagerByEmail(email)).thenReturn(employeeList);
+        servlet.setEmployeeDao(employeeDao);
+        servlet.doPost(request, response);
+        assertEquals(json, response.getContentAsString());
+    }
+
+    @Test
+    void emanagerSuggestionsFlagTwo() throws ServletException, IOException {
+        request.setParameter("email", email);
+        request.setParameter("flag", "2");
+        try {
+            servlet.doPost(request, response);
+        } catch (Exception e) {
+            ;
+        } finally {
+            assertEquals("", response.getContentAsString());
+        }
+    }
+
+    @Test
+    void emailNull() throws ServletException, IOException {
+        request.setParameter("email", "");
+        try {
+            servlet.doPost(request, response);
+        } catch (Exception e) {
+            ;
+        } finally {
+            assertEquals("", response.getContentAsString());
+        }
+    }
 }

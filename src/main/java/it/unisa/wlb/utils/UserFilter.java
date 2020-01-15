@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * This filter ensures that only logged user can access to a resource
  * 
@@ -15,31 +16,36 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserFilter implements Filter {
 
-  /** Default constructor. */
-  public UserFilter() {}
-
-  public void destroy() {}
-
-
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
-	  
-    if (((HttpServletRequest) request).getSession().getAttribute("user")!=null) {
-    	/**
-    	 * User logged
-    	 */
-      chain.doFilter(request, response);
-    } else {
-      String path = ((HttpServletRequest) request).getRequestURI();
-      if (path.endsWith("/WorkLifeBalance/") || path.endsWith("/LoginServlet") || path.endsWith("/LogoutServlet")) {
-        chain.doFilter(request, response);
-      } else {
-        ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request, response);;
-        return;
-      }
+    /** Default constructor. */
+    public UserFilter() {
     }
-  }
 
-  public void init(FilterConfig fConfig) throws ServletException {}
-  
+    public void destroy() {
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        if (((HttpServletRequest) request).getSession().getAttribute("user") != null) {
+            /**
+             * User logged
+             */
+            chain.doFilter(request, response);
+        } else {
+            String path = ((HttpServletRequest) request).getRequestURI();
+            if (path.endsWith("/WorkLifeBalance/") || path.endsWith("/LoginServlet")
+                    || path.endsWith("/LogoutServlet")) {
+                chain.doFilter(request, response);
+            } else {
+                ((HttpServletRequest) request).getRequestDispatcher("WEB-INF/DenyAccess.jsp").forward(request,
+                        response);
+                ;
+                return;
+            }
+        }
+    }
+
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
+
 }

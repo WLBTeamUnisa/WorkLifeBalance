@@ -12,57 +12,56 @@ import it.unisa.wlb.utils.LoggerSingleton;
  * 
  */
 @Embeddable
-@Interceptors({LoggerSingleton.class})
+@Interceptors({ LoggerSingleton.class })
 public class SmartWorkingPrenotationPK implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", columnDefinition = "int(20)", nullable = false)
-	private int id;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "EMPLOYEE_EMAIL", length = 37, nullable = false)
-	private String employee;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", columnDefinition = "int(20)", nullable = false)
+    private int id;
 
-	public SmartWorkingPrenotationPK() {
-	}
+    @Column(name = "EMPLOYEE_EMAIL", length = 37, nullable = false)
+    private String employee;
 
-	public int getId() {
-		return this.id;
-	}
+    public SmartWorkingPrenotationPK() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getEmployeeEmail() {
-		return this.employee;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setEmployeeEmail(String employeeEmail) {
-		this.employee = employeeEmail;
-	}
+    public String getEmployeeEmail() {
+        return this.employee;
+    }
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof SmartWorkingPrenotationPK)) {
-			return false;
-		}
-		SmartWorkingPrenotationPK castOther = (SmartWorkingPrenotationPK) other;
-		return (this.id == castOther.id) && this.employee.equals(castOther.employee);
-	}
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employee = employeeEmail;
+    }
 
-	@Override
-	public String toString() {
-		return "SmartWorkingPrenotationPK [id=" + id + ", employee=" + employee + "]";
-	}
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof SmartWorkingPrenotationPK)) {
+            return false;
+        }
+        SmartWorkingPrenotationPK castOther = (SmartWorkingPrenotationPK) other;
+        return (this.id == castOther.id) && this.employee.equals(castOther.employee);
+    }
 
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-	
+    @Override
+    public String toString() {
+        return "SmartWorkingPrenotationPK [id=" + id + ", employee=" + employee + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
 }

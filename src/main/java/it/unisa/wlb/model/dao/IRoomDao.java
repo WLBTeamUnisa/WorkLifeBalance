@@ -10,22 +10,22 @@ import it.unisa.wlb.model.bean.Room;
  * @author Sabato Nocera, Michele Montano
  *
  */
-public interface IRoomDao extends IGenericDao<Room>{
-	
-	/**
-	 * It is used to retrieve the list of rooms of a certain floor
-	 * 
-	 * @param idFloor
-	 * @return the list of rooms of a certain floor
-	 */
-	List<Room> retrieveByFloor(int idFloor);
-		
-	/**
-	 * It is used to count the total number of rooms of a certain floor
-	 * 
-	 * @param idFloor
-	 * @return the total number of rooms of a certain floor
-	 */
-	int countMaxByFloor(int idFloor);
+public interface IRoomDao extends IGenericDao<Room> {
+
+    /**
+     * It is used to retrieve the list of rooms of a certain floor
+     * 
+     * @param idFloor
+     * @return the list of rooms of a certain floor
+     */
+    List<Room> retrieveByFloor(int idFloor);
+
+    /**
+     * It is used to count the total number of rooms of a certain floor
+     * 
+     * @param idFloor
+     * @return the total number of rooms of a certain floor
+     */
+    int countMaxByFloor(int idFloor);
 
 }

@@ -26,62 +26,62 @@ import it.unisa.wlb.model.dao.IEmployeeDao;
  *
  */
 public class ChangeStatusEmployeeServletTestTwo extends Mockito {
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
-	private ChangeStatusEmployeeServlet servlet;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
+    private ChangeStatusEmployeeServlet servlet;
 
-	@BeforeEach
-	public void setUp() {
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
-		servlet = new ChangeStatusEmployeeServlet();
-	}
+    @BeforeEach
+    public void setUp() {
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        servlet = new ChangeStatusEmployeeServlet();
+    }
 
-	@Test
-	public void employeeChanging() throws ServletException, IOException {
-		Employee employee = new Employee();
-		employee.setName("Marco");
-		employee.setSurname("Rossi");
-		employee.setEmail("m.rossi1@wlb.it");
-		employee.setPassword("MarcoRossi1.");
-		employee.setStatus(0);
+    @Test
+    public void employeeChanging() throws ServletException, IOException {
+        Employee employee = new Employee();
+        employee.setName("Marco");
+        employee.setSurname("Rossi");
+        employee.setEmail("m.rossi1@wlb.it");
+        employee.setPassword("MarcoRossi1.");
+        employee.setStatus(0);
 
-		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
-		when(employeeDao.create(employee)).thenReturn(employee);
-		when(employeeDao.update(employee)).thenReturn(employee);
-		when(employeeDao.retrieveByEmail(employee.getEmail())).thenReturn(employee);
+        IEmployeeDao employeeDao = mock(IEmployeeDao.class);
+        when(employeeDao.create(employee)).thenReturn(employee);
+        when(employeeDao.update(employee)).thenReturn(employee);
+        when(employeeDao.retrieveByEmail(employee.getEmail())).thenReturn(employee);
 
-		servlet.setEmployeeDao(employeeDao);
+        servlet.setEmployeeDao(employeeDao);
 
-		request.addParameter("email", "m.rossi1@wlb.it");
-		request.addParameter("status", "Employee");
+        request.addParameter("email", "m.rossi1@wlb.it");
+        request.addParameter("status", "Employee");
 
-		servlet.doPost(request, response);
-		assertEquals("success", request.getAttribute("statusResult"));
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void exceptionThrown() throws ServletException, IOException {
-		Employee employee = new Employee();
-		employee.setName("Marco");
-		employee.setSurname("Rossi");
-		employee.setEmail("m.rossi1@wlb.it");
-		employee.setPassword("MarcoRossi1.");
-		employee.setStatus(0);
+        servlet.doPost(request, response);
+        assertEquals("success", request.getAttribute("statusResult"));
+    }
 
-		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
-		when(employeeDao.create(employee)).thenReturn(employee);
-		when(employeeDao.update(employee)).thenReturn(employee);
-		when(employeeDao.retrieveByEmail(employee.getEmail())).thenThrow(Exception.class);
+    @SuppressWarnings("unchecked")
+    @Test
+    public void exceptionThrown() throws ServletException, IOException {
+        Employee employee = new Employee();
+        employee.setName("Marco");
+        employee.setSurname("Rossi");
+        employee.setEmail("m.rossi1@wlb.it");
+        employee.setPassword("MarcoRossi1.");
+        employee.setStatus(0);
 
-		servlet.setEmployeeDao(employeeDao);
+        IEmployeeDao employeeDao = mock(IEmployeeDao.class);
+        when(employeeDao.create(employee)).thenReturn(employee);
+        when(employeeDao.update(employee)).thenReturn(employee);
+        when(employeeDao.retrieveByEmail(employee.getEmail())).thenThrow(Exception.class);
 
-		request.addParameter("email", "m.rossi1@wlb.it");
-		request.addParameter("status", "Manager");
-		
-		assertThrows(IllegalArgumentException.class, () -> {
-			servlet.doPost(request, response);
-		});
-	}
+        servlet.setEmployeeDao(employeeDao);
+
+        request.addParameter("email", "m.rossi1@wlb.it");
+        request.addParameter("status", "Manager");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            servlet.doPost(request, response);
+        });
+    }
 }
