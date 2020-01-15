@@ -33,9 +33,7 @@ public class ProjectJpa implements IProjectDao {
             entityManager.persist(entity);
             entityManager.getTransaction().commit();
             return entity;
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -47,9 +45,7 @@ public class ProjectJpa implements IProjectDao {
             entityManager.getTransaction().begin();
             entityManager.remove(entityManager.merge(entityClass));
             entityManager.getTransaction().commit();
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -62,9 +58,7 @@ public class ProjectJpa implements IProjectDao {
             entityManager.merge(entityClass);
             entityManager.getTransaction().commit();
             return entityClass;
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -89,9 +83,7 @@ public class ProjectJpa implements IProjectDao {
             TypedQuery<Project> query = entityManager.createNamedQuery("Project.findByManager", Project.class);
             query.setParameter("email", email);
             return (List<Project>) query.getResultList();
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -105,9 +97,7 @@ public class ProjectJpa implements IProjectDao {
             query.setParameter("name", name);
             entityManager.getTransaction().commit();
             return (List<Project>) query.getResultList();
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
@@ -121,9 +111,7 @@ public class ProjectJpa implements IProjectDao {
             query.setParameter(1, name);
             entityManager.getTransaction().commit();
             return (Project) query.getSingleResult();
-        }
-
-        finally {
+        } finally {
             entityManager.close();
         }
     }
