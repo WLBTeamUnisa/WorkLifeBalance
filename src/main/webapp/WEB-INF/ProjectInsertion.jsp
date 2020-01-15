@@ -173,7 +173,8 @@
 												name="managerEmail" id="managerEmail"
 												onchange="verificaManager()"
 												onkeypress="SuggestionsManager(this.value)"
-												placeholder="E-mail manager..." required list="suggestionsManager">
+												placeholder="E-mail manager..." required
+												list="suggestionsManager">
 											<datalist id="suggestionsManager"></datalist>
 										</div>
 										<span id="errorManager"> </span>
