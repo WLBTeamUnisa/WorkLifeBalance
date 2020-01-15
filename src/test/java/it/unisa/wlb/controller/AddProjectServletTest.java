@@ -32,7 +32,7 @@ public class AddProjectServletTest extends Mockito {
 	private MockHttpServletResponse response;
 	private AddProjectServlet servlet;
 
-@BeforeEach
+	@BeforeEach
 	public void setUp() {
 		servlet = new AddProjectServlet();
 		request = new MockHttpServletRequest();
@@ -43,7 +43,7 @@ public class AddProjectServletTest extends Mockito {
 
 
 	/**
-	 * TC_2.1_1: Name field not inserted 
+	 * TC_2.1_1: Name field inserted doesn't respect the minimum length 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -64,7 +64,7 @@ public class AddProjectServletTest extends Mockito {
 	}
 
 	/**
-	 * TC_2.2_2: Name field inserted doesn't respect the specified length 
+	 * TC_2.2_2: Name field inserted doesn't respect the maximum length 
 	 *  
 	 * @throws ServletException
 	 * @throws IOException
@@ -83,7 +83,7 @@ public class AddProjectServletTest extends Mockito {
 			servlet.doPost(request, response);
 		});
 	}
-	
+
 	/**
 	 * TC_2.2_3: Name field doesn't respect the specified format 
 	 *  
@@ -114,7 +114,7 @@ public class AddProjectServletTest extends Mockito {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_2_2_4() throws ServletException, IOException {
-		
+
 		String commonName = "WLB13PO";
 		Project pr = new Project();
 		Date dateS = new Date(2019,11,02);
@@ -122,21 +122,21 @@ public class AddProjectServletTest extends Mockito {
 		Employee em = new Employee();
 		List<Employee> li = new ArrayList<Employee>();
 		li.add(em);
-		
+
 		pr.setName("WLB13PO");
-	    pr.setScope("SmartWorking");
-	    pr.setStartDate(dateS);
-	    pr.setEndDate(dateE);
-	    pr.setDescription("Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
-	    pr.setEmployees(li);
-	    pr.setEmployee(em);
-		
+		pr.setScope("SmartWorking");
+		pr.setStartDate(dateS);
+		pr.setEndDate(dateE);
+		pr.setDescription("Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
+		pr.setEmployees(li);
+		pr.setEmployee(em);
+
 		IProjectDao projectDao = mock(IProjectDao.class);
 		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(projectDao.retrieveByName(commonName)).thenReturn(pr);		
 		AddProjectServlet tmp = new AddProjectServlet(projectDao, employeeDao);
-	   
-	    
+
+
 		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
@@ -145,7 +145,7 @@ public class AddProjectServletTest extends Mockito {
 		request.addParameter("description", "Il progetto si occuperà della realizzazione di una piattaforma che consentirà ai dipendenti di organizzare le proprie giornate lavorative.");
 		request.addParameter("employeesList", "1");
 		request.addParameter("employee", "m.bianchi1@wlb.it");
-		
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			tmp.doPost(request, response);
 		});
@@ -383,7 +383,7 @@ public class AddProjectServletTest extends Mockito {
 			servlet.doPost(request, response);
 		});
 	}
-	
+
 	/**
 	 * TC_2.2_16: Inserted email doesn't correspond to any employee 
 	 *  
@@ -404,7 +404,7 @@ public class AddProjectServletTest extends Mockito {
 			servlet.doPost(request, response);
 		});
 	}
-	
+
 	/**
 	 * TC_2.2_17: Project inserted with succcess
 	 *  
@@ -414,7 +414,7 @@ public class AddProjectServletTest extends Mockito {
 	@SuppressWarnings({ "deprecation", "unused" })
 	@Test
 	public void TC_2_2_17() throws ServletException, IOException {
-	
+
 		String commonName = "WLB13PO";
 
 		Project project = new Project();
@@ -428,13 +428,13 @@ public class AddProjectServletTest extends Mockito {
 		Employee employee = new Employee();
 		List<Employee> list = new ArrayList<Employee>();
 		list.add(employee);
-		
+
 		IProjectDao projectDao = mock(IProjectDao.class);
 		when(projectDao.retrieveByName(commonName)).thenReturn(project);	
 		IEmployeeDao employeeDao = mock(IEmployeeDao.class);
 		when(employeeDao.retrieveByEmail(managerEmail)).thenReturn(manager);
 		AddProjectServlet temp = new AddProjectServlet(projectDao, employeeDao);
-		
+
 		request.addParameter("name", commonName);
 		request.addParameter("scope", "SmartWorking");
 		request.addParameter("startDate", "2019-11-02");
@@ -447,6 +447,6 @@ public class AddProjectServletTest extends Mockito {
 		temp.doPost(request, response);
 		assertEquals("success", request.getAttribute("result"));
 	}
-	
-	
+
+
 }

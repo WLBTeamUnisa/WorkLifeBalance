@@ -94,6 +94,7 @@ public class AddPlanimetryServlet extends HttpServlet {
 		String jsonString = request.getParameter(JSON_STRING);
 		if(jsonString==null) {	
 			request.getRequestDispatcher("WEB-INF/PlanimetryInsertion.jsp").forward(request, response);
+			throw new IllegalArgumentException();
 		}
 		JSONArray jsonArray =  new JSONArray(jsonString);
 

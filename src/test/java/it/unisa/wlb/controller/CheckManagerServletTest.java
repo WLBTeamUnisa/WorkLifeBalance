@@ -11,13 +11,18 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
 
 import it.unisa.wlb.model.bean.Employee;
 import it.unisa.wlb.model.dao.IEmployeeDao;
 
+/**
+ * The aim of this servlet is testing CheckManagerServlet.java
+ * 
+ * @author Sabato Nocera
+ *
+ */
 class CheckManagerServletTest {
 
 	@Mock
@@ -52,6 +57,42 @@ class CheckManagerServletTest {
 		servlet.doPost(request, response);
 		assertEquals(json, response.getContentAsString());
 		
+	}
+	
+	@Test
+	void voidEmailEmployee() throws ServletException, IOException {
+		String email ="";
+		servlet.setEmployeeDao(employeeDao);
+		request.setParameter("email", email);
+		servlet.doPost(request, response);
+		assertTrue(!response.getContentAsString().contains("status"));
+	}
+	
+	@Test
+	void nullEmailEmployee() throws ServletException, IOException {
+		String email = null;
+		servlet.setEmployeeDao(employeeDao);
+		request.setParameter("email", email);
+		servlet.doPost(request, response);
+		assertTrue(!response.getContentAsString().contains("status"));
+	}
+	
+	@Test
+	void wrongEmailEmployee() throws ServletException, IOException {
+		String email = "g.verdana11@wlb.it";
+		servlet.setEmployeeDao(employeeDao);
+		request.setParameter("email", email);
+		servlet.doPost(request, response);
+		assertTrue(!response.getContentAsString().contains("status"));
+	}
+	
+	@Test
+	void wrongEmailEmployee2() throws ServletException, IOException {
+		String email = "g.verdana11verdana11verdana11@wlb.it";
+		servlet.setEmployeeDao(employeeDao);
+		request.setParameter("email", email);
+		servlet.doPost(request, response);
+		assertTrue(!response.getContentAsString().contains("status"));
 	}
 
 }

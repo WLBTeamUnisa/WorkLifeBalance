@@ -73,4 +73,37 @@ class CheckProjectServletTest {
 		servlet.doPost(request, response);
 		assertEquals(json, response.getContentAsString());
 	}
+	
+	@Test
+	void projectNotCorrectFormat2() throws ServletException, IOException {
+		String tmp = null;
+		request.setParameter("name", tmp);
+		String json = "{\"available\":\"no\"}";
+		servlet.doPost(request, response);
+		assertEquals(json, response.getContentAsString());
+	}
+	
+	@Test
+	void projectNotCorrectFormat3() throws ServletException, IOException {
+		request.setParameter("name", "a");
+		String json = "{\"available\":\"no\"}";
+		servlet.doPost(request, response);
+		assertEquals(json, response.getContentAsString());
+	}
+	
+	@Test
+	void projectNotCorrectFormat4() throws ServletException, IOException {
+		request.setParameter("name", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		String json = "{\"available\":\"no\"}";
+		servlet.doPost(request, response);
+		assertEquals(json, response.getContentAsString());
+	}
+	
+	@Test
+	void projectNotCorrectFormat5() throws ServletException, IOException {
+		request.setParameter("name", "ProjectN_.*");
+		String json = "{\"available\":\"no\"}";
+		servlet.doPost(request, response);
+		assertEquals(json, response.getContentAsString());
+	}
 }

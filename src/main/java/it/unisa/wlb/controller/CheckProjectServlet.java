@@ -18,7 +18,7 @@ import it.unisa.wlb.utils.LoggerSingleton;
 /**
  * The aim of this Servlet is checking a Project 
  * 
- * @author Emmanuel Tesauro
+ * @author Emmanuel Tesauro, Sabato Nocera
  */
 @WebServlet(name="CheckProjectServlet", urlPatterns="/CheckProject")
 @Interceptors({LoggerSingleton.class})
