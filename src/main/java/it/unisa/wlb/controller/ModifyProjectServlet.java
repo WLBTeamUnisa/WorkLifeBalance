@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -190,6 +191,7 @@ public class ModifyProjectServlet extends HttpServlet {
          */
         if (startDateOk && endDateOk) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // La m (minuscolo) nel format è minute
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+01:00"));
             try {
                 startDate = formatter.parse(startDateString);
                 endDate = formatter.parse(endDateString);
