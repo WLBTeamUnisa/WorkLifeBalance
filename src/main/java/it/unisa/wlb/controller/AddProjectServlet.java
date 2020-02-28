@@ -3,6 +3,7 @@ package it.unisa.wlb.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
@@ -172,6 +173,7 @@ public class AddProjectServlet extends HttpServlet {
          */
         if (startDateOk && endDateOk) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+01:00"));
             try {
                 startDate = formatter.parse(startDateString);
                 endDate = formatter.parse(endDateString);
